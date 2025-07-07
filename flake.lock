@@ -1,0 +1,103 @@
+{
+  "nodes": {
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1751676893,
+        "narHash": "sha256-kXlkCJcws234u4gLjtl07/U+8FV8/TBYoR14gXVRv0g=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "57d1027e1eaf1220342248ff18d34f42b0beea7b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "master",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nixCats": {
+      "locked": {
+        "lastModified": 1750385475,
+        "narHash": "sha256-jxssG9BjbGlxXGhAhtwIIaazpQxROpO0919aGaKuIiY=",
+        "owner": "BirdeeHub",
+        "repo": "nixCats-nvim",
+        "rev": "0dbb19a5688f045e6e8b4f9f35bc32cdb777b1a9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BirdeeHub",
+        "repo": "nixCats-nvim",
+        "type": "github"
+      }
+    },
+    "nixLoki": {
+      "inputs": {
+        "nixCats": "nixCats",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "plugins-harpoon-lualine": "plugins-harpoon-lualine"
+      },
+      "locked": {
+        "lastModified": 1751694311,
+        "narHash": "sha256-u5zRoXj+At4ijiTeD+E93zTGBeVeUHgZBUHwORk5vZ0=",
+        "owner": "JDaggers",
+        "repo": "nixLoki",
+        "rev": "641c9fadbb333996cf89031b5a356d1c4055609c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "JDaggers",
+        "repo": "nixLoki",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1751271578,
+        "narHash": "sha256-P/SQmKDu06x8yv7i0s8bvnnuJYkxVGBWLWHaU+tt4YY=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "3016b4b15d13f3089db8a41ef937b13a9e33a8df",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "plugins-harpoon-lualine": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1751343777,
+        "narHash": "sha256-mVYk+mdTT+LW+5bwoJZoGYMu3GhUVppghVT8nf4depE=",
+        "owner": "letieu",
+        "repo": "harpoon-lualine",
+        "rev": "21b9d12f2a0b44e20566193f826c9d2ba6edef06",
+        "type": "github"
+      },
+      "original": {
+        "owner": "letieu",
+        "repo": "harpoon-lualine",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "home-manager": "home-manager",
+        "nixLoki": "nixLoki",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
