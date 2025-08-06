@@ -1,0 +1,1 @@
+{ ... }: { imports = [ ./grub.nix ]; }

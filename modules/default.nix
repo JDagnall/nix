@@ -1,9 +1,9 @@
-{ ... }:
-{
-    imports = [
+{ ... }: {
+  imports = [
 
-        ./fonts.nix
-        ./window-manager
-        ./display-manager
-    ];
+    ./fonts.nix
+    ./window-manager
+    ./display-manager
+    ./boot-loader
+  ];
 }
