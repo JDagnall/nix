@@ -24,10 +24,10 @@ in {
       NIXOS_OZONE_WL = "1";
     };
 
-    # environment.systemPackages = with pkgs; [
-    #     # kitty # needed for hyprland default config
-    #     # wezterm
-    # ];
+    environment.systemPackages = with pkgs; [
+        # kitty # needed for hyprland default config
+        wezterm # needed or could get stuck without a terminal
+    ];
 
     hardware = {
       # Opengl
