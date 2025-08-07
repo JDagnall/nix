@@ -43,6 +43,10 @@
                     specialArgs = { inherit system; };
                     modules = [ ./hosts/virtualbox/config.nix ];
                 };
+                framework = nixpkgs.lib.nixosSystem {
+                    specialArgs = { inherit system; };
+                    modules = [ ./hosts/framework/config.nix ];
+                };
             };
 
             # home-manager entrypoints
@@ -54,6 +58,14 @@
                         inherit inputs;
                     };
                     modules = [ ./hosts/virtualbox/home.nix ];
+                };
+                framework = home-manager.lib.homeManagerConfiguration {
+                    inherit pkgs;
+                    extraSpecialArgs = {
+                        inherit system;
+                        inherit inputs;
+                    };
+                    modules = [ ./hosts/framework/home.nix ];
                 };
             };
         };
