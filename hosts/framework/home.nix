@@ -20,6 +20,8 @@ config, ... }: {
   tools.git.enable = true;
   nixLoki.enable = true;
 
+  term.wezterm.enable = true;
+
   window-manager.hyprland.enable = true;
   ### Configs
 

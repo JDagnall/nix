@@ -1,7 +1,1 @@
-{ ... }:
-{
-    imports = [
-        ./rofi.nix
-        ./waybar.nix
-    ];
-}
+{ ... }: { imports = [ ./rofi.nix ./waybar.nix ]; }

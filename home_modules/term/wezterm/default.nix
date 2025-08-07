@@ -13,7 +13,7 @@ in
         programs.wezterm = {
             enable = true;
             enableZshIntegration = config.shell.zsh.enable;
-            extraConfig = builtins.ReadFile ./wezterm.lua;
+            extraConfig = builtins.readFile ./wezterm.lua;
             # stylix
         };
     };

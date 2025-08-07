@@ -1,6 +1,1 @@
-{ ... }:
-{
-    imports = [
-        ./hyprland
-    ];
-}
+{ ... }: { imports = [ ./hyprland ]; }

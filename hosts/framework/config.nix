@@ -10,7 +10,6 @@ pkgs, ... }:
   fonts.enable = true;
   # config ------------------------------
 
-
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -35,7 +34,7 @@ pkgs, ... }:
   in formatted;
 
   time.timeZone = "Australia/Brisbane";
-  
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
 
@@ -50,7 +49,7 @@ pkgs, ... }:
     LC_TELEPHONE = "en_AU.UTF-8";
     LC_TIME = "en_AU.UTF-8";
   };
-  
+
   console = {
     font = "Lat2-Terminus16";
     keyMap = "us";
