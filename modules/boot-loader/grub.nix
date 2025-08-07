@@ -1,6 +1,6 @@
 { lib, config, ... }: {
   options = {
-    config.boot-loader.grub.enable = lib.MkEnableOption {
+    boot-loader.grub.enable = lib.mkEnableOption {
       default = false;
       description = "Enable grub boot loader";
     };
@@ -10,7 +10,7 @@
       enable = true;
       device = "nodev";
       efiSupport = true;
-      useOsProber = true;
+      useOSProber = true;
       fsIdentifier = "label";
       extraEntries = ''
         menuentry "Reboot" {
