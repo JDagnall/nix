@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ pkgs, lib, config, ... }:
 let
     inherit (lib)
         mkIf
@@ -72,6 +72,7 @@ in
         };
     };
     config = mkIf config.tools.syncthing.enable {
+        home.packages = with pkgs; [ syncthingtray ];
         services.syncthing = {
             enable = true;
             tray = true; # syncthing tray
