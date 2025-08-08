@@ -1,16 +1,18 @@
 warning: Git tree '/home/james/nix' is dirty
 trace: warning: Specifying 'services.syncthing.tray' as a boolean is deprecated, set 'services.syncthing.tray.enable' instead. See https://github.com/nix-community/home-manager/pull/1257.
-these 5 derivations will be built:
-  /nix/store/61y7n6g9z1gkimywgb7qflsfcfh6aj1c-merge-syncthing-config.drv
-  /nix/store/llh0j6xjkw71m015ch1inl1skbayi1il-merge-syncthing-config.drv
-  /nix/store/rxvhjpp6vmg31j2sm1rf2qgcqnb9zygr-syncthing-init.service.drv
-  /nix/store/9w2f83kix8lsg396gsihl05p808k9cqq-home-manager-files.drv
-  /nix/store/52ddjf71q9bqkhjrbmsgmyf2vviw3vn8-home-manager-generation.drv
-building '/nix/store/61y7n6g9z1gkimywgb7qflsfcfh6aj1c-merge-syncthing-config.drv'...
-building '/nix/store/llh0j6xjkw71m015ch1inl1skbayi1il-merge-syncthing-config.drv'...
-building '/nix/store/rxvhjpp6vmg31j2sm1rf2qgcqnb9zygr-syncthing-init.service.drv'...
-building '/nix/store/9w2f83kix8lsg396gsihl05p808k9cqq-home-manager-files.drv'...
-building '/nix/store/52ddjf71q9bqkhjrbmsgmyf2vviw3vn8-home-manager-generation.drv'...
+these 6 derivations will be built:
+  /nix/store/piqn3ccxy5byx866620s7433mr0a8kqy-merge-syncthing-config.drv
+  /nix/store/bi8n356kvqxbv6pq5hy7mqh975ydcag4-merge-syncthing-config.drv
+  /nix/store/kcds586hxk6vx7jq1dab9bbm2vr9z7mx-syncthing-init.service.drv
+  /nix/store/pllhyvf1p2wwgbn1fmbmwc606rbm0sd0-syncthing.service.drv
+  /nix/store/7bl1vmncgy6186i2b36z5jd63s4d0z51-home-manager-files.drv
+  /nix/store/ar5pvr87db0rv7qyqk02ykabdk8iw3p6-home-manager-generation.drv
+building '/nix/store/pllhyvf1p2wwgbn1fmbmwc606rbm0sd0-syncthing.service.drv'...
+building '/nix/store/piqn3ccxy5byx866620s7433mr0a8kqy-merge-syncthing-config.drv'...
+building '/nix/store/bi8n356kvqxbv6pq5hy7mqh975ydcag4-merge-syncthing-config.drv'...
+building '/nix/store/kcds586hxk6vx7jq1dab9bbm2vr9z7mx-syncthing-init.service.drv'...
+building '/nix/store/7bl1vmncgy6186i2b36z5jd63s4d0z51-home-manager-files.drv'...
+building '/nix/store/ar5pvr87db0rv7qyqk02ykabdk8iw3p6-home-manager-generation.drv'...
 Starting Home Manager activation
 Activating checkFilesChanged
 Activating checkLinkTargets
@@ -30,19 +32,20 @@ installing 'home-manager-path'
 Activating onFilesChange
 Activating reloadSystemd
 The user systemd session is degraded:
-  UNIT              LOAD   ACTIVE SUB    DESCRIPTION
-● syncthing.service loaded failed failed Syncthing - Open Source Continuous File Synchronization
+  UNIT                  LOAD   ACTIVE SUB    DESCRIPTION
+● syncthing.service     loaded failed failed Syncthing - Open Source Continuous File Synchronization
+● syncthingtray.service loaded failed failed syncthingtray
 
 Legend: LOAD   → Reflects whether the unit definition was properly loaded.
         ACTIVE → The high-level unit activation state, i.e. generalization of SUB.
         SUB    → The low-level unit activation state, values depend on unit type.
 
-1 loaded units listed.
+2 loaded units listed.
 Attempting to reload services anyway...
 The service manager is degraded.
-Failed services: syncthing.service
+Failed services: syncthing.service, syncthingtray.service
 Attempting to continue anyway...
-Starting units: syncthing-init.service, syncthing.service
+Starting units: syncthing-init.service, syncthing.service, syncthingtray.service
 syncthing.service failed
 syncthing-init.service dependency
 warning: Git tree '/home/james/nix' is dirty

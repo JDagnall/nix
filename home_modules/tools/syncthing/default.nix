@@ -76,7 +76,7 @@ in
             enable = true;
             tray = true; # syncthing tray
             extraOptions = [ ];
-            guiAddress = "localhost:8384"; # try another address like syncthing.localhost
+            guiAddress = "syncthing.localhost"; # try another address like syncthing.localhost
             cert = "./cert.pem"; # add path to cert file once generated
             key = "./key.pem"; # ^
             # These make it so that only folders or devices configured here
@@ -99,7 +99,7 @@ in
                 macmini-server = mkIf config.tools.syncthing.devices.macmini-server.enable {
                     id = "YEPHB7F-ZVCVOXK-PP4M6NT-C2D2BNH-JYFEW26-2Z7GIJE-ZBYUINV-2K3OAAJ";
                     name = "MacMini-server";
-                    autoAcceptFolders = false;
+                    autoAcceptFolders = true;
                 };
 
                 galaxy-s10e = mkIf config.tools.syncthing.devices.galaxy-s10e.enable {
