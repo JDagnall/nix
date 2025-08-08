@@ -13,5 +13,5 @@ home-manager switch --flake $REPO#$HOST &>home-manager-switch.log || (
 )
 gen=$(home-manager generations | grep id -m 1)
 git commit -am "$gen"
-pop
+popd
 echo "Done"

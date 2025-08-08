@@ -86,7 +86,8 @@ in
 
             settings.options = {
                 limitBandwidthInLan = false;
-                localAnnounceEnable = false;
+                globalAnnounceEnable = false;
+                localAnnounceEnable = true;
                 localAnnouncePort = null;
                 maxFolderConcurrency = 2;
                 relaysEnabled = false;

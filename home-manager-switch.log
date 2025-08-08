@@ -1,16 +1,16 @@
 warning: Git tree '/home/james/nix' is dirty
 trace: warning: Specifying 'services.syncthing.tray' as a boolean is deprecated, set 'services.syncthing.tray.enable' instead. See https://github.com/nix-community/home-manager/pull/1257.
 these 5 derivations will be built:
-  /nix/store/kkq4bzy9li2ma1zz93l5yshbdkainykg-syncthing-copy-keys.drv
-  /nix/store/cbj3sfxxwrmgrh8v2hyc5kkbrygzsczm-syncthing-copy-keys.drv
-  /nix/store/la3z5g4ij8g3ashqb0vadqi2i5nyz8py-syncthing.service.drv
-  /nix/store/dfjw01aydqi5fax78h0gqshgsp6vfvlf-home-manager-files.drv
-  /nix/store/g07vkax567dhcbl16m13qbpz9pisyn63-home-manager-generation.drv
-building '/nix/store/kkq4bzy9li2ma1zz93l5yshbdkainykg-syncthing-copy-keys.drv'...
-building '/nix/store/cbj3sfxxwrmgrh8v2hyc5kkbrygzsczm-syncthing-copy-keys.drv'...
-building '/nix/store/la3z5g4ij8g3ashqb0vadqi2i5nyz8py-syncthing.service.drv'...
-building '/nix/store/dfjw01aydqi5fax78h0gqshgsp6vfvlf-home-manager-files.drv'...
-building '/nix/store/g07vkax567dhcbl16m13qbpz9pisyn63-home-manager-generation.drv'...
+  /nix/store/61y7n6g9z1gkimywgb7qflsfcfh6aj1c-merge-syncthing-config.drv
+  /nix/store/llh0j6xjkw71m015ch1inl1skbayi1il-merge-syncthing-config.drv
+  /nix/store/rxvhjpp6vmg31j2sm1rf2qgcqnb9zygr-syncthing-init.service.drv
+  /nix/store/9w2f83kix8lsg396gsihl05p808k9cqq-home-manager-files.drv
+  /nix/store/52ddjf71q9bqkhjrbmsgmyf2vviw3vn8-home-manager-generation.drv
+building '/nix/store/61y7n6g9z1gkimywgb7qflsfcfh6aj1c-merge-syncthing-config.drv'...
+building '/nix/store/llh0j6xjkw71m015ch1inl1skbayi1il-merge-syncthing-config.drv'...
+building '/nix/store/rxvhjpp6vmg31j2sm1rf2qgcqnb9zygr-syncthing-init.service.drv'...
+building '/nix/store/9w2f83kix8lsg396gsihl05p808k9cqq-home-manager-files.drv'...
+building '/nix/store/52ddjf71q9bqkhjrbmsgmyf2vviw3vn8-home-manager-generation.drv'...
 Starting Home Manager activation
 Activating checkFilesChanged
 Activating checkLinkTargets
@@ -29,9 +29,22 @@ replacing old 'home-manager-path'
 installing 'home-manager-path'
 Activating onFilesChange
 Activating reloadSystemd
-Stopping units: syncthing.service
-Starting units: syncthing.service
+The user systemd session is degraded:
+  UNIT              LOAD   ACTIVE SUB    DESCRIPTION
+● syncthing.service loaded failed failed Syncthing - Open Source Continuous File Synchronization
+
+Legend: LOAD   → Reflects whether the unit definition was properly loaded.
+        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.
+        SUB    → The low-level unit activation state, values depend on unit type.
+
+1 loaded units listed.
+Attempting to reload services anyway...
+The service manager is degraded.
+Failed services: syncthing.service
+Attempting to continue anyway...
+Starting units: syncthing-init.service, syncthing.service
 syncthing.service failed
+syncthing-init.service dependency
 warning: Git tree '/home/james/nix' is dirty
 trace: warning: Specifying 'services.syncthing.tray' as a boolean is deprecated, set 'services.syncthing.tray.enable' instead. See https://github.com/nix-community/home-manager/pull/1257.
 
