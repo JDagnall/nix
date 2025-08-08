@@ -13,5 +13,5 @@ sudo nixos-rebuild switch --flake $REPO#$HOST &>nixos-switch.log || (
 )
 gen=$(nixos-rebuild list-generations | grep current)
 git commit -am "$gen"
-pop
+popd
 echo "Done"
