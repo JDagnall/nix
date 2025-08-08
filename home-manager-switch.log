@@ -1,3 +1,31 @@
 warning: Git tree '/home/james/nix' is dirty
+these 3 derivations will be built:
+  /nix/store/bigyy7dpg541ycjf2px5r4hakhxy10sf-hm_gitconfig.drv
+  /nix/store/hxy184pyvk4bv4p6xxd8wlz4mrznv21r-home-manager-files.drv
+  /nix/store/rmsaa6x2qgmqighqm8yw1j5yg93a496l-home-manager-generation.drv
+building '/nix/store/bigyy7dpg541ycjf2px5r4hakhxy10sf-hm_gitconfig.drv'...
+building '/nix/store/hxy184pyvk4bv4p6xxd8wlz4mrznv21r-home-manager-files.drv'...
+building '/nix/store/rmsaa6x2qgmqighqm8yw1j5yg93a496l-home-manager-generation.drv'...
 Starting Home Manager activation
-Error: USER is set to "root" but we expect "james"
+Activating checkFilesChanged
+Activating checkLinkTargets
+Activating writeBoundary
+Creating new profile generation
+Activating linkGeneration
+Cleaning up orphan links from /home/james
+Creating home file links in /home/james
+Activating batCache
+No syntaxes were found in '/home/james/.config/bat/syntaxes', using the default set.
+Writing theme set to /home/james/.cache/bat/themes.bin ... okay
+Writing syntax set to /home/james/.cache/bat/syntaxes.bin ... okay
+Writing metadata to folder /home/james/.cache/bat ... okay
+Activating installPackages
+replacing old 'home-manager-path'
+installing 'home-manager-path'
+Activating onFilesChange
+Activating reloadSystemd
+warning: Git tree '/home/james/nix' is dirty
+
+There are 236 unread and relevant news items.
+Read them by running the command "home-manager news".
+

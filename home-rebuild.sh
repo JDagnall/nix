@@ -8,10 +8,10 @@ echo "Starting ..."
 # nixfmt . &>/dev/null
 git diff -U0 *.nix
 echo "Home Manager Rebuilding..."
-git commit -am "$gen"
 home-manager switch --flake $REPO#$HOST &>home-manager-switch.log || (
     cat home-manager-switch.log | grep --color error && false
 )
 gen=$(home-manager generations | grep id -m 1)
+git commit -am "$gen"
 pop
 echo "Done"

@@ -61,7 +61,7 @@ in {
         };
         pager = {
           branch = false; # no need to user pager for git branch
-          diff = "diff-so-fancy | less"; # diff-so-fancy as pager
+          diff = "diff-so-fancy | less --quit-if-one-screen"; # diff-so-fancy as pager
         };
         push = {
           autoSetupRemote = true; # easier to push new branches
