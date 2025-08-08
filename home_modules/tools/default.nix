@@ -3,6 +3,6 @@
     imports = [
         ./git.nix
         ./keepassxc.nix
-        ./syncthing.nix
+        ./syncthing
     ];
 }

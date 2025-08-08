@@ -77,8 +77,8 @@ in
             tray = true; # syncthing tray
             extraOptions = [ ];
             guiAddress = "localhost:8384"; # try another address like syncthing.localhost
-            # cert = null; # add path to cert file once generated
-            # key = null; # ^
+            cert = "./cert.pem"; # add path to cert file once generated
+            key = "./key.pem"; # ^
             # These make it so that only folders or devices configured here
             # persist. Anything configured on the gui will not
             overrideDevices = true;
@@ -117,7 +117,7 @@ in
                     autoAcceptFolders = false;
                 };
                 framework = mkIf config.tools.syncthing.devices.framework.enable {
-                    id = "";
+                    id = "UPAHMLX-ZHYHBU7-BBYPAAE-UU3TUIL-ZRYW4OS-DHOYKRP-IOLWKIK-HPF7SQF";
                     name = "Framework";
                     autoAcceptFolders = false;
                 };
