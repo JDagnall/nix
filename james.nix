@@ -11,6 +11,7 @@
             vim
             git
             zsh
+            bash # for scripting
         ];
         # make sure we always have a shell
         shell = pkgs.zsh;

@@ -88,7 +88,7 @@ config.colors = {
 -- TERM APPEARANCE
 
 config.enable_scroll_bar = false
-config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+config.window_decorations = "NONE"
 config.window_padding = {
 	left = 5,
 	right = 0,
