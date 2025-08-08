@@ -1,0 +1,3 @@
+warning: Git tree '/home/james/nix' is dirty
+Starting Home Manager activation
+Error: USER is set to "root" but we expect "james"

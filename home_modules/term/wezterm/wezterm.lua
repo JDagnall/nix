@@ -144,7 +144,7 @@ wezterm.font("VictorMono Nerd Font Mono", { weight = "Regular", stretch = "Norma
 --   'Fira Code',
 --   'DengXian',
 -- }
--- config.font_size
+config.font_size = 10.0
 -- config.cell_width
 -- config.line_height
 config.font = wezterm.font({

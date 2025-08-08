@@ -22,7 +22,7 @@ in {
         enable = true;
         changeHunkIndicators = true;
         markEmptyLines = true;
-        pagerOpts = [ ];
+        pagerOpts = [ "--quit-if-one-screen" ];
       };
       # hooks = {};
       ignores = [

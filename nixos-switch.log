@@ -1,0 +1,11 @@
+error:
+       … while fetching the input 'git+file:///home/james/nix'
+
+       error: opening Git repository "/home/james/nix": repository path '/home/james/nix' is not owned by current user
+warning: could not build a newer version of nixos-rebuild, using current version
+building the system configuration...
+error:
+       … while fetching the input 'git+file:///home/james/nix'
+
+       error: opening Git repository "/home/james/nix": repository path '/home/james/nix' is not owned by current user
+Command '['nix', '--extra-experimental-features', 'nix-command flakes', 'build', '--print-out-paths', 'git+file:///home/james/nix#nixosConfigurations."framework".config.system.build.toplevel', '--no-link']' returned non-zero exit status 1.
