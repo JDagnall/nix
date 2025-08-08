@@ -1,10 +1,11 @@
 ## Required Configs
-- fix wezterm font size and window borders.
 - fix hyprland borders and animations see if font size is hyprland size
 - get waybar to show
 - get syncthing to work
 - get keepassxc to work
 - port the new commits from old stow repo into nixLoki then fully switch to nixLoki
+- TA python requirments + docker
+- Docker setup for TA and otherwise
 
 ## Ideas
  - good waybar config
@@ -13,6 +14,9 @@
  - set wallpaper
  - setup passkey auth with fingerprint sensor
  - make sure auth through dbus works
+ - simple vscode config for PR's with TA. Or other method for PRs
+ - switch to alejandra in nvim
+ - add lang configs for nix with formatter, do the same for other langs
 
 
 ## Sylix
