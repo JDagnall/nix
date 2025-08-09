@@ -1,8 +1,5 @@
 ## Required Configs
 - fix hyprland borders and animations see if font size is hyprland size
-- get waybar to show
-- get syncthing to work
-- get keepassxc to work
 - port the new commits from old stow repo into nixLoki then fully switch to nixLoki
 - TA python requirments + docker
 - Docker setup for TA and otherwise
@@ -18,6 +15,8 @@
  - switch to alejandra in nvim
  - add lang configs for nix with formatter, do the same for other langs
  - configure autostarts in hyprland using nix options for whats enabled
+ - make sure syncthing folders work effectively
+ - look into keepassxc auto type on wayland. seems it needs an X11 backend
 
 
 ## Sylix

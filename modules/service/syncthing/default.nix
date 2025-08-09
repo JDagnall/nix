@@ -155,15 +155,15 @@ in
                     };
                 };
                 # configure folders to sync
-                folders = {
+                folders = mkIf config.service.syncthing.folders.secure.enable {
                     "26bfd-pbgoj" = {
                         id = "26bfd-pbgoj";
                         enable = true;
                         label = "secure";
-                        path = "${toString /home/james/secure}";
+                        path = "~/secure";
                         type = "sendreceive";
                         copyOwnershipFromParent = false;
-                        devices = [ "MacMini-Server" ];
+                        devices = config.service.syncthing.folders.secure.share;
                         versioning = {
                             type = "simple";
                             params.keep = 5;
@@ -172,9 +172,9 @@ in
                     };
                     "9j26s-pweyy" = mkIf config.service.syncthing.folders.classes.enable {
                         id = "9j26s-pweyy";
-                        name = "classes";
+                        enable = true;
                         label = "classes";
-                        path = "${toString /home/james/classes}";
+                        path = "~/classes";
                         type = "sendreceive";
                         copyOwnershipFromParent = false;
                         devices = config.service.syncthing.folders.classes.share;
@@ -186,7 +186,7 @@ in
                     };
                     "jwvcx-y7w2m" = mkIf config.service.syncthing.folders.proj.enable {
                         id = "jwvcx-y7w2m";
-                        name = "proj";
+                        enable = true;
                         label = "proj";
                         path = "~/proj";
                         type = "sendreceive";
@@ -198,10 +198,9 @@ in
                             params.cleanoutDays = 20;
                         };
                     };
-                    "wallpapers" = mkIf config.service.syncthing.folders.wallpapers.enable {
+                    "vjhql-ghx7b" = mkIf config.service.syncthing.folders.wallpapers.enable {
                         id = "vjhql-ghx7b";
                         enable = true;
-                        name = "wallpapers";
                         label = "wallpapers";
                         path = "~/wallpapers";
                         type = "sendreceive";
@@ -209,8 +208,6 @@ in
                         devices = config.service.syncthing.folders.wallpapers.share;
                         versioning = {
                             type = "simple";
-                            params.keep = 5;
-                            params.cleanoutDays = 20;
                         };
                     };
                 };
