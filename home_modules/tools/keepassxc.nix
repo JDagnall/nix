@@ -19,7 +19,7 @@
                     MinimiseAfterUnlock = true;
                 };
                 Browser = {
-                    enable = true;
+                    Enabled = true;
                 };
                 GUI = {
                     ApplicationTheme = "dark";

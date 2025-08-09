@@ -1,17 +1,11 @@
 warning: Git tree '/home/james/nix' is dirty
-these 6 derivations will be built:
-  /nix/store/ljv29bgfw562bmpvwjhgnrzxqjynvxj9-hm_home_packages.drv
-  /nix/store/xy133p41mq2pfxy3h1dkicfkilig1pfr-hm_hyprhyprland.conf.drv
-  /nix/store/g8jicyx77bf71dkc9kzz3rsk4ssqpcqw-home-manager-files.drv
-  /nix/store/gamf5amsd4ardq08r2cj95s27140lykc-home-manager-path.drv
-  /nix/store/j41a2g6sc5n8mmp1crva2sdjr68f938v-activation-script.drv
-  /nix/store/g2rq612mw9xvxnnflqp9nw05xmbpyprd-home-manager-generation.drv
-building '/nix/store/gamf5amsd4ardq08r2cj95s27140lykc-home-manager-path.drv'...
-building '/nix/store/ljv29bgfw562bmpvwjhgnrzxqjynvxj9-hm_home_packages.drv'...
-building '/nix/store/xy133p41mq2pfxy3h1dkicfkilig1pfr-hm_hyprhyprland.conf.drv'...
-building '/nix/store/g8jicyx77bf71dkc9kzz3rsk4ssqpcqw-home-manager-files.drv'...
-building '/nix/store/j41a2g6sc5n8mmp1crva2sdjr68f938v-activation-script.drv'...
-building '/nix/store/g2rq612mw9xvxnnflqp9nw05xmbpyprd-home-manager-generation.drv'...
+these 3 derivations will be built:
+  /nix/store/vkpnmz5q0p40ff9xhfc53p9wh3i6nidf-keepassxc-settings.drv
+  /nix/store/y9mqywphxk1arnlsriviql1cs3zzvmv4-home-manager-files.drv
+  /nix/store/z8fjsgyyah4ln6w4zxyvmp98vxz4x0bh-home-manager-generation.drv
+building '/nix/store/vkpnmz5q0p40ff9xhfc53p9wh3i6nidf-keepassxc-settings.drv'...
+building '/nix/store/y9mqywphxk1arnlsriviql1cs3zzvmv4-home-manager-files.drv'...
+building '/nix/store/z8fjsgyyah4ln6w4zxyvmp98vxz4x0bh-home-manager-generation.drv'...
 Starting Home Manager activation
 Activating checkFilesChanged
 Activating checkLinkTargets
@@ -28,24 +22,8 @@ Writing metadata to folder /home/james/.cache/bat ... okay
 Activating installPackages
 replacing old 'home-manager-path'
 installing 'home-manager-path'
-building '/nix/store/b6ivl7gr1zymc67w6qhamkxgjw2ny7qx-user-environment.drv'...
 Activating onFilesChange
-ok
 Activating reloadSystemd
-The user systemd session is degraded:
-  UNIT              LOAD   ACTIVE SUB    DESCRIPTION
-● syncthing.service loaded failed failed Syncthing - Open Source Continuous File Synchronization
-
-Legend: LOAD   → Reflects whether the unit definition was properly loaded.
-        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.
-        SUB    → The low-level unit activation state, values depend on unit type.
-
-1 loaded units listed.
-Attempting to reload services anyway...
-The service manager is degraded.
-Failed services: syncthing.service
-Attempting to continue anyway...
-Stopping units: syncthingtray.service
 warning: Git tree '/home/james/nix' is dirty
 
 There are 236 unread and relevant news items.
