@@ -91,7 +91,7 @@ in
                         };
                     };
                     clock = {
-                        format = "{%I:%M %p}";
+                        format = "{:%I:%M %p}";
                         tooltip = false;
                     };
                     tray = {
