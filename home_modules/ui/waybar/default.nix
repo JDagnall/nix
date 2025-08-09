@@ -54,9 +54,10 @@ in
                             warning = 30;
                             critical = 20;
                         };
+                        format-time = "{H}:{M}";
                         format = "{capacity}% {icon}";
-                        format-charging = "{capacity}% 󰢝 ";
-                        format-plugged = "{capacity}% 󱟢 ";
+                        # format-charging = "{capacity}% 󰢝 ";
+                        # format-plugged = "{capacity}% 󱟢 ";
                         format-icons = [
                             "󰁹"
                             "󰂂"
@@ -69,7 +70,7 @@ in
                             "󰁻"
                             "󰁺"
                         ];
-                        tooltip-format = "{H}:{M}";
+                        tooltip-format = "{time}";
                     };
                     pulseaudio = {
                         format = "{volume}% {icon}";
@@ -90,7 +91,7 @@ in
                         };
                     };
                     clock = {
-                        format = "{%I:%M %p %A %B %d}";
+                        format = "{%I:%M %p}";
                         tooltip = false;
                     };
                     tray = {
