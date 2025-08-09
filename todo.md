@@ -17,6 +17,7 @@
  - simple vscode config for PR's with TA. Or other method for PRs
  - switch to alejandra in nvim
  - add lang configs for nix with formatter, do the same for other langs
+ - configure autostarts in hyprland using nix options for whats enabled
 
 
 ## Sylix

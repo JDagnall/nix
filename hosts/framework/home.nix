@@ -33,23 +33,6 @@
     gui.firefox.enable = true;
 
     tools.keepassxc.enable = true;
-
-    tools.syncthing.enable = true;
-    tools.syncthing.devices.macmini-server.enable = true;
-    tools.syncthing.folders =
-        let
-            shareDevices = [ "macmini-server" ];
-        in
-        {
-            secure.enable = true;
-            secure.share = shareDevices;
-            classes.enable = true;
-            classes.share = shareDevices;
-            proj.enable = true;
-            proj.share = shareDevices;
-            wallpapers.enable = true;
-            wallpapers.share = shareDevices;
-        };
     ### Configs
 
     # installed packages
