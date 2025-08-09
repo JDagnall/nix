@@ -19,6 +19,9 @@
  - make sure syncthing folders work effectively
  - look into keepassxc auto type on wayland. seems it needs an X11 backend
  - notification daemon. Electron apps will require it.
+ - add formatters for things like json, toml, css, html and javascript in nixloki
+ - turn off mouse in nix loki maybe
+ - turn off mouse while typing in hyprland maybe
 
 
 ## Sylix

@@ -1,4 +1,16 @@
-@import url('https://cdn.jsdelivr.net/npm/@catppuccin/palette/css/catppuccin.css');
+:root {
+    --red : #f38ba8;
+    --green: #a6e3a1;
+    --yellow: #f9e2af;
+    --peach: #fab387;
+    --teal: #94e2d5;
+    --lavender: #b4befe;
+    --mauve: #cba6f7;
+    --text: #cdd6f4;
+    --overlay0: #6c7086;
+    --base: #1e1e2e;
+    --crust: #11111b;
+}
 window#waybar{all:unset;}
 * {
     font-size:15px;
@@ -11,27 +23,27 @@ window#waybar{
     padding:7px;
     margin:10 0 5 10;
     border-radius:10px;
-    background: alpha(var(--ctp-mocha-mauve-rgb),.6);
+    background: alpha(var(--mauve),.6);
 }
 .modules-center {
     padding:7px;
     margin:10 0 5 0;
     border-radius:10px;
-    background: alpha(var(--ctp-mocha-mauve-rgb),.6);
+    background: alpha(var(--mauve),.6);
 }
 .modules-right {
     padding:7px;
     margin: 10 10 5 0;
     border-radius:10px;
-    background: alpha(var(--ctp-mocha-mauve-rgb),.6);
+    background: alpha(var(--mauve),.6);
 }
 #clock:hover, #bluetooth:hover, #network:hover, #battery:hover {
     transition: all .3s ease;
-    color:var(--ctp-mocha-mauve-rgb);
+    color:var(--mauve);
 }
 #clock{
     padding: 0px 5px;
-    color:var(--ctp-mocha-mauve-rgb);
+    color:var(--mauve);
     transition: all .3s ease;
 }
 #workspaces {
@@ -40,60 +52,60 @@ window#waybar{
 #workspaces button {
     all:unset;
     padding: 0px 5px;
-    color: alpha(var(--ctp-mocha-text-rgb),.4);
+    color: alpha(var(--text),.4);
     transition: all .2s ease;
 }
 #workspaces button:hover {
-    color:rgba(0,0,0,0);
+    color:rgba(--crust,0);
     border: none;
     text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
     transition: all 1s ease;
 }
 #workspaces button.active {
-    color: var(--ctp-mocha-green-rgb);
+    color: var(--green);
     border: none;
     text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
 }
 #workspaces button.empty {
-    color: rgba(0,0,0,0);
+    color: rgba(--crust,0);
     border: none;
     text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .2);
 }
 #workspaces button.empty:hover {
-    color: rgba(0,0,0,0);
+    color: rgba(--crust,0);
     border: none;
     text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
     transition: all 1s ease;
 }
 #workspaces button.empty.active {
-    color: var(--ctp-mocha-green-rgb);
+    color: var(--green);
     border: none;
     text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
 }
 #bluetooth{
     padding: 0px 5px;
     transition: all .3s ease;
-    color:var(--ctp-mocha-teal-rgb);
+    color:var(--teal);
 }
 #network{
     padding: 0px 5px;
     transition: all .3s ease;
-    color:var(--ctp-mocha-lavender-rgb);
+    color:var(--lavender);
 }
 #battery{
     padding: 0px 5px;
     transition: all .3s ease;
-    color:var(--ctp-mocha-green-rgb);
+    color:var(--green);
 }
 #battery.charging {
-    color: var(--ctp-mocha-teal-rgb);
+    color: var(--teal);
 }
 
 #battery.warning:not(.charging) {
-    color: var(--ctp-mocha-peach-rgb);
+    color: var(--peach);
 }
 #battery.critical:not(.charging) {
-    color: var(--ctp-mocha-red-rgb);
+    color: var(--red);
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
