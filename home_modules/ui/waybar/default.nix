@@ -41,12 +41,12 @@ in
                         };
                     };
                     network = {
-                        "format-wifi" = "{essid}  ";
-                        "format-ethernet" = "{ifname}  ";
-                        "format-disconnected" = " ";
+                        "format-wifi" = "{essid} 󰖩 ";
+                        "format-ethernet" = "{ifname} 󰈀 ";
+                        "format-disconnected" = " ";
                         "tooltip-format-disconnected" = "Disconnected";
-                        "tooltip-format-wifi" = "{ip}";
-                        "tooltip-format-ethernet" = "{ip}";
+                        "tooltip-format-wifi" = "{ipaddr}";
+                        "tooltip-format-ethernet" = "{ipaddr}";
                     };
                     battery = {
                         states = {
@@ -58,16 +58,16 @@ in
                         format-charging = "{capacity}% 󰢝 ";
                         format-plugged = "{capacity}% 󱟢 ";
                         format-icons = [
-                            "󰁺"
-                            "󰁻"
-                            "󰁼"
-                            "󰁽"
-                            "󰁾"
-                            "󰁿"
-                            "󰂀"
-                            "󰂁"
-                            "󰂂"
                             "󰁹"
+                            "󰂂"
+                            "󰂁"
+                            "󰂀"
+                            "󰁿"
+                            "󰁾"
+                            "󰁽"
+                            "󰁼"
+                            "󰁻"
+                            "󰁺"
                         ];
                         tooltip-format = "{H}:{M}";
                     };
@@ -76,10 +76,10 @@ in
                         format-bluetooth = "{volume}% {icon}";
                         format-muted = "󰖁 ";
                         format-icons = [
-                            "󰕾 "
-                            "󰖀 "
-                            "󰕿 "
                             "󰖁 "
+                            "󰕿 "
+                            "󰖀 "
+                            "󰕾 "
                         ];
                         tooltip = false;
                         states = {
@@ -90,7 +90,7 @@ in
                         };
                     };
                     clock = {
-                        format = "{%I:%M %p | %a %b %d} ";
+                        format = "{%I:%M %p %A %B %d}";
                         tooltip = false;
                     };
                     tray = {
