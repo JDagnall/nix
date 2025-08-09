@@ -6,17 +6,19 @@
 
 ## Ideas
  - good waybar config
+ - good rofi config
  - hyprlock stuff
  - fix ly terminal session having no stdout
  - set wallpaper
  - setup passkey auth with fingerprint sensor
  - make sure auth through dbus works
  - simple vscode config for PR's with TA. Or other method for PRs
- - switch to alejandra in nvim
+ - switch to alejandra in nvim and rebuild scripts
  - add lang configs for nix with formatter, do the same for other langs
  - configure autostarts in hyprland using nix options for whats enabled
  - make sure syncthing folders work effectively
  - look into keepassxc auto type on wayland. seems it needs an X11 backend
+ - notification daemon. Electron apps will require it.
 
 
 ## Sylix

@@ -1,0 +1,10 @@
+window#waybar{all:unset;}
+.modules-left {
+    background: alpha(@background,.6);
+}
+.modules-right {
+    background: alpha(@background,.6);
+}
+.modules-center {
+    background: alpha(@background,.6);
+}
