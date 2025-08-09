@@ -18,7 +18,30 @@ in
             {
                 enable = true;
                 settings = [
-                    settingsJSON
+                    {
+                        modules-left = [ "hyprland/workspaces" ];
+                        modules-center = [ "clock" ];
+                        modules-right = [
+                            "tray"
+                            "battery"
+                            "network"
+                            "pulseaudio"
+                        ];
+                        expand-center = false;
+                        expand-left = false;
+                        expand-right = false;
+                        layer = "bottom";
+                        output = null;
+                        position = "top";
+                        width = null;
+                        height = null;
+                        no-center = false;
+                        spacing = null;
+                        mode = "dock";
+                        start_hidden = false;
+                        reload_style_on_change = true;
+                        fixed_center = true;
+                    }
                 ];
                 style = builtins.readFile ./style.css;
                 ## DEBUG

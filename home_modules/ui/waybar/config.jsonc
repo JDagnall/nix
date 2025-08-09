@@ -1,7 +1,7 @@
 {
     "modules-left": ["hyprland/workspaces"],
-    "modules-right": ["clock"],
-    "modules-center": ["tray","battery","network","pulseaudio"],
+    "modules-center" ["clock"],
+    "modules-right": ["tray","battery","network","pulseaudio"],
     "expand-center": false,
     "expand-left": false,
     "expand-right": false,
