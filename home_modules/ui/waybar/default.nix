@@ -92,7 +92,7 @@ in
                     };
                     clock = {
                         # format = "{:%I:%M %p} | {:%A, %B, %d}";
-                        format = "{:%A, %B, %d}";
+                        format = "{:%a, %b, %d}";
                         tooltip = false;
                     };
                     tray = {
