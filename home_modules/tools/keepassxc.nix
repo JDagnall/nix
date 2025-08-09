@@ -14,8 +14,8 @@
                     BackupBeforeSave = true;
                     BackupFilePathePattern = "{DB_FILENAME}.bak.kdbx";
                     ConfigVersion = 2;
-                    GlobalAutoTypeKey = 84;
-                    GlobalAutoTypeModifiers = 301989888;
+                    GlobalAutoTypeKey = 65;
+                    GlobalAutoTypeModifiers = 100663296;
                     MinimiseAfterUnlock = true;
                 };
                 Browser = {
@@ -24,9 +24,9 @@
                 GUI = {
                     ApplicationTheme = "dark";
                     ColorPasswords = true;
-                    MinimiseOnClose = true;
-                    MinimiseOnStartup = true;
-                    MinimiseToTray = true;
+                    MinimizeOnClose = true;
+                    MinimizeOnStartup = true;
+                    MinimizeToTray = true;
                     MonospaceNotes = true;
                     ShowTrayIcon = true;
                     TrayIconAppearance = "colorful";
