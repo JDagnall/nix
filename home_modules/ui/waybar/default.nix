@@ -41,12 +41,18 @@ in
                         };
                     };
                     network = {
-                        "format-wifi" = "";
-                        "format-ethernet" = "";
-                        "format-disconnected" = "";
+                        "format-wifi" = " ";
+                        "format-ethernet" = " ";
+                        "format-disconnected" = " ";
                         "tooltip-format-disconnected" = "Disconnected";
-                        "tooltip-format-wifi" = "{essid} ({signalStrength}%) ";
+                        "tooltip-format-wifi" = "{essid} ({signalStrength}%)  ";
                         "tooltip-format-ethernet" = "{ifname}  ";
+                    };
+                    battery = { };
+                    pipewire = { };
+                    clock = {
+                        format = "{:%I:%M:%S: %p} ";
+                        tooltip-format = "<tt>{calendar}</tt>";
                     };
                     tray = {
                         icon-size = 14;
@@ -62,7 +68,7 @@ in
                     width = null;
                     height = null;
                     no-center = false;
-                    spacing = 2;
+                    spacing = 10;
                     mode = "dock";
                     start_hidden = false;
                     reload_style_on_change = true;

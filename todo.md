@@ -22,6 +22,8 @@
  - add formatters for things like json, toml, css, html and javascript in nixloki
  - turn off mouse in nix loki maybe
  - turn off mouse while typing in hyprland maybe
+ - ALT-NUM to switch tabs in wezterm?
+ - stop mousing over changes window selection in hyprland
 
 
 ## Sylix
