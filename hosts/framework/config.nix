@@ -20,7 +20,7 @@
     service.syncthing.devices.macmini-server.enable = true;
     service.syncthing.folders =
         let
-            shareDevices = [ "MacMini-Server" ];
+            shareDevices = [ "MacMiniServer" ];
         in
         {
             secure.enable = true;
