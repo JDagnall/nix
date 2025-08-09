@@ -1,5 +1,4 @@
 {
-    pkgs,
     lib,
     config,
     ...
@@ -31,7 +30,12 @@ in
         service.syncthing.dataDir = mkOption {
             default = null;
             type = types.path;
-            description = "Path that synced folders should be sotred in by default. REQUIRED";
+            description = "Path that synced folders should be stored in by default. REQUIRED";
+        };
+        service.syncthing.configDir = mkOption {
+            default = null;
+            type = types.path;
+            description = "Path that the config should be stored in by default. REQUIRED";
         };
         service.syncthing.devices.macmini-server.enable = mkEnableOption {
             default = false;
@@ -103,6 +107,7 @@ in
             cert = "./cert.pem";
             key = "./key.pem";
             dataDir = config.service.syncthing.dataDir;
+            configDir = config.service.syncthing.configDir;
             # These make it so that only folders or devices configured here
             # persist. Anything configured on the gui will not
             overrideDevices = true;
@@ -111,8 +116,8 @@ in
             relay.enable = false;
             settings.options = {
                 limitBandwidthInLan = false;
-                globalAnnounceEnable = false;
-                localAnnounceEnable = true;
+                globalAnnounceEnabled = false;
+                localAnnounceEnabled = true;
                 localAnnouncePort = null;
                 maxFolderConcurrency = 2;
                 relaysEnabled = false;
@@ -121,92 +126,92 @@ in
 
             # configure which devices to connect to
             settings.devices = {
-                macmini-server = mkIf config.service.syncthing.devices.macmini-server.enable {
+                "MacMini-server" = mkIf config.service.syncthing.devices.macmini-server.enable {
                     id = "YEPHB7F-ZVCVOXK-PP4M6NT-C2D2BNH-JYFEW26-2Z7GIJE-ZBYUINV-2K3OAAJ";
                     name = "MacMini-server";
                     autoAcceptFolders = true;
                 };
 
-                galaxy-s10e = mkIf config.service.syncthing.devices.galaxy-s10e.enable {
+                "Galaxy-s10e" = mkIf config.service.syncthing.devices.galaxy-s10e.enable {
                     id = "NYORDT7-6IUBNB6-7DGXYQA-TK2TZLW-YJYDBOK-E3PISCB-PIHPSAA-EQI7VQI";
                     name = "Galaxy-s10e";
                     autoAcceptFolders = false;
                 };
-                PC = mkIf config.service.syncthing.devices.PC.enable {
+                "PC" = mkIf config.service.syncthing.devices.PC.enable {
                     id = "2WONTYB-TZI6CPL-ZRPSNNE-UJUEZ7U-MJTIMIB-MEHE7SD-UQ4EKSH-ORQEYAO";
                     name = "PC";
                     autoAcceptFolders = false;
                 };
-                macbook = mkIf config.service.syncthing.devices.macbook.enable {
+                "Macbook" = mkIf config.service.syncthing.devices.macbook.enable {
                     id = "JHDOCOP-XUNBSGU-DS23HBW-F6ICDYQ-DETE6QY-UKODVL3-264LIWY-3GIWMAP";
                     name = "Macbook";
                     autoAcceptFolders = false;
                 };
-                framework = mkIf config.service.syncthing.devices.framework.enable {
+                "Framework" = mkIf config.service.syncthing.devices.framework.enable {
                     id = "UPAHMLX-ZHYHBU7-BBYPAAE-UU3TUIL-ZRYW4OS-DHOYKRP-IOLWKIK-HPF7SQF";
                     name = "Framework";
                     autoAcceptFolders = false;
                 };
             };
 
-            settings.folders = {
-                secure = mkIf config.service.syncthing.folders.secure.enable {
-                    id = "26bfd-pbgoj";
-                    name = "secure";
-                    label = "secure";
-                    path = "~/secure";
-                    type = "sendreceive";
-                    copyOwnershipFromParent = false;
-                    devices = config.service.syncthing.folders.secure.share;
-                    versioning = {
-                        type = "simple";
-                        params.keep = 5;
-                        params.cleanoutDays = 20;
-                    };
-                };
-                classes = mkIf config.service.syncthing.folders.classes.enable {
-                    id = "9j26s-pweyy";
-                    name = "classes";
-                    label = "classes";
-                    path = "~/classes";
-                    type = "sendreceive";
-                    copyOwnershipFromParent = false;
-                    devices = config.service.syncthing.folders.classes.share;
-                    versioning = {
-                        type = "simple";
-                        params.keep = 5;
-                        params.cleanoutDays = 20;
-                    };
-                };
-                proj = mkIf config.service.syncthing.folders.proj.enable {
-                    id = "jwvcx-y7w2m";
-                    name = "proj";
-                    label = "proj";
-                    path = "~/proj";
-                    type = "sendreceive";
-                    copyOwnershipFromParent = false;
-                    devices = config.service.syncthing.folders.proj.share;
-                    versioning = {
-                        type = "simple";
-                        params.keep = 5;
-                        params.cleanoutDays = 20;
-                    };
-                };
-                wallpapers = mkIf config.service.syncthing.folders.wallpapers.enable {
-                    id = "vjhql-ghx7b";
-                    name = "wallpapers";
-                    label = "wallpapers";
-                    path = "~/wallpapers";
-                    type = "sendreceive";
-                    copyOwnershipFromParent = false;
-                    devices = config.service.syncthing.folders.wallpapers.share;
-                    versioning = {
-                        type = "simple";
-                        params.keep = 5;
-                        params.cleanoutDays = 20;
-                    };
-                };
-            };
+            # settings.folders = {
+            #     "secure" = mkIf config.service.syncthing.folders.secure.enable {
+            #         id = "26bfd-pbgoj";
+            #         name = "secure";
+            #         label = "secure";
+            #         path = "~/secure";
+            #         type = "sendreceive";
+            #         copyOwnershipFromParent = false;
+            #         devices = config.service.syncthing.folders.secure.share;
+            #         versioning = {
+            #             type = "simple";
+            #             params.keep = 5;
+            #             params.cleanoutDays = 20;
+            #         };
+            #     };
+            #     "classes" = mkIf config.service.syncthing.folders.classes.enable {
+            #         id = "9j26s-pweyy";
+            #         name = "classes";
+            #         label = "classes";
+            #         path = "~/classes";
+            #         type = "sendreceive";
+            #         copyOwnershipFromParent = false;
+            #         devices = config.service.syncthing.folders.classes.share;
+            #         versioning = {
+            #             type = "simple";
+            #             params.keep = 5;
+            #             params.cleanoutDays = 20;
+            #         };
+            #     };
+            #     "proj" = mkIf config.service.syncthing.folders.proj.enable {
+            #         id = "jwvcx-y7w2m";
+            #         name = "proj";
+            #         label = "proj";
+            #         path = "~/proj";
+            #         type = "sendreceive";
+            #         copyOwnershipFromParent = false;
+            #         devices = config.service.syncthing.folders.proj.share;
+            #         versioning = {
+            #             type = "simple";
+            #             params.keep = 5;
+            #             params.cleanoutDays = 20;
+            #         };
+            #     };
+            #     "wallpapers" = mkIf config.service.syncthing.folders.wallpapers.enable {
+            #         id = "vjhql-ghx7b";
+            #         name = "wallpapers";
+            #         label = "wallpapers";
+            #         path = "~/wallpapers";
+            #         type = "sendreceive";
+            #         copyOwnershipFromParent = false;
+            #         devices = config.service.syncthing.folders.wallpapers.share;
+            #         versioning = {
+            #             type = "simple";
+            #             params.keep = 5;
+            #             params.cleanoutDays = 20;
+            #         };
+            #     };
+            # };
         };
     };
 }

@@ -15,11 +15,12 @@
     service.syncthing.enable = true;
     service.syncthing.user = "james";
     service.syncthing.group = "james";
-    service.syncthing.dataDir = /home/james;
+    service.syncthing.dataDir = "/home/james";
+    service.syncthing.configDir = "/home/james/.config/syncthing";
     service.syncthing.devices.macmini-server.enable = true;
     service.syncthing.folders =
         let
-            shareDevices = [ "macmini-server" ];
+            shareDevices = [ "MacMini-Server" ];
         in
         {
             secure.enable = true;
