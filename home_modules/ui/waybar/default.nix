@@ -41,22 +41,62 @@ in
                         };
                     };
                     network = {
-                        "format-wifi" = " ";
-                        "format-ethernet" = " ";
+                        "format-wifi" = "{essid}  ";
+                        "format-ethernet" = "{ifname}  ";
                         "format-disconnected" = " ";
                         "tooltip-format-disconnected" = "Disconnected";
-                        "tooltip-format-wifi" = "{essid} ({signalStrength}%)  ";
-                        "tooltip-format-ethernet" = "{ifname}  ";
+                        "tooltip-format-wifi" = "{ip}";
+                        "tooltip-format-ethernet" = "{ip}";
                     };
-                    battery = { };
-                    pipewire = { };
+                    battery = {
+                        states = {
+                            good = 95;
+                            warning = 30;
+                            critical = 20;
+                        };
+                        format = "{capacity}% {icon}";
+                        format-charging = "{capacity}% 󰢝 ";
+                        format-plugged = "{capacity}% 󱟢 ";
+                        format-icons = [
+                            "󰁺"
+                            "󰁻"
+                            "󰁼"
+                            "󰁽"
+                            "󰁾"
+                            "󰁿"
+                            "󰂀"
+                            "󰂁"
+                            "󰂂"
+                            "󰁹"
+                        ];
+                        tooltip-format = "{H}:{M}";
+                    };
+                    pulseaudio = {
+                        format = "{volume}% {icon}";
+                        format-bluetooth = "{volume}% {icon}";
+                        format-muted = "󰖁 ";
+                        format-icons = [
+                            "󰕾 "
+                            "󰖀 "
+                            "󰕿 "
+                            "󰖁 "
+                        ];
+                        tooltip = false;
+                        states = {
+                            high = 85;
+                            medium = 50;
+                            low = 1;
+                            off = 0;
+                        };
+                    };
                     clock = {
-                        format = "{:%I:%M:%S: %p} ";
-                        tooltip-format = "<tt>{calendar}</tt>";
+                        format = "{%I:%M %p | %a %b %d} ";
+                        tooltip = false;
                     };
                     tray = {
                         icon-size = 14;
                         spacing = 10;
+                        tooltip = false;
                     };
 
                     expand-center = false;
@@ -68,7 +108,7 @@ in
                     width = null;
                     height = null;
                     no-center = false;
-                    spacing = 10;
+                    spacing = 5;
                     mode = "dock";
                     start_hidden = false;
                     reload_style_on_change = true;
