@@ -1,13 +1,15 @@
 warning: Git tree '/home/james/nix' is dirty
-these 4 derivations will be built:
-  /nix/store/vqgnpcnkkhvms9ffhj61715xrrgvijx9-hm_hyprhyprland.conf.drv
-  /nix/store/dhdb0pspn7xylwwws9cffkwmvdv7xkx0-activation-script.drv
-  /nix/store/sd91i6wc2ypzyl6ah9jrmh7lzychqwjf-home-manager-files.drv
-  /nix/store/25di0iiy0l4zdgwbmvndf4qimrs8aj5i-home-manager-generation.drv
-building '/nix/store/vqgnpcnkkhvms9ffhj61715xrrgvijx9-hm_hyprhyprland.conf.drv'...
-building '/nix/store/dhdb0pspn7xylwwws9cffkwmvdv7xkx0-activation-script.drv'...
-building '/nix/store/sd91i6wc2ypzyl6ah9jrmh7lzychqwjf-home-manager-files.drv'...
-building '/nix/store/25di0iiy0l4zdgwbmvndf4qimrs8aj5i-home-manager-generation.drv'...
+these 5 derivations will be built:
+  /nix/store/smsd9vg5vn09r360gcs6zjcabgx51ywi-waybar-style.css.drv
+  /nix/store/ym8mf0w4wqzx779ynp622h2fzxihyj07-waybar-config.json.drv
+  /nix/store/0y150vglf02xdm4b57hwvibbr8xgzw7q-home-manager-files.drv
+  /nix/store/j39g7qrfmsflfyv7kk647qv2g7k0wpax-activation-script.drv
+  /nix/store/9xr73mng8nbfn2l297hci456rnqkcdv5-home-manager-generation.drv
+building '/nix/store/smsd9vg5vn09r360gcs6zjcabgx51ywi-waybar-style.css.drv'...
+building '/nix/store/ym8mf0w4wqzx779ynp622h2fzxihyj07-waybar-config.json.drv'...
+building '/nix/store/j39g7qrfmsflfyv7kk647qv2g7k0wpax-activation-script.drv'...
+building '/nix/store/0y150vglf02xdm4b57hwvibbr8xgzw7q-home-manager-files.drv'...
+building '/nix/store/9xr73mng8nbfn2l297hci456rnqkcdv5-home-manager-generation.drv'...
 Starting Home Manager activation
 Activating checkFilesChanged
 Activating checkLinkTargets
@@ -25,7 +27,6 @@ Activating installPackages
 replacing old 'home-manager-path'
 installing 'home-manager-path'
 Activating onFilesChange
-ok
 Activating reloadSystemd
 warning: Git tree '/home/james/nix' is dirty
 

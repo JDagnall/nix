@@ -22,6 +22,37 @@ in
                         "network"
                         "pulseaudio"
                     ];
+
+                    "hyprland/workspaces" = {
+                        format = "{icon}";
+                        format-icons = {
+                            active = "";
+                            default = "";
+                            empty = "";
+                        };
+                        persistent-workspaces = {
+                            "*" = [
+                                1
+                                2
+                                3
+                                4
+                                5
+                            ];
+                        };
+                    };
+                    network = {
+                        "format-wifi" = "";
+                        "format-ethernet" = "";
+                        "format-disconnected" = "";
+                        "tooltip-format-disconnected" = "Disconnected";
+                        "tooltip-format-wifi" = "{essid} ({signalStrength}%) ";
+                        "tooltip-format-ethernet" = "{ifname}  ";
+                    };
+                    tray = {
+                        icon-size = 14;
+                        spacing = 10;
+                    };
+
                     expand-center = false;
                     expand-left = false;
                     expand-right = false;
