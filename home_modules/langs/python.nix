@@ -5,7 +5,7 @@
     ...
 }:
 let
-    inherit (lib) mkIf mkEnableOption;
+    inherit (lib) mkIf mkEnableOption mkOption;
 in
 {
     options = {
@@ -13,12 +13,14 @@ in
             default = false;
             description = "Enable python, installs 3.12";
         };
-        langs.python.formatters = mkEnableOption {
+        langs.python.formatters = mkOption {
             default = true;
+            type = lib.types.bool;
             description = "Installs a few formatters";
         };
-        langs.python.packages = mkEnableOption {
+        langs.python.packages = mkOption {
             default = true;
+            type = lib.types.bool;
             description = "Installs some often used packages";
         };
     };

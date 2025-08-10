@@ -5,7 +5,7 @@
     ...
 }:
 let
-    inherit (lib) mkIf mkEnableOption;
+    inherit (lib) mkIf mkEnableOption mkOption;
 in
 {
     options = {
@@ -13,16 +13,17 @@ in
             default = false;
             description = "Enable nix config";
         };
-        langs.nix.formatters = mkEnableOption {
+        langs.nix.formatters = mkOption {
             default = true;
+            type = lib.types.bool;
             description = "Installs a few formatters";
         };
     };
     config =
         let
-            inherit (config.langs.python) formatters packages;
+            inherit (config.langs.nix) formatters;
             formatterList = with pkgs; [
-                nixfmt
+                nixfmt-rfc-style
                 alejandra
             ];
 
