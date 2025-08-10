@@ -7,7 +7,7 @@
 ## Ideas
  - speed up animation in hyprland, use stylix for border colors
  - improve waybar config, more/ better status indicators, personalise CSS more and use stylix for the colors
- - applets for things like bluetooth, wifi, and audio for the waybar
+ - applets for things like power menu, bluetooth, wifi, and audio for the waybar
  - do dependecy stuff like making sure victorMono is installed for waybar, try to create an assertion with an error message
  - good rofi config
  - firefox ui font size is busted

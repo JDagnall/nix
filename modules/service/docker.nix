@@ -43,5 +43,6 @@
         # assumes docker-compose is wanted
         environment.systemPackages = with pkgs; [ docker-compose ];
         users.extraGroups.docker.members = config.service.docker.groupUsers;
+        # users.users.james.extraGroups = [ "docker" ];
     };
 }

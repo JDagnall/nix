@@ -26,7 +26,12 @@
         in
         {
             home.packages =
-                [ ]
+                with pkgs;
+                [
+                    # some I wont bother with options
+                    zip
+                    unzip
+                ]
                 ++ (if pipenv.enable then [ pkgs.pipenv ] else [ ])
                 ++ (if mycli.enable then [ pkgs.mycli ] else [ ]);
 
