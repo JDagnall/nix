@@ -32,6 +32,9 @@
             wallpapers.enable = true;
             wallpapers.share = shareDevices;
         };
+
+    service.docker.enable = true;
+    service.docker.groupUsers = [ "james" ];
     # config ------------------------------
 
     imports = [

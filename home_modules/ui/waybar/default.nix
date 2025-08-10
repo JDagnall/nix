@@ -99,7 +99,7 @@ in
                         tooltip = false;
                     };
                     tray = {
-                        icon-size = 14;
+                        icon-size = 17;
                         spacing = 10;
                         tooltip = false;
                     };

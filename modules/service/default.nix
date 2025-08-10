@@ -1,4 +1,7 @@
 { ... }:
 {
-    imports = [ ./syncthing ];
+    imports = [
+        ./syncthing
+        ./docker.nix
+    ];
 }

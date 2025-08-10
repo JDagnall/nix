@@ -21,6 +21,9 @@
     shell.fzf.enable = true;
     shell.zoxide.enable = true;
 
+    langs.nix.enable = true;
+    langs.python.enable = true;
+
     window-manager.hyprland.enable = true;
 
     term.wezterm.enable = true;
@@ -29,11 +32,13 @@
     ui.swww.enable = true;
 
     tools.git.enable = true;
+    tools.pipenv.enable = true;
+    tools.mycli.enable = true;
+    tools.keepassxc.enable = true;
+
     nixLoki.enable = true;
 
     gui.firefox.enable = true;
-
-    tools.keepassxc.enable = true;
     ### Configs
 
     # installed packages
