@@ -1,5 +1,4 @@
 ## Required Configs
-- fix font size in hyprland or whichever default needs to be set
 - port the new commits from old stow repo into nixLoki then fully switch to nixLoki
 
 ## Ideas

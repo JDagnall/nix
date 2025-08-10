@@ -1,20 +1,4 @@
 warning: Git tree '/home/james/nix' is dirty
-these 5 derivations will be built:
-  /nix/store/ifz3p892kb2a4k7i05kf9yqfc6grqd2n-home-manager-path.drv
-  /nix/store/86b20ci6n11lb2icj71ancd79wnb4lhk-hm_home_packages.drv
-  /nix/store/lx9fpds1lzspbw1gx3kszhpmwivq1aii-home-manager-files.drv
-  /nix/store/qxl3q3w6vy9i45d20r9pkjgmmdimrllq-activation-script.drv
-  /nix/store/7k5v1hx984826fjws5z0a4j834xxkq1a-home-manager-generation.drv
-these 2 paths will be fetched (1.14 MiB download, 4.46 MiB unpacked):
-  /nix/store/xicn1sqv6wyzycdmmnm00qnakgi2ras9-nwg-look-1.0.6
-  /nix/store/wx9dmxininqhc2y2l2zzj3y9vwsw5azx-xcur2png-0.7.1
-building '/nix/store/86b20ci6n11lb2icj71ancd79wnb4lhk-hm_home_packages.drv'...
-copying path '/nix/store/wx9dmxininqhc2y2l2zzj3y9vwsw5azx-xcur2png-0.7.1' from 'https://cache.nixos.org'...
-building '/nix/store/lx9fpds1lzspbw1gx3kszhpmwivq1aii-home-manager-files.drv'...
-copying path '/nix/store/xicn1sqv6wyzycdmmnm00qnakgi2ras9-nwg-look-1.0.6' from 'https://cache.nixos.org'...
-building '/nix/store/ifz3p892kb2a4k7i05kf9yqfc6grqd2n-home-manager-path.drv'...
-building '/nix/store/qxl3q3w6vy9i45d20r9pkjgmmdimrllq-activation-script.drv'...
-building '/nix/store/7k5v1hx984826fjws5z0a4j834xxkq1a-home-manager-generation.drv'...
 Starting Home Manager activation
 Activating checkFilesChanged
 Activating checkLinkTargets
@@ -31,7 +15,6 @@ Writing metadata to folder /home/james/.cache/bat ... okay
 Activating installPackages
 replacing old 'home-manager-path'
 installing 'home-manager-path'
-building '/nix/store/16jm7916hxpglqn99dzmjxfs93jw038v-user-environment.drv'...
 Activating onFilesChange
 Activating reloadSystemd
 warning: Git tree '/home/james/nix' is dirty
