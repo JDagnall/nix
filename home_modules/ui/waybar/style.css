@@ -1,7 +1,7 @@
 window#waybar{all:unset;}
 * {
     font-size:15px;
-    font-family: "VictorMono Nerd Font Mono";
+    font-family: "VictorMono Nerd Font";
 }
 window#waybar{
     all:unset;

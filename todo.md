@@ -7,6 +7,7 @@
 ## Ideas
  - good waybar config
  - good rofi config
+ - firefox ui font size is busted
  - hyprlock stuff
  - fix ly terminal session having no stdout
  - set wallpaper
@@ -24,6 +25,8 @@
  - turn off mouse while typing in hyprland maybe
  - ALT-NUM to switch tabs in wezterm?
  - stop mousing over changes window selection in hyprland
+ - applets for things like bluetooth, wifi, and audio for the waybar
+ - do dependecy stuff like making sure victorMono is installed for waybar
 
 
 ## Sylix

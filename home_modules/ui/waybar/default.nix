@@ -26,9 +26,9 @@ in
                     "hyprland/workspaces" = {
                         format = "{icon}";
                         format-icons = {
-                            active = "";
-                            default = "";
-                            empty = "";
+                            active = "";
+                            default = "";
+                            empty = "";
                         };
                         persistent-workspaces = {
                             "*" = [
@@ -54,30 +54,34 @@ in
                             warning = 30;
                             critical = 20;
                         };
+                        interval = 15;
                         format-time = "{H}:{M}";
                         format = "{capacity}% {icon}";
-                        # format-charging = "{capacity}% 󰢝 ";
+                        min-length = 5;
+                        justify = "center";
+                        format-charging = "{capacity}% 󰢝 ";
                         # format-plugged = "{capacity}% 󱟢 ";
                         format-icons = [
-                            "󰁹"
-                            "󰂂"
-                            "󰂁"
-                            "󰂀"
-                            "󰁿"
-                            "󰁾"
-                            "󰁽"
-                            "󰁼"
-                            "󰁻"
                             "󰁺"
+                            "󰁻"
+                            "󰁼"
+                            "󰁽"
+                            "󰁾"
+                            "󰁿"
+                            "󰂀"
+                            "󰂁"
+                            "󰂂"
+                            "󰁹"
                         ];
                         tooltip-format = "{time}";
                     };
                     pulseaudio = {
                         format = "{volume}% {icon}";
                         format-bluetooth = "{volume}% {icon}";
+                        min-length = 5;
+                        justify = "center";
                         format-muted = "󰖁 ";
                         format-icons = [
-                            "󰖁 "
                             "󰕿 "
                             "󰖀 "
                             "󰕾 "
@@ -91,8 +95,7 @@ in
                         };
                     };
                     clock = {
-                        # format = "{:%I:%M %p} | {:%A, %B, %d}";
-                        format = "{:%a, %b, %d}";
+                        format = " {:%I:%M %p %a %b %d}";
                         tooltip = false;
                     };
                     tray = {

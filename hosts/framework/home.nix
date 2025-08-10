@@ -26,6 +26,7 @@
     term.wezterm.enable = true;
     ui.rofi.enable = true;
     ui.waybar.enable = true;
+    ui.swww.enable = true;
 
     tools.git.enable = true;
     nixLoki.enable = true;
