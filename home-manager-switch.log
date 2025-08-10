@@ -1,25 +1,9 @@
 warning: Git tree '/home/james/nix' is dirty
-these 5 derivations will be built:
-  /nix/store/32clirf29qssjylfmp4k5ll34fvhwavp-home-manager-path.drv
-  /nix/store/4jxwazd2xp32by7kjm6aa7w89wxis7fh-hm_home_packages.drv
-  /nix/store/sdpr23zylv6hffy74xc60vj5bnjk9lwv-activation-script.drv
-  /nix/store/zhpblh8i278g9xw2xcxc8ap616q7cg2k-home-manager-files.drv
-  /nix/store/xcsnld886551ai52ciqrls74wlw2wxpm-home-manager-generation.drv
-these 2 paths will be fetched (0.27 MiB download, 1.04 MiB unpacked):
-  /nix/store/a22alszy3k7frx0cifv77qq99g9lnyc2-unzip-6.0
-  /nix/store/a6yg470k2x5s9jzjv1n9hmb7kgn8c9l9-zip-3.0
-copying path '/nix/store/a22alszy3k7frx0cifv77qq99g9lnyc2-unzip-6.0' from 'https://cache.nixos.org'...
-copying path '/nix/store/a6yg470k2x5s9jzjv1n9hmb7kgn8c9l9-zip-3.0' from 'https://cache.nixos.org'...
-building '/nix/store/4jxwazd2xp32by7kjm6aa7w89wxis7fh-hm_home_packages.drv'...
-building '/nix/store/zhpblh8i278g9xw2xcxc8ap616q7cg2k-home-manager-files.drv'...
-building '/nix/store/32clirf29qssjylfmp4k5ll34fvhwavp-home-manager-path.drv'...
-building '/nix/store/sdpr23zylv6hffy74xc60vj5bnjk9lwv-activation-script.drv'...
-building '/nix/store/xcsnld886551ai52ciqrls74wlw2wxpm-home-manager-generation.drv'...
 Starting Home Manager activation
 Activating checkFilesChanged
 Activating checkLinkTargets
 Activating writeBoundary
-Creating new profile generation
+No change so reusing latest profile generation
 Activating linkGeneration
 Cleaning up orphan links from /home/james
 Creating home file links in /home/james
@@ -31,10 +15,8 @@ Writing metadata to folder /home/james/.cache/bat ... okay
 Activating installPackages
 replacing old 'home-manager-path'
 installing 'home-manager-path'
-building '/nix/store/8xms7kzgkbqp7p53cdaimr01nw765vqx-user-environment.drv'...
 Activating onFilesChange
 Activating reloadSystemd
-Starting units: swww.service
 warning: Git tree '/home/james/nix' is dirty
 
 There are 236 unread and relevant news items.
