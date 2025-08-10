@@ -39,6 +39,7 @@
     nixLoki.enable = true;
 
     gui.firefox.enable = true;
+    gui.nwg-look.enable = true;
     ### Configs
 
     # installed packages
