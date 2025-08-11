@@ -41,7 +41,7 @@ in
                 "network"
                 "ssh"
             ];
-            # plugins = [ pkgs.keepmenu ]; # keepass rofi plugin
+            plugins = [ pkgs.keepmenu ]; # keepass rofi plugin
             # terminal =  # path to terminal to be used to run terminal cmds
             # theme = {};
             # xoffset = ;
