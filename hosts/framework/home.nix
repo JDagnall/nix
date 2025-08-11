@@ -27,9 +27,12 @@
     window-manager.hyprland.enable = true;
 
     term.wezterm.enable = true;
+
     ui.rofi.enable = true;
     ui.waybar.enable = true;
-    ui.swww.enable = true;
+    ui.swww.enable = false;
+    ui.firefox.enable = true;
+    ui.nwg-look.enable = false;
 
     tools.git.enable = true;
     tools.pipenv.enable = true;
@@ -38,8 +41,8 @@
 
     nixLoki.enable = true;
 
-    gui.firefox.enable = true;
-    gui.nwg-look.enable = true;
+    stylix.enableConfig = true;
+
     ### Configs
 
     # installed packages

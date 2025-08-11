@@ -41,12 +41,12 @@ in
                         };
                     };
                     network = {
-                        "format-wifi" = "{essid} 󰖩 ";
-                        "format-ethernet" = "{ifname} 󰈀 ";
-                        "format-disconnected" = " ";
-                        "tooltip-format-disconnected" = "Disconnected";
-                        "tooltip-format-wifi" = "{ipaddr}";
-                        "tooltip-format-ethernet" = "{ipaddr}";
+                        format-wifi = "{essid} 󰖩 ";
+                        format-ethernet = "{ifname} 󰈀 ";
+                        format-disconnected = " ";
+                        tooltip-format-disconnected = "Disconnected";
+                        tooltip-format-wifi = "{ipaddr}";
+                        tooltip-format-ethernet = "{ipaddr}";
                     };
                     battery = {
                         states = {

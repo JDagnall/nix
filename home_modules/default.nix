@@ -9,6 +9,6 @@
         ./term
         ./window-manager
         ./ui
-        ./gui
+        ./stylix.nix
     ];
 }
