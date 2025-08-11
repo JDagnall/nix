@@ -80,9 +80,17 @@ in
                         lines = 10;
                     };
                     element.padding = mkLiteral "10px";
-                    "element selected.normal".background-color = lib.mkForce mauve;
-                    "button selected".background-color = lib.mkForce mauve;
-                };
+                }
+                // (
+                    if config.ui.rofi.stylixOverride then
+                        {
+                            "element selected.normal".background-color = lib.mkForce mauve;
+                            "button selected".background-color = lib.mkForce mauve;
+
+                        }
+                    else
+                        { }
+                );
 
             # xoffset = ;
             # yoffset = ;

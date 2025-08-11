@@ -38,7 +38,7 @@
                     package = pkgs.dejavu_fonts;
                 };
                 monospace = {
-                    name = "JetBrainsMono NFM";
+                    name = "JetBrainsMono Nerd Font Mono";
                     package = pkgs.nerd-fonts.jetbrains-mono;
                 };
                 emoji = {
