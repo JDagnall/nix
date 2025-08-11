@@ -17,7 +17,7 @@
             enable = true;
             enableReleaseChecks = true; # ?
             autoEnable = false; # automatically turn on for all compatible programs
-            # base16theme = null;
+            base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
             # override theme colors
             override = { };
             polarity = "dark"; # prefers dark theme
