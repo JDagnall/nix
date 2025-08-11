@@ -38,8 +38,8 @@
                     package = pkgs.dejavu_fonts;
                 };
                 monospace = {
-                    name = "JetBrains Mono Nerd Font";
-                    package = pkgs.nerd-fonts.jetbrains-mono;
+                    name = "JetBrains Mono";
+                    package = pkgs.jetbrains-mono;
                 };
                 emoji = {
                     name = "Noto Color Emoji"; # is default, there is a monochrome one too
@@ -47,8 +47,10 @@
                 };
                 # other font packages to install
                 packages = [
-                    pkgs.victor-mono
-                    pkgs.fira-code-nerdfont
+                    # pkgs.victor-mono
+                    # pkgs.fira-code-nerdfont
+                    # pkgs.nerd-fonts.jetbrains-mono
+                    # pkgs.fonts.jetbrains-mono
                 ];
                 # define font sizes in differnet contexts. In points, 72 per inch
                 sizes = {

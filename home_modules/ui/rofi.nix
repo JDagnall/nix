@@ -79,7 +79,7 @@ in
                         columns = 1;
                         lines = 10;
                     };
-                    element.padding = mkLiteral "5px";
+                    element.padding = mkLiteral "10px";
                 }
                 // lib.mkIf config.ui.rofi.stylixOverride {
                     # overriding some colors here because stylix chooses bad ones
