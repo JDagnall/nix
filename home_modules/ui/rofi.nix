@@ -38,7 +38,7 @@ in
             modes = [
                 "drun"
                 "window"
-                "network"
+                "keys"
                 "ssh"
             ];
             plugins = [ pkgs.keepmenu ]; # keepass rofi plugin
