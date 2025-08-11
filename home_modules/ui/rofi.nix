@@ -18,7 +18,6 @@ in
         programs.rofi = {
             enable = true;
             package = pkgs.rofi-wayland;
-            # configPath =
             cycle = true; # cycle through results
             extraConfig = {
                 show-icons = true;
@@ -34,6 +33,7 @@ in
                 display-keys = " 󰯄  Keys";
                 sidebar-mode = true;
                 fixed-num-lines = true; # number of lines in picker is always the same
+                kb-cancel = "Control+c"; # exit rofi with <C-c>
             };
             location = "center";
             modes = [
@@ -44,24 +44,25 @@ in
             ];
             plugins = [ pkgs.keepmenu ]; # keepass rofi plugin
             # terminal =  # path to terminal to be used to run terminal cmds
+
             # layout stuff, stylix does colours
             theme =
                 let
                     inherit (config.lib.formats.rasi) mkLiteral;
                     inherit (config.lib.stylix) colors;
+                    inherit (config.stylix) opacity;
                     # using the method used in the stylix rofi config to change
-                    # base16 colors into rgba literals. Cant seem to get opacity
-                    # settings so i'm just setting it to 100.
+                    # base16 colors into rgba literals.
                     mkRgba =
-                        opacityLiteral: color:
+                        opacityString: color:
                         let
                             c = colors;
                             r = c."${color}-rgb-r";
                             g = c."${color}-rgb-g";
                             b = c."${color}-rgb-b";
                         in
-                        mkLiteral "rgba ( ${r}, ${g}, ${b}, ${opacityLiteral} % )";
-                    rofiOpacity = "100"; # wouldn't want anything other than 100% here anyway
+                        mkLiteral "rgba ( ${r}, ${g}, ${b}, ${opacityString} % )";
+                    rofiOpacity = toString (builtins.ceil (opacity.popups * 100));
                     mauve = mkRgba rofiOpacity "base0E";
                 in
                 {
@@ -70,13 +71,14 @@ in
                     listview = {
                         columns = 1;
                         lines = 10;
-                        margin = mkLiteral "2% 0%";
                     };
+                    element.padding = mkLiteral "5px";
                     # overriding some colors here because stylix chooses bad ones
                     "element selected.normal".background-color = lib.mkForce mauve;
                     "button selected".background-color = lib.mkForce mauve;
 
                 };
+
             # xoffset = ;
             # yoffset = ;
         };
