@@ -14,7 +14,7 @@ in
             enable = true;
             enableZshIntegration = config.shell.zsh.enable;
             extraConfig = builtins.readFile ./wezterm.lua;
-            # stylix
         };
+        stylix.targets.wezterm.enable = true;
     };
 }

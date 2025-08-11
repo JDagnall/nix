@@ -38,7 +38,7 @@
                     package = pkgs.dejavu_fonts;
                 };
                 monospace = {
-                    name = "VictorMono Nerd Font Mono";
+                    name = "VictorMono Nerd Font Mono Oblique";
                     package = pkgs.victor-mono;
                 };
                 emoji = {
@@ -66,7 +66,7 @@
                 applications = 1.0;
                 desktop = 1.0;
                 popups = 1.0;
-                terminal = 1.0;
+                terminal = 0.9;
             };
         };
     };

@@ -30,56 +30,57 @@ config.automatically_reload_config = true
 config.window_close_confirmation = "NeverPrompt"
 config.use_resize_increments = true
 
--- THEME
+-- ## trying stylix
+-- -- THEME
+--
+-- local mocha = {
+-- 	rosewater = "#f5e0dc",
+-- 	flamingo = "#f2cdcd",
+-- 	pink = "#f5c2e7",
+-- 	mauve = "#cba6f7",
+-- 	red = "#f38ba8",
+-- 	maroon = "#eba0ac",
+-- 	peach = "#fab387",
+-- 	yellow = "#f9e2af",
+-- 	green = "#a6e3a1",
+-- 	teal = "#94e2d5",
+-- 	sky = "#89dceb",
+-- 	sapphire = "#74c7ec",
+-- 	blue = "#89b4fa",
+-- 	lavender = "#b4befe",
+-- 	text = "#cdd6f4",
+-- 	subtext1 = "#bac2de",
+-- 	subtext0 = "#a6adc8",
+-- 	overlay2 = "#9399b2",
+-- 	overlay1 = "#7f849c",
+-- 	overlay0 = "#6c7086",
+-- 	surface2 = "#585b70",
+-- 	surface1 = "#45475a",
+-- 	surface0 = "#313244",
+-- 	base = "#1e1e2e",
+-- 	mantle = "#181825",
+-- 	crust = "#11111b",
+-- }
+-- config.color_scheme = "Catppuccin Mocha"
 
-local mocha = {
-	rosewater = "#f5e0dc",
-	flamingo = "#f2cdcd",
-	pink = "#f5c2e7",
-	mauve = "#cba6f7",
-	red = "#f38ba8",
-	maroon = "#eba0ac",
-	peach = "#fab387",
-	yellow = "#f9e2af",
-	green = "#a6e3a1",
-	teal = "#94e2d5",
-	sky = "#89dceb",
-	sapphire = "#74c7ec",
-	blue = "#89b4fa",
-	lavender = "#b4befe",
-	text = "#cdd6f4",
-	subtext1 = "#bac2de",
-	subtext0 = "#a6adc8",
-	overlay2 = "#9399b2",
-	overlay1 = "#7f849c",
-	overlay0 = "#6c7086",
-	surface2 = "#585b70",
-	surface1 = "#45475a",
-	surface0 = "#313244",
-	base = "#1e1e2e",
-	mantle = "#181825",
-	crust = "#11111b",
-}
-config.color_scheme = "Catppuccin Mocha"
-
--- If I want to alter the colorscheme
-local colors = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
-config.colors = {
-	background = mocha.mantle,
-	tab_bar = {
-		background = mocha.mantle,
-		active_tab = {
-			bg_color = mocha.mauve,
-			fg_color = mocha.base,
-			intensity = "Bold",
-		},
-		inactive_tab = {
-			bg_color = mocha.surface1,
-			fg_color = mocha.text,
-			intensity = "Normal",
-		},
-	},
-}
+-- -- If I want to alter the colorscheme
+-- local colors = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
+-- config.colors = {
+-- 	background = mocha.mantle,
+-- 	tab_bar = {
+-- 		background = mocha.mantle,
+-- 		active_tab = {
+-- 			bg_color = mocha.mauve,
+-- 			fg_color = mocha.base,
+-- 			intensity = "Bold",
+-- 		},
+-- 		inactive_tab = {
+-- 			bg_color = mocha.surface1,
+-- 			fg_color = mocha.text,
+-- 			intensity = "Normal",
+-- 		},
+-- 	},
+-- }
 -- print(colors)
 -- colors.background = "#000000" -- for example
 -- color_schemes = ["new altered colorscheme"] = colors
@@ -114,13 +115,15 @@ config.inactive_pane_hsb = {
 --   saturation = 1.0,
 -- }
 
-config.window_background_opacity = 0.9
-config.text_background_opacity = 0.95
+-- ## trying stylix
+-- config.window_background_opacity = 0.9
+-- config.text_background_opacity = 0.95
 
 -- command_palette
 
-config.command_palette_fg_color = mocha.mauve
-config.command_palette_bg_color = mocha.crust
+-- ## trying stylix
+-- config.command_palette_fg_color = mocha.mauve
+-- config.command_palette_bg_color = mocha.crust
 
 -- TAB BAR
 
@@ -138,19 +141,20 @@ config.tab_max_width = 32
 config.use_fancy_tab_bar = false
 
 -- FONT
+-- ## trying stylix
 
-wezterm.font("VictorMono Nerd Font Mono", { weight = "Regular", stretch = "Normal", style = "Normal" })
--- config.font = wezterm.font_with_fallback {
---   'Fira Code',
---   'DengXian',
--- }
-config.font_size = 10.0
--- config.cell_width
--- config.line_height
-config.font = wezterm.font({
-	family = "JetBrains Mono",
-	harfbuzz_features = { "calt=1", "clig=1", "liga=1", "zero" },
-})
+-- wezterm.font("VictorMono Nerd Font Mono", { weight = "Regular", stretch = "Normal", style = "Normal" })
+-- -- config.font = wezterm.font_with_fallback {
+-- --   'Fira Code',
+-- --   'DengXian',
+-- -- }
+-- config.font_size = 10.0
+-- -- config.cell_width
+-- -- config.line_height
+-- config.font = wezterm.font({
+-- 	family = "JetBrains Mono",
+-- 	harfbuzz_features = { "calt=1", "clig=1", "liga=1", "zero" },
+-- })
 
 local function basename(s)
 	return string.gsub(s, "^.*[\\/]([^/\\]+)[/\\]?$", "%1")
@@ -396,6 +400,8 @@ config.key_tables = {
 for i = 1, 9 do
 	-- switch to window(tab) by number -- the tab numbers display is 1 indexed but they are 0 indexed in the function. great
 	table.insert(config.keys, { key = tostring(i), mods = "LEADER", action = wezterm.action.ActivateTab(i - 1) })
+	-- ALT-NUM is also good
+	table.insert(config.keys, { key = tostring(i), mods = "ALT", action = wezterm.action.ActivateTab(i - 1) })
 	-- CTRL+ALT + number to move to that position
 	table.insert(config.keys, { key = tostring(i), mods = "CTRL|ALT", action = wezterm.action.MoveTab(i - 1) })
 end
