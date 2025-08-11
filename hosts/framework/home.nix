@@ -32,7 +32,7 @@
     ui.waybar.enable = true;
     ui.swww.enable = true;
     ui.firefox.enable = true;
-    ui.nwg-look.enable = true;
+    ui.nwg-look.enable = false;
 
     tools.git.enable = true;
     tools.pipenv.enable = true;

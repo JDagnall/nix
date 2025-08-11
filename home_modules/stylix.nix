@@ -24,9 +24,9 @@
             image = ./ui/wallpapers/A_feverish_Little_Fox_Caldecot.png; # wallpaper, can opt to have theme derived from it
             imageScalingMode = "fill";
             cursor = {
-                name = "mochaLight";
-                package = pkgs.catppuccin-cursors;
-                size = 20;
+                name = "catppuccin-mocha-light-cursors";
+                package = pkgs.catppuccin-cursors.mochaLight;
+                size = 18;
             };
             fonts = {
                 serif = {
