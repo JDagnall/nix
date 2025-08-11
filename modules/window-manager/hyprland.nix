@@ -20,10 +20,6 @@ in
             xwayland.enable = true;
             # withUWSM = true; # with session manager
         };
-        # stylix theming
-        stylix.targets.hyprland = {
-            enable = true;
-        };
 
         # programs.hyprlock.enable = true; # hyprland lock daemon
         # services.hypridle.enable = true; # hyprland idle daemon

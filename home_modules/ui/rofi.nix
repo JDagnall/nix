@@ -80,9 +80,6 @@ in
                         lines = 10;
                     };
                     element.padding = mkLiteral "10px";
-                }
-                // lib.mkIf config.ui.rofi.stylixOverride {
-                    # overriding some colors here because stylix chooses bad ones
                     "element selected.normal".background-color = lib.mkForce mauve;
                     "button selected".background-color = lib.mkForce mauve;
                 };

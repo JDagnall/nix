@@ -1,6 +1,4 @@
 warning: Git tree '/home/james/nix' is dirty
-copying path '/nix/store/c39q7pww80997lz0fyqxpvsr29q6f7ld-source' from 'https://cache.nixos.org'...
-copying path '/nix/store/icf90qrz0y75pwxysy816dyv2s26d1qd-base16-schemes-0-unstable-2025-06-04' from 'https://cache.nixos.org'...
 Starting Home Manager activation
 Activating checkFilesChanged
 Activating checkLinkTargets
