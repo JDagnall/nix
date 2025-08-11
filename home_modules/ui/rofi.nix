@@ -5,13 +5,19 @@
     ...
 }:
 let
-    inherit (lib) mkIf mkEnableOption;
+    inherit (lib) mkIf mkEnableOption mkOption;
 in
 {
     options = {
         ui.rofi.enable = mkEnableOption {
             default = false;
             description = "Enable rofi config";
+        };
+        ui.rofi.stylixOverride = mkOption {
+            default = true;
+            description = ''
+                Stylix makes a bad colour choice for rofi with catppuccin,
+                so I override it with another one of the base16 colours.'';
         };
     };
     config = mkIf config.ui.rofi.enable {
@@ -33,7 +39,8 @@ in
                 display-keys = " 󰯄  Keys";
                 sidebar-mode = true;
                 fixed-num-lines = true; # number of lines in picker is always the same
-                kb-cancel = "Control+c"; # exit rofi with <C-c>
+                kb-secondary-copy = ""; # was previously <C-c>
+                kb-cancel = "Control+c,Escape"; # exit rofi with <C-c>
             };
             location = "center";
             modes = [
@@ -73,10 +80,11 @@ in
                         lines = 10;
                     };
                     element.padding = mkLiteral "5px";
+                }
+                // lib.mkIf config.ui.rofi.stylixOverride {
                     # overriding some colors here because stylix chooses bad ones
                     "element selected.normal".background-color = lib.mkForce mauve;
                     "button selected".background-color = lib.mkForce mauve;
-
                 };
 
             # xoffset = ;

@@ -1,10 +1,9 @@
 ## Ideas
 
 - speed up animation in hyprland, use stylix for border colors
-- improve waybar config, more/ better status indicators, personalise CSS more and use stylix for the colors
+- improve waybar config, more/ better status indicators, personalise CSS more and use stylix for the colors, look into the waybar disappearing when not moused over
 - applets for things like power menu, bluetooth, wifi, and audio for the waybar
 - do dependecy stuff like making sure victorMono is installed for waybar, try to create an assertion with an error message
-- good rofi config
 - hyprlock stuff
 - fix ly terminal session having no stdout
 - set wallpaper for autostart with hyprland, make sure its in an option
@@ -29,7 +28,7 @@
 
 Stylix can be used to theme things universally in nix, use it for theming when it is available
 
-### things to themed in stylix
+### things to be themed in stylix
 
 - wezterm
 - rofi

@@ -1,11 +1,18 @@
 warning: Git tree '/home/james/nix' is dirty
-these 3 derivations will be built:
-  /nix/store/l6774cp28cb0glyzjgbblbd82y0yl6z0-hm_homejames.configroficonfig.rasi.drv
-  /nix/store/2qachpxnm3xrppxady0my5cvsgcag42l-home-manager-files.drv
-  /nix/store/m2rqv3mj3n8d68wj0h91vmx3jwm41mfg-home-manager-generation.drv
-building '/nix/store/l6774cp28cb0glyzjgbblbd82y0yl6z0-hm_homejames.configroficonfig.rasi.drv'...
-building '/nix/store/2qachpxnm3xrppxady0my5cvsgcag42l-home-manager-files.drv'...
-building '/nix/store/m2rqv3mj3n8d68wj0h91vmx3jwm41mfg-home-manager-generation.drv'...
+these 5 derivations will be built:
+  /nix/store/8cc1aqkzfnid56l6vwrdqzsl7gpnv062-hm_home_packages.drv
+  /nix/store/23g0mpwjxx0a1l5cqh4jky7ypddxipc1-home-manager-files.drv
+  /nix/store/4sw9rp61a9wmxpwhj6dqrshz0zjdgnn5-home-manager-path.drv
+  /nix/store/dcdai9hhxkzn8d8n08fmhmwmlbkpc96q-activation-script.drv
+  /nix/store/sn2fys01fl8bwhvrgg41y5lynbr7ilj2-home-manager-generation.drv
+this path will be fetched (0.02 MiB download, 0.02 MiB unpacked):
+  /nix/store/w24v13g7vp88a4z2in3r32yygnvkyay6-file-5.45-man
+copying path '/nix/store/w24v13g7vp88a4z2in3r32yygnvkyay6-file-5.45-man' from 'https://cache.nixos.org'...
+building '/nix/store/8cc1aqkzfnid56l6vwrdqzsl7gpnv062-hm_home_packages.drv'...
+building '/nix/store/23g0mpwjxx0a1l5cqh4jky7ypddxipc1-home-manager-files.drv'...
+building '/nix/store/4sw9rp61a9wmxpwhj6dqrshz0zjdgnn5-home-manager-path.drv'...
+building '/nix/store/dcdai9hhxkzn8d8n08fmhmwmlbkpc96q-activation-script.drv'...
+building '/nix/store/sn2fys01fl8bwhvrgg41y5lynbr7ilj2-home-manager-generation.drv'...
 Starting Home Manager activation
 Activating checkFilesChanged
 Activating checkLinkTargets
@@ -21,6 +28,7 @@ Writing metadata to folder /home/james/.cache/bat ... okay
 Activating installPackages
 replacing old 'home-manager-path'
 installing 'home-manager-path'
+building '/nix/store/ssh6zm7dpxgpmgypyyc3851kaykngp1c-user-environment.drv'...
 Activating onFilesChange
 Activating reloadSystemd
 warning: Git tree '/home/james/nix' is dirty
