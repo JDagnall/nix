@@ -128,11 +128,11 @@ in
         # stylix theming
         stylix.targets.waybar = {
             enable = true;
-            addCss = true;
+            addCss = false;
             enableCenterBackColors = true;
             enableRightBackColors = true;
             enableLeftBackColors = true;
-            font = "monospace";
+            font = "serif";
         };
     };
 }
