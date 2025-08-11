@@ -30,12 +30,17 @@ in
                 display-drun = "   Apps ";
                 display-run = "   Run ";
                 display-window = " 󰕰  Window";
-                display-Network = " 󰤨  Network";
+                display-network = " 󰤨  Network";
                 display-ssh = "  ssh";
                 sidebar-mode = true;
             };
             location = "center";
-            modes = [ "drun" ];
+            modes = [
+                "drun"
+                "window"
+                "network"
+                "ssh"
+            ];
             # plugins = [ pkgs.keepmenu ]; # keepass rofi plugin
             # terminal =  # path to terminal to be used to run terminal cmds
             # theme = {};
