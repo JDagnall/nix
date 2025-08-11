@@ -1,103 +1,101 @@
-window#waybar{all:unset;}
-* {
-    font-size:15px;
-    font-family: "VictorMono Nerd Font";
-}
-window#waybar{
-    all:unset;
+window#waybar {
+  all: unset;
 }
 .modules-left {
-    padding:7px;
-    margin:10px 0px 5px 10px;
-    border-radius:10px;
-    background: alpha(#6c7086,.6);
+  padding: 7px;
+  margin: 10px 0px 5px 10px;
+  border-radius: 10px;
+  background: alpha(@base03, 0.6);
 }
 .modules-center {
-    padding:7px;
-    margin: 10px 0px 5px 0px;
-    border-radius:10px;
-    background: alpha(#6c7086,.6);
+  padding: 7px;
+  margin: 10px 0px 5px 0px;
+  border-radius: 10px;
+  background: alpha(@base03, 0.6);
 }
 .modules-right {
-    padding:7px;
-    margin: 10px 10px 5px 0px;
-    border-radius:10px;
-    background: alpha(#6c7086,.6);
+  padding: 7px;
+  margin: 10px 10px 5px 0px;
+  border-radius: 10px;
+  background: alpha(@base03, 0.6);
 }
-#clock:hover, #bluetooth:hover, #network:hover, #battery:hover #pipewire:hover {
-    transition: all .3s ease;
-    color:#cba6f7;
+#clock:hover,
+#bluetooth:hover,
+#network:hover,
+#battery:hover #pipewire:hover {
+  transition: all 0.3s ease;
+  color: @base07;
 }
-#clock{
-    padding: 0px 5px;
-    color: #cdd6f4;
-    transition: all .3s ease;
+#clock {
+  padding: 0px 5px;
+  color: @base05;
+  transition: all 0.3s ease;
 }
 #workspaces {
-    padding: 0px 5px;
+  padding: 0px 5px;
 }
 #workspaces button {
-    all:unset;
-    padding: 0px 5px;
-    color: alpha(#cdd6f4,.4);
-    transition: all .2s ease;
+  all: unset;
+  padding: 0px 5px;
+  color: alpha(@base05, 0.4);
+  transition: all 0.2s ease;
 }
 #workspaces button:hover {
-    color:rgba(0,0,0,0);
-    border: none;
-    text-shadow: 0px 0px 1.5px rgba(0,0,0,0);
-    transition: all 1s ease;
+  color: rgba(0, 0, 0, 0); /* invis */
+  border: none;
+  text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 0);
+  transition: all 1s ease;
 }
 #workspaces button.active {
-    color: #a6e3a1;
-    border: none;
-    text-shadow: 0px 0px 2px rgba(0,0,0,0);
+  color: @base0B;
+  border: none;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0);
 }
 #workspaces button.empty {
-    color: rgba(0,0,0,0);
-    border: none;
-    text-shadow: 0px 0px 1.5px rgba(0,0,0,0);
+  color: rgba(0, 0, 0, 0); /* invis */
+  border: none;
+  text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 0);
 }
 #workspaces button.empty:hover {
-    color: rgba(0,0,0,0);
-    border: none;
-    text-shadow: 0px 0px 1.5px rgba(0,0,0,0);
-    transition: all 1s ease;
+  color: rgba(0, 0, 0, 0);
+  border: none;
+  text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 0);
+  transition: all 1s ease;
 }
 #workspaces button.empty.active {
-    color: #a6e3a1;
-    border: none;
-    text-shadow: 0px 0px 2px rgba(0,0,0,0);
+  color: @base0B;
+  border: none;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0);
 }
-#bluetooth{
-    padding: 0px 5px;
-    transition: all .3s ease;
-    color:#94e2d5;
+#bluetooth {
+  padding: 0px 5px;
+  transition: all 0.3s ease;
+  color: @base0D;
 }
-#network{
-    padding: 0px 5px;
-    transition: all .3s ease;
-    color:#b4befe;
+#network {
+  padding: 0px 5px;
+  transition: all 0.3s ease;
+  color: @base07;
 }
-#battery{
-    padding: 0px 5px;
-    transition: all .3s ease;
-    color:#a6e3a1;
+#battery {
+  padding: 0px 5px;
+  transition: all 0.3s ease;
+  color: @base0B;
 }
 #battery.charging {
-    color: #94e2d5;
+  color: @base0C;
 }
 
 #battery.warning:not(.charging) {
-    color: #fab387;
+  color: @base09;
 }
 #battery.critical:not(.charging) {
-    color: #f38ba8;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+  color: @base08;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 /* #group-expand{ */
 /*     padding: 0px 5px; */
@@ -117,17 +115,16 @@ window#waybar{
 /*     padding: 0px 5px; */
 /* } */
 /* } */
-#tray{
-    padding: 0px 5px;
-    transition: all .3s ease; 
-
+#tray {
+  padding: 0px 5px;
+  transition: all 0.3s ease;
 }
 #tray menu * {
-    padding: 0px 5px;
-    transition: all .3s ease; 
+  padding: 0px 5px;
+  transition: all 0.3s ease;
 }
 
 #tray menu separator {
-    padding: 0px 5px;
-    transition: all .3s ease; 
+  padding: 0px 5px;
+  transition: all 0.3s ease;
 }

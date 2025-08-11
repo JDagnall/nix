@@ -1,13 +1,15 @@
 warning: Git tree '/home/james/nix' is dirty
-these 4 derivations will be built:
-  /nix/store/nsn3dv8i8prvkrjrmd63iwyrpj8z4i04-waybar-style.css.drv
-  /nix/store/msg26dppnh9rik5ya04vxda8li4xl5za-activation-script.drv
-  /nix/store/pi53r0gwhxp46d7sdx4c0c5gy6igmbxh-home-manager-files.drv
-  /nix/store/z5n6jnwq9by1ndgbzm0vxqnzgi6v4bmy-home-manager-generation.drv
-building '/nix/store/nsn3dv8i8prvkrjrmd63iwyrpj8z4i04-waybar-style.css.drv'...
-building '/nix/store/msg26dppnh9rik5ya04vxda8li4xl5za-activation-script.drv'...
-building '/nix/store/pi53r0gwhxp46d7sdx4c0c5gy6igmbxh-home-manager-files.drv'...
-building '/nix/store/z5n6jnwq9by1ndgbzm0vxqnzgi6v4bmy-home-manager-generation.drv'...
+these 5 derivations will be built:
+  /nix/store/kmq3xic9nyxj273xw7056zmhadiyr7g5-home-manager-path.drv
+  /nix/store/7043vyhy2hlingz2zh0vx24zd20mksgz-activation-script.drv
+  /nix/store/b5sx16j550bwyw4212zxwjn079jsf9hm-hm_home_packages.drv
+  /nix/store/a9g3vg5ipgi322683xjg9za0q7yvs7vm-home-manager-files.drv
+  /nix/store/4n7hyysm8s19gi6m5kq7vzibwk6zixrd-home-manager-generation.drv
+building '/nix/store/kmq3xic9nyxj273xw7056zmhadiyr7g5-home-manager-path.drv'...
+building '/nix/store/b5sx16j550bwyw4212zxwjn079jsf9hm-hm_home_packages.drv'...
+building '/nix/store/a9g3vg5ipgi322683xjg9za0q7yvs7vm-home-manager-files.drv'...
+building '/nix/store/7043vyhy2hlingz2zh0vx24zd20mksgz-activation-script.drv'...
+building '/nix/store/4n7hyysm8s19gi6m5kq7vzibwk6zixrd-home-manager-generation.drv'...
 Starting Home Manager activation
 Activating checkFilesChanged
 Activating checkLinkTargets
@@ -23,8 +25,10 @@ Writing metadata to folder /home/james/.cache/bat ... okay
 Activating installPackages
 replacing old 'home-manager-path'
 installing 'home-manager-path'
+building '/nix/store/isy7csq7lq8dalmvsphl4lp0mwb00ff4-user-environment.drv'...
 Activating onFilesChange
 Activating reloadSystemd
+Starting units: swww.service
 warning: Git tree '/home/james/nix' is dirty
 
 There are 259 unread and relevant news items.

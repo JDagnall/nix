@@ -30,9 +30,9 @@
 
     ui.rofi.enable = true;
     ui.waybar.enable = true;
-    ui.swww.enable = false;
+    ui.swww.enable = true;
     ui.firefox.enable = true;
-    ui.nwg-look.enable = false;
+    ui.nwg-look.enable = true;
 
     tools.git.enable = true;
     tools.pipenv.enable = true;

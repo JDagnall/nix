@@ -23,7 +23,6 @@ in
         # stylix theming
         stylix.targets.hyprland = {
             enable = true;
-            hyprpaper.enable = true;
         };
 
         # programs.hyprlock.enable = true; # hyprland lock daemon

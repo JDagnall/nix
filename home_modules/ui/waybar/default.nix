@@ -120,14 +120,14 @@ in
                     fixed_center = true;
                 }
             ];
-            # style = builtins.readFile ./style.css;
+            style = builtins.readFile ./style.css;
             ## DEBUG
             systemd.enableDebug = false; # debug logging
-            systemd.enableInspect = false; # mouse over for CSS classes
+            systemd.enableInspect = true; # mouse over for CSS classes
         };
         # stylix theming
         stylix.targets.waybar = {
-            enable = true;
+            enable = true; # just adds colors and font config
             addCss = false;
             enableCenterBackColors = true;
             enableRightBackColors = true;
