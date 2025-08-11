@@ -38,8 +38,8 @@
                     package = pkgs.dejavu_fonts;
                 };
                 monospace = {
-                    name = pkgs.victor-mono;
-                    package = "VictorMono Nerd Font Mono";
+                    name = "VictorMono Nerd Font Mono";
+                    package = pkgs.victor-mono;
                 };
                 emoji = {
                     name = "Noto Color Emoji"; # is default, there is a monochrome one too

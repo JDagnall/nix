@@ -120,10 +120,19 @@ in
                     fixed_center = true;
                 }
             ];
-            style = builtins.readFile ./style.css;
+            # style = builtins.readFile ./style.css;
             ## DEBUG
             systemd.enableDebug = false; # debug logging
             systemd.enableInspect = false; # mouse over for CSS classes
+        };
+        # stylix theming
+        stylix.targets.waybar = {
+            enable = true;
+            addCss = true;
+            enableCenterBackColors = true;
+            enableRightBackColors = true;
+            enableLeftBackColors = true;
+            font = "monospace";
         };
     };
 }
