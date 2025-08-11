@@ -117,7 +117,7 @@ config.inactive_pane_hsb = {
 
 -- ## trying stylix
 -- config.window_background_opacity = 0.9
--- config.text_background_opacity = 0.95
+config.text_background_opacity = 0.95
 
 -- command_palette
 
