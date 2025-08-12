@@ -36,9 +36,9 @@ in
                         #################
                         ### AUTOSTART ###
                         #################
-                        ${if config.ui.waybar.autostart then "exec-once waybar &" else ""}
-                        ${if config.ui.syncthingtray.autostart then "exec-once syncthingtray &" else ""}
-                        ${if config.tools.keepassxc.autostart then "exec-once keepassxc --minimized &" else ""}
+                        ${if config.ui.waybar.autostart then "exec-once = waybar &" else ""}
+                        ${if config.ui.syncthingtray.autostart then "exec-once = syncthingtray &" else ""}
+                        ${if config.tools.keepassxc.autostart then "exec-once = keepassxc --minimized &" else ""}
                     '';
                     orderedConfigFile = mkOrder 500 configFile;
                     orderedAutostarts = mkOrder 1000 autostarts;

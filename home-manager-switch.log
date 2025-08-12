@@ -1,4 +1,13 @@
 warning: Git tree '/home/james/nix' is dirty
+these 4 derivations will be built:
+  /nix/store/0wm8iaqvssz548pmjkcrzhkbl9q1kva5-hm_hyprhyprland.conf.drv
+  /nix/store/myz3v9qlqvzb0xgly1ckfbflrf7zs7ap-home-manager-files.drv
+  /nix/store/q2x2812jm7fc9v7pq4lg4zry83041hik-activation-script.drv
+  /nix/store/9lh8f1hqp7nk4fg1r31a8fysf7mvflql-home-manager-generation.drv
+building '/nix/store/0wm8iaqvssz548pmjkcrzhkbl9q1kva5-hm_hyprhyprland.conf.drv'...
+building '/nix/store/q2x2812jm7fc9v7pq4lg4zry83041hik-activation-script.drv'...
+building '/nix/store/myz3v9qlqvzb0xgly1ckfbflrf7zs7ap-home-manager-files.drv'...
+building '/nix/store/9lh8f1hqp7nk4fg1r31a8fysf7mvflql-home-manager-generation.drv'...
 Starting Home Manager activation
 Activating checkFilesChanged
 Activating checkLinkTargets
@@ -17,8 +26,6 @@ installing 'home-manager-path'
 Activating onFilesChange
 ok
 Activating reloadSystemd
-Stopping units: hypridle.service, hyprpaper.service
-Starting units: hypridle.service, hyprpaper.service
 warning: Git tree '/home/james/nix' is dirty
 
 There are 259 unread and relevant news items.

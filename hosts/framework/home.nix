@@ -35,6 +35,7 @@
     ui.hypridle.enable = true;
     ui.firefox.enable = true;
     ui.nwg-look.enable = false;
+    ui.syncthingtray.enable = true;
 
     tools.git.enable = true;
     tools.pipenv.enable = true;
