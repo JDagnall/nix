@@ -36,6 +36,10 @@
     ui.firefox.enable = true;
     ui.nwg-look.enable = false;
     ui.syncthingtray.enable = true;
+    ui.spotify.enable = true;
+    ui.slack.enable = true;
+    ui.legcord.enable = true;
+    ui.mako.enable = true;
 
     tools.git.enable = true;
     tools.pipenv.enable = true;
