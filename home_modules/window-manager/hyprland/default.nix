@@ -27,6 +27,7 @@ in
         };
         stylix.targets.hyprland = {
             enable = true;
+            hyprpaper.enable = config.ui.hyprpaper.enable;
         };
     };
 }

@@ -18,7 +18,7 @@ in
         programs.hyprland = {
             enable = true;
             xwayland.enable = true;
-            # withUWSM = true; # with session manager
+            withUWSM = true; # with session manager
         };
 
         # programs.hyprlock.enable = true; # hyprland lock daemon

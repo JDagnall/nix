@@ -13,6 +13,7 @@ in
         ./waybar
         ./swww.nix
         ./firefox.nix
+        ./hyprpaper.nix
     ];
     # ui packages that only need to be installed
     options = {

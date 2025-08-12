@@ -8,7 +8,7 @@
 - fix ly terminal session having no stdout
 - set wallpaper for autostart with hyprland, make sure its in an option
 - configure autostarts in hyprland using nix options for whats enabled
-- setup passkey auth with fingerprint sensor
+- setup passkey auth with fingerprint sensor, libfprint / fprintd
 - make sure auth through dbus works for things like vscode with github. Seems to.
 - simple vscode config for PR's with TA. Or other method for PRs
 - switch to alejandra in nvim and rebuild scripts
@@ -29,7 +29,7 @@ Stylix can be used to theme things universally in nix, use it for theming when i
 
 ### things to be themed in stylix
 
-- wezterm DONE
+- wezterm DONE, tab selected color is too gray and nvim telescope is not transparent
 - rofi DONE
 - hyprland DONE
 - waybar DONE

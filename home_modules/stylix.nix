@@ -21,7 +21,7 @@
             # override theme colors
             override = { };
             polarity = "dark"; # prefers dark theme
-            image = ./ui/wallpapers/A_feverish_Little_Fox_Caldecot.png; # wallpaper, can opt to have theme derived from it
+            image = ./ui/wallpapers/house.png; # wallpaper, can opt to have theme derived from it
             imageScalingMode = "fill";
             cursor = {
                 name = "catppuccin-mocha-light-cursors";
@@ -57,7 +57,7 @@
                     applications = 12;
                     desktop = 10;
                     popups = 10;
-                    terminal = 12;
+                    terminal = 10;
                 };
 
             };

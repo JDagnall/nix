@@ -16,7 +16,6 @@ replacing old 'home-manager-path'
 installing 'home-manager-path'
 Activating onFilesChange
 Activating reloadSystemd
-Starting units: swww.service
 warning: Git tree '/home/james/nix' is dirty
 
 There are 259 unread and relevant news items.
