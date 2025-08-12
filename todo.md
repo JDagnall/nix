@@ -1,7 +1,5 @@
 ## Ideas
 
-- configure autostarts in hyprland using nix options for whats enabled
-- do dependecy stuff, try to create an assertion with an error message
 - improve waybar config, more/ better status indicators, personalise CSS more, look into the waybar disappearing when not moused over
 - applets for things like power menu, bluetooth, wifi, and audio for the waybar
 - notification daemon. Electron apps will require it.
@@ -21,6 +19,8 @@
 - turn off password auth for sshd
 - look into dev shells
 - try ghostty
+- telescope in nvim is not transparent when using stylix
+- nvim-wezterm smartsplits doesnt work properly right now, should be a better config now its on wezterm nightly
 
 ## Sylix
 

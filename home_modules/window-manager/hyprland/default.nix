@@ -5,7 +5,6 @@ let
         mkEnableOption
         mkOrder
         mkMerge
-        optionals
         ;
 in
 {

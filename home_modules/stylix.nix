@@ -11,6 +11,16 @@
             default = false;
             description = "Enable any stylix theming";
         };
+        stylix.gtk.enable = lib.mkOption {
+            default = true;
+            description = "Enable gtk theming with stylix, defaults to true.";
+            type = lib.types.bool;
+        };
+        stylix.qt.enable = lib.mkOption {
+            default = true;
+            description = "Enable qt theming with stylix, defaults to true.";
+            type = lib.types.bool;
+        };
     };
     config = lib.mkIf config.stylix.enableConfig {
         stylix = {
@@ -73,6 +83,18 @@
                 desktop = 1.0;
                 popups = 1.0;
                 terminal = 0.9;
+            };
+            targets = {
+                gtk = lib.mkIf config.stylix.gtk.enable {
+                    enable = true;
+                    # extra css for gtk 3 and 4 .css
+                    # extraCss = "";
+                    # flatpakSupport.enable = true;
+                };
+                qt = lib.mkIf config.stylix.qt.enable {
+                    enable = true;
+                    # platform = "";
+                };
             };
         };
     };

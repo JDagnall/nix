@@ -14,6 +14,11 @@ in
     ];
     # tools which just need to be enabled with no other config
     options = {
+        tools.basic.enable = mkOption {
+            default = true;
+            type = types.bool;
+            description = "Enable a small list of very basic tools. Always want this on.";
+        };
         tools.pipenv.enable = mkOption {
             default = false;
             description = "Enable pipenv";
@@ -57,10 +62,21 @@ in
             type = types.bool;
             description = "Enable brightnessctl. A screen brightness cli utility.";
         };
+        tools.ncat.enable = mkOption {
+            default = true;
+            type = types.bool;
+            description = "Enable netcat.";
+        };
+        tools.nmap.enable = mkOption {
+            default = true;
+            type = types.bool;
+            description = "Enable nmap.";
+        };
     };
     config =
         let
             inherit (config.tools)
+                basic
                 pipenv
                 mycli
                 fd
@@ -69,25 +85,32 @@ in
                 gzip
                 btop
                 brightnessctl
+                ncat
+                nmap
                 ;
+            basicList = with pkgs; [
+                util-linux
+                net-tools
+                zip
+                unzip
+                file
+                tree
+            ];
         in
         {
-            home.packages =
-                with pkgs;
-                [
-                    # some I wont bother with options
-                    zip
-                    unzip
-                    file
-                    tree
-                ]
-                ++ optionals pipenv.enable [ pkgs.pipenv ]
-                ++ optionals mycli.enable [ pkgs.mycli ]
-                ++ optionals fd.enable [ pkgs.fd ]
-                ++ optionals ripgrep.enable [ pkgs.ripgrep ]
-                ++ optionals cloc.enable [ pkgs.cloc ]
-                ++ optionals gzip.enable [ pkgs.gzip ]
-                ++ optionals btop.enable [ pkgs.btop ]
-                ++ optionals brightnessctl.enable [ pkgs.brightnessctl ];
+            home.packages = [
+                pkgs.zip
+            ]
+            ++ optionals basic.enable basicList
+            ++ optionals pipenv.enable [ pkgs.pipenv ]
+            ++ optionals mycli.enable [ pkgs.mycli ]
+            ++ optionals fd.enable [ pkgs.fd ]
+            ++ optionals ripgrep.enable [ pkgs.ripgrep ]
+            ++ optionals cloc.enable [ pkgs.cloc ]
+            ++ optionals gzip.enable [ pkgs.gzip ]
+            ++ optionals btop.enable [ pkgs.btop ]
+            ++ optionals brightnessctl.enable [ pkgs.brightnessctl ]
+            ++ optionals ncat.enable [ pkgs.netcat ]
+            ++ optionals nmap.enable [ pkgs.nmap ];
         };
 }

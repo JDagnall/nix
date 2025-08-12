@@ -22,6 +22,14 @@ in
         };
     };
     config = mkIf config.ui.waybar.enable {
+        assertions = [
+            {
+                assertion = config.window-manager.hyprland.enable;
+                message = ''
+                    Waybar cannot work without hyprland, 
+                    please enable hyprland or disable waybar.'';
+            }
+        ];
         programs.waybar = {
             enable = true;
             settings = [
