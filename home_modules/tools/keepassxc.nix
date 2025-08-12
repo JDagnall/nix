@@ -5,6 +5,13 @@
             default = false;
             description = "Enable keepassxc config";
         };
+        tools.keepassxc.autostart = lib.mkOption {
+            type = lib.types.bool;
+            default = config.tools.keepassxc.enable;
+            description = ''
+                Enable autostart for keepassxc. Configured in 
+                whichever enabled config should be responsible for autostarts.'';
+        };
     };
     config = lib.mkIf config.tools.keepassxc.enable {
         programs.keepassxc = {

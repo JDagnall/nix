@@ -1,12 +1,24 @@
 { lib, config, ... }:
 let
-    inherit (lib) mkIf mkEnableOption;
+    inherit (lib)
+        mkIf
+        mkEnableOption
+        mkOption
+        types
+        ;
 in
 {
     options = {
         ui.waybar.enable = mkEnableOption {
             default = false;
             description = "Enable waybar config";
+        };
+        ui.waybar.autostart = mkOption {
+            type = types.bool;
+            default = config.ui.waybar.enable;
+            description = ''
+                Enable autostart for waybar. Configured in 
+                whichever enabled config should be responsible for autostarts.'';
         };
     };
     config = mkIf config.ui.waybar.enable {

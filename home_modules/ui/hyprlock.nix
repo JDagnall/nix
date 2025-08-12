@@ -20,40 +20,44 @@ in
                     Please enable hyprland or disable hyprlock'';
             }
             {
-                assertion = (config.ui.hypridle && config.ui.hyprlock) || config.ui.hyprlock;
+                assertion = (config.ui.hypridle.enable && config.ui.hyprlock.enable) || config.ui.hyprlock.enable;
                 message = ''
                     hypridle cannot work without hyprlock enabled.
                     Please enable hyprlock or disable hypridle'';
             }
             {
-                assertion = (config.ui.hypridle && config.tools.brightnessctl) || !config.ui.hypridle;
+                assertion =
+                    (config.ui.hypridle.enable && config.tools.brightnessctl.enable) || !config.ui.hypridle.enable;
                 message = ''
                     hypridle cannot work without brightnessctl. Pleas enable brightnessctl
                     or disable hypridle'';
             }
         ];
         programs.hyprlock = mkIf config.ui.hyprlock.enable {
-            general = {
-                hide_cursor = true;
-                ignore_empty_input = false;
-                immediate_render = true;
-                text_trim = true;
+            enable = true;
+            settings = {
+                general = {
+                    hide_cursor = true;
+                    ignore_empty_input = false;
+                    immediate_render = true;
+                    text_trim = true;
 
-            };
-            auth = {
-                pam = {
+                };
+                auth = {
+                    pam = {
+                        enabled = true;
+                        # module = ;
+                    };
+                    fingerprint = {
+                        enabled = false; # currently
+                        ready_message = "Scan fingerprint to unlock";
+                        present_message = "Scanning fingerprint";
+                        retry_delay = 250; # ms
+                    };
+                };
+                animations = {
                     enabled = true;
-                    # module = ;
                 };
-                fingerprint = {
-                    enabled = false; # currently
-                    ready_message = "Scan fingerprint to unlock";
-                    present_message = "Scanning fingerprint";
-                    retry_delay = 250; # ms
-                };
-            };
-            animations = {
-                enabled = true;
             };
         };
 
@@ -65,8 +69,8 @@ in
                 general = {
                     # avoid starting multiple hyprlock instances.
                     lock_cmd = "pidof hyprlock || hyprlock";
-                    on_lock_cmd = ""; # when the session is locked at all
-                    on_unlock_cmd = ""; # when the session is unlocked at all
+                    # on_lock_cmd = ""; # when the session is locked at all
+                    # on_unlock_cmd = ""; # when the session is unlocked at all
 
                     # lock before suspend.
                     before_sleep_cmd = "loginctl lock-session";
@@ -79,10 +83,10 @@ in
                     inhibit_sleep = 2; # normal
                 };
                 listener = [
-                    # turn screen off after a period of inactivity
+                    # dim screen after a period of inactivity
                     {
                         timeout = 150; # sec
-                        # set brightness low, not 0, cause apparently thats bad
+                        # set brightness low
                         on-timeout = "brightnessctl -s set 10";
                         # set brightness back
                         on-resume = "brightnessctl -r";

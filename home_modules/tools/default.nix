@@ -16,41 +16,46 @@ in
     options = {
         tools.pipenv.enable = mkOption {
             default = false;
-            description = "enable pipenv";
+            description = "Enable pipenv";
         };
         tools.mycli.enable = mkOption {
             default = false;
-            description = "enable mycli";
+            description = "Enable mycli";
         };
         tools.fd.enable = mkOption {
             default = true;
             type = types.bool;
-            description = "enable fd";
+            description = "Enable fd";
         };
         tools.ripgrep.enable = mkOption {
             default = true;
             type = types.bool;
-            description = "enable ripgrep";
+            description = "Enable ripgrep";
         };
         tools.cloc.enable = mkOption {
             default = true;
             type = types.bool;
-            description = "enable cloc";
+            description = "Enable cloc";
         };
         tools.gzip.enable = mkOption {
             default = true;
             type = types.bool;
-            description = "enable gzip";
+            description = "Enable gzip";
         };
         tools.zip.enable = mkOption {
             default = true;
             type = types.bool;
-            description = "enable zip and unzip";
+            description = "Enable zip and unzip";
         };
         tools.btop.enable = mkOption {
             default = true;
             type = types.bool;
-            description = "enable btop";
+            description = "Enable btop";
+        };
+        tools.brightnessctl.enable = mkOption {
+            default = true;
+            type = types.bool;
+            description = "Enable brightnessctl. A screen brightness cli utility.";
         };
     };
     config =
@@ -63,6 +68,7 @@ in
                 cloc
                 gzip
                 btop
+                brightnessctl
                 ;
         in
         {
@@ -81,6 +87,7 @@ in
                 ++ optionals ripgrep.enable [ pkgs.ripgrep ]
                 ++ optionals cloc.enable [ pkgs.cloc ]
                 ++ optionals gzip.enable [ pkgs.gzip ]
-                ++ optionals btop.enable [ pkgs.btop ];
+                ++ optionals btop.enable [ pkgs.btop ]
+                ++ optionals brightnessctl.enable [ pkgs.brightnessctl ];
         };
 }

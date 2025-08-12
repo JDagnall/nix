@@ -14,6 +14,8 @@ in
         ./swww.nix
         ./firefox.nix
         ./hyprpaper.nix
+        ./hyprlock.nix
+        ./syncthingtray.nix
     ];
     # ui packages that only need to be installed
     options = {

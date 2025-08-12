@@ -15,7 +15,10 @@ Activating installPackages
 replacing old 'home-manager-path'
 installing 'home-manager-path'
 Activating onFilesChange
+ok
 Activating reloadSystemd
+Stopping units: hypridle.service, hyprpaper.service
+Starting units: hypridle.service, hyprpaper.service
 warning: Git tree '/home/james/nix' is dirty
 
 There are 259 unread and relevant news items.

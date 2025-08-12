@@ -31,6 +31,8 @@
     ui.rofi.enable = true;
     ui.waybar.enable = true;
     ui.hyprpaper.enable = true;
+    ui.hyprlock.enable = true;
+    ui.hypridle.enable = true;
     ui.firefox.enable = true;
     ui.nwg-look.enable = false;
 
