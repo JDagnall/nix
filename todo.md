@@ -2,8 +2,9 @@
 
 - improve waybar config, more/ better status indicators, personalise CSS more, look into the waybar disappearing when not moused over
 - applets for things like power menu, bluetooth, wifi, and audio for the waybar
-- notification daemon. Electron apps will require it.
-- maybe do electron apps like discord, slack and obsidian with flatpak or something.
+- volume and brightness indicator when changing maybe.
+- brightness keys in hyprland
+- reduce scroll speed in hyprland
 - setup passkey auth with fingerprint sensor, libfprint / fprintd
 - speed up animation in hyprland
 - fix ly terminal session having no stdout
@@ -21,6 +22,10 @@
 - try ghostty
 - telescope in nvim is not transparent when using stylix
 - nvim-wezterm smartsplits doesnt work properly right now, should be a better config now its on wezterm nightly
+- obsidian
+- maybe switch electron apps to flatpak
+- gh cli
+- nvim telescope search for functions in buffer.
 
 ## Sylix
 
