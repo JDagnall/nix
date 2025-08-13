@@ -40,6 +40,7 @@
     ui.slack.enable = false;
     ui.legcord.enable = true;
     ui.mako.enable = true;
+    ui.swayosd.enable = true;
 
     tools.git.enable = true;
     tools.pipenv.enable = true;

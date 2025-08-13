@@ -17,6 +17,7 @@ in
         ./hyprlock.nix
         ./syncthingtray.nix
         ./mako.nix
+        ./swayosd.nix
     ];
     # ui packages that only need to be installed
     options = {

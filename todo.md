@@ -3,8 +3,6 @@
 - improve waybar config, more/ better status indicators, personalise CSS more, look into the waybar disappearing when not moused over
 - applets for things like power menu, bluetooth, wifi, and audio for the waybar
 - volume and brightness indicator when changing maybe.
-- brightness keys in hyprland
-- reduce scroll speed in hyprland
 - setup passkey auth with fingerprint sensor, libfprint / fprintd
 - speed up animation in hyprland
 - fix ly terminal session having no stdout
