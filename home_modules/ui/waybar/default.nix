@@ -70,7 +70,7 @@ in
                         format-wifi = "{essid} 󰖩 ";
                         format-ethernet = "{ifname} 󰈀 ";
                         format-disconnected = " ";
-                        tooltip-format-disconnected = "Disconnected";
+                        tooltip-format = "";
                         tooltip-format-wifi = "{ipaddr}";
                         tooltip-format-ethernet = "{ipaddr}";
                         min-length = 2;
@@ -88,7 +88,6 @@ in
                         min-length = 2;
                         justify = "center";
                         format-charging = "{capacity}% 󰢝 ";
-                        # format-plugged = "{capacity}% 󱟢 ";
                         format-icons = {
                             default = [
                                 "󰁺"
@@ -123,8 +122,8 @@ in
                         min-length = 2;
                         max-length = 10;
                         tooltip-format-connected = "{device_enumerate}";
-                        # tooltip-format = "No Devices"; # when there are no
-                        tooltip-format-enumerate-connected = "{device_alias}: {status}";
+                        tooltip-format = ""; # when there are no connected devices
+                        tooltip-format-enumerate-connected = "{device_alias}";
                     };
                     pulseaudio = {
                         format = "{volume}% {icon}";
@@ -162,18 +161,19 @@ in
                         interval = 30;
                     };
                     memory = {
-                        format = "  {used}Gb";
+                        format = " {used}Gb";
                         states = {
                             warning = 75;
                             critical = 90;
                         };
                         tooltip = false;
-                        min-length = 9;
-                        max-length = 9;
+                        min-length = 8;
+                        max-length = 8;
                         interval = 30;
                     };
                     "custom/power" = {
                         format = "󰐥 ";
+                        tooltip = false;
                         menu = "on-click";
                         menu-file = "${builtins.toString ./power_menu.xml}";
                         menu-actions = {
@@ -204,7 +204,7 @@ in
             style = builtins.readFile ./style.css;
             ## DEBUG
             systemd.enableDebug = false; # debug logging
-            systemd.enableInspect = true; # mouse over for CSS classes
+            systemd.enableInspect = false; # mouse over for CSS classes
         };
         # stylix theming
         stylix.targets.waybar = {
