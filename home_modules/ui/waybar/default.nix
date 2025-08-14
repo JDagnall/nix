@@ -41,7 +41,7 @@ in
                     ];
                     modules-center = [ "clock" ];
                     modules-right = [
-                        "tray"
+                        "group/expand"
                         "battery"
                         "network"
                         "bluetooth"
@@ -87,7 +87,7 @@ in
                         format = "{capacity}% {icon}";
                         min-length = 2;
                         justify = "center";
-                        format-charging = "{capacity}% 󰢝 ";
+                        format-charging = "{capacity}% {icon}";
                         format-icons = {
                             default = [
                                 "󰁺"
@@ -184,7 +184,28 @@ in
                             sleep = "systemclt hibernate";
                         };
                     };
-
+                    # tray drawer
+                    "group/expand" = {
+                        orientation = "horizontal";
+                        drawer = {
+                            transition-duration = 500;
+                            transition-to-left = true;
+                            click-to-reveal = true;
+                        };
+                        modules = [
+                            "custom/expand"
+                            "tray"
+                            "custom/endpoint"
+                        ];
+                    };
+                    "custom/expand" = {
+                        format = "󰅁";
+                        tooltip = false;
+                    };
+                    "custom/endpoint" = {
+                        format = "|";
+                        tooltip = false;
+                    };
                     expand-center = false;
                     expand-left = false;
                     expand-right = false;
