@@ -118,20 +118,11 @@ window#waybar {
   color: @base0B;
   transition: all 1s ease;
 }
-/* #workspaces button.empty.active { */
-/*     color: @base0B; */
-/*     transition: all 1s ease; */
-/* } */
 #workspaces button.empty:hover,
 #workspaces button.empty {
   color: rgba(0, 0, 0, 0); /* invis */
   transition: all 1s ease;
 }
-/* #workspaces button.empty:hover { */
-/*   color: rgba(0, 0, 0, 0); /* invis */
-*/
-/*   transition: all 1s ease; */
-/* } */
 #tray {
   transition: all 0.3s ease;
 }

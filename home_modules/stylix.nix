@@ -40,11 +40,11 @@
             };
             fonts = {
                 serif = {
-                    name = "Dejavu Sans";
+                    name = "NotoSans Nerd Font";
                     package = pkgs.dejavu_fonts;
                 };
                 sansSerif = {
-                    name = "Dejavu Serif";
+                    name = "NotoSerif Nerd Font";
                     package = pkgs.dejavu_fonts;
                 };
                 monospace = {

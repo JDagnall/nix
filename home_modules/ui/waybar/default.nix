@@ -44,6 +44,7 @@ in
                         "tray"
                         "battery"
                         "network"
+                        "bluetooth"
                         "pulseaudio"
                         "custom/power"
                     ];
@@ -72,6 +73,8 @@ in
                         tooltip-format-disconnected = "Disconnected";
                         tooltip-format-wifi = "{ipaddr}";
                         tooltip-format-ethernet = "{ipaddr}";
+                        min-length = 2;
+                        max-length = 10;
                     };
                     battery = {
                         states = {
@@ -82,7 +85,7 @@ in
                         interval = 15;
                         format-time = "{H}:{M}";
                         format = "{capacity}% {icon}";
-                        min-length = 5;
+                        min-length = 2;
                         justify = "center";
                         format-charging = "{capacity}% 󰢝 ";
                         # format-plugged = "{capacity}% 󱟢 ";
@@ -114,10 +117,19 @@ in
                         };
                         tooltip-format = "{time}";
                     };
+                    bluetooth = {
+                        format = "󰂲 "; # default no connection or off
+                        format-connected = "󰂯 {device_alias}";
+                        min-length = 2;
+                        max-length = 10;
+                        tooltip-format-connected = "{device_enumerate}";
+                        # tooltip-format = "No Devices"; # when there are no
+                        tooltip-format-enumerate-connected = "{device_alias}: {status}";
+                    };
                     pulseaudio = {
                         format = "{volume}% {icon}";
                         format-bluetooth = "{volume}% {icon}";
-                        min-length = 5;
+                        min-length = 2;
                         justify = "center";
                         format-muted = "󰖁 ";
                         format-icons = [
@@ -143,7 +155,7 @@ in
                         tooltip = false;
                     };
                     cpu = {
-                        format = "󰻠 {usage}%";
+                        format = " {usage}%";
                         tooltip = false;
                         min-length = 6;
                         max-length = 6;
