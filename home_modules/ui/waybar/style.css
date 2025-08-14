@@ -30,8 +30,17 @@ window#waybar {
   transition: all 0.3s ease;
   color: @base07;
 }
+#clock,
+#bluetooth,
+#network,
+#battery,
+#custom-power,
+#memory,
+#cpu,
+#pulseaudio {
+  transition: all 0.3s ease;
+}
 #bluetooth {
-  /* padding: 0px 5px; */
   transition: all 0.3s ease;
   color: @base0D;
 }
@@ -60,12 +69,10 @@ window#waybar {
   transition: all 0.3s ease;
 }
 #network {
-  /* padding: 0px 5px; */
   transition: all 0.3s ease;
-  color: @base07;
+  color: @base09;
 }
 #battery {
-  /* padding: 0px 5px; */
   transition: all 0.3s ease;
   color: @base0B;
 }
@@ -82,7 +89,6 @@ window#waybar {
   transition: all 0.3s ease;
 }
 #clock {
-  /* padding: 0px 5px; */
   color: @base05;
   transition: all 0.3s ease;
 }
@@ -95,53 +101,43 @@ window#waybar {
   transition: all 0.3s ease;
 }
 #workspaces {
-  /* padding: 0px 5px; */
+  /* padding: 0px 5px;  */
 }
 #workspaces button {
   all: unset;
-  /* padding: 0px 5px; */
+  padding: 0px 5px;
   color: alpha(@base05, 0.4);
   transition: all 0.2s ease;
 }
 #workspaces button:hover {
   color: rgba(0, 0, 0, 0); /* invis */
-  /* border: none; */
-  /* text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 0); */
   transition: all 1s ease;
 }
+#workspaces button.empty.active,
 #workspaces button.active {
   color: @base0B;
   transition: all 1s ease;
-  /* border: none; */
-  /* text-shadow: 0px 0px 2px rgba(0, 0, 0, 0); */
 }
+/* #workspaces button.empty.active { */
+/*     color: @base0B; */
+/*     transition: all 1s ease; */
+/* } */
+#workspaces button.empty:hover,
 #workspaces button.empty {
   color: rgba(0, 0, 0, 0); /* invis */
   transition: all 1s ease;
-  /* border: none; */
-  /* text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 0); */
 }
-#workspaces button.empty:hover {
-  color: rgba(0, 0, 0, 0);
-  /* border: none; */
-  /* text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 0); */
-  transition: all 1s ease;
-}
-#workspaces button.empty.active {
-  color: @base0B;
-  border: none;
-  /* text-shadow: 0px 0px 2px rgba(0, 0, 0, 0); */
-}
+/* #workspaces button.empty:hover { */
+/*   color: rgba(0, 0, 0, 0); /* invis */
+*/
+/*   transition: all 1s ease; */
+/* } */
 #tray {
-  /* padding: 0px 5px; */
   transition: all 0.3s ease;
 }
 #tray menu * {
-  /* padding: 0px 5px; */
   transition: all 0.3s ease;
 }
-
 #tray menu separator {
-  /* padding: 0px 5px; */
   transition: all 0.3s ease;
 }
