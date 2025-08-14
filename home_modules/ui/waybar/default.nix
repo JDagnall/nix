@@ -150,7 +150,7 @@ in
                         interval = 30;
                     };
                     memory = {
-                        format = "  {used}Gib";
+                        format = "  {used}Gb";
                         states = {
                             warning = 75;
                             critical = 90;
