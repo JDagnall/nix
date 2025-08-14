@@ -18,6 +18,7 @@ in
         ./syncthingtray.nix
         ./mako.nix
         ./swayosd.nix
+        ./applets.nix
     ];
     # ui packages that only need to be installed
     options = {

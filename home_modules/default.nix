@@ -9,5 +9,6 @@
         ./window-manager
         ./ui
         ./stylix.nix
+        ./system_services.nix
     ];
 }

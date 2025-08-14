@@ -53,16 +53,20 @@
 
     networking.networkmanager.enable = true;
     networking.hostName = "framework";
+
     services.openssh.enable = true;
 
-    # adds list of currently used system packages to /etc/nixos/current-system-packages
-    environment.etc."current-system-packages".text =
-        let
-            packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
-            sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
-            formatted = builtins.concatStringsSep "\n" sortedUnique;
-        in
-        formatted;
+    # bluetooth
+    hardware.bluetooth = {
+        enable = true;
+        powerOnBoot = true; # turn bt device on
+        settings = {
+            General = {
+                Experimental = true; # Enables showing battery of bt devices
+            };
+        };
+    };
+    services.blueman.enable = true; # bt manager software
 
     time.timeZone = "Australia/Brisbane";
 
@@ -89,6 +93,15 @@
 
     # use latest linux kernal
     boot.kernelPackages = pkgs.linuxPackages_latest;
-    system.stateVersion = "25.05"; # Did you read the comment?
 
+    # adds list of currently used system packages to /etc/nixos/current-system-packages
+    environment.etc."current-system-packages".text =
+        let
+            packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+            sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
+            formatted = builtins.concatStringsSep "\n" sortedUnique;
+        in
+        formatted;
+
+    system.stateVersion = "25.05"; # Did you read the comment?
 }

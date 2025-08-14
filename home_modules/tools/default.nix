@@ -11,7 +11,6 @@ in
     imports = [
         ./git.nix
         ./keepassxc.nix
-        ./pipewire.nix
     ];
     # tools which just need to be enabled with no other config
     options = {
@@ -78,6 +77,21 @@ in
             type = types.bool;
             description = "Enable playerctl. For pause play keys.";
         };
+        tools.hwinfo.enable = mkOption {
+            default = true;
+            type = types.bool;
+            description = "Enable hwinfo.";
+        };
+        tools.usbutils.enable = mkOption {
+            default = true;
+            type = types.bool;
+            description = "Enable usbutils.";
+        };
+        tools.lshw.enable = mkOption {
+            default = true;
+            type = types.bool;
+            description = "Enable lshw.";
+        };
     };
     config =
         let
@@ -94,6 +108,9 @@ in
                 ncat
                 nmap
                 playerctl
+                lshw
+                usbutils
+                hwinfo
                 ;
             basicList = with pkgs; [
                 util-linux
@@ -119,6 +136,9 @@ in
             ++ optionals brightnessctl.enable [ pkgs.brightnessctl ]
             ++ optionals ncat.enable [ pkgs.netcat ]
             ++ optionals nmap.enable [ pkgs.nmap ]
-            ++ optionals playerctl.enable [ pkgs.playerctl ];
+            ++ optionals playerctl.enable [ pkgs.playerctl ]
+            ++ optionals lshw.enable [ pkgs.lshw ]
+            ++ optionals hwinfo.enable [ pkgs.hwinfo ]
+            ++ optionals usbutils.enable [ pkgs.usbutils ];
         };
 }
