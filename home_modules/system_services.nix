@@ -20,6 +20,11 @@ in
             default = true;
             description = "Network manager config is done in nix, this is just to signal that it is activated";
         };
+        fprintd.enabled = mkOption {
+            type = types.bool;
+            default = true;
+            description = "Fprintd config is done in nix, this is just to signal that it is activated";
+        };
     };
 
 }

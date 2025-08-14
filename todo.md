@@ -1,7 +1,6 @@
 ## Ideas
 
-- improve waybar config, more/ better status indicators, personalise CSS more, look into the waybar disappearing when not moused over
-- applets for things like power menu, bluetooth, wifi, and audio for the waybar
+- improve waybar config, look into the waybar disappearing when not moused over
 - setup passkey auth with fingerprint sensor, libfprint / fprintd might need to be in nixos?
 - speed up animation in hyprland
 - fix ly terminal session having no stdout
