@@ -50,7 +50,7 @@ in
                         ++ (
                             if (swayosd.enable && pipewire.enabled) then
                                 [
-                                    ",XF86AudioRaiseVolume, exec swayosd-client --output-volume raise"
+                                    ",XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
                                     ",XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
                                     ",XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
                                     ",XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle"
