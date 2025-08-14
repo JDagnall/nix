@@ -36,7 +36,7 @@ window#waybar {
   transition: all 0.3s ease;
 }
 #pulseaudio {
-  color: #base0E;
+  color: @base0E;
 }
 #custom-power {
   color: @base08;
