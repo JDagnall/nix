@@ -50,7 +50,20 @@
                 };
                 framework = nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit system; };
-                    modules = [ ./hosts/framework/config.nix ];
+                    modules = [
+                        ./hosts/framework/config.nix
+                        # using hom-manager as a nixos module here
+                        home-manager.nixosModules.home-manager
+                        {
+                            home-manager.useGlobalPkgs = true;
+                            home-manager.useUserPackages = true;
+                            home-manager.extraSpecialArgs = {
+                                inherit system;
+                                inherit inputs;
+                            };
+                            home-manager.users.james.imports = [ ./hosts/framework/home.nix ];
+                        }
+                    ];
                 };
             };
 
