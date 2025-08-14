@@ -35,7 +35,7 @@
 
     service.docker.enable = true;
     service.docker.groupUsers = [ "james" ];
-    service.fprintd.enable = true;
+    service.fprintd.enable = false;
     # config ------------------------------
 
     imports = [

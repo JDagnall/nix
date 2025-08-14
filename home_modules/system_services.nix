@@ -22,7 +22,7 @@ in
         };
         fprintd.enabled = mkOption {
             type = types.bool;
-            default = true;
+            default = false;
             description = "Fprintd config is done in nix, this is just to signal that it is activated";
         };
     };
