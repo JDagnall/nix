@@ -27,7 +27,6 @@ window#waybar {
 #memory:hover,
 #cpu:hover,
 #pulseaudio:hover {
-  transition: all 0.3s ease;
   color: @base07;
 }
 #clock,
@@ -41,87 +40,67 @@ window#waybar {
   transition: all 0.3s ease;
 }
 #bluetooth {
-  transition: all 0.3s ease;
   color: @base0D;
 }
 #cpu {
   color: @base0C;
-  transition: all 0.3s ease;
 }
 #cpu.warning {
   color: @base0A;
-  transition: all 0.3s ease;
 }
 #cpu.critical {
   color: @base08;
-  transition: all 0.3s ease;
 }
 #memory {
   color: @base0B;
-  transition: all 0.3s ease;
 }
 #memory.warning {
   color: @base0A;
-  transition: all 0.3s ease;
 }
 #memory.critical {
   color: @base08;
-  transition: all 0.3s ease;
 }
 #network {
-  transition: all 0.3s ease;
   color: @base09;
 }
 #battery {
-  transition: all 0.3s ease;
   color: @base0B;
 }
 #battery.charging {
   color: @base0C;
-  transition: all 0.3s ease;
 }
 #battery.warning:not(.charging) {
   color: @base09;
-  transition: all 0.3s ease;
 }
 #battery.critical:not(.charging) {
   color: @base08;
-  transition: all 0.3s ease;
 }
 #clock {
   color: @base05;
-  transition: all 0.3s ease;
 }
 #pulseaudio {
   color: @base0E;
-  transition: all 0.3s ease;
 }
 #custom-power {
   color: @base08;
-  transition: all 0.3s ease;
 }
 #workspaces {
   /* padding: 0px 5px;  */
 }
 #workspaces button {
   all: unset;
-  padding: 0px 5px;
+  padding: 0px 3px;
   color: alpha(@base05, 0.4);
-  transition: all 0.2s ease;
-}
-#workspaces button:hover {
-  color: rgba(0, 0, 0, 0); /* invis */
   transition: all 1s ease;
 }
 #workspaces button.empty.active,
 #workspaces button.active {
   color: @base0B;
-  transition: all 1s ease;
 }
 #workspaces button.empty:hover,
+#workspaces button:hover,
 #workspaces button.empty {
   color: rgba(0, 0, 0, 0); /* invis */
-  transition: all 1s ease;
 }
 #tray {
   transition: all 0.3s ease;

@@ -167,8 +167,8 @@ in
                             critical = 90;
                         };
                         tooltip = false;
-                        min-length = 8;
-                        max-length = 8;
+                        min-length = 9;
+                        max-length = 9;
                         interval = 30;
                     };
                     "custom/power" = {
