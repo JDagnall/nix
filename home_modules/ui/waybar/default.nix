@@ -150,14 +150,14 @@ in
                         interval = 30;
                     };
                     memory = {
-                        format = " {used}G";
+                        format = "  {used}Gib";
                         states = {
                             warning = 75;
                             critical = 90;
                         };
                         tooltip = false;
-                        min-length = 6;
-                        max-length = 6;
+                        min-length = 9;
+                        max-length = 9;
                         interval = 30;
                     };
                     "custom/power" = {
