@@ -11,6 +11,7 @@ in
     imports = [
         ./git.nix
         ./keepassxc.nix
+        ./pipewire.nix
     ];
     # tools which just need to be enabled with no other config
     options = {
@@ -72,6 +73,11 @@ in
             type = types.bool;
             description = "Enable nmap.";
         };
+        tools.playerctl.enable = mkOption {
+            default = true;
+            type = types.bool;
+            description = "Enable playerctl. For pause play keys.";
+        };
     };
     config =
         let
@@ -87,6 +93,7 @@ in
                 brightnessctl
                 ncat
                 nmap
+                playerctl
                 ;
             basicList = with pkgs; [
                 util-linux
@@ -111,6 +118,7 @@ in
             ++ optionals btop.enable [ pkgs.btop ]
             ++ optionals brightnessctl.enable [ pkgs.brightnessctl ]
             ++ optionals ncat.enable [ pkgs.netcat ]
-            ++ optionals nmap.enable [ pkgs.nmap ];
+            ++ optionals nmap.enable [ pkgs.nmap ]
+            ++ optionals playerctl.enable [ pkgs.playerctl ];
         };
 }

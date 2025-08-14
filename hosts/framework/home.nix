@@ -51,6 +51,9 @@
 
     stylix.enableConfig = true;
 
+    # pipewire config is in nix, this is to semantically signal that its active
+    tools.pipewire.enable = true;
+
     ### Configs
 
     # installed packages
