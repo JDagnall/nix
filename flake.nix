@@ -52,7 +52,7 @@
                     specialArgs = { inherit system; };
                     modules = [
                         ./hosts/framework/config.nix
-                        # using hom-manager as a nixos module here
+                        # using home-manager as a nixos module here
                         home-manager.nixosModules.home-manager
                         {
                             home-manager.useGlobalPkgs = true;
@@ -60,8 +60,13 @@
                             home-manager.extraSpecialArgs = {
                                 inherit system;
                                 inherit inputs;
+                                inherit pkgs; # makes sure to inherit overlays like nixLoki
                             };
-                            home-manager.users.james.imports = [ ./hosts/framework/home.nix ];
+                            home-manager.users.james.imports = [
+                                ./hosts/framework/home.nix
+                                stylix.homeModules.stylix
+
+                            ];
                         }
                     ];
                 };
