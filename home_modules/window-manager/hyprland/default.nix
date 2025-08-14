@@ -20,10 +20,10 @@ in
             settings =
                 let
                     inherit (config.ui) swayosd;
+                    inherit (config) pipewire;
                     inherit (config.tools)
                         brightnessctl
                         playerctl
-                        pipewire
                         ;
                 in
                 {
@@ -48,9 +48,9 @@ in
                                 [ ]
                         )
                         ++ (
-                            if (swayosd.enable && pipewire.enable) then
+                            if (swayosd.enable && pipewire.enabled) then
                                 [
-                                    ",XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
+                                    ",XF86AudioRaiseVolume, exec swayosd-client --output-volume raise"
                                     ",XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
                                     ",XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
                                     ",XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle"
@@ -59,7 +59,7 @@ in
                                 [ ]
                         )
                         ++ (
-                            if (pipewire.enable && !swayosd.enable) then
+                            if (pipewire.enabled && !swayosd.enable) then
                                 [
                                     ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
                                     ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
