@@ -178,8 +178,9 @@ in
                         menu-file = "${builtins.toString ./power_menu.xml}";
                         menu-actions = {
                             lock = "loginctl lock-session";
-                            logout = "logout";
-                            shutdown = "shutdown";
+                            # this is hyprland specific but this config asserts that this is hyprland anyway
+                            logout = "hyprctl dispatch exit";
+                            shutdown = "shutdown now";
                             reboot = "reboot";
                             sleep = "systemclt hibernate";
                         };

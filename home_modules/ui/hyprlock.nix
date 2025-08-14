@@ -50,7 +50,7 @@ in
                     };
                     # if fingerprint daemon is enabled
                     fingerprint = mkIf config.fprintd.enabled {
-                        enabled = false; # currently
+                        enabled = true; # currently
                         ready_message = "Scan fingerprint to unlock";
                         present_message = "Scanning fingerprint";
                         retry_delay = 250; # ms

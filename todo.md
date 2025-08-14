@@ -2,9 +2,9 @@
 
 - improve waybar config, look into the waybar disappearing when not moused over
 - logout command is wrong for the power menu, power off probably is too.
-- setup passkey auth with fingerprint sensor, libfprint / fprintd might need to be in nixos?
+- make sure fprintd has fallbacks for password, and try to get more interactive prompts for it on hyprlock and ly.
 - speed up animation in hyprland
-- fix ly terminal session having no stdout. and maybe someway to prompt for when it wants your fingerprint
+- fix ly terminal session having no stdout.
 - make sure auth through dbus works for things like vscode with github. Seems to.
 - simple vscode config for PR's with TA. Or other method for PRs
 - switch to alejandra in nvim and rebuild scripts
