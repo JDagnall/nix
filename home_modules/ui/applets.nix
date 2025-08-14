@@ -32,11 +32,19 @@ in
                 '';
             }
         ];
-        services.blueman-applet = mkIf config.ui.bt-applet.enable {
+        services.blueman-applet = mkIf bt-applet.enable {
             enable = true;
         };
-        services.network-manager-applet = mkIf config.ui.nm-applet.enable {
+        services.network-manager-applet = mkIf nm-applet.enable {
             enable = true;
+        };
+        # this creates the target for the system tray if needed. Should maybe be moved elsewhere
+        # the applets services wont start without them
+        systemd.user.targets.tray = mkIf (nm-applet.enable || bt-applet.enable) {
+            Unit = {
+                Description = "Home Manager System Tray";
+                Requires = [ "graphical-session-pre.target" ];
+            };
         };
 
     };
