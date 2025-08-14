@@ -1,4 +1,13 @@
 warning: Git tree '/home/james/nix' is dirty
+these 4 derivations will be built:
+  /nix/store/xxi85zsgj4axzgcc3ga3fshh3yqqhh05-hm_hyprhyprland.conf.drv
+  /nix/store/7abi5m30z42p9x5vzz5i8blk6f80f5jr-home-manager-files.drv
+  /nix/store/x45lk7yw5x6hmv2dw4q7fxb3k4psp1by-activation-script.drv
+  /nix/store/ln2584fy39qcsbgnjs49fas28vnag563-home-manager-generation.drv
+building '/nix/store/xxi85zsgj4axzgcc3ga3fshh3yqqhh05-hm_hyprhyprland.conf.drv'...
+building '/nix/store/x45lk7yw5x6hmv2dw4q7fxb3k4psp1by-activation-script.drv'...
+building '/nix/store/7abi5m30z42p9x5vzz5i8blk6f80f5jr-home-manager-files.drv'...
+building '/nix/store/ln2584fy39qcsbgnjs49fas28vnag563-home-manager-generation.drv'...
 Starting Home Manager activation
 Activating checkFilesChanged
 Activating checkLinkTargets
@@ -16,6 +25,7 @@ replacing old 'home-manager-path'
 installing 'home-manager-path'
 Activating dconfSettings
 Activating onFilesChange
+ok
 Activating reloadSystemd
 warning: Git tree '/home/james/nix' is dirty
 
