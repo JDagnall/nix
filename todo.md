@@ -2,8 +2,7 @@
 
 - improve waybar config, more/ better status indicators, personalise CSS more, look into the waybar disappearing when not moused over
 - applets for things like power menu, bluetooth, wifi, and audio for the waybar
-- volume and brightness indicator when changing maybe.
-- setup passkey auth with fingerprint sensor, libfprint / fprintd
+- setup passkey auth with fingerprint sensor, libfprint / fprintd might need to be in nixos?
 - speed up animation in hyprland
 - fix ly terminal session having no stdout
 - make sure auth through dbus works for things like vscode with github. Seems to.
@@ -24,6 +23,7 @@
 - maybe switch electron apps to flatpak
 - gh cli
 - nvim telescope search for functions in buffer.
+- add VPN PrivateInternetAccess connections. Too bad thier openvpn shit is busted
 
 ## Sylix
 

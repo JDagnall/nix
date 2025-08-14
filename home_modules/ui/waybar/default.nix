@@ -34,13 +34,18 @@ in
             enable = true;
             settings = [
                 {
-                    modules-left = [ "hyprland/workspaces" ];
+                    modules-left = [
+                        "hyprland/workspaces"
+                        "cpu"
+                        "memory"
+                    ];
                     modules-center = [ "clock" ];
                     modules-right = [
                         "tray"
                         "battery"
                         "network"
                         "pulseaudio"
+                        "custom/power"
                     ];
 
                     "hyprland/workspaces" = {
@@ -81,18 +86,32 @@ in
                         justify = "center";
                         format-charging = "{capacity}% 󰢝 ";
                         # format-plugged = "{capacity}% 󱟢 ";
-                        format-icons = [
-                            "󰁺"
-                            "󰁻"
-                            "󰁼"
-                            "󰁽"
-                            "󰁾"
-                            "󰁿"
-                            "󰂀"
-                            "󰂁"
-                            "󰂂"
-                            "󰁹"
-                        ];
+                        format-icons = {
+                            default = [
+                                "󰁺"
+                                "󰁻"
+                                "󰁼"
+                                "󰁽"
+                                "󰁾"
+                                "󰁿"
+                                "󰂀"
+                                "󰂁"
+                                "󰂂"
+                                "󰁹"
+                            ];
+                            charging = [
+                                "󰢜"
+                                "󰂆"
+                                "󰂇"
+                                "󰂈"
+                                "󰢝"
+                                "󰂉"
+                                "󰢞"
+                                "󰂊"
+                                "󰂋"
+                                "󰂅"
+                            ];
+                        };
                         tooltip-format = "{time}";
                     };
                     pulseaudio = {
@@ -122,6 +141,36 @@ in
                         icon-size = 17;
                         spacing = 10;
                         tooltip = false;
+                    };
+                    cpu = {
+                        format = "󰻠 {usage}%";
+                        tooltip = false;
+                        min-length = 6;
+                        max-length = 6;
+                        interval = 30;
+                    };
+                    memory = {
+                        format = " {usage}%";
+                        states = {
+                            warning = 75;
+                            critical = 90;
+                        };
+                        tooltip = false;
+                        min-length = 6;
+                        max-length = 6;
+                        interval = 30;
+                    };
+                    "custom/power" = {
+                        format = "󰐥 ";
+                        menu = "on-click";
+                        menu-file = "${builtins.toString ./power_menu.xml}";
+                        menu-actions = {
+                            lock = "loginctl lock-session";
+                            logout = "logout";
+                            shutdown = "shutdown";
+                            reboot = "reboot";
+                            sleep = "systemclt hibernate";
+                        };
                     };
 
                     expand-center = false;
