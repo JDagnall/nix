@@ -7,7 +7,7 @@
 
 {
     # config ------------------------------
-    display-manager.ly.enable = true;
+    display-manager.gdm.enable = true;
     window-manager.hyprland.enable = true;
     boot-loader.grub.enable = true;
     fonts.enable = true;

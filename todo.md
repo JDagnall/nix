@@ -4,12 +4,13 @@
 - some services aren't starting after reboot, and some not starting on login. Not using UWSM may be causing this
 - UWSM is causing immediate crashes
 - speed up animation in hyprland
-- fix ly terminal session having no stdout.
+- make stylix work for nixos modules too
+- fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
 - make sure auth through dbus works for things like vscode with github. Seems to.
 - simple vscode config for PR's with TA. Or other method for PRs
 - switch to alejandra in nvim and rebuild scripts
 - add lang configs for rust and go as in compilers and formatters.
-- make sure syncthing folders work effectively
+- make sure syncthing folders work effectively, syncthing also often but not always, get a no route available for connecting to devices on local network
 - look into keepassxc auto type on wayland. seems it needs an X11 backend, keepmenu seems to be a solution to this with dmenu, look into configuring it
 - turn off mouse in nix loki maybe
 - turn off mouse while typing in hyprland maybe

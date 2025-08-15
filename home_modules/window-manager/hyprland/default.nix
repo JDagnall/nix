@@ -17,6 +17,21 @@ in
     config = mkIf config.window-manager.hyprland.enable {
         wayland.windowManager.hyprland = {
             enable = true;
+            systemd =
+                let
+                    inherit (config.nixos-settings) hyprland-uwsm;
+                in
+                {
+                    # cannot be enabled if UWSM is enabled in nixos
+                    enable = !hyprland-uwsm.enabled; 
+                    # extraCommands = [];
+                    # enableXdgAutostart = true;
+                    # variables = [];
+                };
+            # importantPrefixes = [];
+            # portalPackage = ;
+            xwayland.enable = true;
+            # plugins = [ ];
             settings =
                 let
                     inherit (config.ui) swayosd;
@@ -84,21 +99,6 @@ in
                                 [ ]
                         );
                 };
-            systemd =
-                let
-                    inherit (config.nixos-settings) hyprland-uwsm;
-                in
-                {
-                    # cannot be enabled if UWSM is enabled in nixos
-                    enable = !hyprland-uwsm.enabled; # important env variables for hyprland session
-                    # extraCommands = [];
-                    # enableXdgAutostart = true;
-                    # variables = [];
-                };
-            # importantPrefixes = [];
-            # portalPackage = ;
-            xwayland.enable = true;
-            # plugins = [ ];
             extraConfig =
                 let
                     configFile = builtins.readFile ./hyprland.conf;
@@ -107,7 +107,7 @@ in
                         ### AUTOSTART ###
                         #################
                         ${if config.ui.waybar.autostart then "exec-once = waybar &" else ""}
-                        ${if config.ui.syncthingtray.autostart then "exec-once = syncthingtray &" else ""}
+                        ${if config.ui.syncthingtray.autostart then "exec-once = syncthingtray --wait &" else ""}
                         ${if config.tools.keepassxc.autostart then "exec-once = keepassxc --minimized &" else ""}
                     '';
                     orderedConfigFile = mkOrder 500 configFile;
