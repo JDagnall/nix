@@ -8,7 +8,7 @@
         ./term
         ./window-manager
         ./ui
-        ./stylix.nix
         ./nixos_settings.nix
+        ./home-stylix.nix
     ];
 }

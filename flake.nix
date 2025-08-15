@@ -52,6 +52,7 @@
                     specialArgs = { inherit system; };
                     modules = [
                         ./hosts/framework/config.nix
+                        stylix.nixosModules.stylix
                         # using home-manager as a nixos module here
                         home-manager.nixosModules.home-manager
                         {
@@ -64,7 +65,7 @@
                             };
                             home-manager.users.james.imports = [
                                 ./hosts/framework/home.nix
-                                stylix.homeModules.stylix
+                                # stylix.homeModules.stylix
 
                             ];
                         }

@@ -36,6 +36,8 @@
     service.docker.enable = true;
     service.docker.groupUsers = [ "james" ];
     service.fprintd.enable = false;
+
+    stylix.enableConfig = true;
     # config ------------------------------
 
     imports = [
@@ -43,6 +45,7 @@
         ./hardware-configuration.nix
         ../../james.nix
         ../../modules
+        ../../stylix.nix
     ];
 
     environment.systemPackages = with pkgs; [ home-manager ];

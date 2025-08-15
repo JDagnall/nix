@@ -10,7 +10,10 @@
 
     home.stateVersion = "25.05"; # Please read the comment before changing.
 
-    imports = [ ../../home_modules ];
+    imports = [
+        ../../home-modules
+        # ../../stylix.nix
+    ];
 
     ### Configs
     shell.zsh.enable = true;
@@ -51,7 +54,8 @@
 
     nixLoki.enable = true;
 
-    stylix.enableConfig = true;
+    # stylix.enableConfig = true;
+    stylix.enableHomeConfig = true; # home-manager specific stylix
 
     ### Configs
 

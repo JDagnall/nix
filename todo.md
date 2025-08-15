@@ -1,11 +1,10 @@
 ## Ideas
 
 - improve waybar config, look into the waybar disappearing when not moused over
-- some services aren't starting after reboot, and some not starting on login. Not using UWSM may be causing this
-- UWSM is causing immediate crashes
 - speed up animation in hyprland
 - make stylix work for nixos modules too
 - fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
+- ly breaks UWSM for some reason
 - make sure auth through dbus works for things like vscode with github. Seems to.
 - simple vscode config for PR's with TA. Or other method for PRs
 - switch to alejandra in nvim and rebuild scripts

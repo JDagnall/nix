@@ -1,7 +1,6 @@
 {
     pkgs,
     lib,
-    config,
     ...
 }:
 {
@@ -11,27 +10,20 @@
             default = false;
             description = "Enable any stylix theming";
         };
-        stylix.gtk.enable = lib.mkOption {
-            default = true;
-            description = "Enable gtk theming with stylix, defaults to true.";
-            type = lib.types.bool;
-        };
-        stylix.qt.enable = lib.mkOption {
-            default = true;
-            description = "Enable qt theming with stylix, defaults to true.";
-            type = lib.types.bool;
-        };
     };
-    config = lib.mkIf config.stylix.enableConfig {
+    config = {
         stylix = {
             enable = true;
+            # Adds stylix to all home-manager configs which are modules of this nix config
+            # stylix.homeManagerIntegration.autoImport = true;
+            # stylix.homeManagerIntegration.followSystem = true; # makes home-manager inherit this stylix config
             enableReleaseChecks = true; # ?
             autoEnable = false; # automatically turn on for all compatible programs
             base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
             # override theme colors
             override = { };
             polarity = "dark"; # prefers dark theme
-            image = ./ui/wallpapers/A_feverish_Little_Fox_Caldecot.png; # wallpaper, can opt to have theme derived from it
+            image = ./wallpapers/A_feverish_Little_Fox_Caldecot.png; # wallpaper, can opt to have theme derived from it
             imageScalingMode = "fill";
             cursor = {
                 name = "catppuccin-mocha-light-cursors";
@@ -69,13 +61,6 @@
                     popups = 10;
                     terminal = 10;
                 };
-
-            };
-            icons = {
-                enable = true;
-                light = "Qogir";
-                dark = "Qogir";
-                package = pkgs.qogir-icon-theme;
             };
             # supported apps for opacity is limited
             opacity = {
@@ -83,18 +68,6 @@
                 desktop = 1.0;
                 popups = 1.0;
                 terminal = 0.9;
-            };
-            targets = {
-                gtk = lib.mkIf config.stylix.gtk.enable {
-                    enable = true;
-                    # extra css for gtk 3 and 4 .css
-                    # extraCss = "";
-                    # flatpakSupport.enable = true;
-                };
-                qt = lib.mkIf config.stylix.qt.enable {
-                    enable = true;
-                    # platform = "";
-                };
             };
         };
     };
