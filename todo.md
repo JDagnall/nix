@@ -1,8 +1,8 @@
 ## Ideas
 
 - improve waybar config, look into the waybar disappearing when not moused over
-- logout command is wrong for the power menu, power off probably is too.
-- make sure fprintd has fallbacks for password, and try to get more interactive prompts for it on hyprlock and ly.
+- some services aren't starting after reboot, and some not starting on login. Not using UWSM may be causing this
+- UWSM is causing immediate crashes
 - speed up animation in hyprland
 - fix ly terminal session having no stdout.
 - make sure auth through dbus works for things like vscode with github. Seems to.
@@ -24,6 +24,8 @@
 - gh cli
 - nvim telescope search for functions in buffer.
 - add VPN PrivateInternetAccess connections. Too bad thier openvpn shit is busted
+- make sure fprintd has fallbacks for password, and try to get more interactive prompts for it on hyprlock and ly.
+- check secure boot
 
 ## Sylix
 

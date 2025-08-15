@@ -41,8 +41,8 @@
     ui.legcord.enable = true;
     ui.mako.enable = true;
     ui.swayosd.enable = true;
-    ui.nm-applet.enable = true;
-    ui.bt-applet.enable = true;
+    ui.nm-applet.enable = false;
+    ui.bt-applet.enable = false;
 
     tools.git.enable = true;
     tools.pipenv.enable = true;

@@ -1,6 +1,11 @@
-{ lib, config, ... }:
+{
+    pkgs,
+    lib,
+    config,
+    ...
+}:
 let
-    inherit (lib) mkEnableOption mkIf;
+    inherit (lib) mkEnableOption mkIf optionals;
     inherit (config.ui) bt-applet nm-applet;
     inherit (config) blueman network-manager;
 in
@@ -38,14 +43,19 @@ in
         services.network-manager-applet = mkIf nm-applet.enable {
             enable = true;
         };
+        # so that the commands are in the path
+        home.packages =
+            [ ]
+            ++ optionals nm-applet.enable [ pkgs.networkmanagerapplet ]
+            ++ optionals bt-applet.enable [ pkgs.blueman ];
         # this creates the target for the system tray if needed. Should maybe be moved elsewhere
         # the applets services wont start without them
-        systemd.user.targets.tray = mkIf (nm-applet.enable || bt-applet.enable) {
-            Unit = {
-                Description = "Home Manager System Tray";
-                Requires = [ "graphical-session-pre.target" ];
-            };
-        };
+        # systemd.user.targets.tray = mkIf (nm-applet.enable || bt-applet.enable) {
+        #     Unit = {
+        #         Description = "Home Manager System Tray";
+        #         Requires = [ "graphical-session-pre.target" ];
+        #     };
+        # };
 
     };
 }
