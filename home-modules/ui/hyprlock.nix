@@ -121,7 +121,7 @@ in
             };
         };
 
-        stylix.targets.hyprlock = mkIf config.ui.hyprlock.enable {
+        stylix.targets.hyprlock = mkIf (config.ui.hyprlock.enable && config.stylix.enableHomeConfig) {
             enable = true;
             useWallpaper = (config.stylix.image != null);
         };

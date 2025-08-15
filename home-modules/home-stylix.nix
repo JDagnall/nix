@@ -23,6 +23,7 @@
     };
     config = lib.mkIf config.stylix.enableHomeConfig {
         stylix = {
+            # icons aren't in nixos stylix for some reason
             icons = {
                 enable = true;
                 light = "Qogir";

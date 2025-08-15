@@ -54,7 +54,6 @@
 
     nixLoki.enable = true;
 
-    # stylix.enableConfig = true;
     stylix.enableHomeConfig = true; # home-manager specific stylix
 
     ### Configs

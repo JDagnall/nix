@@ -13,5 +13,6 @@
             banner = "Hello There!"; # just greeting text
             autoSuspend = true;
         };
+        stylix.targets.gnome.enable = config.stylix.enableConfig;
     };
 }

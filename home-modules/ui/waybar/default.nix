@@ -229,7 +229,7 @@ in
             systemd.enableInspect = false; # mouse over for CSS classes
         };
         # stylix theming
-        stylix.targets.waybar = {
+        stylix.targets.waybar = mkIf config.stylix.enableHomeConfig {
             enable = true; # just adds colors and font config
             addCss = false;
             enableCenterBackColors = true;

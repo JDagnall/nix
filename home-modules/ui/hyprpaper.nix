@@ -25,6 +25,6 @@ in
                 ipc = true; # allows hyprpaper to be controlled by hyprland
             };
         };
-        stylix.targets.hyprpaper.enable = true;
+        stylix.targets.hyprpaper.enable = config.stylix.enableHomeConfig;
     };
 }

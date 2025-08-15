@@ -18,6 +18,6 @@
                 ignore-timeout = 1; # always use default-timeout
             };
         };
-        stylix.targets.mako.enable = true;
+        stylix.targets.mako.enable = config.stylix.enableHomeConfig;
     };
 }

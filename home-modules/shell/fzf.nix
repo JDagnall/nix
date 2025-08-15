@@ -96,7 +96,7 @@ in
                 # CTRL-R history  search
                 historyWidgetOptions = [ "--no-preview" ];
             };
-            stylix.targets.fzf.enable = true;
+            stylix.targets.fzf.enable = config.stylix.enableHomeConfig;
             programs.zsh.sessionVariables = mkIf config.shell.zsh.enable {
                 FZF_PREVIEW = preview;
                 FZF_TAB_PREVIEW = fzf-tab-preview;

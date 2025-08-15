@@ -95,6 +95,6 @@ in
             # xoffset = ;
             # yoffset = ;
         };
-        stylix.targets.rofi.enable = true;
+        stylix.targets.rofi.enable = config.stylix.enableHomeConfig;
     };
 }

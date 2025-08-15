@@ -23,7 +23,7 @@ in
                 in
                 {
                     # cannot be enabled if UWSM is enabled in nixos
-                    enable = !hyprland-uwsm.enabled; 
+                    enable = !hyprland-uwsm.enabled;
                     # extraCommands = [];
                     # enableXdgAutostart = true;
                     # variables = [];
@@ -119,7 +119,7 @@ in
                 in
                 merged;
         };
-        stylix.targets.hyprland = {
+        stylix.targets.hyprland = mkIf config.stylix.enableHomeConfig {
             enable = true;
             hyprpaper.enable = config.ui.hyprpaper.enable;
         };

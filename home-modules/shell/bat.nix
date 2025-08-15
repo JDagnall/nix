@@ -47,7 +47,7 @@ in
             man = "batman --paging=always";
             cat = "bat";
         };
-        stylix.targets.bat.enable = true;
+        stylix.targets.bat.enable = config.stylix.enableHomeConfig;
     };
 
 }
