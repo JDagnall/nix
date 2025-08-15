@@ -5,25 +5,25 @@ let
 in
 {
     options = {
-        pipewire.enabled = mkOption {
+        nixos-settings.pipewire.enabled = mkOption {
             type = types.bool;
-            default = true;
             description = "Pipe wire config is done in nix, this is just to signal that it is activated";
         };
-        blueman.enabled = mkOption {
+        nixos-settings.blueman.enabled = mkOption {
             type = types.bool;
-            default = true;
             description = "Blueman config is done in nix, this is just to signal that it is activated";
         };
-        network-manager.enabled = mkOption {
+        nixos-settings.network-manager.enabled = mkOption {
             type = types.bool;
-            default = true;
             description = "Network manager config is done in nix, this is just to signal that it is activated";
         };
-        fprintd.enabled = mkOption {
+        nixos-settings.fprintd.enabled = mkOption {
             type = types.bool;
-            default = false;
             description = "Fprintd config is done in nix, this is just to signal that it is activated";
+        };
+        nixos-settings.hyprland-uwsm.enabled = mkOption {
+            type = types.bool;
+            description = "Whether UWSM is being used for hyprland, this is just to signal that it is activated";
         };
     };
 

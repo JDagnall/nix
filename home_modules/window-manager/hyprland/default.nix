@@ -20,7 +20,7 @@ in
             settings =
                 let
                     inherit (config.ui) swayosd;
-                    inherit (config) pipewire;
+                    inherit (config.nixos-settings) pipewire;
                     inherit (config.tools)
                         brightnessctl
                         playerctl
@@ -84,12 +84,17 @@ in
                                 [ ]
                         );
                 };
-            systemd = {
-                enable = true; # important env variables for hyprland session
-                # extraCommands = [];
-                # enableXdgAutostart = true;
-                # variables = [];
-            };
+            systemd =
+                let
+                    inherit (config.nixos-settings) hyprland-uwsm;
+                in
+                {
+                    # cannot be enabled if UWSM is enabled in nixos
+                    enable = !hyprland-uwsm.enabled; # important env variables for hyprland session
+                    # extraCommands = [];
+                    # enableXdgAutostart = true;
+                    # variables = [];
+                };
             # importantPrefixes = [];
             # portalPackage = ;
             xwayland.enable = true;

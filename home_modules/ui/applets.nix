@@ -7,7 +7,7 @@
 let
     inherit (lib) mkEnableOption mkIf optionals;
     inherit (config.ui) bt-applet nm-applet;
-    inherit (config) blueman network-manager;
+    inherit (config.nixos-settings) blueman network-manager;
 in
 {
     options = {

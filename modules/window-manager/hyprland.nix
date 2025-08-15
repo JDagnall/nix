@@ -18,7 +18,10 @@ in
         programs.hyprland = {
             enable = true;
             xwayland.enable = true;
-            withUWSM = false; # with session manager
+            # UWSM improves systemd compatability stuff with wayland
+            # make sure hyprland.systemd.enable is false, in home-manager or otherwise
+            # as this will cause launching the session to crash
+            withUWSM = true;
         };
 
         # programs.hyprlock.enable = true; # hyprland lock daemon

@@ -55,6 +55,16 @@
 
     ### Configs
 
+    ### NixOs settings.
+    # These arent real settings, these are just meant to represent relevant
+    # parts of the NixOs config that I want to access in home-manager.
+    # Could be possible to just import the whole NixOs config and reference it directly
+    nixos-settings.network-manager.enabled = true;
+    nixos-settings.blueman.enabled = true;
+    nixos-settings.pipewire.enabled = true;
+    nixos-settings.fprintd.enabled = true;
+    nixos-settings.hyprland-uwsm.enabled = true;
+
     # installed packages
     home.packages = [ ];
 

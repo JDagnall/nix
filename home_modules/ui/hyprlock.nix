@@ -49,7 +49,7 @@ in
                         # module = ;
                     };
                     # if fingerprint daemon is enabled
-                    fingerprint = mkIf config.fprintd.enabled {
+                    fingerprint = mkIf config.nixos-settings.fprintd.enabled {
                         enabled = true; # currently
                         ready_message = "Scan fingerprint to unlock";
                         present_message = "Scanning fingerprint";
