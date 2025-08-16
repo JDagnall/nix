@@ -15,8 +15,8 @@
         stylix = {
             enable = true;
             # Adds stylix to all home-manager configs which are modules of this nix config
-            # stylix.homeManagerIntegration.autoImport = true;
-            # stylix.homeManagerIntegration.followSystem = true; # makes home-manager inherit this stylix config
+            homeManagerIntegration.autoImport = true;
+            homeManagerIntegration.followSystem = true; # makes home-manager inherit this stylix config
             enableReleaseChecks = true; # ?
             autoEnable = false; # automatically turn on for all compatible programs
             base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";

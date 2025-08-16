@@ -12,7 +12,6 @@
 
     imports = [
         ../../home-modules
-        # ../../stylix.nix
     ];
 
     ### Configs
@@ -51,6 +50,7 @@
     tools.pipenv.enable = true;
     tools.mycli.enable = true;
     tools.keepassxc.enable = true;
+    tools.keepmenu.enable = true;
 
     nixLoki.enable = true;
 

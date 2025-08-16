@@ -5,7 +5,12 @@
     ...
 }:
 let
-    inherit (lib) mkIf mkEnableOption mkOption;
+    inherit (lib)
+        mkIf
+        mkEnableOption
+        mkOption
+        optionals
+        ;
 in
 {
     options = {
@@ -46,9 +51,9 @@ in
             modes = [
                 "drun"
                 "window"
-                "keys"
                 "ssh"
-            ];
+            ]
+            ++ optionals config.tools.keepmenu.enable [ "keys" ];
             plugins = [ pkgs.keepmenu ]; # keepass rofi plugin
             # terminal =  # path to terminal to be used to run terminal cmds
 

@@ -32,8 +32,10 @@ in
             # portalPackage = ;
             xwayland.enable = true;
             # plugins = [ ];
+            sourceFirst = true;
             settings =
                 let
+                    inherit (lib) optionals;
                     inherit (config.ui) swayosd;
                     inherit (config.nixos-settings) pipewire;
                     inherit (config.tools)
@@ -42,6 +44,7 @@ in
                         ;
                 in
                 {
+                    "$mod" = "SUPER";
                     bindel =
                         [ ]
                         ++ (
@@ -98,6 +101,7 @@ in
                             else
                                 [ ]
                         );
+                    bind = [ ] ++ optionals config.tools.keepmenu.enable [ "$mod, a, exec, keepmenu" ];
                 };
             extraConfig =
                 let
@@ -110,9 +114,20 @@ in
                         ${if config.ui.syncthingtray.autostart then "exec-once = syncthingtray --wait &" else ""}
                         ${if config.tools.keepassxc.autostart then "exec-once = keepassxc --minimized &" else ""}
                     '';
+                    variables = ''
+                        #################
+                        ### VARIABLES ###
+                        #################
+                        # $mod = SUPER # sets "Windows" key as the main mod key
+                        # there is no alternative for either of these at the moment so they have to be set
+                        ${if config.ui.rofi.enable then "$menu = rofi -show drun" else "$menu = rofi -show drun"}
+                        ${if config.term.wezterm.enable then "$terminal = wezterm" else "$terminal = wezterm"}
+                    '';
                     orderedConfigFile = mkOrder 500 configFile;
+                    orderedVariables = mkOrder 250 variables;
                     orderedAutostarts = mkOrder 1000 autostarts;
                     merged = mkMerge [
+                        orderedVariables
                         orderedConfigFile
                         orderedAutostarts
                     ];

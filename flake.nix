@@ -65,8 +65,6 @@
                             };
                             home-manager.users.james.imports = [
                                 ./hosts/framework/home.nix
-                                # stylix.homeModules.stylix
-
                             ];
                         }
                     ];

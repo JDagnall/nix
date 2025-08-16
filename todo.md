@@ -2,7 +2,8 @@
 
 - improve waybar config, look into the waybar disappearing when not moused over
 - speed up animation in hyprland
-- make stylix work for nixos modules too
+- switch `nixos-settings` to just using `osConfig` which the nixos config passed as a variable
+- look into keepassxc auto type on wayland. seems it needs an X11 backend, keepmenu seems to be a solution to this with dmenu, look into configuring it
 - fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
 - ly breaks UWSM for some reason
 - make sure auth through dbus works for things like vscode with github. Seems to.
@@ -10,7 +11,6 @@
 - switch to alejandra in nvim and rebuild scripts
 - add lang configs for rust and go as in compilers and formatters.
 - make sure syncthing folders work effectively, syncthing also often but not always, get a no route available for connecting to devices on local network
-- look into keepassxc auto type on wayland. seems it needs an X11 backend, keepmenu seems to be a solution to this with dmenu, look into configuring it
 - turn off mouse in nix loki maybe
 - turn off mouse while typing in hyprland maybe
 - stop mousing over changes window selection in hyprland
@@ -26,6 +26,8 @@
 - add VPN PrivateInternetAccess connections. Too bad thier openvpn shit is busted
 - make sure fprintd has fallbacks for password, and try to get more interactive prompts for it on hyprlock and ly.
 - check secure boot
+- spotify player
+- hyprsunset
 
 ## Sylix
 
