@@ -75,7 +75,7 @@ in
             ++ optionals keepmenu.enable [
                 pkgs.keepmenu
             ]
-            ++ (optionals config.window-manager.hyprland.enable && keepmenu.enable) [
+            ++ optionals (config.window-manager.hyprland.enable && keepmenu.enable) [
                 pkgs.wl-clipboard # neeeded for clipboard on wayland
                 pkgs.wtype # needed for autotype on wayland
             ];
@@ -94,7 +94,7 @@ in
                         obscure = true;
                     };
                     database = {
-                        autotype_default = "{USERNAME}{TAB}{PASSWORD}{ENTER}";
+                        autotype_default = "{USERNAME}{DELAY 200}{TAB}{PASSWORD}{ENTER}";
                         pw_cache_period_min = 60;
                     }
                     // optionals secure.enable {

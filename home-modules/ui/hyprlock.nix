@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+    lib,
+    config,
+    osConfig,
+    ...
+}:
 let
     inherit (lib) mkIf mkEnableOption;
 in
@@ -49,7 +54,7 @@ in
                         # module = ;
                     };
                     # if fingerprint daemon is enabled
-                    fingerprint = mkIf config.nixos-settings.fprintd.enabled {
+                    fingerprint = mkIf osConfig.services.fprintd.enable {
                         enabled = true; # currently
                         ready_message = "Scan fingerprint to unlock";
                         present_message = "Scanning fingerprint";

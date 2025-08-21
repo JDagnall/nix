@@ -60,6 +60,8 @@
 
     services.openssh.enable = true;
 
+    services.pipewire.enable = true;
+
     # bluetooth
     hardware.bluetooth = {
         enable = true;

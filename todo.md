@@ -1,9 +1,6 @@
 ## Ideas
 
 - improve waybar config, look into the waybar disappearing when not moused over
-- speed up animation in hyprland
-- switch `nixos-settings` to just using `osConfig` which the nixos config passed as a variable
-- look into keepassxc auto type on wayland. seems it needs an X11 backend, keepmenu seems to be a solution to this with dmenu, look into configuring it
 - fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
 - ly breaks UWSM for some reason
 - make sure auth through dbus works for things like vscode with github. Seems to.
@@ -40,6 +37,6 @@ Stylix can be used to theme things universally in nix, use it for theming when i
 - hyprland DONE
 - waybar DONE
 - cmd line utilites? DONE
-- grub
+- grub DONE
 - ly
 - hyprlock DONE

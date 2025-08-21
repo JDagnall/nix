@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+    lib,
+    config,
+    osConfig,
+    ...
+}:
 let
     inherit (lib)
         mkIf
@@ -19,11 +24,11 @@ in
             enable = true;
             systemd =
                 let
-                    inherit (config.nixos-settings) hyprland-uwsm;
+                    inherit (osConfig.programs.hyprland) withUWSM;
                 in
                 {
                     # cannot be enabled if UWSM is enabled in nixos
-                    enable = !hyprland-uwsm.enabled;
+                    enable = !withUWSM;
                     # extraCommands = [];
                     # enableXdgAutostart = true;
                     # variables = [];
@@ -37,7 +42,7 @@ in
                 let
                     inherit (lib) optionals;
                     inherit (config.ui) swayosd;
-                    inherit (config.nixos-settings) pipewire;
+                    inherit (osConfig.services) pipewire;
                     inherit (config.tools)
                         brightnessctl
                         playerctl
@@ -66,7 +71,7 @@ in
                                 [ ]
                         )
                         ++ (
-                            if (swayosd.enable && pipewire.enabled) then
+                            if (swayosd.enable && pipewire.enable) then
                                 [
                                     ",XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
                                     ",XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
@@ -77,7 +82,7 @@ in
                                 [ ]
                         )
                         ++ (
-                            if (pipewire.enabled && !swayosd.enable) then
+                            if (pipewire.enable && !swayosd.enable) then
                                 [
                                     ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
                                     ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"

@@ -2,12 +2,14 @@
     pkgs,
     lib,
     config,
+    osConfig,
     ...
 }:
 let
     inherit (lib) mkEnableOption mkIf optionals;
     inherit (config.ui) bt-applet nm-applet;
-    inherit (config.nixos-settings) blueman network-manager;
+    inherit (osConfig.services) blueman;
+    inherit (osConfig.networking) networkmanager;
 in
 {
     options = {
@@ -21,7 +23,7 @@ in
     config = {
         assertions = [
             {
-                assertion = blueman.enabled || !bt-applet.enable;
+                assertion = blueman.enable || !bt-applet.enable;
                 message = ''
                     Blueman is required for the blueman applet. It is configured in nixos,
                     but is set to disabled semantically in the home-manager system_services module.
@@ -29,7 +31,7 @@ in
                 '';
             }
             {
-                assertion = network-manager.enabled || !nm-applet.enable;
+                assertion = networkmanager.enable || !nm-applet.enable;
                 message = ''
                     Network manager is required for the network manager applet. It is configured in nixos,
                     but is set to disabled semantically in the home-manager system_services module.
