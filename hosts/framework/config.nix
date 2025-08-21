@@ -74,6 +74,8 @@
     };
     services.blueman.enable = true; # bt manager software
 
+    services.flatpak.enable = true;
+
     time.timeZone = "Australia/Brisbane";
 
     # Select internationalisation properties.

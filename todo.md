@@ -1,30 +1,34 @@
-## Ideas
+## Feat
 
-- improve waybar config, look into the waybar disappearing when not moused over
-- fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
-- ly breaks UWSM for some reason
-- make sure auth through dbus works for things like vscode with github. Seems to.
+- look into the waybar disappearing when not moused over
+- look into good rebuild script
 - simple vscode config for PR's with TA. Or other method for PRs
-- switch to alejandra in nvim and rebuild scripts
 - add lang configs for rust and go as in compilers and formatters.
-- make sure syncthing folders work effectively, syncthing also often but not always, get a no route available for connecting to devices on local network
-- turn off mouse in nix loki maybe
-- turn off mouse while typing in hyprland maybe
-- stop mousing over changes window selection in hyprland
-- turn off password auth for sshd
 - look into dev shells
 - try ghostty
-- telescope in nvim is not transparent when using stylix
-- nvim-wezterm smartsplits doesnt work properly right now, should be a better config now its on wezterm nightly
 - obsidian
 - maybe switch electron apps to flatpak
 - gh cli
 - nvim telescope search for functions in buffer.
 - add VPN PrivateInternetAccess connections. Too bad thier openvpn shit is busted
-- make sure fprintd has fallbacks for password, and try to get more interactive prompts for it on hyprlock and ly.
-- check secure boot
 - spotify player
 - hyprsunset
+
+## Fix
+
+- fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
+- ly breaks UWSM for some reason
+- make sure auth through dbus works for things like vscode with github. Seems to.
+- switch to alejandra in nvim and rebuild scripts
+- make sure syncthing folders work effectively, syncthing also often but not always, get a no route available for connecting to devices on local network
+- turn off mouse in nix loki maybe
+- turn off mouse while typing in hyprland maybe
+- stop mousing over changes window selection in hyprland
+- turn off password auth for sshd
+- telescope in nvim is not transparent when using stylix. might just be hl groups
+- nvim-wezterm smartsplits doesnt work properly right now, should be a better config now its on wezterm nightly
+- make sure fprintd has fallbacks for password, and try to get more interactive prompts for it on hyprlock and ly.
+- check secure boot
 
 ## Sylix
 
