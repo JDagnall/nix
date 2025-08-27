@@ -76,6 +76,15 @@
 
     services.flatpak.enable = true;
 
+    # garbage collector
+    nix.gc = {
+        automatic = true;
+        dates = "weekly";
+        persistent = true;
+        randomizedDelaySec = "10min";
+        options = "-d";
+    };
+
     time.timeZone = "Australia/Brisbane";
 
     # Select internationalisation properties.

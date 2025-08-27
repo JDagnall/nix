@@ -7,7 +7,6 @@
 - look into dev shells
 - try ghostty
 - obsidian
-- maybe switch electron apps to flatpak
 - gh cli
 - nvim telescope search for functions in buffer.
 - add VPN PrivateInternetAccess connections. Too bad thier openvpn shit is busted

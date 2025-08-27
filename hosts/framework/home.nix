@@ -39,8 +39,8 @@
     ui.nwg-look.enable = false;
     ui.syncthingtray.enable = true;
     ui.spotify.enable = false;
-    ui.slack.enable = false;
-    ui.legcord.enable = false;
+    ui.slack.enable = true;
+    ui.legcord.enable = true;
     ui.mako.enable = true;
     ui.swayosd.enable = true;
     ui.nm-applet.enable = true;
