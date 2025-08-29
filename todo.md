@@ -2,12 +2,11 @@
 
 - look into the waybar disappearing when not moused over
 - look into good rebuild script
-- simple vscode config for PR's with TA. Or other method for PRs
+- simple vscode config for PR's with TA.
 - add lang configs for rust and go as in compilers and formatters.
 - look into dev shells
 - try ghostty
 - obsidian
-- gh cli
 - nvim telescope search for functions in buffer.
 - add VPN PrivateInternetAccess connections. Too bad thier openvpn shit is busted
 - hyprsunset

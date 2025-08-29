@@ -5,86 +5,12 @@ local act = wezterm.action
 -- local mux = wezterm.mux
 -- STARTUP, SHELL AND ENVS
 
--- changes window size on events, un-needed
--- wezterm.on("gui-startup", function()
---     local _, _, window = mux.spawn_window {}
---     window:gui_window():maximize()
--- end)
---
--- wezterm.on('window-focus-changed', function(window, _)
---         window:maximize()
--- end)
-
--- actual fits window resizing problem, just sets it too big initially and it resizes itself
--- config.initial_cols = 200
--- config.initial_rows = 200
-
--- config.set_enviroment_variables = {}
--- config.deafult_cwd = "$HOME"
--- config.default_prog = { "/bin/zsh" }
-
 -- GENERAL
 
 config.scrollback_lines = 5000
 config.automatically_reload_config = true
 config.window_close_confirmation = "NeverPrompt"
 config.use_resize_increments = true
-
--- ## trying stylix
--- -- THEME
---
--- local mocha = {
--- 	rosewater = "#f5e0dc",
--- 	flamingo = "#f2cdcd",
--- 	pink = "#f5c2e7",
--- 	mauve = "#cba6f7",
--- 	red = "#f38ba8",
--- 	maroon = "#eba0ac",
--- 	peach = "#fab387",
--- 	yellow = "#f9e2af",
--- 	green = "#a6e3a1",
--- 	teal = "#94e2d5",
--- 	sky = "#89dceb",
--- 	sapphire = "#74c7ec",
--- 	blue = "#89b4fa",
--- 	lavender = "#b4befe",
--- 	text = "#cdd6f4",
--- 	subtext1 = "#bac2de",
--- 	subtext0 = "#a6adc8",
--- 	overlay2 = "#9399b2",
--- 	overlay1 = "#7f849c",
--- 	overlay0 = "#6c7086",
--- 	surface2 = "#585b70",
--- 	surface1 = "#45475a",
--- 	surface0 = "#313244",
--- 	base = "#1e1e2e",
--- 	mantle = "#181825",
--- 	crust = "#11111b",
--- }
--- config.color_scheme = "Catppuccin Mocha"
-
--- -- If I want to alter the colorscheme
--- local colors = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
--- config.colors = {
--- 	background = mocha.mantle,
--- 	tab_bar = {
--- 		background = mocha.mantle,
--- 		active_tab = {
--- 			bg_color = mocha.mauve,
--- 			fg_color = mocha.base,
--- 			intensity = "Bold",
--- 		},
--- 		inactive_tab = {
--- 			bg_color = mocha.surface1,
--- 			fg_color = mocha.text,
--- 			intensity = "Normal",
--- 		},
--- 	},
--- }
--- print(colors)
--- colors.background = "#000000" -- for example
--- color_schemes = ["new altered colorscheme"] = colors
--- color_scheme = "new altered colorscheme"
 
 -- TERM APPEARANCE
 
@@ -115,7 +41,6 @@ config.inactive_pane_hsb = {
 --   saturation = 1.0,
 -- }
 
--- ## trying stylix
 -- config.window_background_opacity = 0.9
 config.text_background_opacity = 0.95
 
