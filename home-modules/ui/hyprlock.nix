@@ -16,7 +16,7 @@ in
             description = "Enable hypridle config";
         };
     };
-    config = {
+    config = mkIf (config.ui.hypridle.enable || config.ui.hyprlock.enable) {
         assertions = [
             {
                 assertion = config.window-manager.hyprland.enable;
