@@ -10,7 +10,6 @@
 - gh cli
 - nvim telescope search for functions in buffer.
 - add VPN PrivateInternetAccess connections. Too bad thier openvpn shit is busted
-- spotify player
 - hyprsunset
 
 ## Fix

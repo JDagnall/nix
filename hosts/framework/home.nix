@@ -38,7 +38,7 @@
     ui.firefox.enable = true;
     ui.nwg-look.enable = false;
     ui.syncthingtray.enable = true;
-    ui.spotify.enable = false;
+    ui.spotify.enable = true;
     ui.slack.enable = true;
     ui.legcord.enable = true;
     ui.mako.enable = true;
@@ -51,6 +51,7 @@
     tools.mycli.enable = true;
     tools.keepassxc.enable = true;
     tools.keepmenu.enable = true;
+    tools.gh-cli.enable = true;
 
     nixLoki.enable = true;
 

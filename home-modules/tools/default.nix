@@ -11,6 +11,7 @@ in
     imports = [
         ./git.nix
         ./keepassxc.nix
+        ./gh-cli.nix
     ];
     # tools which just need to be enabled with no other config
     options = {

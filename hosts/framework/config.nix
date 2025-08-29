@@ -36,6 +36,7 @@
     service.docker.enable = true;
     service.docker.groupUsers = [ "james" ];
     service.fprintd.enable = false;
+    service.openvpn3.enable = false;
 
     stylix.enableConfig = true;
     # config ------------------------------
