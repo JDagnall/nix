@@ -1,4 +1,5 @@
 {
+    pkgs,
     lib,
     config,
     ...
@@ -102,5 +103,6 @@
                 ];
             };
         };
+        home.packages = [ ] ++ lib.optionals config.tools.gh-cli.diffnav.enable [ pkgs.diffnav ];
     };
 }
