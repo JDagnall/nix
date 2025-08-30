@@ -12,6 +12,7 @@ in
         ./git.nix
         ./keepassxc.nix
         ./gh-cli.nix
+        ./nh.nix
     ];
     # tools which just need to be enabled with no other config
     options = {

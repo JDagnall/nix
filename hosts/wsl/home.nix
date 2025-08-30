@@ -30,6 +30,7 @@
     tools.pipenv.enable = true;
     tools.mycli.enable = true;
     tools.gh-cli.enable = true;
+    tools.nh.enable = true;
 
     nixLoki.enable = true;
 

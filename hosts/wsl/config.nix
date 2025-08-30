@@ -11,6 +11,9 @@
     service.docker.groupUsers = [ "james" ];
 
     stylix.enableConfig = true;
+
+    # nix of wsl seems to need this for some reason
+    programs.dconf.enable = true;
     # config ------------------------------
 
     imports = [
@@ -26,7 +29,7 @@
         "flakes"
     ];
 
-    networking.hostName = "wsl-nix";
+    networking.hostName = "wsl";
 
     services.openssh.enable = true;
 

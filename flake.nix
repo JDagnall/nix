@@ -8,7 +8,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         nixLoki = {
-            # TODO: change to github link
             url = "github:JDaggers/nixLoki";
             # url = "path:/home/james/nixLoki";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -22,7 +21,6 @@
 
     outputs =
         {
-            # self,
             nixpkgs,
             home-manager,
             nixLoki,
@@ -102,27 +100,5 @@
                 };
             };
 
-            # home-manager entrypoints
-            homeConfigurations = {
-                virtualbox = home-manager.lib.homeManagerConfiguration {
-                    inherit pkgs;
-                    extraSpecialArgs = {
-                        inherit system;
-                        inherit inputs;
-                    };
-                    modules = [ ./hosts/virtualbox/home.nix ];
-                };
-                framework = home-manager.lib.homeManagerConfiguration {
-                    inherit pkgs;
-                    extraSpecialArgs = {
-                        inherit system;
-                        inherit inputs;
-                    };
-                    modules = [
-                        ./hosts/framework/home.nix
-                        stylix.homeModules.stylix
-                    ];
-                };
-            };
         };
 }

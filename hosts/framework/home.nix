@@ -1,6 +1,5 @@
 {
     pkgs,
-    # lib,
     config,
     ...
 }:
@@ -52,6 +51,7 @@
     tools.keepassxc.enable = true;
     tools.keepmenu.enable = true;
     tools.gh-cli.enable = true;
+    tools.nh.enable = true;
 
     nixLoki.enable = true;
 
@@ -71,7 +71,4 @@
             in
             formatted;
     };
-
-    # Let Home Manager install and manage itself.
-    # programs.home-manager.enable = true;
 }
