@@ -9,7 +9,6 @@ let
         mkIf
         mkEnableOption
         mkOption
-        optionals
         ;
 in
 {
@@ -41,7 +40,6 @@ in
                 display-run = "   Run ";
                 display-window = " 󰕰  Window";
                 display-ssh = "   SSH";
-                display-keys = " 󰯄  Keys";
                 sidebar-mode = true;
                 fixed-num-lines = true; # number of lines in picker is always the same
                 kb-secondary-copy = ""; # was previously <C-c>
@@ -52,9 +50,7 @@ in
                 "drun"
                 "window"
                 "ssh"
-            ]
-            ++ optionals config.tools.keepmenu.enable [ "keys" ];
-            plugins = [ pkgs.keepmenu ]; # keepass rofi plugin
+            ];
             # terminal =  # path to terminal to be used to run terminal cmds
 
             # layout stuff, stylix does colours

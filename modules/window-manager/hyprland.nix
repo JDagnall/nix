@@ -24,9 +24,6 @@ in
             withUWSM = true;
         };
 
-        # programs.hyprlock.enable = true; # hyprland lock daemon
-        # services.hypridle.enable = true; # hyprland idle daemon
-
         environment.sessionVariables = {
             # if invisible cursor
             WLR_NO_HARDWARE_CURSORS = "1";
@@ -42,7 +39,7 @@ in
             # Opengl
             graphics.enable = true;
             # Most wayland compositors need this
-            nvidia.modesetting.enable = true;
+            nvidia.modesetting.enable = false;
         };
 
         # XDG portal

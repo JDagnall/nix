@@ -44,6 +44,11 @@
     ui.swayosd.enable = true;
     ui.nm-applet.enable = true;
     ui.bt-applet.enable = true;
+    ui.vscode.enable = true;
+    ui.obsidian.enable = true;
+    ui.thunar.enable = true;
+    ui.imv.enable = true;
+    ui.hypr-screenshot.enable = true;
 
     tools.git.enable = true;
     tools.pipenv.enable = true;

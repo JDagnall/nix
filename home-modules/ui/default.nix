@@ -19,6 +19,11 @@ in
         ./mako.nix
         ./swayosd.nix
         ./applets.nix
+        ./vscode.nix
+        ./obsidian.nix
+        ./thunar.nix
+        ./imv.nix
+        ./hypr-screenshot.nix
     ];
     # ui packages that only need to be installed
     options = {
