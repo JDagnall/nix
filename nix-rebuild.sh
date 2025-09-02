@@ -13,7 +13,7 @@ git pull
 git add .
 # git diff -U0 *.nix HEAD
 nh os switch -H $HOST --ask
-gen="$HOST: $(nh os info | grep true | awk '{print "gen: " $1 " version: " $5}')"
+gen="$(nh os info | grep current | awk '{print "gen: " $1 " version: " $5}')"
 git commit -am "$HOST | $gen | $(date)"
 git push
 popd

@@ -39,6 +39,7 @@ in
         mkIf config.tools.git.enable {
             programs.git =
                 let
+                    stylixColors = config.lib.stylix.colors.withHashtag;
                     deltaConfig = {
                         navigate = true;
                         diff-so-fancy = false; # emulate diff-so-fancy style
@@ -48,8 +49,8 @@ in
                         color-only = false; # no links etc, just highlighting
                         # stylix for bat outputs a theme that this can use
                         syntax-theme = if config.stylix.targets.bat.enable then "base16-stylix" else "gruvbox-dark";
-                        plus-style = "syntax auto";
-                        minus-style = "syntax auto";
+                        plus-style = "syntax ${stylixColors.green}";
+                        minus-style = "syntax ${stylixColors.red}";
                     };
                     diffnavDeltaConfig = {
                         file-style = "omit";

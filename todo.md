@@ -29,6 +29,7 @@
 - check secure boot (nix-community/lanzaboote exists)
 - git delta colours are annoying
 - hyprland popup windows
+- nvim clipboard to detect wsl or otherwise
 
 ## Sylix
 
