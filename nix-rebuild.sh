@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
 REPO=/home/james/nix
 HOST=$1
+if [[ -n "${HOST}" ]]; then
+    HOST=$(hostname)
+fi
 
-set -e
 pushd $REPO
+set -e
 echo "Starting ..."
 # nixfmt . &>/dev/null
-git diff -U0 *.nix
-echo "NixOS Rebuilding..."
-nixos-rebuild switch --use-remote-sudo --flake $REPO#$HOST &>nixos-switch.log || (
-    cat nixos-switch.log | grep --color error && false
-)
-gen="NixOs: $(nixos-rebuild list-generations | grep true)"
-git commit -am "$gen"
+git pull
+git add .
+# git diff -U0 *.nix HEAD
+nh os switch -H $HOST --ask
+gen="$HOST: $(nh os info | grep true | awk '{print "gen: " $1 " version: " $5}')"
+git commit -am "$HOST | $gen | $(date)"
+git push
 popd
-echo "Done"

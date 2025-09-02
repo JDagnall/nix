@@ -151,7 +151,7 @@ in
                 gap = "git add --patch";
                 gs = "git status";
                 gl = "git log --all --graph --pretty=format:'%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n'";
-                glb = "git log --first-parent --all --graph --pretty=format:'%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n'";
+                glb = "git log --first-parent --graph --pretty=format:'%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n'";
                 gd = "git diff --output-indicator-new=' '  --output-indicator-old=' '";
                 gch = "git checkout";
             };
