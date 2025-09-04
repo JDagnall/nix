@@ -48,6 +48,11 @@ in
             type = types.bool;
             description = "Install slack";
         };
+        ui.pavucontrol.enable = mkOption {
+            default = false;
+            type = types.bool;
+            description = "Install pavucontrol";
+        };
     };
     config =
         let
@@ -56,6 +61,7 @@ in
                 spotify
                 legcord
                 slack
+                pavucontrol
                 ;
         in
         {
@@ -64,6 +70,7 @@ in
                 ++ optionals nwg-look.enable [ pkgs.nwg-look ]
                 ++ optionals spotify.enable [ pkgs.spotify ]
                 ++ optionals legcord.enable [ pkgs.legcord ]
-                ++ optionals slack.enable [ pkgs.slack ];
+                ++ optionals slack.enable [ pkgs.slack ]
+                ++ optionals pavucontrol.enable [ pkgs.pavucontrol ];
         };
 }
