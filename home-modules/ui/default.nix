@@ -24,6 +24,7 @@ in
         ./thunar.nix
         ./imv.nix
         ./hypr-screenshot.nix
+        ./easyeffects.nix
     ];
     # ui packages that only need to be installed
     options = {
