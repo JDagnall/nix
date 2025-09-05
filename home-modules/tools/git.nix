@@ -49,8 +49,8 @@ in
                         color-only = false; # no links etc, just highlighting
                         # stylix for bat outputs a theme that this can use
                         syntax-theme = if config.stylix.targets.bat.enable then "base16-stylix" else "gruvbox-dark";
-                        plus-style = "syntax ${stylixColors.green}";
-                        minus-style = "syntax ${stylixColors.red}";
+                        plus-style = "syntax auto";
+                        minus-style = "syntax auto";
                     };
                     diffnavDeltaConfig = {
                         file-style = "omit";
