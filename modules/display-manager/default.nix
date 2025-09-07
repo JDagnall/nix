@@ -1,8 +1,7 @@
-{ ... }:
-{
-    imports = [
-        ./sddm.nix
-        ./ly.nix
-        ./gdm.nix
-    ];
+{...}: {
+	imports = [
+		./sddm.nix
+		./ly.nix
+		./gdm.nix
+	];
 }

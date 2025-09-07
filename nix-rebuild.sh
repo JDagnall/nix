@@ -8,7 +8,7 @@ fi
 pushd $REPO
 set -e
 echo "Starting ..."
-# nixfmt . &>/dev/null
+alejandra --quiet .
 git pull
 git add .
 # git diff -U0 *.nix HEAD
