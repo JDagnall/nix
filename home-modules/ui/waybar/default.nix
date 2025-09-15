@@ -9,6 +9,7 @@
 		mkEnableOption
 		mkOption
 		types
+		optionals
 		;
 in {
 	options = {
@@ -54,7 +55,6 @@ in {
 							"pulseaudio"
 							"custom/power"
 						];
-
 						"hyprland/workspaces" = {
 							format = "{icon}";
 							format-icons = {
@@ -131,25 +131,27 @@ in {
 							tooltip-format = ""; # when there are no connected devices
 							tooltip-format-enumerate-connected = "{device_alias}";
 						};
-						pulseaudio = {
-							format = "{volume}% {icon}";
-							format-bluetooth = "{volume}% {icon}";
-							min-length = 2;
-							justify = "center";
-							format-muted = "󰖁 ";
-							format-icons = [
-								"󰕿 "
-								"󰖀 "
-								"󰕾 "
-							];
-							tooltip = false;
-							states = {
-								high = 85;
-								medium = 50;
-								low = 1;
-								off = 0;
-							};
-						};
+						pulseaudio =
+							{
+								format = "{volume}% {icon}";
+								format-bluetooth = "{volume}% {icon}";
+								min-length = 2;
+								justify = "center";
+								format-muted = "󰖁 ";
+								format-icons = [
+									"󰕿 "
+									"󰖀 "
+									"󰕾 "
+								];
+								tooltip = false;
+								states = {
+									high = 85;
+									medium = 50;
+									low = 1;
+									off = 0;
+								};
+							}
+							// optionals config.ui.pavucontrol.enable {on-click = "pavucontrol";};
 						clock = {
 							format = " {:%I:%M %p %a %b %d}";
 							tooltip = false;

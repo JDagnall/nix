@@ -49,6 +49,7 @@
 	ui.imv.enable = true;
 	ui.hypr-screenshot.enable = true;
 	ui.easyeffects.enable = true;
+	ui.pavucontrol.enable = true;
 
 	tools.git.enable = true;
 	tools.pipenv.enable = true;
