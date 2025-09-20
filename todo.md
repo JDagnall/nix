@@ -1,17 +1,14 @@
 ## Feat
 
 - look into the waybar disappearing when not moused over
-- look into good rebuild script
 - add lang configs for rust and go as in compilers and formatters.
 - look into dev shells
 - nvim telescope search for functions in buffer.
 - add VPN PrivateInternetAccess connections. Too bad thier openvpn shit is busted
 - hyprsunset
-- hyprland pane resizing
 - further categorise nix module files into subdirectories
 - try ghostty
 - sessioniser, tmux or not
-- switch to alejandra in nvim and rebuild scripts
 
 ## Fix
 
@@ -23,14 +20,10 @@
 - turn off mouse while typing in hyprland maybe
 - stop mousing over changes window selection in hyprland
 - turn off password auth for sshd
-- telescope in nvim is not transparent when using stylix. might just be hl groups
 - nvim-wezterm smartsplits doesnt work properly right now, should be a better config now its on wezterm nightly
 - make sure fprintd has fallbacks for password, and try to get more interactive prompts for it on hyprlock and ly.
 - check secure boot (nix-community/lanzaboote exists)
-- git delta colours are annoying
 - hyprland popup windows
-- nvim clipboard to detect wsl or otherwise
-- get better python lsp setup
 
 ## Sylix
 
