@@ -108,6 +108,12 @@ in {
 				type = types.bool;
 				description = "Enable lshw.";
 			};
+		tools.tshark.enable =
+			mkOption {
+				default = true;
+				type = types.bool;
+				description = "Enable tshark.";
+			};
 	};
 	config = let
 		inherit
@@ -127,6 +133,7 @@ in {
 			lshw
 			usbutils
 			hwinfo
+			tshark
 			;
 		basicList = with pkgs; [
 			util-linux
@@ -155,6 +162,7 @@ in {
 			++ optionals playerctl.enable [pkgs.playerctl]
 			++ optionals lshw.enable [pkgs.lshw]
 			++ optionals hwinfo.enable [pkgs.hwinfo]
-			++ optionals usbutils.enable [pkgs.usbutils];
+			++ optionals usbutils.enable [pkgs.usbutils]
+			++ optionals tshark.enable [pkgs.tshark];
 	};
 }
