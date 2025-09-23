@@ -198,11 +198,11 @@
         "plugins-harpoon-lualine": "plugins-harpoon-lualine"
       },
       "locked": {
-        "lastModified": 1758598989,
-        "narHash": "sha256-kav8Oryp11fbNmziA3jlxuuhOLNGaN/4xSrjMrb/o3c=",
+        "lastModified": 1758599435,
+        "narHash": "sha256-SizMTlaoLMp4Hs1ui13pS/mMjHU/fmL4o7woNOoYy5I=",
         "owner": "JDaggers",
         "repo": "nixLoki",
-        "rev": "80018493b87ab01da0a4b332809622de290e2487",
+        "rev": "5bac0bcdbe9d2301ce7a6a8ef575029090f912a5",
         "type": "github"
       },
       "original": {
