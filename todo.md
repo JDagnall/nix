@@ -1,17 +1,18 @@
 ## Feat
 
 - look into the waybar disappearing when not moused over
-- add lang configs for rust and go as in compilers and formatters.
+- add lang configs for rust, lua and go as in compilers and formatters.
 - look into dev shells
-- nvim telescope search for functions in buffer.
 - add VPN PrivateInternetAccess connections. Too bad thier openvpn shit is busted
 - hyprsunset
 - further categorise nix module files into subdirectories
 - try ghostty
 - sessioniser, tmux or not
+- nvim switch to snacks picker. Its supposed to be faster plus it has a clipboard history
 
 ## Fix
 
+- nvim lualine prioritise filename and path over git branch and status, get rid  of harpoon lualine
 - fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
 - ly breaks UWSM for some reason
 - make sure auth through dbus works for things like vscode with github. Seems to.
