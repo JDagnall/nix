@@ -194,15 +194,14 @@
         "nixCats": "nixCats",
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "plugins-harpoon-lualine": "plugins-harpoon-lualine"
+        ]
       },
       "locked": {
-        "lastModified": 1758604550,
-        "narHash": "sha256-NuL5kobSYP59v+C5p75bBLyz2MHZrq8BesTtBO9lEEc=",
+        "lastModified": 1759270120,
+        "narHash": "sha256-6P7a/XmYvGUINewYe1kNET883hFJGBbFCvwuzRGcs8U=",
         "owner": "JDaggers",
         "repo": "nixLoki",
-        "rev": "cf153ad0825f822e05cec1aa34af41dba0469d6f",
+        "rev": "af5b867a70ea9d943eade93cb905aa2d30092022",
         "type": "github"
       },
       "original": {
@@ -285,22 +284,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "NUR",
-        "type": "github"
-      }
-    },
-    "plugins-harpoon-lualine": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1751343777,
-        "narHash": "sha256-mVYk+mdTT+LW+5bwoJZoGYMu3GhUVppghVT8nf4depE=",
-        "owner": "letieu",
-        "repo": "harpoon-lualine",
-        "rev": "21b9d12f2a0b44e20566193f826c9d2ba6edef06",
-        "type": "github"
-      },
-      "original": {
-        "owner": "letieu",
-        "repo": "harpoon-lualine",
         "type": "github"
       }
     },

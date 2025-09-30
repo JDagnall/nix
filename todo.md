@@ -12,7 +12,6 @@
 
 ## Fix
 
-- nvim lualine prioritise filename and path over git branch and status, get rid  of harpoon lualine
 - fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
 - ly breaks UWSM for some reason
 - make sure auth through dbus works for things like vscode with github. Seems to.
