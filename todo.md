@@ -6,9 +6,7 @@
 - add VPN PrivateInternetAccess connections. Too bad thier openvpn shit is busted
 - hyprsunset
 - further categorise nix module files into subdirectories
-- try ghostty
 - sessioniser, tmux or not
-- nvim switch to snacks picker. Its supposed to be faster plus it has a clipboard history
 
 ## Fix
 
