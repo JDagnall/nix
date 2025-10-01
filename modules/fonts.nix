@@ -25,7 +25,7 @@ in {
 				];
 				fontconfig = {
 					defaultFonts = {
-						monospace = ["Victor Mono Nerd Font"];
+						monospace = ["JetBrainsMono Nerd Font Mono"];
 					};
 				};
 			};
