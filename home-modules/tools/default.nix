@@ -114,6 +114,12 @@ in {
 				type = types.bool;
 				description = "Enable tshark.";
 			};
+		tools.snakeviz.enable =
+			mkOption {
+				default = true;
+				type = types.bool;
+				description = "Enable snakeviz. A python application for viewing cProfile  .prof files.";
+			};
 	};
 	config = let
 		inherit
@@ -134,6 +140,7 @@ in {
 			usbutils
 			hwinfo
 			tshark
+			snakeviz
 			;
 		basicList = with pkgs; [
 			util-linux
@@ -163,6 +170,7 @@ in {
 			++ optionals lshw.enable [pkgs.lshw]
 			++ optionals hwinfo.enable [pkgs.hwinfo]
 			++ optionals usbutils.enable [pkgs.usbutils]
-			++ optionals tshark.enable [pkgs.tshark];
+			++ optionals tshark.enable [pkgs.tshark]
+			++ optionals snakeviz.enable [pkgs.python312Packages.snakeviz];
 	};
 }
