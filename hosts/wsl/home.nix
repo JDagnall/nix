@@ -30,6 +30,7 @@
 	tools.mycli.enable = true;
 	tools.gh-cli.enable = true;
 	tools.nh.enable = true;
+	tools.ngrok.enable = true;
 
 	nixLoki.enable = true;
 
