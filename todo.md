@@ -6,7 +6,7 @@
 - add VPN PrivateInternetAccess connections. Too bad thier openvpn shit is busted
 - hyprsunset
 - further categorise nix module files into subdirectories
-- sessioniser, tmux or not
+- sessioniser, tmux or not. probably wezterm based
 
 ## Fix
 
@@ -22,6 +22,7 @@
 - make sure fprintd has fallbacks for password, and try to get more interactive prompts for it on hyprlock and ly.
 - check secure boot (nix-community/lanzaboote exists)
 - hyprland popup windows
+- nvim bracket closing is consistently shite. Additionally Jedi LS is adding brackets when completeing classes. Insanely annoying.
 
 ## Sylix
 
@@ -29,11 +30,4 @@ Stylix can be used to theme things universally in nix, use it for theming when i
 
 ### things to be themed in stylix
 
-- wezterm DONE, tab selected color is too gray and nvim telescope is not transparent
-- rofi DONE
-- hyprland DONE
-- waybar DONE
-- cmd line utilites? DONE
-- grub DONE
 - ly
-- hyprlock DONE
