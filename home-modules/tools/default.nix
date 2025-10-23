@@ -126,6 +126,12 @@ in {
 				type = types.bool;
 				description = "Enable ngrok. A reverse tcp tunneling agent, for opening ports.";
 			};
+		tools.rlwrap.enable =
+			mkOption {
+				default = true;
+				type = types.bool;
+				description = "Enable rlwrap. A readline wrapper for cmdline utilities. Use with ssh for high latency connections.";
+			};
 	};
 	config = let
 		inherit
@@ -148,6 +154,7 @@ in {
 			tshark
 			snakeviz
 			ngrok
+			rlwrap
 			;
 		basicList = with pkgs; [
 			util-linux
@@ -179,6 +186,7 @@ in {
 			++ optionals usbutils.enable [pkgs.usbutils]
 			++ optionals tshark.enable [pkgs.tshark]
 			++ optionals snakeviz.enable [pkgs.python312Packages.snakeviz]
-			++ optionals ngrok.enable [pkgs.ngrok];
+			++ optionals ngrok.enable [pkgs.ngrok]
+			++ optionals rlwrap.enable [pkgs.rlwrap];
 	};
 }
