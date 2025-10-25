@@ -51,7 +51,7 @@ in {
 				default = false;
 				description = "Enable the Galaxy-s10e as a syncthing device";
 			};
-		service.syncthing.devices.PC.enable =
+		service.syncthing.devices.PC-windows.enable =
 			mkEnableOption {
 				default = false;
 				description = "Enable the PC as a syncthing device";
@@ -123,8 +123,8 @@ in {
 				# extraOptions = [ ];
 				openDefaultPorts = true; # if running multiple instances, must be false;
 				guiAddress = "localhost:8384";
-				cert = "${toString ./cert.pem}";
-				key = "${toString ./key.pem}";
+				cert = "${toString ./hosts/${config.networking.hostName}/cert.pem}";
+				key = "${toString ./hosts/${config.networking.hostName}/key.pem}";
 				dataDir = config.service.syncthing.dataDir;
 				configDir = config.service.syncthing.configDir;
 				# These make it so that only folders or devices configured here
@@ -158,10 +158,10 @@ in {
 								name = "Galaxy-s10e";
 								autoAcceptFolders = false;
 							};
-						"PC" =
-							mkIf config.service.syncthing.devices.PC.enable {
+						"PC-windows" =
+							mkIf config.service.syncthing.devices.PC-windows.enable {
 								id = "2WONTYB-TZI6CPL-ZRPSNNE-UJUEZ7U-MJTIMIB-MEHE7SD-UQ4EKSH-ORQEYAO";
-								name = "PC";
+								name = "PC-windows";
 								autoAcceptFolders = false;
 							};
 						"Macbook" =
