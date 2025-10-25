@@ -69,6 +69,28 @@
 						}
 					];
 				};
+			pc =
+				nixpkgs.lib.nixosSystem {
+					specialArgs = {inherit system;};
+					modules = [
+						./hosts/pc/config.nix
+						stylix.nixosModules.stylix
+						# using home-manager as a nixos module here
+						home-manager.nixosModules.home-manager
+						{
+							home-manager.useGlobalPkgs = true;
+							home-manager.useUserPackages = true;
+							home-manager.extraSpecialArgs = {
+								inherit system;
+								inherit inputs;
+								inherit pkgs; # makes sure to inherit overlays like nixLoki
+							};
+							home-manager.users.james.imports = [
+								./hosts/pc/home.nix
+							];
+						}
+					];
+				};
 			wsl =
 				nixpkgs.lib.nixosSystem {
 					specialArgs = {inherit system;};
