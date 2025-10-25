@@ -6,6 +6,7 @@
 }: {
 	# config ------------------------------
 	display-manager.gdm.enable = true;
+	nvidia.enable = true;
 	window-manager.hyprland.enable = true;
 	boot-loader.grub.enable = true;
 	fonts.enable = true;

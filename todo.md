@@ -10,6 +10,9 @@
 
 ## Fix
 
+- IN GENERAL: look for things that are universal that should be host specific
+- see if GRUB can be the universal boot loader to pick linux of windows on PC
+- hyprland mouse settings, loses focus when typing if i hover over another window is bad
 - fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
 - ly breaks UWSM for some reason
 - make sure auth through dbus works for things like vscode with github. Seems to.
@@ -27,6 +30,10 @@
 ## Sylix
 
 Stylix can be used to theme things universally in nix, use it for theming when it is available
+
+- maybe actually try to get nvim to work with stylix properly
+- maybe switch stylix to the wallpaper algorithm
+- add host specific stylix config options
 
 ### things to be themed in stylix
 
