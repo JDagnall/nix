@@ -43,6 +43,7 @@
 		../../james.nix
 		../../modules
 		../../stylix.nix
+		./stylix.nix
 	];
 
 	environment.systemPackages = with pkgs; [home-manager];

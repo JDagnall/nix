@@ -107,17 +107,17 @@ in {
 								# set brightness back
 								on-resume = "brightnessctl -rd rgb:kbd_backlight";
 							}
-							# lock session
-							{
-								timeout = 300; # sec
-								on-timeout = "loginctl lock-session";
-							}
 							# fully turns the screen off
 							{
 								timeout = 330; # sec
 								on-timeout = "hyprctl dispatch dpms off";
 								# change brightness back,
 								on-resume = "hyprctl dispatch dpms on && brightnessctl -r";
+							}
+							# lock session
+							{
+								timeout = 900; # 15 min
+								on-timeout = "loginctl lock-session";
 							}
 							# suspend after 30 mins
 							{
