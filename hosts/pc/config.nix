@@ -1,6 +1,6 @@
 {
 	config,
-	# lib,
+	lib,
 	pkgs,
 	...
 }: {
@@ -46,6 +46,11 @@
 	];
 
 	environment.systemPackages = with pkgs; [home-manager];
+
+	# allow unfree software, currently only using nvidia's drivers
+	# this is not clean but its to annoying to care about
+	# nixpkgs.config.allowUnfree = true;
+	nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["nvidia-x11" "nvidia-settings"];
 
 	nix.settings.experimental-features = [
 		"nix-command"

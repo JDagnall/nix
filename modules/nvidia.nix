@@ -17,19 +17,18 @@ in {
 	};
 	config =
 		mkIf config.nvidia.enable {
+			# nvidia drivers are proprietary
 			hardware.nvidia = {
-				enabled = true;
-				# Most wayland compositors need this
 				modesetting.enable = true;
 
 				# not using this at the moment, if stuff crashed waking up from sleep, try to use it
 				# powerManagement.enable = true;
 
 				# open source kernel module, still in development, might be worth a try
-				# open = true;
+				open = true;
 
 				# graphical settings menu
-				nvidiaSettings = true;
+				nvidiaSettings = false;
 
 				# could be stable, production, beta or latest
 				package = config.boot.kernelPackages.nvidiaPackages.stable;
