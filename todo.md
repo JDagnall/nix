@@ -12,7 +12,6 @@
 
 - IN GENERAL: look for things that are universal that should be host specific
 - see if GRUB can be the universal boot loader to pick linux of windows on PC
-- hyprland mouse settings, loses focus when typing if i hover over another window is bad
 - fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
 - ly breaks UWSM for some reason
 - make sure auth through dbus works for things like vscode with github. Seems to.

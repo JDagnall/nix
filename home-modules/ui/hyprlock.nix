@@ -4,7 +4,7 @@
 	osConfig,
 	...
 }: let
-	inherit (lib) mkIf mkEnableOption;
+	inherit (lib) types mkIf mkEnableOption mkOption;
 in {
 	options = {
 		ui.hyprlock.enable =
@@ -14,6 +14,12 @@ in {
 		ui.hypridle.enable =
 			mkEnableOption {
 				description = "Enable hypridle config";
+			};
+		ui.hypridle.profile =
+			mkOption {
+				description = "The profile for the idle timeouts etc, currently one for a desktop and one for a laptop";
+				type = types.enum ["laptop" "desktop"];
+				default = "laptop";
 			};
 	};
 	config =
@@ -71,7 +77,62 @@ in {
 
 			# hypridle execs commands after set timeouts of inacrivity,
 			# it also can exec commands when `loginctl lock/unlock` commands are issued
-			services.hypridle =
+			services.hypridle = let
+				laptop_profile = [
+					# dim screen after a period of inactivity
+					{
+						timeout = 180; # sec
+						# set brightness low
+						on-timeout = "brightnessctl -s set 10";
+						# set brightness back
+						on-resume = "brightnessctl -r";
+					}
+					# do same for keyboard backlight
+					{
+						timeout = 180; # sec
+						on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0";
+						# set brightness back
+						on-resume = "brightnessctl -rd rgb:kbd_backlight";
+					}
+					# fully turns the screen off
+					{
+						timeout = 300; # sec
+						on-timeout = "hyprctl dispatch dpms off";
+						# change brightness back,
+						on-resume = "hyprctl dispatch dpms on && brightnessctl -r";
+					}
+					# lock session
+					{
+						timeout = 900; # 15 min
+						on-timeout = "loginctl lock-session";
+					}
+					# suspend
+					{
+						timeout = 960; # 16 min
+						on-timeout = "systemctl suspend";
+					}
+				];
+				desktop_profile = [
+					# fully turns the screen off
+					{
+						timeout = 300; # sec
+						on-timeout = "hyprctl dispatch dpms off";
+						# change brightness back,
+						on-resume = "hyprctl dispatch dpms on && brightnessctl -r";
+					}
+					# lock session
+					{
+						timeout = 900; # 15 min
+						on-timeout = "loginctl lock-session";
+					}
+					# suspend after 30 mins
+					{
+						timeout = 1800; # sec
+						on-timeout = "systemctl suspend";
+					}
+				];
+				inherit (config.ui.hypridle) profile;
+			in
 				mkIf config.ui.hypridle.enable {
 					enable = true;
 					settings = {
@@ -91,40 +152,10 @@ in {
 							ignore_wayland_inhibit = false;
 							inhibit_sleep = 2; # normal
 						};
-						listener = [
-							# dim screen after a period of inactivity
-							{
-								timeout = 150; # sec
-								# set brightness low
-								on-timeout = "brightnessctl -s set 10";
-								# set brightness back
-								on-resume = "brightnessctl -r";
-							}
-							# do same for keyboard backlight
-							{
-								timeout = 150; # sec
-								on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0";
-								# set brightness back
-								on-resume = "brightnessctl -rd rgb:kbd_backlight";
-							}
-							# fully turns the screen off
-							{
-								timeout = 330; # sec
-								on-timeout = "hyprctl dispatch dpms off";
-								# change brightness back,
-								on-resume = "hyprctl dispatch dpms on && brightnessctl -r";
-							}
-							# lock session
-							{
-								timeout = 900; # 15 min
-								on-timeout = "loginctl lock-session";
-							}
-							# suspend after 30 mins
-							{
-								timeout = 1800; # sec
-								on-timeout = "systemctl suspend";
-							}
-						];
+						listener =
+							if profile == "desktop"
+							then desktop_profile
+							else laptop_profile;
 					};
 				};
 

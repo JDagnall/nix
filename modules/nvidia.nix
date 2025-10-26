@@ -22,7 +22,7 @@ in {
 				modesetting.enable = true;
 
 				# not using this at the moment, if stuff crashed waking up from sleep, try to use it
-				# powerManagement.enable = true;
+				powerManagement.enable = true;
 
 				# open source kernel module, still in development, might be worth a try
 				open = true;

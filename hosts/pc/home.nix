@@ -33,6 +33,7 @@
 	ui.hyprpaper.enable = true;
 	ui.hyprlock.enable = true;
 	ui.hypridle.enable = true;
+	ui.hypridle.profile = "desktop";
 	ui.firefox.enable = true;
 	ui.nwg-look.enable = false;
 	ui.syncthingtray.enable = true;
