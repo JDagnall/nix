@@ -23,10 +23,10 @@
 			remap = [
 				{
 					input = ["KEY_LEFTMETA"];
-					output = ["KEY_LEFT_ALT"];
+					output = ["KEY_LEFTALT"];
 				}
 				{
-					input = ["KEY_LEFT_ALT"];
+					input = ["KEY_LEFTALT"];
 					output = ["KEY_LEFTMETA"];
 				}
 			];
