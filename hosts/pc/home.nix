@@ -62,6 +62,8 @@
 
 	nixLoki.enable = true;
 
+	gaming.proton.ge.enable = true;
+
 	stylix.enableHomeConfig = true; # home-manager specific stylix
 
 	### Configs

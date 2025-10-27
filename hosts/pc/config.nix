@@ -37,6 +37,8 @@
 	service.openvpn3.enable = false;
 
 	stylix.enableConfig = true;
+
+	gaming.steam.enable = true;
 	# config ------------------------------
 
 	imports = [
@@ -50,10 +52,10 @@
 
 	environment.systemPackages = with pkgs; [home-manager];
 
-	# allow unfree software, currently only using nvidia's drivers
+	# allow unfree software, currently only using nvidia's drivers and stream
 	# this is not clean but its to annoying to care about
 	# nixpkgs.config.allowUnfree = true;
-	nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["nvidia-x11" "nvidia-settings"];
+	nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["nvidia-x11" "nvidia-settings" "steam" "steam-unwrapped"];
 
 	nix.settings.experimental-features = [
 		"nix-command"

@@ -7,6 +7,7 @@
 		./term
 		./window-manager
 		./ui
+		./gaming
 		./home-stylix.nix
 	];
 }

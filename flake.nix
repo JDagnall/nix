@@ -32,8 +32,8 @@
 			import nixpkgs {
 				inherit system;
 				config = {
+					# allows unfree in home-manager.
 					allowUnfree = true;
-					allowUnfreePredicate = pkg: true;
 				};
 				overlays = [
 					nixLoki.overlays.default

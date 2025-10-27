@@ -7,5 +7,6 @@
 		./display-manager
 		./boot-loader
 		./service
+		./gaming
 	];
 }
