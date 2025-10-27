@@ -66,6 +66,9 @@
 
 	### Configs
 
+	# keymaps for the logitech keyboard
+	home.keyboard.options = ["altwin:swap_alt_win"];
+
 	# installed packages
 	home.packages = [];
 

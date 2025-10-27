@@ -13,7 +13,6 @@
 - IN GENERAL: look for things that are universal that should be host specific
 - key remaps
 - fuzzy matching in rofi
-- see if GRUB can be the universal boot loader to pick linux of windows on PC
 - fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
 - ly breaks UWSM for some reason
 - make sure auth through dbus works for things like vscode with github. Seems to.
@@ -32,7 +31,7 @@
 
 Stylix can be used to theme things universally in nix, use it for theming when it is available
 
-- maybe actually try to get nvim to work with stylix properly
+- maybe actually try to get nvim to work with stylix properly, probably will have to pass base 16 as an option, using stylix.
 - maybe switch stylix to the wallpaper algorithm
 - add host specific stylix config options
 

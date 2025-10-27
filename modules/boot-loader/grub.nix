@@ -12,6 +12,7 @@
 	};
 	config =
 		lib.mkIf config.boot-loader.grub.enable {
+			boot.loader.timeout = null;
 			boot.loader.grub = {
 				enable = true;
 				device = "nodev";
