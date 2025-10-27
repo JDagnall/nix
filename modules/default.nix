@@ -2,6 +2,7 @@
 	imports = [
 		./fonts.nix
 		./nvidia.nix
+		./evremap.nix
 		./window-manager
 		./display-manager
 		./boot-loader
