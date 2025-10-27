@@ -17,6 +17,7 @@
 	boot.kernelModules = ["kvm-amd"];
 	boot.extraModulePackages = [];
 
+	# 1TB SSD NVME
 	fileSystems."/" = {
 		device = "/dev/disk/by-uuid/1077f024-be91-4ac5-9d5b-c4aa00251e15";
 		fsType = "ext4";
@@ -27,6 +28,20 @@
 		fsType = "vfat";
 		options = ["fmask=0022" "dmask=0022"];
 	};
+	# needed for ntfs drives
+	# boot.supportedFilesystems = ["ntfs"];
+	# 2TB HDD
+	# fileSystems."/games" = {
+	# 	device = "/dev/disk/by-uuid/1CEEE270EEE2421E";
+	# 	fsType = "ntfs-3g";
+	# 	options = ["rw" "uid=1000"]; # id of my user
+	# };
+	# 120 GB SSD SATA
+	# fileSystems."/ssd" = {
+	# 	device = "/dev/disk/by-uuid/AC7A0DB47A0D7C78";
+	# 	fsType = "ntfs-3g";
+	# 	options = ["rw" "uid=1000"]; # id of my user
+	# };
 
 	swapDevices = [
 		{

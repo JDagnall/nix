@@ -13,6 +13,8 @@
 	boot-loader.grub.enable = true;
 	fonts.enable = true;
 
+	service.pipewire.enable = true;
+
 	service.syncthing.enable = true;
 	service.syncthing.user = "james";
 	service.syncthing.group = "james";
@@ -66,8 +68,6 @@
 	networking.hostName = "pc";
 
 	services.openssh.enable = true;
-
-	services.pipewire.enable = true;
 
 	# bluetooth
 	hardware.bluetooth = {

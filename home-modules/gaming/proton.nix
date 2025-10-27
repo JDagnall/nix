@@ -4,7 +4,7 @@
 	config,
 	...
 }: let
-	inherit (lib) mkIf mkEnableOption optionals;
+	inherit (lib) mkEnableOption optionals;
 in {
 	options = {
 		gaming.proton.ge.enable =
@@ -16,9 +16,5 @@ in {
 	};
 	config = {
 		home.packages = with pkgs; [] ++ optionals config.gaming.proton.ge.enable [protonup];
-		home.sessionVariables =
-			mkIf config.gaming.proton.ge.enable {
-				STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\\\${HOME}/.steam/compatibilitytools.d";
-			};
 	};
 }
