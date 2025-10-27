@@ -18,7 +18,7 @@ in {
 		home.packages = with pkgs; [] ++ optionals config.gaming.proton.ge.enable [protonup];
 		home.sessionVariables =
 			mkIf config.gaming.proton.ge.enable {
-				STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\\\${HOME}/.steam/root/compatibilitytools.d";
+				STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\\\${HOME}/.steam/compatibilitytools.d";
 			};
 	};
 }
