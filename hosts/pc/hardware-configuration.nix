@@ -28,20 +28,30 @@
 		fsType = "vfat";
 		options = ["fmask=0022" "dmask=0022"];
 	};
-	# needed for ntfs drives
-	# boot.supportedFilesystems = ["ntfs"];
-	# 2TB HDD
-	# fileSystems."/games" = {
-	# 	device = "/dev/disk/by-uuid/1CEEE270EEE2421E";
-	# 	fsType = "ntfs-3g";
-	# 	options = ["rw" "uid=1000"]; # id of my user
-	# };
+	# 2TB HDD SATA
+	fileSystems."/games" = {
+		device = "/dev/disk/by-uuid/3F10-2A17";
+		fsType = "fat32";
+		options = [
+			"users" # any user can mount the drive
+			"nofail" # dont crash if can't mount
+			"exec" # permit to excecute binaries
+			"rw"
+			# "uid=1000" # id of my user
+		];
+	};
 	# 120 GB SSD SATA
-	# fileSystems."/ssd" = {
-	# 	device = "/dev/disk/by-uuid/AC7A0DB47A0D7C78";
-	# 	fsType = "ntfs-3g";
-	# 	options = ["rw" "uid=1000"]; # id of my user
-	# };
+	fileSystems."/ssd" = {
+		device = "/dev/disk/by-uuid/468D-FC96";
+		fsType = "fat32";
+		options = [
+			"users" # any user can mount the drive
+			"nofail" # dont crash if can't mount
+			"exec" # permit to excecute binaries
+			"rw"
+			# "uid=1000" # id of my user
+		];
+	};
 
 	swapDevices = [
 		{
