@@ -32,7 +32,7 @@
 	boot.supportedFilesystems = ["ntfs"];
 	# 2TB HDD SATA
 	fileSystems."/games" = {
-		device = "/dev/disk/by-uuid/3F10-2A17";
+		device = "/dev/disk/by-uuid/72F6601C550EB248";
 		fsType = "ntfs-3g";
 		options = [
 			"users" # any user can mount the drive
@@ -44,7 +44,7 @@
 	};
 	# 120 GB SSD SATA
 	fileSystems."/ssd" = {
-		device = "/dev/disk/by-uuid/468D-FC96";
+		device = "/dev/disk/by-uuid/64B307E260B2E417";
 		fsType = "ntfs-3g";
 		options = [
 			"users" # any user can mount the drive
