@@ -28,10 +28,12 @@
 		fsType = "vfat";
 		options = ["fmask=0022" "dmask=0022"];
 	};
+	# needed for ntfs filesystems
+	boot.supportedFilesystems = ["ntfs"];
 	# 2TB HDD SATA
 	fileSystems."/games" = {
 		device = "/dev/disk/by-uuid/3F10-2A17";
-		fsType = "fat32";
+		fsType = "ntfs-3g";
 		options = [
 			"users" # any user can mount the drive
 			"nofail" # dont crash if can't mount
@@ -43,7 +45,7 @@
 	# 120 GB SSD SATA
 	fileSystems."/ssd" = {
 		device = "/dev/disk/by-uuid/468D-FC96";
-		fsType = "fat32";
+		fsType = "ntfs-3g";
 		options = [
 			"users" # any user can mount the drive
 			"nofail" # dont crash if can't mount
