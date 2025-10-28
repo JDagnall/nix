@@ -51,6 +51,7 @@
 	ui.hypr-screenshot.enable = true;
 	ui.easyeffects.enable = true;
 	ui.pavucontrol.enable = true;
+	ui.drawio.enable = true;
 
 	tools.git.enable = true;
 	tools.pipenv.enable = true;

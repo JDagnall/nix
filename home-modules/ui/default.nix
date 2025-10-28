@@ -56,6 +56,12 @@ in {
 				type = types.bool;
 				description = "Install pavucontrol";
 			};
+		ui.drawio.enable =
+			mkOption {
+				default = false;
+				type = types.bool;
+				description = "Install draw.io";
+			};
 	};
 	config = let
 		inherit
@@ -65,6 +71,7 @@ in {
 			legcord
 			slack
 			pavucontrol
+			drawio
 			;
 	in {
 		home.packages =
@@ -73,6 +80,7 @@ in {
 			++ optionals spotify.enable [pkgs.spotify]
 			++ optionals legcord.enable [pkgs.legcord]
 			++ optionals slack.enable [pkgs.slack]
-			++ optionals pavucontrol.enable [pkgs.pavucontrol];
+			++ optionals pavucontrol.enable [pkgs.pavucontrol]
+			++ optionals drawio.enable [pkgs.drawio];
 	};
 }
