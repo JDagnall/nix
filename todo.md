@@ -11,7 +11,8 @@
 ## Fix
 
 - IN GENERAL: look for things that are universal that should be host specific
-- Sleep inihibitors
+- Sleep inihibitors, theres one that checks pipewire, for audio and inhibit sleep. Should maybe make my own button in waybar for it using systemd-inhibit
+- Should probably manually do grub entries the OS-prober is annoying
 - move window to other monitor keybind for hyprland is a must
 - fuzzy matching in rofi
 - fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
