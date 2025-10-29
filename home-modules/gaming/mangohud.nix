@@ -15,11 +15,11 @@
 			programs.mangohud = {
 				enable = true;
 				enableSessionWide = true;
-				# settings = {
-				# 	legacy_layout = 2;
-				# };
+				settings = {
+					legacy_layout = 2;
+				};
 				settingsPerApplication = {};
 			};
-			# stylix.targets.mangohud.enable = config.stylix.enableHomeConfig;
+			stylix.targets.mangohud.enable = config.stylix.enableHomeConfig;
 		};
 }
