@@ -65,6 +65,7 @@
 
 	gaming.proton.ge.enable = true;
 	gaming.lutris.enable = true;
+	gaming.mangohud.enable = true;
 
 	stylix.enableHomeConfig = true; # home-manager specific stylix
 
