@@ -28,7 +28,5 @@
 				remotePlay.openFirewall = false;
 				dedicatedServer.openFirewall = false;
 			};
-			# important optimisations
-			programs.gamemode.enable = true;
 		};
 }

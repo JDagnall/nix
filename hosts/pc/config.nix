@@ -41,6 +41,8 @@
 	stylix.enableConfig = true;
 
 	gaming.steam.enable = true;
+	gaming.gamemode.enable = true;
+	gaming.gamescope.enable = true;
 	# config ------------------------------
 
 	imports = [
