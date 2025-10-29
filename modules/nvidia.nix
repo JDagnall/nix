@@ -28,7 +28,7 @@ in {
 				open = true;
 
 				# graphical settings menu
-				nvidiaSettings = false;
+				nvidiaSettings = true;
 
 				# could be stable, production, beta or latest
 				package = config.boot.kernelPackages.nvidiaPackages.stable;
