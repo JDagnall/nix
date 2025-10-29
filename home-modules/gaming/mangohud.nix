@@ -17,7 +17,6 @@
 				enableSessionWide = true;
 				settings = {
 					# legacy_layout = 2;
-					gpu_name = true;
 					gpu_list = [0];
 					gpu_temp = true;
 					cpu_temp = true;
@@ -27,11 +26,11 @@
 					fps = true;
 					frame_timing = 0;
 					wine = true;
-					gamemode = true;
-					graphs = "";
 
+					hud_compact = true;
 					round_corners = 0.5;
 					horizontal = true;
+					horizontal_stretch = 0;
 					# override some of stylix's bad decisions
 					background_alpha = lib.mkForce 0.5;
 					alpha = lib.mkForce 0.8;
