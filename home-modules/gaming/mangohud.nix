@@ -28,7 +28,8 @@
 					wine = true;
 
 					hud_compact = true;
-					round_corners = 0.5;
+					height = 100;
+					round_corners = 2;
 					horizontal = true;
 					horizontal_stretch = 0;
 					# override some of stylix's bad decisions
