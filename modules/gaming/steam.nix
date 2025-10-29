@@ -28,5 +28,9 @@
 				remotePlay.openFirewall = false;
 				dedicatedServer.openFirewall = false;
 			};
+			hardware.graphics = {
+				extraPackages = [pkgs.mangohud];
+				extraPackages32 = [pkgs.mangohud];
+			};
 		};
 }
