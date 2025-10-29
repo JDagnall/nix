@@ -18,12 +18,14 @@
 				settings = {
 					# legacy_layout = 2;
 					gpu_name = true;
+					gpu_list = [0];
 					gpu_temp = true;
 					cpu_temp = true;
 					cpu_load = true;
 					vram = true;
 					ram = true;
 					fps = true;
+					frame_timing = 0;
 					wine = true;
 					gamemode = true;
 					graphs = "";
