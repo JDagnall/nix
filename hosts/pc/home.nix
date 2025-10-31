@@ -16,6 +16,7 @@
 	shell.zsh.enable = true;
 	shell.zsh.dircolors.enable = true;
 	shell.zsh.direnv.enable = true;
+	shell.zsh.vi-mode.enable = true;
 	shell.bat.enable = true;
 	shell.eza.enable = true;
 	shell.fzf.enable = true;
@@ -53,11 +54,12 @@
 	ui.pavucontrol.enable = true;
 	ui.drawio.enable = true;
 
-	tools.git.enable = true;
-	tools.pipenv.enable = true;
-	tools.mycli.enable = true;
 	tools.keepassxc.enable = true;
 	tools.keepmenu.enable = true;
+
+	tools.git.enable = true;
+	tools.pipenv.enable = true;
+	tools.mycli.enable = false;
 	tools.gh-cli.enable = true;
 	tools.nh.enable = true;
 

@@ -10,24 +10,14 @@
 		mkEnableOption
 		mkOrder
 		mkMerge
+		optionals
 		;
 in {
 	options = {
-		shell.zsh.enable =
-			mkEnableOption {
-				default = false;
-				description = "enable zsh config";
-			};
-		shell.zsh.dircolors.enable =
-			mkEnableOption {
-				default = false;
-				description = "enable directory colors config";
-			};
-		shell.zsh.direnv.enable =
-			mkEnableOption {
-				default = false;
-				description = "enable direnv config";
-			};
+		shell.zsh.enable = mkEnableOption {description = "Enable zsh config.";};
+		shell.zsh.dircolors.enable = mkEnableOption {description = "Enable directory colors config.";};
+		shell.zsh.direnv.enable = mkEnableOption {description = "Enable direnv config.";};
+		shell.zsh.vi-mode.enable = mkEnableOption {description = "Enable vi-mode in zsh.";};
 	};
 
 	config =
@@ -35,22 +25,30 @@ in {
 			programs.zsh = {
 				enable = true;
 				# plugins just sources the files pointed too by its elements
-				plugins = [
-					{
-						name = "powerlevel10k-config";
-						src = ./.;
-						file = ".p10k.zsh";
-					}
-					{
-						name = "zsh-powerlevel10k";
-						src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/";
-						file = "powerlevel10k.zsh-theme";
-					}
-					{
-						name = "fzf-tab";
-						src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
-					}
-				];
+				plugins =
+					[
+						{
+							name = "powerlevel10k-config";
+							src = ./.;
+							file = ".p10k.zsh";
+						}
+						{
+							name = "zsh-powerlevel10k";
+							src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/";
+							file = "powerlevel10k.zsh-theme";
+						}
+						{
+							name = "fzf-tab";
+							src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
+						}
+					]
+					++ optionals config.shell.zsh.vi-mode.enable [
+						{
+							name = "vi-mode";
+							src = pkgs.zsh-vi-mode;
+							file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+						}
+					];
 
 				enableCompletion = true;
 				autosuggestion.enable = true;
@@ -110,7 +108,7 @@ in {
 						'';
 
 					# random options that cant be set in home-manager
-					initExtra =
+					initOptions =
 						mkOrder 1000 ''
 							setopt GLOB_DOTS
 							# push prev dir onto dir stack
@@ -134,9 +132,23 @@ in {
 							bindkey '^p' history-search-backward
 							bindkey '^n' history-search-forward
 						'';
+					initExtra =
+						# has nix develop respect $SHELL
+						mkOrder 1000 ''
+							nix() {
+							    if [[ $1 == "develop" ]]; then
+							        shift
+							        command nix develop -c $SHELL "$@"
+							    else
+							        command nix "$@"
+							    fi
+							}
+
+						'';
 				in
 					mkMerge [
 						initFirst
+						initOptions
 						initExtra
 					]; # merges two order objects
 
@@ -155,6 +167,9 @@ in {
 					ll = "ls -l";
 					la = "ls -A";
 					l = "ls -CF";
+
+					# have nix-shell spit me into my shell not bash
+					nix-shell = "nix-shell --run $SHELL";
 				};
 			};
 
