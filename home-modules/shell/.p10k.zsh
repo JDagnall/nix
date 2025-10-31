@@ -65,10 +65,13 @@
     # =========================[ Line #1 ]=========================
     command_execution_time    # previous command duration
     virtualenv                # python virtual environment
+    goenv                     # go environment
+    nix_shell                 # nix-shell indicator
     context                   # user@host
     # time                    # current time
     # =========================[ Line #2 ]=========================
     newline                   # \n
+    vi_mode                   # vim mode
   )
 
   # Basic style options that define the overall prompt look.
