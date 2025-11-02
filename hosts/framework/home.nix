@@ -22,8 +22,14 @@
 	shell.fzf.enable = true;
 	shell.zoxide.enable = true;
 
+	# these are generally bad, and I should use dev shells instead.
+	# I keep python around cause it's handy and nix cause its native to the OS anyway
 	langs.nix.enable = true;
 	langs.python.enable = true;
+	langs.go.enable = false;
+	langs.zig.enable = false;
+	langs.rust.enable = false;
+	langs.lua.enable = false;
 
 	window-manager.hyprland.enable = true;
 
@@ -54,7 +60,6 @@
 	ui.pavucontrol.enable = true;
 
 	tools.git.enable = true;
-	tools.pipenv.enable = true;
 	tools.mycli.enable = true;
 	tools.keepassxc.enable = true;
 	tools.keepmenu.enable = true;

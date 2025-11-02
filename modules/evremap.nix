@@ -29,6 +29,10 @@
 					input = ["KEY_LEFTALT"];
 					output = ["KEY_LEFTMETA"];
 				}
+				{
+					input = ["KEY_CAPSLOCK"];
+					output = ["KEY_ESC"];
+				}
 			];
 		};
 	in

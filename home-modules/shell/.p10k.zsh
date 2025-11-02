@@ -38,6 +38,7 @@
   [[ $ZSH_VERSION == (5.<1->*|<6->.*) ]] || return
 
   # Prompt colors.
+  local black='0'
   local grey='242'
   local red='1'
   local green='2'
@@ -66,13 +67,21 @@
     command_execution_time    # previous command duration
     virtualenv                # python virtual environment
     goenv                     # go environment
-    nix_shell                 # nix-shell indicator
+    my_nix_shell                 # nix-shell indicator
     context                   # user@host
     # time                    # current time
     # =========================[ Line #2 ]=========================
     newline                   # \n
     vi_mode                   # vim mode
   )
+
+  function prompt_my_nix_shell () {
+      if [[ -n $IN_NIX_SHELL && -n $name ]]; then
+        p10k segment -f blue -i '󱄅 ' -t "${name}" 
+      elif [[ -n $IN_NIX_SHELL ]]; then
+        p10k segment -f blue -i '󱄅 '
+      fi
+  }
 
   # Basic style options that define the overall prompt look.
   typeset -g POWERLEVEL9K_BACKGROUND=                            # transparent background
@@ -104,6 +113,20 @@
   typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=true
   typeset -g POWERLEVEL9K_VIRTUALENV_{LEFT,RIGHT}_DELIMITER=
 
+
+  typeset -g POWERLEVEL9K_VI_COMMAND_MODE_STRING="[N]"
+  typeset -g POWERLEVEL9K_VI_MODE_COMMAND_BACKGROUND=$blue
+  typeset -g POWERLEVEL9K_VI_MODE_COMMAND_FOREGROUND=$black
+  typeset -g POWERLEVEL9K_VI_INSERT_MODE_STRING="[I]"
+  typeset -g POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND=$green
+  typeset -g POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND=$black
+  typeset -g POWERLEVEL9K_VI_VISUAL_MODE_STRING="[V]"
+  typeset -g POWERLEVEL9K_VI_MODE_VISUAL_BACKGROUND=$magenta
+  typeset -g POWERLEVEL9K_VI_MODE_VISUAL_FOREGROUND=$black
+
+  # Blue Nix Shell.
+  typeset -g POWERLEVEL9K_MY_NIX_SHELL_FOREGROUND=$blue
+
   # Blue current directory.
   typeset -g POWERLEVEL9K_DIR_FOREGROUND=$blue
 
@@ -123,7 +146,7 @@
   # Yellow previous command duration.
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=$yellow
 
-  # Grey Git prompt. This makes stale prompts indistinguishable from up-to-date ones.
+  # Green Git prompt. Gray would make stale prompts indistinguishable from up-to-date ones.
   typeset -g POWERLEVEL9K_VCS_FOREGROUND=$green
 
   # Disable async loading indicator to make directories that aren't Git repositories

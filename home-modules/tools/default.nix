@@ -20,11 +20,6 @@ in {
 				type = types.bool;
 				description = "Enable a small list of very basic tools. Always want this on.";
 			};
-		tools.pipenv.enable =
-			mkOption {
-				default = false;
-				description = "Enable pipenv";
-			};
 		tools.mycli.enable =
 			mkOption {
 				default = false;
@@ -137,7 +132,6 @@ in {
 		inherit
 			(config.tools)
 			basic
-			pipenv
 			mycli
 			fd
 			ripgrep
@@ -170,7 +164,6 @@ in {
 				pkgs.zip
 			]
 			++ optionals basic.enable basicList
-			++ optionals pipenv.enable [pkgs.pipenv]
 			++ optionals mycli.enable [pkgs.mycli]
 			++ optionals fd.enable [pkgs.fd]
 			++ optionals ripgrep.enable [pkgs.ripgrep]

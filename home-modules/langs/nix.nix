@@ -4,14 +4,11 @@
 	config,
 	...
 }: let
-	inherit (lib) mkIf mkEnableOption mkOption;
+	inherit (lib) mkIf mkEnableOption mkOption optionals;
 in {
 	options = {
 		langs.nix.enable =
-			mkEnableOption {
-				default = false;
-				description = "Enable nix config";
-			};
+			mkEnableOption {description = "Enable nix lang config.";};
 		langs.nix.formatters =
 			mkOption {
 				default = true;
@@ -28,12 +25,7 @@ in {
 	in
 		mkIf config.langs.python.enable {
 			home.packages =
-				[
-				]
-				++ (
-					if formatters
-					then formatterList
-					else []
-				);
+				[]
+				++ optionals formatters formatterList;
 		};
 }

@@ -13,10 +13,13 @@
 - move window to other monitor keybind for hyprland is a must
 - secure boot (nix-community/lanzaboote exists)
 - make nix-shell use my shell config. Can also apparently do things like looks for Pipenv files and download the required packages etc.
+- robust debugger for use in nvim. dont really feel that I need this atm.
+- sops.nix looks like something to look into for secret management
 
 ## Fix
 
 - IN GENERAL: look for things that are universal that should be host specific
+- workspace indicator on waybar should show the displayed workspace on the monitor the bar is on, not what is selected in general.
 - Steam does not detect proton GE
 - Should probably manually do grub entries the OS-prober is annoying
 - fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
