@@ -77,9 +77,9 @@
 
   function prompt_my_nix_shell () {
       if [[ -n $IN_NIX_SHELL && -n $name ]]; then
-        p10k segment -f blue +r -i '󱄅' 
+          p10k segment -t "󱄅 $name"
       elif [[ -n $IN_NIX_SHELL ]]; then
-        p10k segment -f blue +r -i '󱄅'
+          p10k segment -t '󱄅 '
       fi
   }
 
