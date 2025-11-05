@@ -197,11 +197,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761999386,
-        "narHash": "sha256-IqaVKYuZAkhP+lexXoQqwlmIqYqO5XY9iakXEggmTU0=",
+        "lastModified": 1762345789,
+        "narHash": "sha256-suVLCQSnfhFtK5GHs1eEPIWaeNF1eaBp4qdEkBixtcY=",
         "owner": "JDaggers",
         "repo": "nixLoki",
-        "rev": "d13a75b846403e68d313adaa0b0ca1d92cfbdacd",
+        "rev": "7ffa3a0e4a9fb42e03d41ca8867ff1a90139097f",
         "type": "github"
       },
       "original": {
