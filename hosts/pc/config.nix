@@ -7,7 +7,7 @@
 	# config ------------------------------
 	display-manager.gdm.enable = true;
 	nvidia.enable = true;
-	evremap.enable = true;
+	evremap.enable = false;
 	evremap.profile = "logi-k855";
 	window-manager.hyprland.enable = true;
 	boot-loader.grub.enable = true;
