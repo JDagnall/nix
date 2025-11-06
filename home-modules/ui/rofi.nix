@@ -46,6 +46,7 @@ in {
 					fixed-num-lines = true; # number of lines in picker is always the same
 					kb-secondary-copy = ""; # was previously <C-c>
 					kb-cancel = "Control+c,Escape"; # exit rofi with <C-c>
+					matching = "fuzzy"; # fuzzy search
 				};
 				location = "center";
 				modes = [
@@ -70,7 +71,7 @@ in {
 					in
 						mkLiteral "rgba ( ${r}, ${g}, ${b}, ${opacityString} % )";
 					rofiOpacity = toString (builtins.ceil (opacity.popups * 100));
-					mauve = mkRgba rofiOpacity "base0E";
+					purple = mkRgba rofiOpacity "base0E"; # in most colour schemes
 				in
 					{
 						window.height = mkLiteral "40%";
@@ -84,8 +85,8 @@ in {
 					// (
 						if config.ui.rofi.stylixOverride
 						then {
-							"element selected.normal".background-color = lib.mkForce mauve;
-							"button selected".background-color = lib.mkForce mauve;
+							"element selected.normal".background-color = lib.mkForce purple;
+							"button selected".background-color = lib.mkForce purple;
 						}
 						else {}
 					);
