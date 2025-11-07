@@ -97,6 +97,10 @@ window#waybar {
 #workspaces button.active {
   color: @base0B;
 }
+#workspaces button.empty.focused {
+#workspaces button.focused {
+  color: @base0C;
+}
 #workspaces button.empty:hover,
 #workspaces button:hover,
 #workspaces button.empty {

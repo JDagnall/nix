@@ -4,29 +4,47 @@
 	...
 }: {
 	options = {
-		boot-loader.grub.enable =
-			lib.mkEnableOption {
-				default = false;
-				description = "Enable grub boot loader";
-			};
+		boot-loader.grub = {
+			enable =
+				lib.mkEnableOption {
+					default = false;
+					description = "Enable grub boot loader";
+				};
+			host =
+				lib.mkOption {
+					type = lib.types.nullOr lib.types.string;
+					default = null;
+					description = "The hostname if it is relevant in order to specify host specific boot entries";
+				};
+		};
 	};
-	config =
+	config = let
+		pc_entries = ''
+			menuentry 'Windows' {
+			    search --fs-uuid --no-floppy --set=root 063D-CA76
+			    chainloader ($\{root})/efi/Microsoft/Boot/bootmgfw.efi
+			}
+
+		'';
+	in
 		lib.mkIf config.boot-loader.grub.enable {
 			boot.loader.timeout = null;
 			boot.loader.grub = {
 				enable = true;
 				device = "nodev";
 				efiSupport = true;
-				useOSProber = true;
+				useOSProber = false;
 				fsIdentifier = "label";
-				extraEntries = ''
-					menuentry "Reboot" {
-					    reboot
-					}
-					menuentry "Poweroff" {
-					    halt
-					}
-				'';
+				extraEntries =
+					''
+						menuentry "Reboot" {
+						    reboot
+						}
+						menuentry "Poweroff" {
+						    halt
+						}
+					''
+					+ lib.optionals (config.networking.hostName == "pc") pc_entries;
 			};
 			boot.loader.efi.canTouchEfiVariables = true;
 			boot.loader.efi.efiSysMountPoint = "/boot";

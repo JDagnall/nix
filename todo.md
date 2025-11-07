@@ -13,27 +13,26 @@
 
 ## Fix
 
+- Should probably manually do grub entries the OS-prober is annoying
+
 - IN GENERAL: look for things that are universal that should be host specific
 - workspace indicator on waybar should show the displayed workspace on the monitor the bar is on, not what is selected in general.
 - Steam does not detect proton GE
-- Should probably manually do grub entries the OS-prober is annoying
-- fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
-- ly breaks UWSM for some reason
 - make sure syncthing folders work effectively, syncthing also often but not always, get a no route available for connecting to devices on local network
-- turn off mouse while typing in hyprland maybe
 - turn off password auth for sshd
 - make sure fprintd has fallbacks for password, and try to get more interactive prompts for it on hyprlock and ly.
+
 - turn off mouse in nix loki maybe
 - nvim-wezterm smartsplits doesnt work properly right now, should be a better config now its on wezterm nightly
 - nvim bracket closing is consistently shite. Additionally Jedi LS is adding brackets when completeing classes. Insanely annoying.
 - nvim improve gitsigns config, with keybinds for showing blame and stuff
 
+- fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
+- ly breaks UWSM for some reason
+
 ## Sylix
 
 Stylix can be used to theme things universally in nix, use it for theming when it is available
-
-- maybe switch stylix to the wallpaper algorithm
-- font nerdfont icons too small
 
 ### things to be themed in stylix
 
