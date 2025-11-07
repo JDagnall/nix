@@ -6,7 +6,6 @@
 - hyprsunset
 - sessioniser, tmux or not. probably wezterm based
 - Sleep inihibitors, theres one that checks pipewire, for audio and inhibit sleep. Should maybe make my own button in waybar for it using systemd-inhibit
-- fuzzy matching in rofi
 - move window to other monitor keybind for hyprland is a must, and select other monitor too
 - secure boot (nix-community/lanzaboote exists)
 - sops.nix looks like something to look into for secret management
@@ -27,15 +26,13 @@
 - turn off mouse in nix loki maybe
 - nvim-wezterm smartsplits doesnt work properly right now, should be a better config now its on wezterm nightly
 - nvim bracket closing is consistently shite. Additionally Jedi LS is adding brackets when completeing classes. Insanely annoying.
-- nvim improvie gitsigns config, with keybinds for showing blame and stuff
+- nvim improve gitsigns config, with keybinds for showing blame and stuff
 
 ## Sylix
 
 Stylix can be used to theme things universally in nix, use it for theming when it is available
 
-- maybe actually try to get nvim to work with stylix properly, probably will have to pass base 16 as an option, using stylix.
 - maybe switch stylix to the wallpaper algorithm
-- add host specific stylix config options
 - font nerdfont icons too small
 
 ### things to be themed in stylix
