@@ -93,13 +93,15 @@ window#waybar {
   color: alpha(@base05, 0.4);
   transition: all 1s ease;
 }
-#workspaces button.empty.active,
+#workspaces button.active.empty.visible,
+#workspaces button.active.visible,
+#workspaces button.active.empty,
 #workspaces button.active {
   color: @base0B;
 }
-#workspaces button.empty.focused {
-#workspaces button.focused {
-  color: @base0C;
+#workspaces button.empty.visible,
+#workspaces button.visible {
+  color: @base0E;
 }
 #workspaces button.empty:hover,
 #workspaces button:hover,

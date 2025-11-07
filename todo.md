@@ -5,11 +5,11 @@
 - add VPN PrivateInternetAccess connections. Too bad thier openvpn shit is busted
 - hyprsunset
 - sessioniser, tmux or not. probably wezterm based
-- Sleep inihibitors, theres one that checks pipewire, for audio and inhibit sleep. Should maybe make my own button in waybar for it using systemd-inhibit
-- move window to other monitor keybind for hyprland is a must, and select other monitor too
+- Sleep inihibitors, theres one that checks pipewire, for audio and inhibit sleep. Should maybe make my own button in waybar for it using dbus
 - secure boot (nix-community/lanzaboote exists)
 - sops.nix looks like something to look into for secret management
 - robust debugger for use in nvim. dont really feel that I need this atm.
+- way better tab names for wezterm
 
 ## Fix
 

@@ -102,6 +102,13 @@ local function tab_title(tab_info)
 
 	-- get CWD set by OSC7
 	local current_dir = tab_info.active_pane.current_working_dir
+	local current_process = tab_info.active_pane:get_foreground_process_info().name
+	if #current_process == 0 then
+		current_process = "?"
+	elseif current_process == "zsh" or current_process == "bash" then
+		current_process = " "
+	end
+
 	if
 		current_dir
 		and current_dir.scheme
@@ -110,7 +117,13 @@ local function tab_title(tab_info)
 		and #current_dir.file_path > 0
 	then
 		-- I have the 1 based tab indexing set
-		return " " .. tab_info.tab_index + 1 .. ": " .. basename(current_dir.file_path) .. " "
+		return " "
+			.. tab_info.tab_index + 1
+			.. ": "
+			.. basename(current_dir.file_path)
+			.. " | "
+			.. current_process
+			.. " "
 	end
 end
 
