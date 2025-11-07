@@ -27,6 +27,7 @@
 - turn off mouse in nix loki maybe
 - nvim-wezterm smartsplits doesnt work properly right now, should be a better config now its on wezterm nightly
 - nvim bracket closing is consistently shite. Additionally Jedi LS is adding brackets when completeing classes. Insanely annoying.
+- nvim improvie gitsigns config, with keybinds for showing blame and stuff
 
 ## Sylix
 
@@ -35,6 +36,7 @@ Stylix can be used to theme things universally in nix, use it for theming when i
 - maybe actually try to get nvim to work with stylix properly, probably will have to pass base 16 as an option, using stylix.
 - maybe switch stylix to the wallpaper algorithm
 - add host specific stylix config options
+- font nerdfont icons too small
 
 ### things to be themed in stylix
 

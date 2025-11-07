@@ -69,6 +69,7 @@
 	tools.nh.enable = true;
 
 	nixLoki.enable = true;
+	nixLoki.theme = "tinted-nvim";
 
 	gaming.proton.ge.enable = true;
 	gaming.lutris.enable = true;
