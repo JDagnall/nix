@@ -93,17 +93,9 @@ local function tab_title(tab_info)
 		return title
 	end
 
-	-- get user vars set by OSC 1337
-	-- local active_pane_vars = tab_info.active_pane.user_vars
-	-- -- log user vars
-	-- for key, value in pairs(active_pane_vars) do
-	-- 	wezterm.log_info(key .. " : " .. value)
-	-- end
-
-	-- get CWD set by OSC7
 	local current_dir = tab_info.active_pane.current_working_dir
-	local current_process = tab_info.active_pane:get_foreground_process_info().name
-	if #current_process == 0 then
+	local current_process = basename(tab_info.active_pane.foreground_process_name)
+	if #current_process <= 0 then
 		current_process = "?"
 	elseif current_process == "zsh" or current_process == "bash" then
 		current_process = " "
@@ -118,8 +110,8 @@ local function tab_title(tab_info)
 	then
 		-- I have the 1 based tab indexing set
 		return " "
-			.. tab_info.tab_index + 1
-			.. ": "
+			-- .. tab_info.tab_index + 1
+			-- .. ": "
 			.. basename(current_dir.file_path)
 			.. " | "
 			.. current_process
