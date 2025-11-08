@@ -53,6 +53,8 @@ in {
 							"network"
 							"bluetooth"
 							"pulseaudio"
+							"pulseaudio/slider"
+							"idle_inhibitor"
 							"custom/power"
 						];
 						"hyprland/workspaces" = {
@@ -122,15 +124,17 @@ in {
 							};
 							tooltip-format = "{time}";
 						};
-						bluetooth = {
-							format = "󰂲 "; # default no connection or off
-							format-connected = "󰂯 {device_alias}";
-							min-length = 2;
-							max-length = 10;
-							tooltip-format-connected = "{device_enumerate}";
-							tooltip-format = ""; # when there are no connected devices
-							tooltip-format-enumerate-connected = "{device_alias}";
-						};
+						bluetooth =
+							{
+								format = "󰂲 "; # default no connection or off
+								format-connected = "󰂯 {device_alias}";
+								min-length = 2;
+								max-length = 10;
+								tooltip-format-connected = "{device_enumerate}";
+								tooltip-format = ""; # when there are no connected devices
+								tooltip-format-enumerate-connected = "{device_alias}";
+							}
+							// optionals config.ui.bt-applet.enable {on-click = "blueman-manager";};
 						pulseaudio =
 							{
 								format = "{volume}% {icon}";
@@ -152,6 +156,9 @@ in {
 								};
 							}
 							// optionals config.ui.pavucontrol.enable {on-click = "pavucontrol";};
+						"pulseaudio/slider" = {
+							orientation = "horizontal";
+						};
 						clock = {
 							format = " {:%I:%M %p %a %b %d}";
 							tooltip = false;
@@ -178,6 +185,13 @@ in {
 							min-length = 9;
 							max-length = 9;
 							interval = 30;
+						};
+						"idle_inhibitor" = {
+							format = "{icon}";
+							format-icons = {
+								activated = "󰒳 ";
+								deactivated = "󰒲 ";
+							};
 						};
 						"custom/power" = {
 							format = "󰐥 ";

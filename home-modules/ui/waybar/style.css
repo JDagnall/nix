@@ -78,8 +78,37 @@ window#waybar {
 #clock {
   color: @base05;
 }
+#idle_inhibitor.activated {
+  color: @base07;
+}
+#idle_inhibitor.deactivated {
+  color: @base06;
+}
 #pulseaudio {
   color: @base0E;
+}
+#pulseaudio-slider {
+  padding: 0;
+  margin: 0;
+}
+#pulseaudio-slider slider {
+  background: @base05;
+  min-width: 0px;
+  min-height: 0px;
+  opacity: 0;
+  border: none;
+  box-shadow: none;
+}
+#pulseaudio-slider trough {
+  background: @base01;
+  min-width: 80px;
+  min-height: 8px;
+  border-radius: 5px;
+}
+#pulseaudio-slider highlight {
+  background: @base0E;
+  min-width: 8px;
+  border-radius: 5px;
 }
 #custom-power {
   color: @base08;
