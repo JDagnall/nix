@@ -26,7 +26,7 @@
 					};
 				};
 			};
-			environment.systemPackages =
+			networking.networkmanager.plugins =
 				lib.mkIf config.networking.networkmanager.enable [
 					pkgs.networkmanager-openvpn
 				];
