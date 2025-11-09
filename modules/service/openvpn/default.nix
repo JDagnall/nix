@@ -16,12 +16,12 @@
 					PIA-Melbourne = {
 						config = ''config ${builtins.toString ./servers/PIA_melbourne.ovpn}'';
 						autoStart = false;
-						updateResolvConf = false;
+						updateResolvConf = true;
 					};
 					PIA-Sydney = {
 						config = ''config ${builtins.toString ./servers/PIA_sydney.ovpn}'';
 						autoStart = false;
-						updateResolvConf = false;
+						updateResolvConf = true;
 					};
 				};
 			};
