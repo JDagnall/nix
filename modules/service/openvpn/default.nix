@@ -14,13 +14,13 @@
 				restartAfterSleep = true;
 				# these get turned into system services
 				servers = {
-					"PIA-Melbourne" = {
-						config = "config ${builtins.toString ./servers/PIA_melbourne.ovpn}";
-						autoStart = false;
+					PIA-Melbourne = {
+						config = ''config ${builtins.toString ./servers/PIA_melbourne.ovpn}'';
+						autoStart = true;
 						updateResolvConf = false;
 					};
-					"PIA-Sydney" = {
-						config = "config ${builtins.toString ./servers/PIA_sydney.ovpn}";
+					PIA-Sydney = {
+						config = ''config ${builtins.toString ./servers/PIA_sydney.ovpn}'';
 						autoStart = false;
 						updateResolvConf = false;
 					};
