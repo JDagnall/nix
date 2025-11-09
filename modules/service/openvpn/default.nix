@@ -10,13 +10,12 @@
 	config =
 		lib.mkIf config.service.openvpn.enable {
 			services.openvpn = {
-				enable = true;
 				restartAfterSleep = true;
 				# these get turned into system services
 				servers = {
 					PIA-Melbourne = {
 						config = ''config ${builtins.toString ./servers/PIA_melbourne.ovpn}'';
-						autoStart = true;
+						autoStart = false;
 						updateResolvConf = false;
 					};
 					PIA-Sydney = {

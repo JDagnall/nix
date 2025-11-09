@@ -36,7 +36,7 @@
 
 	service.docker.enable = true;
 	service.docker.groupUsers = ["james"];
-	service.openvpn.enable = false;
+	service.openvpn.enable = true;
 
 	stylix.enableConfig = true;
 
