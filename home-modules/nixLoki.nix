@@ -29,7 +29,13 @@ in {
 		mkIf nixLoki.enable {
 			assertions = [
 				{
-					assertion = ((nixLoki.theme == "tinted-nvim" || nixLoki.theme == "mini-base16") && stylix.enable && stylix.enableHomeConfig) || !(nixLoki.theme != "mini-base16" || nixLoki.theme != "tinted-nvim");
+					assertion =
+						(
+							(nixLoki.theme == "tinted-nvim" || nixLoki.theme == "mini-base16")
+							&& stylix.enable
+							&& stylix.enableHomeConfig
+						)
+						|| (nixLoki.theme != "mini-base16" && nixLoki.theme != "tinted-nvim");
 					message = "Using mini-base16 or tinted-nvim with nixLoki requires stylix and for it to be enabled in home manager.";
 				}
 			];

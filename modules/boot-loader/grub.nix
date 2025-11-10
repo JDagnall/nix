@@ -44,7 +44,7 @@
 						    halt
 						}
 					''
-					+ lib.optionals (config.networking.hostName == "pc") pc_entries;
+					+ lib.optionalString (config.networking.hostName == "pc") pc_entries;
 			};
 			boot.loader.efi.canTouchEfiVariables = true;
 			boot.loader.efi.efiSysMountPoint = "/boot";
