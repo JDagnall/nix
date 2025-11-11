@@ -18,6 +18,11 @@
 						autoStart = false;
 						updateResolvConf = true;
 					};
+					PIA-Brisbane = {
+						config = ''config ${builtins.toString ./servers/PIA_brisbane.ovpn}'';
+						autoStart = false;
+						updateResolvConf = true;
+					};
 					PIA-Sydney = {
 						config = ''config ${builtins.toString ./servers/PIA_sydney.ovpn}'';
 						autoStart = false;

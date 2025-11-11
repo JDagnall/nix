@@ -47,6 +47,8 @@ in {
 					kb-secondary-copy = ""; # was previously <C-c>
 					kb-cancel = "Control+c,Escape"; # exit rofi with <C-c>
 					matching = "fuzzy"; # fuzzy search
+					sort = true; # sorts in order of fuzzy match
+					sorting-method = "fzf";
 				};
 				location = "center";
 				modes = [
