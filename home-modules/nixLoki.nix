@@ -46,7 +46,7 @@ in {
 				packageDefinitions = {
 					# this merges into the package config for nixLoki
 					merge = let
-						# the values being overrided in the nixLoki config to enable base16
+						# the values being overrided in the nixLoki config to set the theme and provide base16 colours
 						base16Overrides = {pkgs, ...}: {
 							categories = {
 								"${nixLoki.theme}" = lib.mkForce true;
@@ -56,11 +56,10 @@ in {
 								base16Colours = pkgs.lib.filterAttrs (k: v: (builtins.match "base0[0-9A-F]" k) != null) config.lib.stylix.colors.withHashtag;
 							};
 						};
-					in
-						lib.mkIf (nixLoki.theme == "mini-base16" || nixLoki.theme == "tinted-nvim") {
-							nixLoki = base16Overrides;
-							testNixLoki = base16Overrides;
-						};
+					in {
+						nixLoki = base16Overrides;
+						testNixLoki = base16Overrides;
+					};
 				};
 			};
 
