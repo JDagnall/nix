@@ -98,6 +98,7 @@ window#waybar {
   opacity: 0.5;
   border: none;
   box-shadow: none;
+  background-image: none;
 }
 #pulseaudio-slider trough {
   background: @base01;

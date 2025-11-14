@@ -10,7 +10,7 @@
 	evremap.enable = true;
 	evremap.profile = "logi-k855";
 	window-manager.hyprland.enable = true;
-	boot-loader.grub.enable = true;
+	boot-loader.systemd-boot.enable = true;
 	fonts.enable = true;
 
 	service.pipewire.enable = true;

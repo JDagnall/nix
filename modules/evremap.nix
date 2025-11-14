@@ -18,7 +18,7 @@
 	};
 	config = let
 		logi_k855 = {
-			phys = "usb-0000:16:00.0-6/input0";
+			phys = "usb-0000:02:00.0-1/input0";
 			device_name = "Logitech USB Receiver";
 			remap = [
 				{

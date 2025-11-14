@@ -53,7 +53,7 @@ in {
 							"network"
 							"bluetooth"
 							"pulseaudio"
-							"pulseaudio/slider"
+							# "pulseaudio/slider"
 							"idle_inhibitor"
 							"custom/power"
 						];
