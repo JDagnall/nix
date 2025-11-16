@@ -1,0 +1,12 @@
+keys:
+  - &pc age1sh8ykfchymgfn6u69h2sljzz5q42hcmu08apd4rug8ktxd6l9asql7ealp
+  - &framework age1wtquqg72zc69d032eew9gwj008m8u358ggcn7zu3vwxpvrjj8vysprlj5t
+creation_rules:
+  - path_regex: secrets/pc/[^/]+\.yaml$
+    key_groups:
+      - age:
+        - *pc
+  - path_regex: secrets/framework/[^/]+\.yaml$
+    key_groups:
+      - age:
+        - *framework

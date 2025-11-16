@@ -21,6 +21,7 @@
 	shell.eza.enable = true;
 	shell.fzf.enable = true;
 	shell.zoxide.enable = true;
+	shell.ssh.enable = true;
 
 	# these are generally bad, and I should use dev shells instead.
 	# I keep python around cause it's handy and nix cause its native to the OS anyway
@@ -32,6 +33,10 @@
 	langs.lua.enable = false;
 
 	window-manager.hyprland.enable = true;
+	window-manager.hyprland.monitors = [
+		"desc:Acer, preferred, auto-right, 1"
+		"desc:Lenovo, preferred, auto-left, 1"
+	];
 
 	term.wezterm.enable = true;
 
@@ -74,6 +79,7 @@
 	gaming.proton.ge.enable = true;
 	gaming.lutris.enable = true;
 	gaming.mangohud.enable = true;
+	gaming.prism.enable = true;
 
 	stylix.enableHomeConfig = true; # home-manager specific stylix
 

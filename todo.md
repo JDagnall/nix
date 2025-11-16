@@ -3,11 +3,11 @@
 - pull alot of my setup config out of the host specific home.nix and into a user config for home-manager
 - further categorise nix module files into subdirectories
 - hyprsunset
-- add VPN PrivateInternetAccess connections. Too bad thier openvpn shit is busted
 - sessioniser, tmux or not. probably wezterm based. Maybe do a sessioniser with hyprland workspaces instead of wezterm.
 - secure boot (nix-community/lanzaboote exists)
 - sops.nix looks like something to look into for secret management
 - robust debugger for use in nvim. dont really feel that I need this atm.
+- clipboard utility
 
 ## Fix
 

@@ -12,8 +12,12 @@
 	window-manager.hyprland.enable = true;
 	boot-loader.systemd-boot.enable = true;
 	fonts.enable = true;
+	sops.enable = true;
 
 	service.pipewire.enable = true;
+
+	service.sshd.enable = true;
+	service.sshd.james.authKeys.enable = true;
 
 	service.syncthing.enable = true;
 	service.syncthing.user = "james";
@@ -51,6 +55,7 @@
 		../../james.nix
 		../../modules
 		../../stylix.nix
+		../../sops.nix
 		./stylix.nix
 	];
 
@@ -68,8 +73,6 @@
 
 	networking.networkmanager.enable = true;
 	networking.hostName = "pc";
-
-	services.openssh.enable = true;
 
 	# bluetooth
 	hardware.bluetooth = {

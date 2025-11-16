@@ -54,6 +54,11 @@ in {
 		service.syncthing.devices.PC-windows.enable =
 			mkEnableOption {
 				default = false;
+				description = "Enable the PC-windows install as a syncthing device";
+			};
+		service.syncthing.devices.PC.enable =
+			mkEnableOption {
+				default = false;
 				description = "Enable the PC as a syncthing device";
 			};
 		service.syncthing.devices.macbook.enable =
@@ -114,6 +119,26 @@ in {
 	};
 	config =
 		mkIf config.service.syncthing.enable {
+			assertions = [
+				{
+					assertion = config.sops.enable;
+					message = "Sops is required to get the cert and key files for syncthing.";
+				}
+			];
+
+			sops.secrets = let
+				host = config.networking.hostName;
+			in
+				lib.mkIf config.sops.enable {
+					"syncthing/key" = {
+						sopsFile = ../../../secrets/${host}/syncthing.yaml;
+						owner = config.service.syncthing.user;
+					};
+					"syncthing/cert" = {
+						sopsFile = ../../../secrets/${host}/syncthing.yaml;
+						owner = config.service.syncthing.user;
+					};
+				};
 			systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true"; # Don't create default ~/Sync folder
 			services.syncthing = {
 				enable = true;
@@ -123,8 +148,8 @@ in {
 				# extraOptions = [ ];
 				openDefaultPorts = true; # if running multiple instances, must be false;
 				guiAddress = "localhost:8384";
-				cert = "${toString ./hosts/${config.networking.hostName}/cert.pem}";
-				key = "${toString ./hosts/${config.networking.hostName}/key.pem}";
+				cert = "${toString config.sops.secrets."syncthing/cert".path}";
+				key = "${toString config.sops.secrets."syncthing/key".path}";
 				dataDir = config.service.syncthing.dataDir;
 				configDir = config.service.syncthing.configDir;
 				# These make it so that only folders or devices configured here
@@ -150,7 +175,7 @@ in {
 							mkIf config.service.syncthing.devices.macmini-server.enable {
 								id = "YEPHB7F-ZVCVOXK-PP4M6NT-C2D2BNH-JYFEW26-2Z7GIJE-ZBYUINV-2K3OAAJ";
 								name = "MacMini-server";
-								autoAcceptFolders = false;
+								autoAcceptFolders = true;
 							};
 						"Galaxy-s10e" =
 							mkIf config.service.syncthing.devices.galaxy-s10e.enable {
@@ -162,6 +187,12 @@ in {
 							mkIf config.service.syncthing.devices.PC-windows.enable {
 								id = "2WONTYB-TZI6CPL-ZRPSNNE-UJUEZ7U-MJTIMIB-MEHE7SD-UQ4EKSH-ORQEYAO";
 								name = "PC-windows";
+								autoAcceptFolders = false;
+							};
+						"PC" =
+							mkIf config.service.syncthing.devices.PC.enable {
+								id = "TLTL7NP-L3LLF6M-OZBLULU-42YS7GP-P5OU2K3-KUSCVIU-A4232YP-UVQB5QR";
+								name = "PC-linux";
 								autoAcceptFolders = false;
 							};
 						"Macbook" =

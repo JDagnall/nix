@@ -8,6 +8,7 @@
 		(lib)
 		mkIf
 		mkEnableOption
+		mkOption
 		mkOrder
 		mkMerge
 		;
@@ -17,6 +18,14 @@ in {
 			mkEnableOption {
 				default = false;
 				description = "Enable Hyprland config";
+			};
+		window-manager.hyprland.monitors =
+			mkOption {
+				default = [", preferred, auto, 1"];
+				type = lib.types.listOf lib.types.str;
+				description = ''
+					The device specific monitor config to be added to the hyprland config.
+					                 Generally just defines the monitors and thier positions'';
 			};
 	};
 	config =
@@ -100,6 +109,7 @@ in {
 							else []
 						);
 					bind = [] ++ optionals config.tools.keepmenu.enable ["$mod, a, exec, keepmenu"];
+					monitor = config.window-manager.hyprland.monitors;
 				};
 				extraConfig = let
 					configFile = builtins.readFile ./hyprland.conf;

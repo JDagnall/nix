@@ -7,7 +7,7 @@
 		./window-manager
 		./ui
 		./gaming
-		./home-stylix.nix
+		./stylix.nix
 		./nixLoki.nix
 	];
 }

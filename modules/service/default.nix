@@ -5,5 +5,6 @@
 		./fprintd.nix
 		./pipewire.nix
 		./openvpn
+		./ssh.nix
 	];
 }

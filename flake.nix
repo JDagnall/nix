@@ -17,6 +17,10 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+		sops-nix = {
+			url = "github:Mic92/sops-nix";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
 	outputs = {
@@ -25,6 +29,7 @@
 		nixLoki,
 		stylix,
 		nixos-wsl,
+		sops-nix,
 		...
 	} @ inputs: let
 		system = "x86_64-linux";
@@ -54,6 +59,7 @@
 					modules = [
 						./hosts/framework/config.nix
 						stylix.nixosModules.stylix
+						sops-nix.nixosModules.sops
 						# using home-manager as a nixos module here
 						home-manager.nixosModules.home-manager
 						{
@@ -76,6 +82,7 @@
 					modules = [
 						./hosts/pc/config.nix
 						stylix.nixosModules.stylix
+						sops-nix.nixosModules.sops
 						# using home-manager as a nixos module here
 						home-manager.nixosModules.home-manager
 						{
