@@ -21,6 +21,7 @@
 	shell.eza.enable = true;
 	shell.fzf.enable = true;
 	shell.zoxide.enable = true;
+	shell.ssh.enable = true;
 
 	# these are generally bad, and I should use dev shells instead.
 	# I keep python around cause it's handy and nix cause its native to the OS anyway

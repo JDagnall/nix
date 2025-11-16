@@ -9,6 +9,9 @@
 	window-manager.hyprland.enable = true;
 	boot-loader.grub.enable = true;
 	fonts.enable = true;
+	sops.enable = true;
+	evremap.enable = true;
+	evremap.profile = "framework";
 
 	service.pipewire.enable = true;
 
@@ -35,6 +38,8 @@
 	service.docker.groupUsers = ["james"];
 	service.fprintd.enable = false;
 	service.openvpn.enable = true;
+	service.sshd.enable = true;
+	service.sshd.james.authKeys.enable = true;
 
 	stylix.enableConfig = true;
 	# config ------------------------------
@@ -45,6 +50,7 @@
 		../../james.nix
 		../../modules
 		../../stylix.nix
+		../../sops.nix
 		./stylix.nix
 	];
 
@@ -57,8 +63,6 @@
 
 	networking.networkmanager.enable = true;
 	networking.hostName = "framework";
-
-	services.openssh.enable = true;
 
 	# bluetooth
 	hardware.bluetooth = {

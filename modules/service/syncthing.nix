@@ -131,12 +131,14 @@ in {
 			in
 				lib.mkIf config.sops.enable {
 					"syncthing/key" = {
-						sopsFile = ../../../secrets/${host}/syncthing.yaml;
+						sopsFile = ../../secrets/${host}/syncthing.yaml;
 						owner = config.service.syncthing.user;
+						restartUnits = ["syncthing.service"];
 					};
 					"syncthing/cert" = {
-						sopsFile = ../../../secrets/${host}/syncthing.yaml;
+						sopsFile = ../../secrets/${host}/syncthing.yaml;
 						owner = config.service.syncthing.user;
+						restartUnits = ["syncthing.service"];
 					};
 				};
 			systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true"; # Don't create default ~/Sync folder
@@ -148,8 +150,8 @@ in {
 				# extraOptions = [ ];
 				openDefaultPorts = true; # if running multiple instances, must be false;
 				guiAddress = "localhost:8384";
-				cert = "${toString config.sops.secrets."syncthing/cert".path}";
-				key = "${toString config.sops.secrets."syncthing/key".path}";
+				cert = "${config.sops.secrets."syncthing/cert".path}";
+				key = "${config.sops.secrets."syncthing/key".path}";
 				dataDir = config.service.syncthing.dataDir;
 				configDir = config.service.syncthing.configDir;
 				# These make it so that only folders or devices configured here

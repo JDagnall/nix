@@ -1,6 +1,6 @@
 {...}: {
 	imports = [
-		./syncthing
+		./syncthing.nix
 		./docker.nix
 		./fprintd.nix
 		./pipewire.nix

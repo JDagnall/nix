@@ -1,6 +1,6 @@
 keys:
   - &pc age1sh8ykfchymgfn6u69h2sljzz5q42hcmu08apd4rug8ktxd6l9asql7ealp
-  - &framework age1wtquqg72zc69d032eew9gwj008m8u358ggcn7zu3vwxpvrjj8vysprlj5t
+  - &framework age1307534kc8mpamct0d57rms3x7tqr0arwt9lla3xrpevkl6eyxursenfvps
 creation_rules:
   - path_regex: secrets/pc/[^/]+\.yaml$
     key_groups:

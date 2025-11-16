@@ -11,7 +11,7 @@
 			};
 		evremap.profile =
 			lib.mkOption {
-				type = lib.types.nullOr (lib.types.enum ["logi-k855"]);
+				type = lib.types.nullOr (lib.types.enum ["logi-k855" "framework"]);
 				default = null;
 				description = "The keyboard you are using / the profile you want to use";
 			};
@@ -35,6 +35,16 @@
 				}
 			];
 		};
+		framework = {
+			phys = "isa0060/serio0/input0";
+			device_name = "AT Translated Set 2 keyboard";
+			remap = [
+				{
+					input = ["KEY_CAPSLOCK"];
+					output = ["KEY_ESC"];
+				}
+			];
+		};
 	in
 		lib.mkIf config.evremap.enable {
 			services.evremap = {
@@ -42,6 +52,8 @@
 				settings =
 					if config.evremap.profile == "logi-k855"
 					then logi_k855
+					else if config.evremap.profile == "framework"
+					then framework
 					else null;
 			};
 		};
