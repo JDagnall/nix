@@ -5,7 +5,6 @@
 - hyprsunset
 - sessioniser, tmux or not. probably wezterm based. Maybe do a sessioniser with hyprland workspaces instead of wezterm.
 - secure boot (nix-community/lanzaboote exists)
-- sops.nix looks like something to look into for secret management
 - robust debugger for use in nvim. dont really feel that I need this atm.
 - clipboard utility
 
@@ -14,6 +13,7 @@
 - Check manual grub entries for windows boot.
 
 - IN GENERAL: look for things that are universal that should be host specific
+- I should change the namespaces of my config to match nixpkgs / home-manager. This namespace duplication stuff with service / services is unecesary, there will only be minor naming conflicts.
 - Steam does not detect proton GE, and mangohud doesnt load, probably because the steam running commands are being factored in not the lutris ones.
 - make sure syncthing folders work effectively, syncthing also often but not always, gets a no route available for connecting to devices on local network
 - turn off password auth for sshd
@@ -23,8 +23,6 @@
 
 - fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
 - ly breaks UWSM for some reason
-
-- make volume slider in waybar smaller
 
 ## Sylix
 

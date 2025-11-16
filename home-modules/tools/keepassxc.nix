@@ -87,7 +87,7 @@ in {
 				inherit (lib) generators;
 				inherit (config) term window-manager;
 				inherit (osConfig.service.syncthing.folders) secure;
-				inherit (osConfig.service.syncthing) dataDir;
+				inherit (osConfig.services.syncthing) dataDir;
 				settings = {
 					dmenu = {
 						dmenu_command = "rofi";

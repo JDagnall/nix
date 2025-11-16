@@ -13,7 +13,7 @@
 			[]
 			++ lib.optionals osConfig.service.syncthing.folders.classes.enable [
 				{
-					path = "${osConfig.service.syncthing.dataDir}/classes/obsidian";
+					path = "${osConfig.services.syncthing.dataDir}/classes/obsidian";
 					open = true; # default
 				}
 			];

@@ -13,17 +13,20 @@
 				enableDefaultConfig = false;
 				matchBlocks = {
 					server = {
-						host = "server.lan";
+						hostname = "server.lan";
+						host = "server";
 						user = "james";
 						identityFile = "~/.ssh/key";
 					};
 					framework = {
-						host = "framework.lan";
+						hostname = "framework.lan";
+						host = "framework";
 						user = "james";
 						identityFile = "~/.ssh/key";
 					};
 					pc = {
-						host = "pc.lan";
+						hostname = "pc.lan";
+						host = "pc";
 						user = "james";
 						identityFile = "~/.ssh/key";
 					};

@@ -15,23 +15,22 @@
 
 	service.pipewire.enable = true;
 
-	service.syncthing.enable = true;
-	service.syncthing.user = "james";
-	service.syncthing.group = "james";
-	service.syncthing.dataDir = "/home/james";
-	service.syncthing.configDir = "/home/james/.config/syncthing";
-	service.syncthing.devices.macmini-server.enable = true;
-	service.syncthing.folders = let
-		shareDevices = ["MacMini-Server"];
-	in {
-		secure.enable = true;
-		secure.share = shareDevices;
-		classes.enable = true;
-		classes.share = shareDevices;
-		proj.enable = true;
-		proj.share = shareDevices;
-		wallpapers.enable = true;
-		wallpapers.share = shareDevices;
+	service.syncthing = {
+		enable = true;
+		runAsUser = "james";
+		devices.macmini-server.enable = true;
+		folders = let
+			shareDevices = ["MacMini-Server"];
+		in {
+			secure.enable = true;
+			secure.share = shareDevices;
+			classes.enable = true;
+			classes.share = shareDevices;
+			proj.enable = true;
+			proj.share = shareDevices;
+			wallpapers.enable = true;
+			wallpapers.share = shareDevices;
+		};
 	};
 
 	service.docker.enable = true;

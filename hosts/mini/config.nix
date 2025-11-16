@@ -1,30 +1,28 @@
 {
 	config,
-	lib,
+	# lib,
 	pkgs,
 	...
 }: {
 	# config ------------------------------
-	display-manager.gdm.enable = true;
-	nvidia.enable = true;
-	evremap.enable = true;
-	evremap.profile = "logi-k855";
-	window-manager.hyprland.enable = true;
 	boot-loader.systemd-boot.enable = true;
 	fonts.enable = true;
 	sops.enable = true;
-
-	service.pipewire.enable = true;
 
 	service.sshd.enable = true;
 	service.sshd.james.authKeys.enable = true;
 
 	service.syncthing = {
-		enable = true;
-		runAsUser = "james";
-		devices.macmini-server.enable = true;
+		enable = false;
+		devices = {
+			PC.enable = true;
+			PC-windows.enable = true;
+			framework.enable = true;
+			macbook.enable = true;
+			galaxy-s10e.enable = true;
+		};
 		folders = let
-			shareDevices = ["MacMini-Server"];
+			shareDevices = ["PC" "PC-windows" "Framework" "Macbook" "Galaxy-s10e"];
 		in {
 			secure.enable = true;
 			secure.share = shareDevices;
@@ -37,15 +35,8 @@
 		};
 	};
 
-	service.docker.enable = true;
-	service.docker.groupUsers = ["james"];
-	service.openvpn.enable = true;
-
 	stylix.enableConfig = true;
 
-	gaming.steam.enable = true;
-	gaming.gamemode.enable = true;
-	gaming.gamescope.enable = true;
 	# config ------------------------------
 
 	imports = [
@@ -60,32 +51,12 @@
 
 	environment.systemPackages = with pkgs; [home-manager];
 
-	# allow unfree software, currently only using nvidia's drivers and stream
-	# this is not clean but its to annoying to care about
-	# nixpkgs.config.allowUnfree = true;
-	nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["nvidia-x11" "nvidia-settings" "steam" "steam-unwrapped"];
-
 	nix.settings.experimental-features = [
 		"nix-command"
 		"flakes"
 	];
-
 	networking.networkmanager.enable = true;
-	networking.hostName = "pc";
-
-	# bluetooth
-	hardware.bluetooth = {
-		enable = true;
-		powerOnBoot = true; # turn bt device on
-		settings = {
-			General = {
-				Experimental = true; # Enables showing battery of bt devices
-			};
-		};
-	};
-	services.blueman.enable = true; # bt manager software
-
-	services.flatpak.enable = true;
+	networking.hostName = "mini";
 
 	# garbage collector
 	nix.gc = {
