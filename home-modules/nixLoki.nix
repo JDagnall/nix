@@ -3,12 +3,10 @@
 	lib,
 	config,
 	inputs,
-	osConfig,
 	...
 }: let
 	inherit (lib) mkIf mkEnableOption mkOption;
-	inherit (config) nixLoki;
-	inherit (osConfig) stylix;
+	inherit (config) nixLoki stylix;
 in {
 	options = {
 		nixLoki = {
@@ -25,7 +23,7 @@ in {
 				};
 			enableWezterm =
 				mkOption {
-					default = true;
+					default = config.programs.wezterm.enable;
 					type = lib.types.bool;
 					description = "Disable the wezterm integration";
 				};
@@ -40,7 +38,7 @@ in {
 					assertion =
 						(
 							(nixLoki.theme == "tinted-nvim" || nixLoki.theme == "mini-base16")
-							&& stylix.enableConfig
+							&& stylix.enable
 						)
 						|| (nixLoki.theme != "mini-base16" && nixLoki.theme != "tinted-nvim");
 					message = "Using mini-base16 or tinted-nvim with nixLoki requires stylix.";
@@ -53,21 +51,31 @@ in {
 				packageDefinitions = {
 					# this merges into the package config for nixLoki
 					merge = let
-						# the values being overrided in the nixLoki config to set the theme and provide base16 colours
-						overrides = {pkgs, ...}: {
+						# the values being added to the nixLoki config to set the theme and provide base16 colours
+						values = {pkgs, ...}: {
 							categories = {
-								"${nixLoki.theme}" = lib.mkForce true;
-								wezterm = lib.mkForce nixLoki.enableWezterm;
+								"${nixLoki.theme}" = true;
 							};
 							extra =
-								lib.mkIf stylix.enableConfig {
+								lib.mkIf stylix.enable {
 									# gets every stylix base16 colour into a set that lua will be able to digest in the nixLoki flake
 									base16Colours = pkgs.lib.filterAttrs (k: v: (builtins.match "base0[0-9A-F]" k) != null) config.lib.stylix.colors.withHashtag;
 								};
 						};
 					in {
-						nixLoki = overrides;
+						testNixLoki = values;
+						nixLoki = values;
+					};
+					replace = let
+						# the values being overrided in the nixLoki config
+						overrides = {...}: {
+							categories = {
+								wezterm = nixLoki.enableWezterm;
+							};
+						};
+					in {
 						testNixLoki = overrides;
+						nixLoki = overrides;
 					};
 				};
 			};

@@ -35,7 +35,7 @@
 		};
 	};
 	# override gui address so it can be accessed from the outside
-	services.syncthing.guiAddress = lib.mkForce "0.0.0.0:8484";
+	services.syncthing.guiAddress = lib.mkOverride 1000 "0.0.0.0:8384";
 
 	stylix.enableConfig = true;
 
