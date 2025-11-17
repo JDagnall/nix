@@ -1,4 +1,5 @@
 {
+	pkgs,
 	lib,
 	config,
 	...
@@ -24,6 +25,16 @@ in {
 					               Could fairly easily have it create the user, but I don't need that right now.
 				'';
 			};
+		gui = {
+			enableLogin = mkEnableOption "Enable the login for the syncthin gui requires sops secret syncthing/gui-password to be set.";
+			username =
+				mkOption {
+					default = "james";
+					type = lib.types.str;
+					description = "The username for the login";
+				};
+			setDefaultRoute = mkEnableOption "Sets the gui address to 0.0.0.0:port so that it can be accessed from outside the device. Also opens the port in the firewall";
+		};
 		devices = {
 			macmini-server.enable = mkEnableOption "Enable the MacMini server as a syncthing device";
 			galaxy-s10e.enable = mkEnableOption "Enable the Galaxy-s10e as a syncthing device";
@@ -74,7 +85,7 @@ in {
 			assertions = [
 				{
 					assertion = config.sops.enable;
-					message = "Sops is required to get the cert and key files for syncthing.";
+					message = "Sops is required to get the cert / key files and the gui password for syncthing.";
 				}
 			];
 			sops.secrets = let
@@ -91,6 +102,12 @@ in {
 						owner = config.services.syncthing.user;
 						restartUnits = ["syncthing.service"];
 					};
+					"syncthing/gui-password" =
+						mkIf config.service.syncthing.gui.enableLogin {
+							sopsFile = ../../secrets/${host}/syncthing.yaml;
+							owner = config.services.syncthing.user;
+							restartUnits = ["syncthing.service"];
+						};
 				};
 			systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true"; # Don't create default ~/Sync folder
 			services.syncthing =
@@ -99,7 +116,10 @@ in {
 					systemService = true; # auto launch as system service
 					# extraOptions = [ ];
 					openDefaultPorts = true; # if running multiple instances, must be false;
-					guiAddress = "localhost:8384";
+					guiAddress =
+						if config.service.syncthing.gui.setDefaultRoute
+						then "0.0.0.0:8384"
+						else "localhost:8384";
 					cert = "${config.sops.secrets."syncthing/cert".path}";
 					key = "${config.sops.secrets."syncthing/key".path}";
 					# These make it so that only folders or devices configured here
@@ -226,6 +246,29 @@ in {
 					group = config.service.syncthing.runAsUser;
 					dataDir = "/home/${config.service.syncthing.runAsUser}";
 					configDir = "/home/${config.service.syncthing.runAsUser}/.config/syncthing";
+				};
+			networking.firewall.allowedTCPPorts = mkIf config.service.syncthing.gui.setDefaultRoute [8384];
+			systemd.services.syncthing-loginmanager =
+				mkIf config.service.syncthing.gui.enableLogin {
+					description = "Syncthing GUI Login Manager";
+					requisite = ["syncthing.service"];
+					before = ["syncthing.service" "syncthing-init.service"];
+					wantedBy = ["multi-user.target"];
+
+					serviceConfig = {
+						User = config.services.syncthing.user;
+						RemainAfterExit = true;
+						# RuntimeDirectory = "syncthing-init";
+						Type = "oneshot";
+						ExecStart =
+							pkgs.writers.writeBash "add-syncthing-gui-login"
+							''
+								${pkgs.syncthing}/bin/syncthing generate --gui-user=${config.service.syncthing.gui.username} \
+								--gui-password=$(cat ${config.sops.secrets."syncthing/gui-password".path}) \
+								                        --config=${config.services.syncthing.configDir} \
+								                        --home=${config.services.syncthing.dataDir}
+							'';
+					};
 				};
 		};
 }
