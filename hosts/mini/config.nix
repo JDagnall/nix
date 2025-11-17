@@ -35,8 +35,28 @@
 		};
 	};
 	# override gui address so it can be accessed from the outside
+	# set a gui login since its exposed, using options so that its easier to pass secrets
 	services.syncthing.guiAddress = lib.mkForce "0.0.0.0:8384";
 	networking.firewall.allowedTCPPorts = [8384];
+	sops.secrets = let
+		host = config.networking.hostName;
+	in
+		lib.mkIf config.sops.enable {
+			"syncthing/gui-user" = {
+				sopsFile = ../../secrets/${host}/syncthing.yaml;
+				owner = config.services.syncthing.user;
+				restartUnits = ["syncthing.service"];
+			};
+			"syncthing/gui-password" = {
+				sopsFile = ../../secrets/${host}/syncthing.yaml;
+				owner = config.services.syncthing.user;
+				restartUnits = ["syncthing.service"];
+			};
+		};
+	services.syncthing.extraFlags = [
+		"--gui-user=\"$(cat ${config.sops.secrets."syncthing/gui-user".path})\""
+		"--gui-password=\"$(cat ${config.sops.secrets."syncthing/gui-password".path})\""
+	];
 
 	stylix.enableConfig = true;
 

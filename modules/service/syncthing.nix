@@ -147,7 +147,7 @@ in {
 								};
 							"Macbook" =
 								mkIf config.service.syncthing.devices.macbook.enable {
-									id = "JHDOCOP-XUNBSGU-DS23HBW-F6ICDYQ-DETE6QY-UKODVL3-264LIWY-3GIWMAP";
+									id = "EBHPJOU-TRCOVM3-X7S2JMY-LZM25P7-FI4NG4Y-TSKANJO-UZCHR2L-I4G64QZ";
 									name = "Macbook";
 									autoAcceptFolders = false;
 								};
