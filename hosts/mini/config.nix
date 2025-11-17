@@ -15,15 +15,14 @@
 	service.syncthing = {
 		enable = true;
 		devices = {
-			PC.enable = false;
-			PC-windows.enable = false;
-			framework.enable = false;
-			macbook.enable = false;
-			galaxy-s10e.enable = false;
+			PC.enable = true;
+			PC-windows.enable = true;
+			framework.enable = true;
+			macbook.enable = true;
+			galaxy-s10e.enable = true;
 		};
 		folders = let
-			# shareDevices = ["PC" "PC-windows" "Framework" "Macbook" "Galaxy-s10e"];
-			shareDevices = [];
+			shareDevices = ["PC" "PC-windows" "Framework" "Macbook" "Galaxy-s10e"];
 		in {
 			secure.enable = true;
 			secure.share = shareDevices;

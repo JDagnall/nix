@@ -171,8 +171,8 @@ in {
 									devices = config.service.syncthing.folders.secure.share;
 									versioning = {
 										type = "simple";
-										params.keep = 5;
-										params.cleanoutDays = 20;
+										params.keeps = "5";
+										params.cleanoutDays = "20";
 									};
 								};
 								"9j26s-pweyy" =
@@ -186,8 +186,8 @@ in {
 										devices = config.service.syncthing.folders.classes.share;
 										versioning = {
 											type = "simple";
-											params.keep = 5;
-											params.cleanoutDays = 20;
+											params.keeps = "5";
+											params.cleanoutDays = "20";
 										};
 									};
 								"jwvcx-y7w2m" =
@@ -201,8 +201,8 @@ in {
 										devices = config.service.syncthing.folders.proj.share;
 										versioning = {
 											type = "simple";
-											params.keep = 5;
-											params.cleanoutDays = 20;
+											params.keeps = "5";
+											params.cleanoutDays = "20";
 										};
 									};
 								"vjhql-ghx7b" =
