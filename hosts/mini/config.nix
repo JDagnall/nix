@@ -24,13 +24,13 @@
 		folders = let
 			shareDevices = ["PC" "PC-windows" "Framework" "Macbook" "Galaxy-s10e"];
 		in {
-			secure.enable = false;
+			secure.enable = true;
 			secure.share = shareDevices;
-			classes.enable = false;
+			classes.enable = true;
 			classes.share = shareDevices;
-			proj.enable = false;
+			proj.enable = true;
 			proj.share = shareDevices;
-			wallpapers.enable = false;
+			wallpapers.enable = true;
 			wallpapers.share = shareDevices;
 		};
 	};
