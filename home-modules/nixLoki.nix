@@ -5,7 +5,7 @@
 	inputs,
 	...
 }: let
-	inherit (lib) mkIf mkEnableOption mkOption;
+	inherit (lib) mkIf mkEnableOption mkOption optionalAttrs;
 	inherit (config) nixLoki stylix;
 in {
 	options = {
@@ -52,16 +52,18 @@ in {
 					# this merges into the package config for nixLoki
 					merge = let
 						# the values being added to the nixLoki config to set the theme and provide base16 colours
-						values = {pkgs, ...}: {
-							categories = {
-								"${nixLoki.theme}" = true;
-							};
-							extra =
-								lib.mkIf stylix.enable {
+						values = {pkgs, ...}:
+							{
+								categories = {
+									"${nixLoki.theme}" = true;
+								};
+							}
+							// optionalAttrs stylix.enable {
+								extra = {
 									# gets every stylix base16 colour into a set that lua will be able to digest in the nixLoki flake
 									base16Colours = pkgs.lib.filterAttrs (k: v: (builtins.match "base0[0-9A-F]" k) != null) config.lib.stylix.colors.withHashtag;
 								};
-						};
+							};
 					in {
 						testNixLoki = values;
 						nixLoki = values;

@@ -15,14 +15,15 @@
 	service.syncthing = {
 		enable = true;
 		devices = {
-			PC.enable = true;
-			PC-windows.enable = true;
-			framework.enable = true;
-			macbook.enable = true;
-			galaxy-s10e.enable = true;
+			PC.enable = false;
+			PC-windows.enable = false;
+			framework.enable = false;
+			macbook.enable = false;
+			galaxy-s10e.enable = false;
 		};
 		folders = let
-			shareDevices = ["PC" "PC-windows" "Framework" "Macbook" "Galaxy-s10e"];
+			# shareDevices = ["PC" "PC-windows" "Framework" "Macbook" "Galaxy-s10e"];
+			shareDevices = [];
 		in {
 			secure.enable = true;
 			secure.share = shareDevices;
@@ -35,7 +36,8 @@
 		};
 	};
 	# override gui address so it can be accessed from the outside
-	services.syncthing.guiAddress = lib.mkOverride 1000 "0.0.0.0:8384";
+	services.syncthing.guiAddress = lib.mkForce "0.0.0.0:8384";
+	networking.firewall.allowedTCPPorts = [8384];
 
 	stylix.enableConfig = true;
 
