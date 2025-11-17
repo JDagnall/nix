@@ -131,31 +131,31 @@ in {
 								mkIf config.service.syncthing.devices.galaxy-s10e.enable {
 									id = "NYORDT7-6IUBNB6-7DGXYQA-TK2TZLW-YJYDBOK-E3PISCB-PIHPSAA-EQI7VQI";
 									name = "Galaxy-s10e";
-									autoAcceptFolders = false;
+									autoAcceptFolders = true;
 								};
 							"PC-windows" =
 								mkIf config.service.syncthing.devices.PC-windows.enable {
 									id = "2WONTYB-TZI6CPL-ZRPSNNE-UJUEZ7U-MJTIMIB-MEHE7SD-UQ4EKSH-ORQEYAO";
 									name = "PC-windows";
-									autoAcceptFolders = false;
+									autoAcceptFolders = true;
 								};
 							"PC" =
 								mkIf config.service.syncthing.devices.PC.enable {
 									id = "TLTL7NP-L3LLF6M-OZBLULU-42YS7GP-P5OU2K3-KUSCVIU-A4232YP-UVQB5QR";
 									name = "PC-linux";
-									autoAcceptFolders = false;
+									autoAcceptFolders = true;
 								};
 							"Macbook" =
 								mkIf config.service.syncthing.devices.macbook.enable {
 									id = "JHDOCOP-XUNBSGU-DS23HBW-F6ICDYQ-DETE6QY-UKODVL3-264LIWY-3GIWMAP";
 									name = "Macbook";
-									autoAcceptFolders = false;
+									autoAcceptFolders = true;
 								};
 							"Framework" =
 								mkIf config.service.syncthing.devices.framework.enable {
 									id = "KSLCF4V-WNXVWF7-5MFHBJC-QUQ43A2-JNNRT63-NW4NEMY-WFCGUVD-OCUOAQL";
 									name = "Framework";
-									autoAcceptFolders = false;
+									autoAcceptFolders = true;
 								};
 						};
 						# configure folders to sync

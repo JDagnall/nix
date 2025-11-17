@@ -54,19 +54,20 @@ in {
 					# this merges into the package config for nixLoki
 					merge = let
 						# the values being overrided in the nixLoki config to set the theme and provide base16 colours
-						base16Overrides = {pkgs, ...}: {
+						overrides = {pkgs, ...}: {
 							categories = {
 								"${nixLoki.theme}" = lib.mkForce true;
 								wezterm = lib.mkForce nixLoki.enableWezterm;
 							};
-							extra = {
-								# gets every stylix base16 colour into a set that lua will be able to digest in the nixLoki flake
-								base16Colours = pkgs.lib.filterAttrs (k: v: (builtins.match "base0[0-9A-F]" k) != null) config.lib.stylix.colors.withHashtag;
-							};
+							extra =
+								lib.mkIf stylix.enableConfig {
+									# gets every stylix base16 colour into a set that lua will be able to digest in the nixLoki flake
+									base16Colours = pkgs.lib.filterAttrs (k: v: (builtins.match "base0[0-9A-F]" k) != null) config.lib.stylix.colors.withHashtag;
+								};
 						};
 					in {
-						nixLoki = base16Overrides;
-						testNixLoki = base16Overrides;
+						nixLoki = overrides;
+						testNixLoki = overrides;
 					};
 				};
 			};
