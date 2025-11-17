@@ -1,6 +1,6 @@
 {
 	config,
-	# lib,
+	lib,
 	pkgs,
 	...
 }: {
@@ -34,6 +34,8 @@
 			wallpapers.share = shareDevices;
 		};
 	};
+	# override gui address so it can be accessed from the outside
+	services.syncthing.guiAddress = lib.mkForce "0.0.0.0:8484";
 
 	stylix.enableConfig = true;
 

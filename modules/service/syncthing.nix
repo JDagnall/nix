@@ -105,7 +105,7 @@ in {
 					# These make it so that only folders or devices configured here
 					# persist. Anything configured on the gui will not
 					overrideDevices = true;
-					overrideFolders = false;
+					overrideFolders = true;
 
 					relay.enable = false;
 
@@ -125,37 +125,37 @@ in {
 								mkIf config.service.syncthing.devices.macmini-server.enable {
 									id = "YEPHB7F-ZVCVOXK-PP4M6NT-C2D2BNH-JYFEW26-2Z7GIJE-ZBYUINV-2K3OAAJ";
 									name = "MacMini-server";
-									autoAcceptFolders = true;
+									autoAcceptFolders = false;
 								};
 							"Galaxy-s10e" =
 								mkIf config.service.syncthing.devices.galaxy-s10e.enable {
 									id = "NYORDT7-6IUBNB6-7DGXYQA-TK2TZLW-YJYDBOK-E3PISCB-PIHPSAA-EQI7VQI";
 									name = "Galaxy-s10e";
-									autoAcceptFolders = true;
+									autoAcceptFolders = false;
 								};
 							"PC-windows" =
 								mkIf config.service.syncthing.devices.PC-windows.enable {
 									id = "2WONTYB-TZI6CPL-ZRPSNNE-UJUEZ7U-MJTIMIB-MEHE7SD-UQ4EKSH-ORQEYAO";
 									name = "PC-windows";
-									autoAcceptFolders = true;
+									autoAcceptFolders = false;
 								};
 							"PC" =
 								mkIf config.service.syncthing.devices.PC.enable {
 									id = "TLTL7NP-L3LLF6M-OZBLULU-42YS7GP-P5OU2K3-KUSCVIU-A4232YP-UVQB5QR";
 									name = "PC-linux";
-									autoAcceptFolders = true;
+									autoAcceptFolders = false;
 								};
 							"Macbook" =
 								mkIf config.service.syncthing.devices.macbook.enable {
 									id = "JHDOCOP-XUNBSGU-DS23HBW-F6ICDYQ-DETE6QY-UKODVL3-264LIWY-3GIWMAP";
 									name = "Macbook";
-									autoAcceptFolders = true;
+									autoAcceptFolders = false;
 								};
 							"Framework" =
 								mkIf config.service.syncthing.devices.framework.enable {
 									id = "KSLCF4V-WNXVWF7-5MFHBJC-QUQ43A2-JNNRT63-NW4NEMY-WFCGUVD-OCUOAQL";
 									name = "Framework";
-									autoAcceptFolders = true;
+									autoAcceptFolders = false;
 								};
 						};
 						# configure folders to sync
