@@ -8,7 +8,7 @@
 		mkIf
 		mkEnableOption
 		mkOption
-		optionals
+		optionalAttrs
 		types
 		;
 in {
@@ -221,7 +221,7 @@ in {
 							};
 					};
 				}
-				// optionals (config.service.syncthing.runAsUser != null) {
+				// optionalAttrs (config.service.syncthing.runAsUser != null) {
 					user = config.service.syncthing.runAsUser;
 					group = config.service.syncthing.runAsUser;
 					dataDir = "/home/${config.service.syncthing.runAsUser}";

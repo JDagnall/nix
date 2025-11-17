@@ -3,10 +3,12 @@
 	lib,
 	config,
 	inputs,
+	osConfig,
 	...
 }: let
 	inherit (lib) mkIf mkEnableOption mkOption;
-	inherit (config) nixLoki stylix;
+	inherit (config) nixLoki;
+	inherit (osConfig) stylix;
 in {
 	options = {
 		nixLoki = {
@@ -21,6 +23,12 @@ in {
 					type = lib.types.enum ["catppuccin" "mini-base16" "tinted-nvim"];
 					description = "The plugin to nixLoki nvim with, mini-base16 and tinted-nvim use stylix.";
 				};
+			enableWezterm =
+				mkOption {
+					default = true;
+					type = lib.types.bool;
+					description = "Disable the wezterm integration";
+				};
 		};
 	};
 	# required for the home manager modules exported by nixLoki to be available in the namespace
@@ -32,11 +40,10 @@ in {
 					assertion =
 						(
 							(nixLoki.theme == "tinted-nvim" || nixLoki.theme == "mini-base16")
-							&& stylix.enable
-							&& stylix.enableHomeConfig
+							&& stylix.enableConfig
 						)
 						|| (nixLoki.theme != "mini-base16" && nixLoki.theme != "tinted-nvim");
-					message = "Using mini-base16 or tinted-nvim with nixLoki requires stylix and for it to be enabled in home manager.";
+					message = "Using mini-base16 or tinted-nvim with nixLoki requires stylix.";
 				}
 			];
 			programs.nixLoki = {
@@ -50,6 +57,7 @@ in {
 						base16Overrides = {pkgs, ...}: {
 							categories = {
 								"${nixLoki.theme}" = lib.mkForce true;
+								wezterm = lib.mkForce nixLoki.enableWezterm;
 							};
 							extra = {
 								# gets every stylix base16 colour into a set that lua will be able to digest in the nixLoki flake

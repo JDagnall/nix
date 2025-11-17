@@ -9,7 +9,7 @@
 		mkEnableOption
 		mkOption
 		types
-		optionals
+		optionalAttrs
 		;
 in {
 	options = {
@@ -134,7 +134,7 @@ in {
 								tooltip-format = ""; # when there are no connected devices
 								tooltip-format-enumerate-connected = "{device_alias}";
 							}
-							// optionals config.ui.bt-applet.enable {on-click = "blueman-manager";};
+							// optionalAttrs config.ui.bt-applet.enable {on-click = "blueman-manager";};
 						pulseaudio =
 							{
 								format = "{volume}% {icon}";
@@ -155,7 +155,7 @@ in {
 									off = 0;
 								};
 							}
-							// optionals config.ui.pavucontrol.enable {on-click = "pavucontrol";};
+							// optionalAttrs config.ui.pavucontrol.enable {on-click = "pavucontrol";};
 						"pulseaudio/slider" = {
 							orientation = "horizontal";
 						};

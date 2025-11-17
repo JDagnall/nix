@@ -40,7 +40,7 @@
 				{
 					enable = true;
 				}
-				// lib.optionals config.stylix.enableHomeConfig {
+				// lib.optionalAttrs config.stylix.enableHomeConfig {
 					# very rough css based on stylix base16
 					defaultSettings.cssSnippets = with config.lib.stylix.colors.withHashtag; [
 						{

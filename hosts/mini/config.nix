@@ -13,7 +13,7 @@
 	service.sshd.james.authKeys.enable = true;
 
 	service.syncthing = {
-		enable = false;
+		enable = true;
 		devices = {
 			PC.enable = true;
 			PC-windows.enable = true;
@@ -24,13 +24,13 @@
 		folders = let
 			shareDevices = ["PC" "PC-windows" "Framework" "Macbook" "Galaxy-s10e"];
 		in {
-			secure.enable = true;
+			secure.enable = false;
 			secure.share = shareDevices;
-			classes.enable = true;
+			classes.enable = false;
 			classes.share = shareDevices;
-			proj.enable = true;
+			proj.enable = false;
 			proj.share = shareDevices;
-			wallpapers.enable = true;
+			wallpapers.enable = false;
 			wallpapers.share = shareDevices;
 		};
 	};

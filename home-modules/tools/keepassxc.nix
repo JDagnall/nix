@@ -12,6 +12,7 @@
 		mkOption
 		types
 		optionals
+		optionalAttrs
 		;
 	inherit (config.tools) keepassxc keepmenu;
 in {
@@ -100,14 +101,14 @@ in {
 							autotype_default = "{USERNAME}{DELAY 200}{TAB}{PASSWORD}{ENTER}";
 							pw_cache_period_min = 60;
 						}
-						// optionals secure.enable {
+						// optionalAttrs secure.enable {
 							# could add more databases like this
 							database_1 = "${dataDir}/secure/Passwords.kdbx";
 						}
-						// optionals term.wezterm.enable {
+						// optionalAttrs term.wezterm.enable {
 							terminal = "wezterm";
 						}
-						// optionals window-manager.hyprland.enable {
+						// optionalAttrs window-manager.hyprland.enable {
 							type_library = "wtype";
 						};
 				};

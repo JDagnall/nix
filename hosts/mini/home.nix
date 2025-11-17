@@ -32,6 +32,7 @@
 
 	nixLoki.enable = true;
 	nixLoki.theme = "tinted-nvim";
+	nixLoki.enableWezterm = false;
 
 	### Configs
 
