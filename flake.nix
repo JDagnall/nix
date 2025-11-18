@@ -21,6 +21,10 @@
 			url = "github:Mic92/sops-nix";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		nix-minecraft = {
+			url = "github:Infinidoge/nix-minecraft";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
 	outputs = {
@@ -30,6 +34,7 @@
 		stylix,
 		nixos-wsl,
 		sops-nix,
+		nix-minecraft,
 		...
 	} @ inputs: let
 		system = "x86_64-linux";
@@ -97,6 +102,10 @@
 								./hosts/pc/home.nix
 							];
 						}
+						nix-minecraft.nixosModules.minecraft-servers
+						{
+							nixpkgs.overlays = [nix-minecraft.overlay];
+						}
 					];
 				};
 			mini =
@@ -119,6 +128,10 @@
 							home-manager.users.james.imports = [
 								./hosts/mini/home.nix
 							];
+						}
+						nix-minecraft.nixosModules.minecraft-servers
+						{
+							nixpkgs.overlays = [nix-minecraft.overlay];
 						}
 					];
 				};

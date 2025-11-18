@@ -13,7 +13,7 @@
 				enableDefaultConfig = false;
 				matchBlocks = {
 					server = {
-						hostname = "server.lan";
+						hostname = "mini.lan";
 						host = "server";
 						user = "james";
 						identityFile = "~/.ssh/key";

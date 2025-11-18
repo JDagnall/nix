@@ -43,9 +43,11 @@
 
 	stylix.enableConfig = true;
 
-	gaming.steam.enable = true;
-	gaming.gamemode.enable = true;
-	gaming.gamescope.enable = true;
+	gaming = {
+		steam.enable = true;
+		gamemode.enable = true;
+		gamescope.enable = true;
+	};
 	# config ------------------------------
 
 	imports = [
@@ -63,7 +65,7 @@
 	# allow unfree software, currently only using nvidia's drivers and steam
 	# this is not clean but its to annoying to care about
 	# nixpkgs.config.allowUnfree = true;
-	nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["nvidia-x11" "nvidia-settings" "steam" "steam-unwrapped"];
+	nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["nvidia-x11" "nvidia-settings" "steam" "steam-unwrapped" "minecraft-server"];
 
 	nix.settings.experimental-features = [
 		"nix-command"
