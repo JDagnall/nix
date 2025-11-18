@@ -9,6 +9,7 @@
 			enable = lib.mkEnableOption "Enable minecraft servers configuration";
 			"1.18.2" = lib.mkEnableOption "Enable 1.18.2 server";
 			"1.21.4" = lib.mkEnableOption "Enable 1.21.4 server";
+			"1.21.10" = lib.mkEnableOption "Enable 1.21.10 server";
 		};
 	};
 	config =
@@ -67,6 +68,25 @@
 												url = "https://cdn.modrinth.com/data/TQTTVgYE/versions/aVB2lYQQ/fabric-carpet-1.21.4-1.4.161%2Bv241203.jar";
 												hash = "sha256-AxFO/ZnFl6Y4ZD2OuXt9xIUxjAB3UHddil6MhmtE7XY=";
 												name = "fabric-carpet-1.21.4.jar";
+											};
+									});
+						};
+					};
+					"1.21.10" = {
+						enable = config.gaming.minecraft-servers."1.21.10";
+						package = pkgs.fabricServers.fabric-1_21_10;
+						serverProperties = {
+							server-port = 25565;
+						};
+						openFirewall = true;
+						whitelist = {};
+						symlinks = {
+							"mods" =
+								pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
+										servux =
+											pkgs.fetchurl {
+												url = "https://cdn.modrinth.com/data/zQhsx8KF/versions/4NqOw9an/servux-fabric-1.21.10-0.8.3.jar";
+												sha256 = "1cyxys1g3s268frn5mjliahnh2ybhp4i0265himfa09p76wh5837";
 											};
 									});
 						};

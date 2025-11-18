@@ -35,6 +35,11 @@
 		gui.setDefaultRoute = true;
 	};
 
+	gaming.minecraft-servers = {
+		enable = true;
+		"1.21.10" = true;
+	};
+
 	stylix.enableConfig = true;
 
 	# config ------------------------------
