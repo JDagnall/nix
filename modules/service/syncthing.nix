@@ -26,7 +26,7 @@ in {
 				'';
 			};
 		gui = {
-			enableLogin = mkEnableOption "Enable the login for the syncthin gui requires sops secret syncthing/gui-password to be set.";
+			enableLogin = mkEnableOption "Enable the login for the syncthin gui requires sops secret syncthing/hashed-gui-password to be set.";
 			username =
 				mkOption {
 					default = "james";
@@ -102,7 +102,7 @@ in {
 						owner = config.services.syncthing.user;
 						restartUnits = ["syncthing.service"];
 					};
-					"syncthing/gui-password" =
+					"syncthing/hashed-gui-password" =
 						mkIf config.service.syncthing.gui.enableLogin {
 							sopsFile = ../../secrets/${host}/syncthing.yaml;
 							owner = config.services.syncthing.user;
@@ -264,9 +264,8 @@ in {
 							pkgs.writers.writeBash "add-syncthing-gui-login"
 							''
 								${pkgs.syncthing}/bin/syncthing generate --gui-user=${config.service.syncthing.gui.username} \
-								--gui-password=$(cat ${config.sops.secrets."syncthing/gui-password".path}) \
-								                        --config=${config.services.syncthing.configDir} \
-								                        --home=${config.services.syncthing.dataDir}
+								--gui-password=$(cat ${config.sops.secrets."syncthing/hashed-gui-password".path}) \
+								                        --config=${config.services.syncthing.configDir}
 							'';
 					};
 				};
