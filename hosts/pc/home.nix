@@ -72,6 +72,7 @@
 	tools.mycli.enable = false;
 	tools.gh-cli.enable = true;
 	tools.nh.enable = true;
+	tools.ngrok.enable = true;
 
 	nixLoki.enable = true;
 	nixLoki.theme = "tinted-nvim";

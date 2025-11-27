@@ -77,6 +77,7 @@
 						package = pkgs.fabricServers.fabric-1_21_10;
 						serverProperties = {
 							server-port = 25565;
+							level-seed = 6586346193942;
 						};
 						openFirewall = true;
 						whitelist = {};

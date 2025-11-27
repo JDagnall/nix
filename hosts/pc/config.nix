@@ -47,6 +47,10 @@
 		steam.enable = true;
 		gamemode.enable = true;
 		gamescope.enable = true;
+		minecraft-servers = {
+			enable = false;
+			"1.21.10" = false;
+		};
 	};
 	# config ------------------------------
 
