@@ -7,6 +7,7 @@
 - secure boot (nix-community/lanzaboote exists)
 - robust debugger for use in nvim. dont really feel that I need this atm.
 - clipboard utility
+- tmux its useful even if dont use it anymore
 
 ## Fix
 

@@ -1,4 +1,5 @@
 {
+	pkgs,
 	lib,
 	config,
 	...
@@ -10,6 +11,7 @@
 		host = config.networking.hostName;
 	in
 		lib.mkIf config.sops.enable {
+			environment.systemPackages = with pkgs; [sops];
 			sops = {
 				defaultSopsFormat = "yaml";
 				defaultSopsFile = ./secrets/${host}/general.yaml;

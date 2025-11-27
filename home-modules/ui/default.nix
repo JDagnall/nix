@@ -62,6 +62,12 @@ in {
 				type = types.bool;
 				description = "Install draw.io";
 			};
+		ui.vlc.enable =
+			mkOption {
+				default = false;
+				type = types.bool;
+				description = "Install vlc";
+			};
 	};
 	config = let
 		inherit
@@ -72,6 +78,7 @@ in {
 			slack
 			pavucontrol
 			drawio
+			vlc
 			;
 	in {
 		home.packages =
@@ -81,6 +88,7 @@ in {
 			++ optionals legcord.enable [pkgs.legcord]
 			++ optionals slack.enable [pkgs.slack]
 			++ optionals pavucontrol.enable [pkgs.pavucontrol]
-			++ optionals drawio.enable [pkgs.drawio];
+			++ optionals drawio.enable [pkgs.drawio]
+			++ optionals vlc.enable [pkgs.vlc];
 	};
 }

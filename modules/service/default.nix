@@ -6,5 +6,6 @@
 		./pipewire.nix
 		./openvpn
 		./ssh.nix
+		./tailscale.nix
 	];
 }
