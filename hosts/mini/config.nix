@@ -36,8 +36,8 @@
 	};
 
 	gaming.minecraft-servers = {
-		enable = true;
-		"1.21.10" = true;
+		enable = false;
+		"1.21.10" = false;
 	};
 
 	stylix.enableConfig = true;
