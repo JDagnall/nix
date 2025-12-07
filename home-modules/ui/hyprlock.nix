@@ -128,7 +128,7 @@ in {
 					# suspend after 30 mins
 					{
 						timeout = 1800; # sec
-						on-timeout = "systemctl suspend";
+						on-timeout = "systemctl hibernate";
 					}
 				];
 				inherit (config.ui.hypridle) profile;
