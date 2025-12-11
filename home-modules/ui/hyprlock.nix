@@ -126,10 +126,10 @@ in {
 						on-timeout = "loginctl lock-session";
 					}
 					# suspend after 30 mins
-					{
-						timeout = 1800; # sec
-						on-timeout = "systemctl hibernate";
-					}
+					# {
+					# 	timeout = 1800; # sec
+					# 	on-timeout = "systemctl hibernate";
+					# }
 				];
 				inherit (config.ui.hypridle) profile;
 			in
