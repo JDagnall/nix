@@ -7,5 +7,6 @@
 		./openvpn
 		./ssh.nix
 		./tailscale.nix
+		./jellyfin.nix
 	];
 }
