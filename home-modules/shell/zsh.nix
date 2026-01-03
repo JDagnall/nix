@@ -26,7 +26,15 @@ in {
 				enable = true;
 				# plugins just sources the files pointed too by its elements
 				plugins =
-					[
+					# putting vi mode first cause it overwrites keybinds of other plugins
+					optionals config.shell.zsh.vi-mode.enable [
+						{
+							name = "vi-mode";
+							src = pkgs.zsh-vi-mode;
+							file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+						}
+					]
+					++ [
 						{
 							name = "powerlevel10k-config";
 							src = ./.;
@@ -40,13 +48,6 @@ in {
 						{
 							name = "fzf-tab";
 							src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
-						}
-					]
-					++ optionals config.shell.zsh.vi-mode.enable [
-						{
-							name = "vi-mode";
-							src = pkgs.zsh-vi-mode;
-							file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
 						}
 					];
 
