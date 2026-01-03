@@ -6,7 +6,7 @@
 	home.username = "james";
 	home.homeDirectory = "/home/james";
 
-	home.stateVersion = "25.05"; # Please read the comment before changing.
+	home.stateVersion = "25.11"; # Please read the comment before changing.
 
 	imports = [
 		../../home-modules
@@ -78,7 +78,7 @@
 	nixLoki.enable = true;
 	nixLoki.theme = "tinted-nvim";
 
-	gaming.proton.ge.enable = true;
+	gaming.proton.enable = true;
 	gaming.lutris.enable = true;
 	gaming.mangohud.enable = true;
 	gaming.prism.enable = true;

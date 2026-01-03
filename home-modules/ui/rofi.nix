@@ -29,7 +29,6 @@ in {
 		mkIf config.ui.rofi.enable {
 			programs.rofi = {
 				enable = true;
-				package = pkgs.rofi-wayland;
 				cycle = true; # cycle through results
 				extraConfig = {
 					show-icons = true;

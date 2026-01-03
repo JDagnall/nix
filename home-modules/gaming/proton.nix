@@ -4,10 +4,10 @@
 	config,
 	...
 }: let
-	inherit (lib) mkIf mkEnableOption optionals;
+	inherit (lib) mkIf mkEnableOption;
 in {
 	options = {
-		gaming.proton.ge.enable =
+		gaming.proton.enable =
 			mkEnableOption {
 				description = ''
 					Enable Proton-GE. This is a fork that is supposed to be slightly better.
@@ -15,11 +15,11 @@ in {
 				'';
 			};
 	};
-	config = {
-		home.packages = with pkgs; [] ++ optionals config.gaming.proton.ge.enable [protonup];
-		home.sessionVariables =
-			mkIf config.gaming.proton.ge.enable {
+	config =
+		mkIf config.gaming.proton.enable {
+			home.packages = with pkgs; [protonup-ng];
+			home.sessionVariables = {
 				STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\\\${HOME}/.steam/compatibilitytools.d";
 			};
-	};
+		};
 }

@@ -2,7 +2,7 @@
 	description = "james' flake";
 
 	inputs = {
-		nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+		nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 		home-manager = {
 			url = "github:nix-community/home-manager/master";
 			inputs.nixpkgs.follows = "nixpkgs";
@@ -142,7 +142,7 @@
 					modules = [
 						nixos-wsl.nixosModules.default
 						{
-							system.stateVersion = "25.05";
+							system.stateVersion = "25.11";
 							wsl.enable = true;
 							wsl.defaultUser = "james";
 							wsl.docker-desktop.enable = true;
