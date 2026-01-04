@@ -41,7 +41,6 @@
 	service.docker.groupUsers = ["james"];
 	service.openvpn.enable = true;
 	service.tailscale.enable = true;
-	service.jellyfin.enable = true;
 
 	stylix.enableConfig = true;
 
