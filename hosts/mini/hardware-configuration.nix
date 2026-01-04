@@ -4,24 +4,26 @@
 {
 	config,
 	lib,
-	pkgs,
-	modulesPath,
 	...
 }: {
 	boot.initrd.availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "firewire_ohci" "usb_storage" "usbhid" "sd_mod" "sdhci_pci"];
-	boot.initrd.kernelModules = ["wl"];
-	boot.kernelModules = ["kvm-intel" "wl"];
-	boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
+	# boot.initrd.kernelModules = ["wl"];
+	# boot.kernelModules = ["kvm-intel" "wl"];
+	boot.kernelModules = ["kvm-intel" "b43"];
+	boot.blacklistedKernelModules = ["wl"];
+	networking.enableB43Firmware = true;
+
+	# boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
 	hardware.enableAllFirmware = true;
 	nixpkgs.config.allowUnfree = true;
 	# nixpkgs.config.permittedInsecurePackages = [
 	#   "broadcom-sta-6.30.223.271-57-6.15.7"
 	# ];
 	# allows the old drivers which are deprecated
-	nixpkgs.config.allowInsecurePredicate = pkg:
-		builtins.elem (lib.getName pkg) [
-			"broadcom-sta"
-		];
+	# nixpkgs.config.allowInsecurePredicate = pkg:
+	# 	builtins.elem (lib.getName pkg) [
+	# 		"broadcom-sta"
+	# 	];
 
 	fileSystems."/" = {
 		device = "/dev/disk/by-label/NIXROOT";

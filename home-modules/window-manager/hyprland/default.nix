@@ -119,7 +119,7 @@ in {
 						#################
 						${
 							if config.ui.waybar.autostart
-							then "exec-once = ps -aux | grep waybar || waybar &"
+							then "exec-once = pidof waybar || waybar &"
 							else ""
 						}
 						${

@@ -114,11 +114,12 @@ in {
 				];
 				desktop_profile = [
 					# fully turns the screen off
+					# temporary fix to stop waybar duping
 					{
 						timeout = 300; # sec
-						on-timeout = "hyprctl dispatch dpms off";
+						on-timeout = "pkill waybar; hyprctl dispatch dpms off;";
 						# change brightness back,
-						on-resume = "hyprctl dispatch dpms on && brightnessctl -r";
+						on-resume = "hyprctl dispatch dpms on && brightnessctl -r; exec waybar;";
 					}
 					# lock session
 					{
