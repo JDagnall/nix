@@ -9,7 +9,7 @@
 	config = {
 		stylix =
 			lib.mkForce {
-				image = ../../wallpapers/walle.png;
+				image = ../../wallpapers/walle.jpg;
 				polarity = "dark"; # prefers dark theme
 				base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
 				override = {};

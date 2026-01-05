@@ -68,6 +68,7 @@ in {
 				type = types.bool;
 				description = "Install vlc";
 			};
+		ui.qbittorrent.enable = lib.mkEnableOption "Install qbittorrent";
 	};
 	config = let
 		inherit
@@ -79,6 +80,7 @@ in {
 			pavucontrol
 			drawio
 			vlc
+			qbittorrent
 			;
 	in {
 		home.packages =
@@ -89,6 +91,7 @@ in {
 			++ optionals slack.enable [pkgs.slack]
 			++ optionals pavucontrol.enable [pkgs.pavucontrol]
 			++ optionals drawio.enable [pkgs.drawio]
-			++ optionals vlc.enable [pkgs.vlc];
+			++ optionals vlc.enable [pkgs.vlc]
+			++ optionals qbittorrent.enable [pkgs.qbittorrent];
 	};
 }

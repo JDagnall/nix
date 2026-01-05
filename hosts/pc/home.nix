@@ -65,6 +65,7 @@
 	ui.pavucontrol.enable = true;
 	ui.drawio.enable = true;
 	ui.vlc.enable = true;
+	ui.qbittorrent.enable = true;
 
 	tools.keepassxc.enable = true;
 	tools.keepmenu.enable = true;

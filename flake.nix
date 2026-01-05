@@ -156,8 +156,12 @@
 								inherit pkgs; # makes sure to inherit overlays like nixLoki
 							};
 							home-manager.users.james.imports = [
-								./hosts/mini/home.nix
+								./hosts/book/home.nix
 							];
+						}
+						nix-minecraft.nixosModules.minecraft-servers
+						{
+							nixpkgs.overlays = [nix-minecraft.overlay];
 						}
 					];
 				};

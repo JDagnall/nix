@@ -33,23 +33,23 @@
 			"b43-firmware"
 		];
 
-	fileSystems."/" = {
-		device = "/dev/disk/by-label/NIXROOT";
-		fsType = "ext4";
-	};
-
-	fileSystems."/boot" = {
-		device = "/dev/disk/by-label/NIXBOOT";
-		fsType = "vfat";
-		options = ["fmask=0022" "dmask=0022"];
-	};
-
-	swapDevices = [
-		{
-			device = "/.swapfile";
-			size = 2 * 1024;
-		}
-	];
+	# fileSystems."/" = {
+	# 	device = "/dev/disk/by-label/NIXROOT";
+	# 	fsType = "ext4";
+	# };
+	#
+	# fileSystems."/boot" = {
+	# 	device = "/dev/disk/by-label/NIXBOOT";
+	# 	fsType = "vfat";
+	# 	options = ["fmask=0022" "dmask=0022"];
+	# };
+	#
+	# swapDevices = [
+	# 	{
+	# 		device = "/.swapfile";
+	# 		size = 2 * 1024;
+	# 	}
+	# ];
 
 	# Enables DHCP on each ethernet and wireless interface. In case of scripted networking
 	# (the default) this is the recommended approach. When using systemd-networkd it's
