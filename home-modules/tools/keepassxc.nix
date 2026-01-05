@@ -64,6 +64,10 @@ in {
 						ClearClipboardTimeout = 30;
 						LockDatabaseScreenLock = false;
 					};
+					# freedesktop secret service implementation, requires enabled groups in databases
+					FdoSecrets = {
+						Enabled = true;
+					};
 				};
 			};
 

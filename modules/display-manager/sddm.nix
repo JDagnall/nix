@@ -15,11 +15,11 @@ in {
 	};
 	config =
 		mkIf config.display-manager.sddm.enable {
-			environment.systemPackages = with pkgs; [(catppuccin-sddm.override {flavor = "mocha";})];
+			# environment.systemPackages = with pkgs; [(catppuccin-sddm.override {flavor = "mocha";})];
 			services.displayManager.sddm = {
 				enable = true;
 				wayland.enable = true;
-				theme = "catppuccin-mocha";
+				# theme = "catppuccin-mocha";
 				package = pkgs.kdePackages.sddm;
 			};
 		};

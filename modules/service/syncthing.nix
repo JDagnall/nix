@@ -251,7 +251,7 @@ in {
 			systemd.services.syncthing-loginmanager =
 				mkIf config.service.syncthing.gui.enableLogin {
 					description = "Syncthing GUI Login Manager";
-					requisite = ["syncthing.service"];
+					# requisite = ["syncthing.service"];
 					before = ["syncthing.service" "syncthing-init.service"];
 					wantedBy = ["multi-user.target"];
 
@@ -265,7 +265,7 @@ in {
 							''
 								${pkgs.syncthing}/bin/syncthing generate --gui-user=${config.service.syncthing.gui.username} \
 								--gui-password=$(cat ${config.sops.secrets."syncthing/hashed-gui-password".path}) \
-								                        --config=${config.services.syncthing.configDir} || echo "Failed to set GUI login"
+								                        --config=${config.services.syncthing.configDir} || echo "Failed to set GUI login for syncthing."
 							'';
 					};
 				};
