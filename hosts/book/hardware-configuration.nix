@@ -13,24 +13,24 @@
 	# nixpkgs.config.allowUnfree = true;
 
 	# newer b43 network drivers
-	boot.kernelModules = ["kvm-intel" "b43"];
-	boot.blacklistedKernelModules = ["wl"];
-	networking.enableB43Firmware = true;
+	# boot.kernelModules = ["kvm-intel" "b43"];
+	# boot.blacklistedKernelModules = ["wl"];
+	# networking.enableB43Firmware = true;
 
 	# old broadcom_sta network drivers
-	# boot.initrd.kernelModules = ["wl"];
-	# boot.kernelModules = ["kvm-intel" "wl"];
-	# boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
-	# nixpkgs.config.allowInsecurePredicate = pkg:
-	# 	builtins.elem (lib.getName pkg) [
-	# 		"broadcom-sta"
-	# 	];
+	boot.initrd.kernelModules = ["wl"];
+	boot.kernelModules = ["kvm-intel" "wl"];
+	boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
+	nixpkgs.config.allowInsecurePredicate = pkg:
+		builtins.elem (lib.getName pkg) [
+			"broadcom-sta"
+		];
 
 	# both are proprietary
 	nixpkgs.config.allowUnfreePredicate = pkg:
 		builtins.elem (lib.getName pkg) [
-			# "broadcom-sta"
-			"b43-firmware"
+			"broadcom-sta"
+			# "b43-firmware"
 		];
 
 	# fileSystems."/" = {

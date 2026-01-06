@@ -82,6 +82,10 @@
 								./hosts/framework/home.nix
 							];
 						}
+						nix-minecraft.nixosModules.minecraft-servers
+						{
+							nixpkgs.overlays = [nix-minecraft.overlay];
+						}
 					];
 				};
 			pc =
@@ -192,6 +196,10 @@
 							home-manager.users.james.imports = [
 								./hosts/wsl/home.nix
 							];
+						}
+						nix-minecraft.nixosModules.minecraft-servers
+						{
+							nixpkgs.overlays = [nix-minecraft.overlay];
 						}
 					];
 				};

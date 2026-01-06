@@ -24,6 +24,7 @@
 
 - fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
 - ly breaks UWSM for some reason
+- i have to add the nix-minecraft overlay to every single config its insanely annoying
 
 ## Sylix
 

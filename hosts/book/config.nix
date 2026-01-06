@@ -6,7 +6,7 @@
 }: {
 	# config ------------------------------
 	display-manager.sddm.enable = true;
-	boot-loader.systemd-boot.enable = true;
+	# boot-loader.systemd-boot.enable = true;
 	desktop-manager.plasma.enable = true;
 	fonts.enable = true;
 	sops.enable = false;

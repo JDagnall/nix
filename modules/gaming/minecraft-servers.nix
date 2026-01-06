@@ -12,6 +12,8 @@
 			"1.21.10" = lib.mkEnableOption "Enable 1.21.10 server";
 		};
 	};
+	# very annoying hack, using mkIf here will cause an error if the overlay is not loaded, because it will still evaluate the set
+	# causes an error even though the setting is not enabled
 	config =
 		lib.mkIf config.gaming.minecraft-servers.enable {
 			services.minecraft-servers = {
