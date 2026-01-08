@@ -59,6 +59,7 @@
 	ui.hypr-screenshot.enable = true;
 	ui.easyeffects.enable = true;
 	ui.pavucontrol.enable = true;
+	ui.vlc.enable = true;
 
 	tools.git.enable = true;
 	tools.mycli.enable = true;
