@@ -9,7 +9,7 @@
 	config = {
 		stylix =
 			lib.mkForce {
-				image = ../../wallpapers/cyberpunk.png;
+				image = ../../wallpapers/cyberpunk.jpg;
 				polarity = "dark"; # prefers dark theme
 				base16Scheme = "${pkgs.base16-schemes}/share/themes/ashes.yaml";
 				override = {};
