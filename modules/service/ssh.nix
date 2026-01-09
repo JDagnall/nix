@@ -18,12 +18,14 @@
 			pc = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINi4vaMqWu0EleK32TMjaW/EgMHuNI7iMHYLuHER6p0n james.t.dagnall@gmail.com";
 			framework = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFqllBz9dOTXIAezDIM24SwFD2VLlQJu+XeR2HOmOd48 james.t.dagnall@gmail.com";
 			mini = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEPdrwbgx4Cc8/ty3tynVtUy1RkeyUFc48fJtSEci6K8 james.t.dagnall@gmail.com";
+			book = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEQBo9p33G09SaHZ/hWLUSTeRl+77QrOGk08cMVnE3a2 james@book";
 		};
 		users.users.james.openssh.authorizedKeys.keys =
 			lib.mkIf config.service.sshd.james.authKeys.enable [
 				config.ssh.host-pub-keys.pc
 				config.ssh.host-pub-keys.framework
 				config.ssh.host-pub-keys.mini
+				config.ssh.host-pub-keys.book
 			];
 		sops.secrets = let
 			host = config.networking.hostName;

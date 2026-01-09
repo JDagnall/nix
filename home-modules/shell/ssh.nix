@@ -30,6 +30,12 @@
 						user = "james";
 						identityFile = "~/.ssh/key";
 					};
+					book = {
+						hostname = "book.lan";
+						host = "pc";
+						user = "james";
+						identityFile = "~/.ssh/key";
+					};
 				};
 			};
 		};
