@@ -56,6 +56,7 @@
 	ui.vlc.enable = true;
 
 	tools.keepassxc.enable = true;
+	tools.keepmenu.enable = true;
 
 	stylix.enableHomeConfig = true; # home-manager specific stylix
 
