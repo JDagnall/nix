@@ -19,7 +19,7 @@
 	service.syncthing = {
 		enable = true;
 		runAsUser = "james";
-		devices.macmini-server.enable = false;
+		devices.macmini-server.enable = true;
 		folders = let
 			shareDevices = ["MacMini-Server"];
 		in {
