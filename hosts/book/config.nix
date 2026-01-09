@@ -23,7 +23,7 @@
 		folders = let
 			shareDevices = ["MacMini-Server"];
 		in {
-			secure.enable = false;
+			secure.enable = true;
 			secure.share = shareDevices;
 		};
 	};
