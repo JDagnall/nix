@@ -13,6 +13,8 @@
 	];
 
 	### Configs
+	window-manager.hyprland.enable = true;
+
 	term.wezterm.enable = true;
 
 	shell.zsh.enable = true;
@@ -34,10 +36,20 @@
 	langs.nix.enable = true;
 	langs.python.enable = true;
 
-	desktop-manager.plasma.enable = true;
-
+	ui.rofi.enable = true;
+	ui.waybar.enable = true;
+	ui.mako.enable = true;
+	ui.swayosd.enable = true;
+	ui.nm-applet.enable = true;
+	ui.bt-applet.enable = true;
+	ui.hyprpaper.enable = true;
+	ui.hyprlock.enable = true;
+	ui.hypridle.enable = true;
+	ui.hypridle.profile = "laptop";
+	ui.hypr-screenshot.enable = true;
+	ui.pavucontrol.enable = true;
 	ui.firefox.enable = true;
-	ui.syncthingtray.enable = false;
+	ui.syncthingtray.enable = true;
 	ui.spotify.enable = true;
 	ui.thunar.enable = true;
 	ui.imv.enable = true;

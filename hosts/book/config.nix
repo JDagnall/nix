@@ -5,25 +5,25 @@
 	...
 }: {
 	# config ------------------------------
-	display-manager.sddm.enable = true;
-	# boot-loader.systemd-boot.enable = true;
-	desktop-manager.plasma.enable = true;
+	display-manager.gdm.enable = true;
+	boot-loader.grub.enable = true;
+	window-manager.hyprland.enable = true;
 	fonts.enable = true;
-	sops.enable = false;
+	sops.enable = true;
 
 	service.pipewire.enable = true;
 
-	service.sshd.enable = false;
-	service.sshd.james.authKeys.enable = false;
+	service.sshd.enable = true;
+	service.sshd.james.authKeys.enable = true;
 
 	service.syncthing = {
-		enable = false;
+		enable = true;
 		runAsUser = "james";
-		devices.macmini-server.enable = true;
+		devices.macmini-server.enable = false;
 		folders = let
 			shareDevices = ["MacMini-Server"];
 		in {
-			secure.enable = true;
+			secure.enable = false;
 			secure.share = shareDevices;
 		};
 	};

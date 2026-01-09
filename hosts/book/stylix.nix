@@ -11,7 +11,7 @@
 			lib.mkForce {
 				image = ../../wallpapers/walle.jpg;
 				polarity = "dark"; # prefers dark theme
-				base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+				base16Scheme = "${pkgs.base16-schemes}/share/themes/ashes.yaml";
 				override = {};
 
 				fonts = {

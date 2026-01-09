@@ -1,5 +1,5 @@
 {
-	pkgs,
+	# pkgs,
 	lib,
 	config,
 	...
@@ -21,6 +21,11 @@ in {
 				wayland.enable = true;
 				# theme = "catppuccin-mocha";
 				# package = pkgs.kdePackages.sddm;
+				settings = {
+					General = {
+						DisplayServer = "wayland";
+					};
+				};
 			};
 		};
 }

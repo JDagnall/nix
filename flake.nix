@@ -28,6 +28,11 @@
 			url = "github:Infinidoge/nix-minecraft";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		plasma-manager = {
+			url = "github:nix-community/plasma-manager";
+			inputs.nixpkgs.follows = "nixpkgs";
+			inputs.home-manager.follows = "home-manager";
+		};
 	};
 
 	outputs = {
@@ -38,6 +43,7 @@
 		nixos-wsl,
 		sops-nix,
 		nix-minecraft,
+		plasma-manager,
 		...
 	} @ inputs: let
 		system = "x86_64-linux";
@@ -159,9 +165,11 @@
 								inherit inputs;
 								inherit pkgs; # makes sure to inherit overlays like nixLoki
 							};
+							# home-manager.backupFileExtension = "old";
 							home-manager.users.james.imports = [
 								./hosts/book/home.nix
 							];
+							home-manager.sharedModules = [plasma-manager.homeModules.plasma-manager];
 						}
 						nix-minecraft.nixosModules.minecraft-servers
 						{
