@@ -8,5 +8,6 @@
 		./ssh.nix
 		./tailscale.nix
 		./jellyfin.nix
+		./jackett.nix
 	];
 }

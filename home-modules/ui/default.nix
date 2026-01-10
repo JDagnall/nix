@@ -23,6 +23,7 @@ in {
 		./imv.nix
 		./hypr-screenshot.nix
 		./easyeffects.nix
+		./brave.nix
 	];
 	# ui packages that only need to be installed
 	options = {

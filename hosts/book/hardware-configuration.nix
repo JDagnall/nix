@@ -33,6 +33,7 @@
 			# "b43-firmware"
 		];
 
+	boot.blacklistedKernelModules = ["uvcvideo"];
 	boot.kernelParams = [
 		"hid_apple.swap_fn_leftctrl=1"
 	];

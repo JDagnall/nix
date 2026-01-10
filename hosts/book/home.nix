@@ -54,6 +54,8 @@
 	ui.thunar.enable = true;
 	ui.imv.enable = true;
 	ui.vlc.enable = true;
+	ui.brave.enable = true;
+	ui.qbittorrent.enable = true;
 
 	tools.keepassxc.enable = true;
 	tools.keepmenu.enable = true;
