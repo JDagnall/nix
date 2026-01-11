@@ -41,7 +41,7 @@ in {
 				settings = {
 					General = {
 						BackupBeforeSave = true;
-						BackupFilePathePattern = "{DB_FILENAME}.bak.kdbx";
+						BackupFilePathPattern = "{DB_FILENAME}.bak.kdbx";
 						ConfigVersion = 2;
 						GlobalAutoTypeKey = 65;
 						GlobalAutoTypeModifiers = 100663296;
@@ -67,6 +67,10 @@ in {
 					# freedesktop secret service implementation, requires enabled groups in databases
 					FdoSecrets = {
 						Enabled = true;
+						ShowNotification = true;
+						ConfirmDeleteItem = false;
+						ConfirmAccessItem = false;
+						UnlockBeforeSearch = true;
 					};
 				};
 			};

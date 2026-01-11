@@ -25,6 +25,9 @@
 - fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
 - ly breaks UWSM for some reason
 - i have to add the nix-minecraft overlay to every single config its insanely annoying
+- plasma is totally busted
+- am unable to change config values for thunar
+- in general am unable to include flake inputs for just one host without adding it to every host configuaration
 
 ## Sylix
 
