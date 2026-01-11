@@ -53,62 +53,64 @@
 				insertNameservers = ["8.8.8.8" "1.1.1.1"];
 				ensureProfiles = {
 					profiles = {
-						PIA_openvpn_brisbane = {
-							connection = {
-								id = "PIA_openvpn_brisbane";
-								type = "vpn";
+						PIA_openvpn_brisbane =
+							lib.mkIf config.service.openvpn.enable {
+								connection = {
+									id = "PIA_openvpn_brisbane";
+									type = "vpn";
+								};
+								ipv4 = {
+									dns = "8.8.8.8;1.1.1.1;";
+									method = "auto";
+								};
+								ipv6 = {
+									method = "disabled";
+								};
+								proxy = {};
+								vpn = {
+									ca = "${./servers/cert.pem}";
+									password-flags = "1"; # secrets should be managed by secret service
+									challenge-response-flags = "2";
+									auth = "sha1";
+									cipher = "aes-128-gcm";
+									compress = "yes";
+									connection-type = "password";
+									dev = "tun";
+									remote = "au-brisbane-pf.privacy.network:1198";
+									remote-cert-tls = "server";
+									reneg-seconds = "0";
+									service-type = "org.freedesktop.NetworkManager.openvpn";
+								};
 							};
-							ipv4 = {
-								dns = "8.8.8.8;1.1.1.1;";
-								method = "auto";
+						PIA_openvpn_melbourne =
+							lib.mkIf config.service.openvpn.enable {
+								connection = {
+									id = "PIA_openvpn_melbourne";
+									type = "vpn";
+								};
+								ipv4 = {
+									dns = "8.8.8.8;1.1.1.1;";
+									method = "auto";
+								};
+								ipv6 = {
+									method = "disabled";
+								};
+								proxy = {};
+								vpn = {
+									ca = "${./servers/cert.pem}";
+									challenge-response-flags = "2";
+									password-flags = "1"; # secrets should be managed by secret service
+									auth = "sha1";
+									cipher = "aes-128-gcm";
+									compress = "yes";
+									connection-type = "password";
+									dev = "tun";
+									remote = "aus-melbourne.privacy.network:1198";
+									remote-cert-tls = "server";
+									reneg-seconds = "0";
+									service-type = "org.freedesktop.NetworkManager.openvpn";
+								};
 							};
-							ipv6 = {
-								method = "disabled";
-							};
-							proxy = {};
-							vpn = {
-								ca = "${./servers/cert.pem}";
-								password-flags = "1"; # secrets should be managed by secret service
-								challenge-response-flags = "2";
-								auth = "sha1";
-								cipher = "aes-128-gcm";
-								compress = "yes";
-								connection-type = "password";
-								dev = "tun";
-								remote = "au-brisbane-pf.privacy.network:1198";
-								remote-cert-tls = "server";
-								reneg-seconds = "0";
-								service-type = "org.freedesktop.NetworkManager.openvpn";
-							};
-						};
-						PIA_openvpn_melbourne = {
-							connection = {
-								id = "PIA_openvpn_melbourne";
-								type = "vpn";
-							};
-							ipv4 = {
-								dns = "8.8.8.8;1.1.1.1;";
-								method = "auto";
-							};
-							ipv6 = {
-								method = "disabled";
-							};
-							proxy = {};
-							vpn = {
-								ca = "${./servers/cert.pem}";
-								challenge-response-flags = "2";
-								password-flags = "1"; # secrets should be managed by secret service
-								auth = "sha1";
-								cipher = "aes-128-gcm";
-								compress = "yes";
-								connection-type = "password";
-								dev = "tun";
-								remote = "aus-melbourne.privacy.network:1198";
-								remote-cert-tls = "server";
-								reneg-seconds = "0";
-								service-type = "org.freedesktop.NetworkManager.openvpn";
-							};
-						};
 					};
 					# secrets.entries = [
 					# 	{

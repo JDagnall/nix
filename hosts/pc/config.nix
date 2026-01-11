@@ -39,6 +39,7 @@
 	service.docker.enable = true;
 	service.docker.groupUsers = ["james"];
 	service.openvpn.enable = true;
+	service.openvpn.PIA = true;
 	service.tailscale.enable = true;
 
 	stylix.enableConfig = true;
