@@ -41,6 +41,7 @@
 	service.openvpn.enable = true;
 	service.openvpn.PIA = true;
 	service.tailscale.enable = true;
+	service.gnome-keyring.enable = true;
 
 	stylix.enableConfig = true;
 

@@ -70,6 +70,7 @@ in {
 				description = "Install vlc";
 			};
 		ui.qbittorrent.enable = lib.mkEnableOption "Install qbittorrent";
+		ui.seahorse.enable = lib.mkEnableOption "Install seahorse";
 	};
 	config = let
 		inherit
@@ -82,6 +83,7 @@ in {
 			drawio
 			vlc
 			qbittorrent
+			seahorse
 			;
 	in {
 		home.packages =
@@ -93,6 +95,7 @@ in {
 			++ optionals pavucontrol.enable [pkgs.pavucontrol]
 			++ optionals drawio.enable [pkgs.drawio]
 			++ optionals vlc.enable [pkgs.vlc]
-			++ optionals qbittorrent.enable [pkgs.qbittorrent];
+			++ optionals qbittorrent.enable [pkgs.qbittorrent]
+			++ optionals seahorse.enable [pkgs.seahorse];
 	};
 }

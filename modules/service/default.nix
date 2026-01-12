@@ -9,5 +9,6 @@
 		./tailscale.nix
 		./jellyfin.nix
 		./jackett.nix
+		./gnome-keyring.nix
 	];
 }

@@ -31,19 +31,17 @@
 				};
 			};
 
-			# sops.secrets = let
-			# 	host = config.networking.hostName;
-			# in
-			# 	lib.mkIf config.sops.enable {
-			# 		"VPN/PIA/user" =
-			# 			lib.mkIf config.service.openvpn.PIA {
-			# 				sopsFile = ../../secrets/${host}/vpn.yaml;
-			# 			};
-			# 		"VPN/PIA/pass" =
-			# 			lib.mkIf config.service.openvpn.PIA {
-			# 				sopsFile = ../../secrets/${host}/vpn.yaml;
-			# 			};
-			# 	};
+			sops.secrets = let
+				host = config.networking.hostName;
+			in
+				lib.mkIf config.sops.enable {
+					"VPN/PIA/user" = {
+						sopsFile = ../../../secrets/${host}/vpn.yaml;
+					};
+					"VPN/PIA/pass" = {
+						sopsFile = ../../../secrets/${host}/vpn.yaml;
+					};
+				};
 			networking.networkmanager.plugins =
 				lib.mkIf config.networking.networkmanager.enable [
 					pkgs.networkmanager-openvpn
@@ -69,8 +67,8 @@
 								proxy = {};
 								vpn = {
 									ca = "${./servers/cert.pem}";
-									password-flags = "1"; # secrets should be managed by secret service
-									challenge-response-flags = "2";
+									password-flags = "1"; # secrets stored in network manager root readable file
+									challenge-response-flags = "1";
 									auth = "sha1";
 									cipher = "aes-128-gcm";
 									compress = "yes";
@@ -98,8 +96,8 @@
 								proxy = {};
 								vpn = {
 									ca = "${./servers/cert.pem}";
-									challenge-response-flags = "2";
-									password-flags = "1"; # secrets should be managed by secret service
+									challenge-response-flags = "1";
+									password-flags = "1"; # secrets stored in network manager root readable file
 									auth = "sha1";
 									cipher = "aes-128-gcm";
 									compress = "yes";
@@ -112,22 +110,37 @@
 								};
 							};
 					};
-					# secrets.entries = [
-					# 	{
-					# 		file = config.sops.target."VPN/PIA/user".path;
-					# 		key = "auth-user";
-					# 		matchId = "PIA_openvpn_melbourne";
-					# 		matchSetting = "vpn";
-					# 		matchType = "vpn";
-					# 	}
-					# 	{
-					# 		file = config.sops.target."VPN/PIA/pass".path;
-					# 		key = "auth-user-pass";
-					# 		matchId = "PIA_openvpn_melbourne";
-					# 		matchSetting = "vpn";
-					# 		matchType = "vpn";
-					# 	}
-					# ];
+					secrets.entries =
+						lib.mkIf config.sops.enable [
+							{
+								file = config.sops.secrets."VPN/PIA/user".path;
+								key = "username";
+								matchId = "PIA_openvpn_melbourne";
+								matchSetting = "vpn";
+								matchType = "vpn";
+							}
+							{
+								file = config.sops.secrets."VPN/PIA/pass".path;
+								key = "password";
+								matchId = "PIA_openvpn_melbourne";
+								matchSetting = "vpn";
+								matchType = "vpn";
+							}
+							{
+								file = config.sops.secrets."VPN/PIA/user".path;
+								key = "username";
+								matchId = "PIA_openvpn_brisbane";
+								matchSetting = "vpn";
+								matchType = "vpn";
+							}
+							{
+								file = config.sops.secrets."VPN/PIA/pass".path;
+								key = "password";
+								matchId = "PIA_openvpn_brisbane";
+								matchSetting = "vpn";
+								matchType = "vpn";
+							}
+						];
 				};
 			};
 		};

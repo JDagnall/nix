@@ -66,6 +66,7 @@
 	ui.drawio.enable = true;
 	ui.vlc.enable = true;
 	ui.qbittorrent.enable = true;
+	ui.seahorse.enable = true;
 
 	tools.keepassxc.enable = true;
 	tools.keepmenu.enable = true;
@@ -83,6 +84,7 @@
 	gaming.lutris.enable = true;
 	gaming.mangohud.enable = true;
 	gaming.prism.enable = true;
+	gaming.heroic.enable = true;
 
 	stylix.enableHomeConfig = true; # home-manager specific stylix
 

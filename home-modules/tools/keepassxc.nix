@@ -66,7 +66,7 @@ in {
 					};
 					# freedesktop secret service implementation, requires enabled groups in databases
 					FdoSecrets = {
-						Enabled = true;
+						Enabled = false;
 						ShowNotification = true;
 						ConfirmDeleteItem = false;
 						ConfirmAccessItem = false;
