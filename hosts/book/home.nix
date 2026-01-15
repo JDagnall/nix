@@ -56,6 +56,7 @@
 	ui.vlc.enable = true;
 	ui.brave.enable = true;
 	ui.qbittorrent.enable = true;
+	ui.seahorse.enable = true;
 
 	tools.keepassxc.enable = true;
 	tools.keepmenu.enable = true;

@@ -11,7 +11,7 @@
 			};
 		evremap.profile =
 			lib.mkOption {
-				type = lib.types.nullOr (lib.types.enum ["logi-k855" "framework"]);
+				type = lib.types.nullOr (lib.types.enum ["logi-k855" "framework" "macbook"]);
 				default = null;
 				description = "The keyboard you are using / the profile you want to use";
 			};
@@ -45,6 +45,16 @@
 				}
 			];
 		};
+		macbook = {
+			phys = "usb-0000:00:14.0-5/input1";
+			device_name = "Apple Inc. Apple Internal Keyboard / Trackpad";
+			remap = [
+				{
+					input = ["KEY_CAPSLOCK"];
+					output = ["KEY_ESC"];
+				}
+			];
+		};
 	in
 		lib.mkIf config.evremap.enable {
 			services.evremap = {
@@ -54,6 +64,8 @@
 					then logi_k855
 					else if config.evremap.profile == "framework"
 					then framework
+					else if config.evremap.profile == "macbook"
+					then macbook
 					else null;
 			};
 		};

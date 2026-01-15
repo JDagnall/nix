@@ -10,6 +10,8 @@
 	window-manager.hyprland.enable = true;
 	fonts.enable = true;
 	sops.enable = true;
+	evremap.enable = true;
+	evremap.profile = "macbook";
 
 	service.pipewire.enable = true;
 
@@ -31,8 +33,10 @@
 	service.docker.enable = true;
 	service.docker.groupUsers = ["james"];
 	service.openvpn.enable = true;
+	service.openvpn.PIA = true;
 	service.tailscale.enable = false;
 	service.jackett.enable = true;
+	service.gnome-keyring.enable = true;
 
 	stylix.enableConfig = true;
 
