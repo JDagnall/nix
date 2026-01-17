@@ -1,5 +1,5 @@
 {
-	# pkgs,
+	pkgs,
 	lib,
 	config,
 	osConfig,
@@ -15,8 +15,8 @@
 		lib.mkIf config.gaming.lutris.enable {
 			programs.lutris = {
 				enable = true;
-				# defaultWinePackage = ;
-				protonPackages = [];
+				defaultWinePackage = pkgs.proton-ge-bin;
+				protonPackages = [pkgs.proton-ge-bin];
 				winePackages = [];
 				runners = {
 					# eg = {
