@@ -15,6 +15,7 @@
 			home.packages = with pkgs.xfce;
 				[
 					thunar
+					xfconf # needed for configuration
 				]
 				++ [
 					thunar-volman # volume manager
@@ -22,6 +23,7 @@
 					thunar-archive-plugin # managing archive files (extract/compress)
 					thunar-media-tags-plugin
 				];
+			dbus.packages = with pkgs.xfce; [thunar xfconf];
 			# stylix.targets.xfce.enable = config.stylix.enableHomeConfig;
 		};
 }
