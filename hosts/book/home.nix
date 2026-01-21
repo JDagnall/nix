@@ -25,7 +25,7 @@
 	shell.eza.enable = true;
 	shell.fzf.enable = true;
 	shell.zoxide.enable = true;
-	shell.ssh.enable = false;
+	shell.ssh.enable = true;
 
 	tools.git.enable = true;
 	tools.nh.enable = true;
