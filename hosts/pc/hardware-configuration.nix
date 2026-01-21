@@ -39,7 +39,7 @@
 			"nofail" # dont crash if can't mount
 			"exec" # permit to excecute binaries
 			"rw"
-			# "uid=1000" # id of my user
+			"uid=1000" # id of my user
 		];
 	};
 	# 120 GB SSD SATA
@@ -51,7 +51,7 @@
 			"nofail" # dont crash if can't mount
 			"exec" # permit to excecute binaries
 			"rw"
-			# "uid=1000" # id of my user
+			"uid=1000" # id of my user
 		];
 	};
 
