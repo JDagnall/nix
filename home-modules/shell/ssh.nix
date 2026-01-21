@@ -32,7 +32,7 @@
 					};
 					book = {
 						hostname = "book.lan";
-						host = "pc";
+						host = "book";
 						user = "james";
 						identityFile = "~/.ssh/key";
 					};
