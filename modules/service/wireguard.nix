@@ -46,9 +46,9 @@
 						listenPort = listenPort;
 						peers = [
 							{
-								publicKey = "p3iGWV65zkQaB3FwcydcFOz/AtGqqSoIcJOrO749Pn0=";
+								publicKey = "SYVskx/V+QhpP/RHmFYwUXAp0+7In15BpFAtfPuWWjk=";
 								allowedIPs = ["0.0.0.0/0"];
-								endpoint = "45.130.141.215:${builtins.toString listenPort}";
+								endpoint = "223.252.34.38:${builtins.toString listenPort}";
 								persistentKeepalive = 25;
 							}
 						];
@@ -63,7 +63,7 @@
 						listenPort = listenPort;
 						peers = [
 							{
-								publicKey = "kTHBkpolHZaxgnaZ4xq3HEskikWlPfEtVUWt66kvCFs=";
+								publicKey = "SYVskx/V+QhpP/RHmFYwUXAp0+7In15BpFAtfPuWWjk=";
 								allowedIPs = ["0.0.0.0/0"];
 								endpoint = "223.252.34.42:${builtins.toString listenPort}";
 								persistentKeepalive = 25;
