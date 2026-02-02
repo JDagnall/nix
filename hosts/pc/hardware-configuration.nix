@@ -39,7 +39,20 @@
 			"nofail" # dont crash if can't mount
 			"exec" # permit to excecute binaries
 			"rw"
-			"uid=1000" # id of my user
+			"permissions" # POSIX permissions
+			"uid=${
+				if config.users.users ? james && lib.isStringLike config.users.users.james.uid
+				then config.users.users.james.uid
+				else "1000"
+			}"
+			"gid=${
+				if config.users.groups ? james && lib.isStringLike config.users.groups.james.gid
+				then config.users.groups.james.gid
+				else "998"
+			}"
+			"umask=0033"
+			"fmask=0033"
+			"dmask=0033"
 		];
 	};
 	# 120 GB SSD SATA
@@ -51,7 +64,20 @@
 			"nofail" # dont crash if can't mount
 			"exec" # permit to excecute binaries
 			"rw"
-			"uid=1000" # id of my user
+			"permissions" # POSIX permissions
+			"uid=${
+				if config.users.users ? james && lib.isStringLike config.users.users.james.uid
+				then config.users.users.james.uid
+				else "1000"
+			}"
+			"gid=${
+				if config.users.groups ? james && lib.isStringLike config.users.groups.james.gid
+				then config.users.groups.james.gid
+				else "998"
+			}"
+			"umask=0033"
+			"fmask=0033"
+			"dmask=0033"
 		];
 	};
 

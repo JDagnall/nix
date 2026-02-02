@@ -42,6 +42,8 @@
 	service.openvpn.PIA = true;
 	service.tailscale.enable = true;
 	service.gnome-keyring.enable = true;
+	service.wiregaurd.enable = true;
+	service.wiregaurd.PIA = true;
 
 	stylix.enableConfig = true;
 

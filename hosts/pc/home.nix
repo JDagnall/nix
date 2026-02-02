@@ -67,6 +67,7 @@
 	ui.vlc.enable = true;
 	ui.qbittorrent.enable = true;
 	ui.seahorse.enable = true;
+	ui.libreoffice.enable = true;
 
 	tools.keepassxc.enable = true;
 	tools.keepmenu.enable = true;

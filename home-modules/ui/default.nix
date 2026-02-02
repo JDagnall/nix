@@ -71,6 +71,7 @@ in {
 			};
 		ui.qbittorrent.enable = lib.mkEnableOption "Install qbittorrent";
 		ui.seahorse.enable = lib.mkEnableOption "Install seahorse";
+		ui.libreoffice.enable = lib.mkEnableOption "Install libreoffice suite";
 	};
 	config = let
 		inherit
@@ -84,6 +85,7 @@ in {
 			vlc
 			qbittorrent
 			seahorse
+			libreoffice
 			;
 	in {
 		home.packages =
@@ -96,6 +98,7 @@ in {
 			++ optionals drawio.enable [pkgs.drawio]
 			++ optionals vlc.enable [pkgs.vlc]
 			++ optionals qbittorrent.enable [pkgs.qbittorrent]
-			++ optionals seahorse.enable [pkgs.seahorse];
+			++ optionals seahorse.enable [pkgs.seahorse]
+			++ optionals libreoffice.enable [pkgs.libreoffice-qt-fresh];
 	};
 }

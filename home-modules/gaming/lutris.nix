@@ -15,6 +15,7 @@
 		lib.mkIf config.gaming.lutris.enable {
 			programs.lutris = {
 				enable = true;
+				extraPackages = with pkgs; [flatpak];
 				defaultWinePackage = pkgs.proton-ge-bin;
 				protonPackages = [pkgs.proton-ge-bin];
 				winePackages = [];

@@ -10,5 +10,6 @@
 		./jellyfin.nix
 		./jackett.nix
 		./gnome-keyring.nix
+		./wireguard.nix
 	];
 }
