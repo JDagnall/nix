@@ -94,7 +94,7 @@ in {
 			# create config file for keepmenu
 			xdg.configFile."keepmenu/config.ini" = let
 				inherit (lib) generators;
-				inherit (config) term window-manager;
+				inherit (config) window-manager;
 				inherit (osConfig.service.syncthing.folders) secure;
 				inherit (osConfig.services.syncthing) dataDir;
 				settings = {
@@ -113,8 +113,8 @@ in {
 							# could add more databases like this
 							database_1 = "${dataDir}/secure/Passwords.kdbx";
 						}
-						// optionalAttrs term.wezterm.enable {
-							terminal = "wezterm";
+						// optionalAttrs (config.home.sessionVariables ? TERMINAL) {
+							terminal = config.home.sessionVariables.TERMINAL;
 						}
 						// optionalAttrs window-manager.hyprland.enable {
 							type_library = "wtype";

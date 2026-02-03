@@ -2,9 +2,9 @@
 	description = "james' flake";
 
 	inputs = {
-		nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 		home-manager = {
-			url = "github:nix-community/home-manager/release-25.11";
+			url = "github:nix-community/home-manager";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		nixLoki = {
@@ -13,11 +13,11 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		stylix = {
-			url = "github:nix-community/stylix/release-25.11";
+			url = "github:nix-community/stylix";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		nixos-wsl = {
-			url = "github:nix-community/NixOS-WSL/release-25.11";
+			url = "github:nix-community/NixOS-WSL";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		sops-nix = {
@@ -26,6 +26,10 @@
 		};
 		nix-minecraft = {
 			url = "github:Infinidoge/nix-minecraft";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+		noctalia = {
+			url = "github:noctalia-dev/noctalia-shell";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		# plasma-manager = {
@@ -43,6 +47,7 @@
 		nixos-wsl,
 		sops-nix,
 		nix-minecraft,
+		noctalia,
 		# plasma-manager,
 		...
 	} @ inputs: let
@@ -64,12 +69,18 @@
 		nixosConfigurations = {
 			virtualbox =
 				nixpkgs.lib.nixosSystem {
-					specialArgs = {inherit system;};
+					specialArgs = {
+						inherit system;
+						inherit inputs;
+					};
 					modules = [./hosts/virtualbox/config.nix];
 				};
 			framework =
 				nixpkgs.lib.nixosSystem {
-					specialArgs = {inherit system;};
+					specialArgs = {
+						inherit system;
+						inherit inputs;
+					};
 					modules = [
 						./hosts/framework/config.nix
 						stylix.nixosModules.stylix
@@ -96,7 +107,10 @@
 				};
 			pc =
 				nixpkgs.lib.nixosSystem {
-					specialArgs = {inherit system;};
+					specialArgs = {
+						inherit system;
+						inherit inputs;
+					};
 					modules = [
 						./hosts/pc/config.nix
 						stylix.nixosModules.stylix
@@ -123,7 +137,10 @@
 				};
 			mini =
 				nixpkgs.lib.nixosSystem {
-					specialArgs = {inherit system;};
+					specialArgs = {
+						inherit system;
+						inherit inputs;
+					};
 					modules = [
 						./hosts/mini/config.nix
 						stylix.nixosModules.stylix
@@ -150,7 +167,10 @@
 				};
 			book =
 				nixpkgs.lib.nixosSystem {
-					specialArgs = {inherit system;};
+					specialArgs = {
+						inherit system;
+						inherit inputs;
+					};
 					modules = [
 						./hosts/book/config.nix
 						stylix.nixosModules.stylix
@@ -179,7 +199,10 @@
 				};
 			wsl =
 				nixpkgs.lib.nixosSystem {
-					specialArgs = {inherit system;};
+					specialArgs = {
+						inherit system;
+						inherit inputs;
+					};
 					system = "x86_64-linux";
 					modules = [
 						nixos-wsl.nixosModules.default

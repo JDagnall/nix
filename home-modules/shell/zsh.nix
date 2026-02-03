@@ -197,6 +197,7 @@ in {
 
 			home = {
 				shell.enableZshIntegration = true;
+				sessionVariables.SHELL = "zsh";
 				packages = with pkgs; [
 					zsh
 					zsh-fzf-tab

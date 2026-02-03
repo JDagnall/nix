@@ -1,5 +1,5 @@
 {
-	pkgs,
+	# pkgs,
 	lib,
 	config,
 	...
@@ -12,18 +12,18 @@
 		;
 in {
 	options = {
-		ui.rofi.enable =
-			mkEnableOption {
-				default = false;
-				description = "Enable rofi config";
-			};
-		ui.rofi.stylixOverride =
-			mkOption {
-				default = true;
-				description = ''
-					Stylix makes a bad colour choice for rofi with catppuccin,
-					so I override it with another one of the base16 colours.'';
-			};
+		ui.rofi = {
+			enable = mkEnableOption "Enable rofi config";
+			launcherShortcut = mkEnableOption "Enable shortcut for rofi (probably Meta+D) because other launcher may want that shortcut.";
+
+			stylixOverride =
+				mkOption {
+					default = true;
+					description = ''
+						Stylix makes a bad colour choice for rofi with catppuccin,
+						       so I override it with another one of the base16 colours.'';
+				};
+		};
 	};
 	config =
 		mkIf config.ui.rofi.enable {
@@ -32,7 +32,7 @@ in {
 				cycle = true; # cycle through results
 				extraConfig = {
 					show-icons = true;
-					terminal = "wezterm";
+					terminal = mkIf (config.home.sessionVariables ? TERMINAL) config.home.sessionVariables.TERMINAL;
 					drun-display-format = "{icon} {name}";
 					location = 0;
 					disable-history = false;

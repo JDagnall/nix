@@ -13,6 +13,7 @@ in {
 		./firefox.nix
 		./hyprpaper.nix
 		./hyprlock.nix
+		./hypridle.nix
 		./syncthingtray.nix
 		./mako.nix
 		./swayosd.nix
@@ -24,6 +25,7 @@ in {
 		./hypr-screenshot.nix
 		./easyeffects.nix
 		./brave.nix
+		./noctalia.nix
 	];
 	# ui packages that only need to be installed
 	options = {

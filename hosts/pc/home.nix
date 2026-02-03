@@ -40,11 +40,24 @@
 
 	term.wezterm.enable = true;
 
+	ui.noctalia = {
+		enable = true;
+		launcherShortcut = true;
+		lockScreen.enable = true;
+		osd.enable = true;
+		wallpaper.enable = true;
+		notificationManager.enable = true;
+		clipboardManager.enable = true;
+		deviceProfile = "desktop";
+	};
+
 	ui.rofi.enable = true;
-	ui.waybar.enable = true;
-	ui.hyprpaper.enable = true;
-	ui.hyprlock.enable = true;
+	ui.waybar.enable = false;
+	ui.hyprpaper.enable = false;
+	ui.hyprlock.enable = false;
 	ui.hypridle.enable = true;
+	ui.mako.enable = false;
+	ui.swayosd.enable = false;
 	ui.hypridle.profile = "desktop";
 	ui.firefox.enable = true;
 	ui.nwg-look.enable = false;
@@ -52,8 +65,6 @@
 	ui.spotify.enable = true;
 	ui.slack.enable = true;
 	ui.legcord.enable = true;
-	ui.mako.enable = true;
-	ui.swayosd.enable = true;
 	ui.nm-applet.enable = true;
 	ui.bt-applet.enable = true;
 	ui.vscode.enable = true;

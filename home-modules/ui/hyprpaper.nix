@@ -25,10 +25,14 @@ in {
 				enable = true;
 				settings = {
 					splash = false; # text
-					splash_offset = 1.0;
+					splash_offset = 1;
 					ipc = true; # allows hyprpaper to be controlled by hyprland
 				};
 			};
-			stylix.targets.hyprpaper.enable = config.stylix.enableHomeConfig;
+			stylix.targets.hyprpaper =
+				mkIf config.stylix.enableHomeConfig {
+					enable = true;
+					image.enable = true;
+				};
 		};
 }

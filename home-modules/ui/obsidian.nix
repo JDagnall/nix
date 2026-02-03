@@ -21,7 +21,7 @@
 			(pkgs.formats.json {}).generate "obsidian.json" {
 				vaults =
 					builtins.listToAttrs (
-						builtins.map (vault: {
+						map (vault: {
 								name = builtins.hashString "md5" vault.path;
 								value = {
 									path = vault.path;
@@ -35,7 +35,10 @@
 		lib.mkIf config.ui.obsidian.enable {
 			# home-manager settings for obsidian are fucked, so i'm doing the vault stuff myself
 			# im overriding here
-			xdg.configFile."obsidian/obsidian.json".source = lib.mkForce configJSON;
+			xdg.configFile."obsidian/obsidian.json" = {
+				source = lib.mkForce configJSON;
+				force = true;
+			};
 			programs.obsidian =
 				{
 					enable = true;

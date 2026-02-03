@@ -19,7 +19,7 @@ in {
 	config = let
 		inherit (config.langs.nix) formatters;
 		formatterList = with pkgs; [
-			nixfmt-rfc-style
+			nixfmt
 			alejandra
 		];
 	in

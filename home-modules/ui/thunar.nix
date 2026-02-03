@@ -12,7 +12,7 @@
 	};
 	config =
 		lib.mkIf config.ui.thunar.enable {
-			home.packages = with pkgs.xfce;
+			home.packages = with pkgs;
 				[
 					thunar
 					xfconf # needed for configuration
@@ -23,7 +23,7 @@
 					thunar-archive-plugin # managing archive files (extract/compress)
 					thunar-media-tags-plugin
 				];
-			dbus.packages = with pkgs.xfce; [thunar xfconf];
+			dbus.packages = with pkgs; [thunar xfconf];
 			# stylix.targets.xfce.enable = config.stylix.enableHomeConfig;
 		};
 }

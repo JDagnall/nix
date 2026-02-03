@@ -1,4 +1,5 @@
 {
+	pkgs,
 	lib,
 	config,
 	osConfig,
@@ -30,6 +31,10 @@ in {
 	};
 	config =
 		mkIf config.window-manager.hyprland.enable {
+			home.packages = with pkgs; [
+				wl-clipboard # clipboard
+				wtype # autotype
+			];
 			wayland.windowManager.hyprland = {
 				enable = true;
 				systemd = let
@@ -115,6 +120,11 @@ in {
 							then "exec-once = pidof waybar || waybar &"
 							else ""
 						}
+						                  ${
+							if config.ui.noctalia.enable && !config.ui.noctalia.systemd.enable
+							then "exec-once = noctalia-shell &"
+							else ""
+						}
 						${
 							if config.ui.syncthingtray.autostart
 							then "exec-once = syncthingtray --wait &"
@@ -133,13 +143,15 @@ in {
 						# $mod = SUPER # sets "Windows" key as the main mod key
 						# there is no alternative for either of these at the moment so they have to be set
 						${
-							if config.ui.rofi.enable
+							if config.ui.rofi.launcherShortcut
 							then "$menu = rofi -show drun"
-							else "$menu = rofi -show drun"
+							else if config.ui.noctalia.launcherShortcut
+							then "$menu = noctalia-shell ipc call launcher toggle"
+							else ""
 						}
 						${
-							if config.term.wezterm.enable
-							then "$terminal = wezterm"
+							if (config.home.sessionVariables ? TERMINAL)
+							then "$terminal = ${config.home.sessionVariables.TERMINAL}"
 							else "$terminal = wezterm"
 						}
 					'';
@@ -158,7 +170,7 @@ in {
 			stylix.targets.hyprland =
 				mkIf config.stylix.enableHomeConfig {
 					enable = true;
-					hyprpaper.enable = config.ui.hyprpaper.enable;
+					colors.enable = true;
 				};
 		};
 }
