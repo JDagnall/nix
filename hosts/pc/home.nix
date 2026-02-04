@@ -42,6 +42,7 @@
 
 	ui.noctalia = {
 		enable = true;
+		systemd.enable = true;
 		launcherShortcut = true;
 		lockScreen.enable = true;
 		osd.enable = true;

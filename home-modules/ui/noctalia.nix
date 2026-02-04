@@ -1,4 +1,5 @@
 {
+	pkgs,
 	lib,
 	config,
 	inputs,
@@ -65,7 +66,9 @@
 			warnings =
 				[]
 				++ lib.optionals (!osConfig.services.upower.enable && noctaliaCfg.deviceProfile == "laptop")
-				["Noctalia may be unable to provide battery information if services.upower is disabled in nixos config"];
+				["Noctalia will be unable to provide battery information if services.upower is disabled in nixos config"]
+				++ lib.optionals (!(osConfig.services.tuned.enable || osConfig.services.power-profiles-daemon.enable) && noctaliaCfg.deviceProfile == "laptop")
+				["Noctalia will be unable to provide power profiles information without one of services.tuned or services.power-profiles-daemon in nixos config"];
 
 			programs.noctalia-shell = {
 				enable = true;
@@ -73,15 +76,18 @@
 				systemd.enable = noctaliaCfg.systemd.enable;
 				settings = {
 					bar = {
-						barType = "floating";
+						barType =
+							if noctaliaCfg.deviceProfile == "desktop"
+							then "floating"
+							else "simple";
 						position = "top";
 						monitors = [];
 						density = "default";
 						showOutline = false;
 						showCapsule = true;
-						# backgroundOpacity = 0.93;
 						# useSeparateOpacity = false;
-						floating = false;
+						# backgroundOpacity = 0.8;
+						floating = noctaliaCfg.deviceProfile == "desktop";
 						marginVertical = 4;
 						marginHorizontal = 4;
 						frameThickness = 8;
@@ -97,6 +103,7 @@
 								{id = "Clock";}
 								{id = "SystemMonitor";}
 								{id = "AudioVisualizer";}
+								{id = "plugin:catwalk";}
 							];
 							center = [
 								{id = "Workspace";}
@@ -105,11 +112,16 @@
 								[
 									{id = "Tray";}
 									{id = "NotificationHistory";}
-									{id = "MediaMini";}
+									{id = "plugin:privacy-indicator";}
+								]
+								++ lib.optionals noctaliaCfg.clipboardManager.enable [{id = "plugin:clipper";}]
+								++ [
 									{id = "Volume";}
 									{id = "Network";}
 									{id = "Bluetooth";}
+									{id = "VPN";}
 								]
+								++ lib.optionals osConfig.services.tailscale.enable [{id = "plugin:tailscale";}]
 								++ lib.optionals (noctaliaCfg.deviceProfile == "laptop") [
 									{id = "Battery";}
 									{id = "Brightness";}
@@ -441,9 +453,55 @@
 						monitorWidgets = [];
 					};
 				};
-				plugins = {};
-				pluginSettings = {};
+				plugins = {
+					sources = [
+						{
+							enabled = true;
+							name = "Official Noctalia Plugins";
+							url = "https://github.com/noctalia-dev/noctalia-plugins";
+						}
+					];
+					states = {
+						catwalk = {
+							enabled = true;
+							sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+						};
+						privacy-indicator = {
+							enabled = true;
+							sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+						};
+						tailscale =
+							lib.mkIf osConfig.services.tailscale.enable {
+								enabled = true;
+								sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+							};
+						clipper =
+							lib.mkIf noctaliaCfg.clipboardManager.enable {
+								enabled = true;
+								sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+							};
+						# keybind-cheatsheet = {
+						# 	enabled = true;
+						# 	sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+						# };
+					};
+					version = 1;
+				};
+				pluginSettings = {
+					catwalk = {};
+					privacy-indicator = {
+						hideInactive = true;
+					};
+					tailscale = {
+						compactMode = true;
+						terminalCommand = lib.mkIf (config.home.sessionVariables ? TERMINAL) config.home.sessionVariables.TERMINAL;
+					};
+					clipper = {};
+					# keybind-cheatsheet = {};
+				};
 			};
+
+			home.packages = [] ++ lib.optionals noctaliaCfg.clipboardManager.enable [pkgs.cliphist];
 			stylix.targets.noctalia-shell.enable = config.stylix.enableHomeConfig;
 		};
 }
