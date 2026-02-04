@@ -62,6 +62,10 @@
 					message = "Noctalia and mako should not be enabled together.";
 				}
 			];
+			warnings =
+				[]
+				++ lib.optionals (!osConfig.services.upower.enable && noctaliaCfg.deviceProfile == "laptop")
+				["Noctalia may be unable to provide battery information if services.upower is disabled in nixos config"];
 
 			programs.noctalia-shell = {
 				enable = true;

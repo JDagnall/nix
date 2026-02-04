@@ -64,6 +64,13 @@
 	networking.networkmanager.enable = true;
 	networking.hostName = "book";
 
+	# dont power of on power key press
+	services.logind.settings.Login = {
+		HandlePowerKey = "ignore";
+	};
+	# battery managment
+	services.upower.enable = true;
+
 	# bluetooth
 	hardware.bluetooth = {
 		enable = true;

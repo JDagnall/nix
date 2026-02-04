@@ -36,16 +36,28 @@
 	langs.nix.enable = true;
 	langs.python.enable = true;
 
+	ui.noctalia = {
+		enable = true;
+		systemd.enable = true;
+		lockScreen.enable = true;
+		osd.enable = true;
+		wallpaper.enable = true;
+		notificationManager.enable = true;
+		launcherShortcut = true;
+		clipboardManager.enable = true;
+		deviceProfile = "laptop";
+	};
+
 	ui.rofi.enable = true;
-	ui.waybar.enable = true;
-	ui.mako.enable = true;
-	ui.swayosd.enable = true;
-	ui.nm-applet.enable = true;
-	ui.bt-applet.enable = true;
-	ui.hyprpaper.enable = true;
-	ui.hyprlock.enable = true;
+	ui.waybar.enable = false;
+	ui.mako.enable = false;
+	ui.swayosd.enable = false;
+	ui.hyprpaper.enable = false;
+	ui.hyprlock.enable = false;
 	ui.hypridle.enable = true;
 	ui.hypridle.profile = "laptop";
+	ui.nm-applet.enable = true;
+	ui.bt-applet.enable = true;
 	ui.hypr-screenshot.enable = true;
 	ui.pavucontrol.enable = true;
 	ui.firefox.enable = true;
