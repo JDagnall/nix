@@ -6,11 +6,10 @@
 		extraGroups = ["wheel"];
 		initialPassword = "pass";
 		packages = with pkgs; [
-			# things you always want installed no exceptions
 			vim
 			git
 			zsh
-			bash # for scripting
+			bash
 		];
 		# make sure we always have a shell
 		shell = pkgs.zsh;

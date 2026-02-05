@@ -1,1 +1,6 @@
-{...}: {imports = [./plasma.nix ./xfce.nix];}
+{...}: {
+	imports = [
+		# ./plasma.nix
+		./xfce.nix
+	];
+}

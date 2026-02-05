@@ -21,7 +21,7 @@ in {
 				# UWSM improves systemd compatability stuff with wayland
 				# make sure hyprland.systemd.enable is false, in home-manager or otherwise
 				# as this will cause launching the session to crash
-				withUWSM = true;
+				withUWSM = false;
 			};
 
 			environment.sessionVariables = {

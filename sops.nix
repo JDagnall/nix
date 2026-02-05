@@ -2,8 +2,12 @@
 	pkgs,
 	lib,
 	config,
+	inputs,
 	...
 }: {
+	imports = [
+		inputs.sops-nix.nixosModules.sops
+	];
 	options = {
 		sops.enable = lib.mkEnableOption "Enable sops secret management.";
 	};

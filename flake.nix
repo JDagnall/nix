@@ -43,12 +43,7 @@
 		nixpkgs,
 		home-manager,
 		nixLoki,
-		stylix,
 		nixos-wsl,
-		sops-nix,
-		nix-minecraft,
-		noctalia,
-		# plasma-manager,
 		...
 	} @ inputs: let
 		system = "x86_64-linux";
@@ -64,145 +59,69 @@
 					nixLoki.overlays.testNixLoki
 				];
 			};
+		mkHomeManagerArgs = host: {
+			home-manager.useGlobalPkgs = true;
+			home-manager.useUserPackages = true;
+			home-manager.extraSpecialArgs = {
+				inherit system;
+				inherit inputs;
+				inherit pkgs; # makes sure to inherit overlays like nixLoki
+			};
+			home-manager.users.james.imports = [
+				./hosts/${host}/home.nix
+			];
+		};
+		specialArgs = {
+			inherit system;
+			inherit inputs;
+		};
 	in {
 		# nixos entrypoints
 		nixosConfigurations = {
 			virtualbox =
 				nixpkgs.lib.nixosSystem {
-					specialArgs = {
-						inherit system;
-						inherit inputs;
-					};
+					inherit specialArgs;
 					modules = [./hosts/virtualbox/config.nix];
 				};
 			framework =
 				nixpkgs.lib.nixosSystem {
-					specialArgs = {
-						inherit system;
-						inherit inputs;
-					};
+					inherit specialArgs;
 					modules = [
 						./hosts/framework/config.nix
-						stylix.nixosModules.stylix
-						sops-nix.nixosModules.sops
-						# using home-manager as a nixos module here
 						home-manager.nixosModules.home-manager
-						{
-							home-manager.useGlobalPkgs = true;
-							home-manager.useUserPackages = true;
-							home-manager.extraSpecialArgs = {
-								inherit system;
-								inherit inputs;
-								inherit pkgs; # makes sure to inherit overlays like nixLoki
-							};
-							home-manager.users.james.imports = [
-								./hosts/framework/home.nix
-							];
-						}
-						nix-minecraft.nixosModules.minecraft-servers
-						{
-							nixpkgs.overlays = [nix-minecraft.overlay];
-						}
+						(mkHomeManagerArgs "framework")
 					];
 				};
 			pc =
 				nixpkgs.lib.nixosSystem {
-					specialArgs = {
-						inherit system;
-						inherit inputs;
-					};
+					inherit specialArgs;
 					modules = [
 						./hosts/pc/config.nix
-						stylix.nixosModules.stylix
-						sops-nix.nixosModules.sops
-						# using home-manager as a nixos module here
 						home-manager.nixosModules.home-manager
-						{
-							home-manager.useGlobalPkgs = true;
-							home-manager.useUserPackages = true;
-							home-manager.extraSpecialArgs = {
-								inherit system;
-								inherit inputs;
-								inherit pkgs; # makes sure to inherit overlays like nixLoki
-							};
-							home-manager.users.james.imports = [
-								./hosts/pc/home.nix
-							];
-						}
-						nix-minecraft.nixosModules.minecraft-servers
-						{
-							nixpkgs.overlays = [nix-minecraft.overlay];
-						}
+						(mkHomeManagerArgs "pc")
 					];
 				};
 			mini =
 				nixpkgs.lib.nixosSystem {
-					specialArgs = {
-						inherit system;
-						inherit inputs;
-					};
+					inherit specialArgs;
 					modules = [
 						./hosts/mini/config.nix
-						stylix.nixosModules.stylix
-						sops-nix.nixosModules.sops
-						# using home-manager as a nixos module here
 						home-manager.nixosModules.home-manager
-						{
-							home-manager.useGlobalPkgs = true;
-							home-manager.useUserPackages = true;
-							home-manager.extraSpecialArgs = {
-								inherit system;
-								inherit inputs;
-								inherit pkgs; # makes sure to inherit overlays like nixLoki
-							};
-							home-manager.users.james.imports = [
-								./hosts/mini/home.nix
-							];
-						}
-						nix-minecraft.nixosModules.minecraft-servers
-						{
-							nixpkgs.overlays = [nix-minecraft.overlay];
-						}
+						(mkHomeManagerArgs "mini")
 					];
 				};
 			book =
 				nixpkgs.lib.nixosSystem {
-					specialArgs = {
-						inherit system;
-						inherit inputs;
-					};
+					inherit specialArgs;
 					modules = [
 						./hosts/book/config.nix
-						stylix.nixosModules.stylix
-						sops-nix.nixosModules.sops
-						# using home-manager as a nixos module here
 						home-manager.nixosModules.home-manager
-						{
-							home-manager.useGlobalPkgs = true;
-							home-manager.useUserPackages = true;
-							home-manager.extraSpecialArgs = {
-								inherit system;
-								inherit inputs;
-								inherit pkgs; # makes sure to inherit overlays like nixLoki
-							};
-							# home-manager.backupFileExtension = "old";
-							home-manager.users.james.imports = [
-								./hosts/book/home.nix
-							];
-							# home-manager.sharedModules = [plasma-manager.homeModules.plasma-manager];
-						}
-						nix-minecraft.nixosModules.minecraft-servers
-						{
-							nixpkgs.overlays = [nix-minecraft.overlay];
-						}
+						(mkHomeManagerArgs "book")
 					];
 				};
 			wsl =
 				nixpkgs.lib.nixosSystem {
-					specialArgs = {
-						inherit system;
-						inherit inputs;
-					};
+					inherit specialArgs;
 					system = "x86_64-linux";
 					modules = [
 						nixos-wsl.nixosModules.default
@@ -213,25 +132,8 @@
 							wsl.docker-desktop.enable = true;
 						}
 						./hosts/wsl/config.nix
-						stylix.nixosModules.stylix
-						# using home-manager as a nixos module here
 						home-manager.nixosModules.home-manager
-						{
-							home-manager.useGlobalPkgs = true;
-							home-manager.useUserPackages = true;
-							home-manager.extraSpecialArgs = {
-								inherit system;
-								inherit inputs;
-								inherit pkgs; # makes sure to inherit overlays like nixLoki
-							};
-							home-manager.users.james.imports = [
-								./hosts/wsl/home.nix
-							];
-						}
-						nix-minecraft.nixosModules.minecraft-servers
-						{
-							nixpkgs.overlays = [nix-minecraft.overlay];
-						}
+						(mkHomeManagerArgs "wsl")
 					];
 				};
 		};

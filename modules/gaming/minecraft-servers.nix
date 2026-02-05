@@ -2,8 +2,15 @@
 	pkgs,
 	lib,
 	config,
+	inputs,
 	...
 }: {
+	imports = [
+		inputs.nix-minecraft.nixosModules.minecraft-servers
+		{
+			nixpkgs.overlays = [inputs.nix-minecraft.overlay];
+		}
+	];
 	options = {
 		gaming.minecraft-servers = {
 			enable = lib.mkEnableOption "Enable minecraft servers configuration";

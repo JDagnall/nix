@@ -1,8 +1,12 @@
 {
 	pkgs,
 	lib,
+	inputs,
 	...
 }: {
+	imports = [
+		inputs.stylix.nixosModules.stylix
+	];
 	options = {
 		# enable is taken by stylix itself
 		stylix.enableConfig =
