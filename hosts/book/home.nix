@@ -14,6 +14,7 @@
 
 	### Configs
 	window-manager.hyprland.enable = true;
+	window-manager.hyprland.enableTouchpadSwipe = true;
 
 	term.wezterm.enable = true;
 
