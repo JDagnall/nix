@@ -15,19 +15,18 @@
 		;
 in {
 	options = {
-		window-manager.hyprland.enable =
-			mkEnableOption {
-				default = false;
-				description = "Enable Hyprland config";
-			};
-		window-manager.hyprland.monitors =
-			mkOption {
-				default = [", preferred, auto, 1"];
-				type = lib.types.listOf lib.types.str;
-				description = ''
-					The device specific monitor config to be added to the hyprland config.
-					                 Generally just defines the monitors and thier positions'';
-			};
+		window-manager.hyprland = {
+			enable = mkEnableOption "Enable Hyprland config";
+			monitors =
+				mkOption {
+					default = [", preferred, auto, 1"];
+					type = lib.types.listOf lib.types.str;
+					description = ''
+						The device specific monitor config to be added to the hyprland config.
+						Generally just defines the monitors and thier positions'';
+				};
+			enableTouchpadSwipe = lib.mkEnableOption "Enable touchpad swiping for workspaces";
+		};
 	};
 	config =
 		mkIf config.window-manager.hyprland.enable {
@@ -108,6 +107,7 @@ in {
 						);
 					bind = [] ++ optionals config.tools.keepmenu.enable ["$mod, a, exec, keepmenu"];
 					monitor = config.window-manager.hyprland.monitors;
+					gesture = [] ++ optionals config.window-manager.hyprland.enableTouchpadSwipe ["3,horizontal,workspace"];
 				};
 				extraConfig = let
 					configFile = builtins.readFile ./hyprland.conf;

@@ -35,10 +35,14 @@
 
 	service.docker.enable = true;
 	service.docker.groupUsers = ["james"];
-	service.fprintd.enable = false;
+	service.fprintd.enable = true;
 	service.openvpn.enable = true;
+	service.openvpn.PIA = true;
 	service.sshd.enable = true;
 	service.sshd.james.authKeys.enable = true;
+	service.tailscale.enable = true;
+	service.gnome-keyring.enable = true;
+	service.wiregaurd.enable = false;
 
 	stylix.enableConfig = true;
 	# config ------------------------------
@@ -74,6 +78,11 @@
 		};
 	};
 	services.blueman.enable = true; # bt manager software
+	services.upower.enable = true; # power management
+	services.power-profiles-daemon.enable = true;
+
+	# dont power of on key press
+	services.logind.settings.Login = {HandlePowerKey = "ignore";};
 
 	services.flatpak.enable = true;
 

@@ -43,6 +43,14 @@
 					input = ["KEY_CAPSLOCK"];
 					output = ["KEY_ESC"];
 				}
+				{
+					input = ["KEY_LEFTALT"];
+					output = ["KEY_LEFTMETA"];
+				}
+				{
+					input = ["KEY_LEFTMETA"];
+					output = ["KEY_LEFTALT"];
+				}
 			];
 		};
 		macbook = {

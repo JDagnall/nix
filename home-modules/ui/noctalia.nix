@@ -383,8 +383,8 @@
 						overlayLayer = true;
 						respectExpireTimeout = false;
 						lowUrgencyDuration = 3;
-						normalUrgencyDuration = 8;
-						criticalUrgencyDuration = 15;
+						normalUrgencyDuration = 4;
+						criticalUrgencyDuration = 8;
 						enableKeyboardLayoutToast = true;
 						saveToHistory = {
 							low = true;
