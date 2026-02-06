@@ -11,6 +11,7 @@
 
 	service.sshd.enable = true;
 	service.sshd.james.authKeys.enable = true;
+	service.tailscale.enable = true;
 
 	service.syncthing = {
 		enable = true;
