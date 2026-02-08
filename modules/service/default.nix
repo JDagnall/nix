@@ -11,5 +11,6 @@
 		./jackett.nix
 		./gnome-keyring.nix
 		./wireguard.nix
+		./languagetool.nix
 	];
 }

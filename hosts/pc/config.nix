@@ -43,6 +43,7 @@
 	service.tailscale.enable = true;
 	service.gnome-keyring.enable = true;
 	service.wiregaurd.enable = false;
+	service.languagetool.enable = true;
 
 	stylix.enableConfig = true;
 
