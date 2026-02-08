@@ -67,7 +67,11 @@ in {
 					# lock session
 					{
 						timeout = 900; # 15 min
-						on-timeout = "loginctl lock-session";
+						# noctalia doesn't currently do DBUS so loginctl doesnt work
+						on-timeout =
+							if config.ui.noctalia.enable
+							then "noctalia-shell ipc call lockScreen lock"
+							else "loginctl lock-session";
 					}
 					# suspend
 					{
@@ -80,14 +84,18 @@ in {
 					# temporary fix to stop waybar duping
 					{
 						timeout = 300; # sec
-						on-timeout = "pkill waybar; hyprctl dispatch dpms off;";
+						on-timeout = "pidof waybar && pkill waybar; hyprctl dispatch dpms off;";
 						# change brightness back,
-						on-resume = "hyprctl dispatch dpms on && brightnessctl -r; exec waybar;";
+						on-resume = "hyprctl dispatch dpms on && brightnessctl -r; which waybar && exec waybar;";
 					}
 					# lock session
 					{
 						timeout = 900; # 15 min
-						on-timeout = "loginctl lock-session";
+						# noctalia doesn't currently do DBUS so loginctl doesnt work
+						on-timeout =
+							if config.ui.noctalia.enable
+							then "noctalia-shell ipc call lockScreen lock"
+							else "loginctl lock-session";
 					}
 					# suspend after 30 mins
 					# {
@@ -107,7 +115,11 @@ in {
 							# on_unlock_cmd = ""; # when the session is unlocked at all
 
 							# lock before suspend.
-							before_sleep_cmd = "loginctl lock-session";
+							# noctalia doesn't currently do DBUS so loginctl doesnt work
+							before_sleep_cmd =
+								if config.ui.noctalia.enable
+								then "noctalia-shell ipc call lockScreen lock"
+								else "loginctl lock-session";
 							# to avoid having to press a key twice to turn on the display.
 							after_sleep_cmd = "hyprctl dispatch dpms on";
 

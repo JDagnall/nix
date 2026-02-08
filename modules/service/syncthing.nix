@@ -144,36 +144,60 @@ in {
 							"MacMini-Server" =
 								mkIf config.service.syncthing.devices.macmini-server.enable {
 									id = "YEPHB7F-ZVCVOXK-PP4M6NT-C2D2BNH-JYFEW26-2Z7GIJE-ZBYUINV-2K3OAAJ";
+									addresses =
+										lib.mkIf config.service.tailscale.enable [
+											"tcp://mini:22000"
+										];
 									name = "MacMini-server";
 									autoAcceptFolders = false;
 								};
 							"Galaxy-s10e" =
 								mkIf config.service.syncthing.devices.galaxy-s10e.enable {
 									id = "NYORDT7-6IUBNB6-7DGXYQA-TK2TZLW-YJYDBOK-E3PISCB-PIHPSAA-EQI7VQI";
+									addresses =
+										lib.mkIf config.service.tailscale.enable [
+											"tcp://samsung-s10e:22000"
+										];
 									name = "Galaxy-s10e";
 									autoAcceptFolders = false;
 								};
 							"PC-windows" =
 								mkIf config.service.syncthing.devices.PC-windows.enable {
 									id = "2WONTYB-TZI6CPL-ZRPSNNE-UJUEZ7U-MJTIMIB-MEHE7SD-UQ4EKSH-ORQEYAO";
+									addresses =
+										lib.mkIf config.service.tailscale.enable [
+											# "tcp://pc:22000"
+										];
 									name = "PC-windows";
 									autoAcceptFolders = false;
 								};
 							"PC" =
 								mkIf config.service.syncthing.devices.PC.enable {
 									id = "TLTL7NP-L3LLF6M-OZBLULU-42YS7GP-P5OU2K3-KUSCVIU-A4232YP-UVQB5QR";
+									addresses =
+										lib.mkIf config.service.tailscale.enable [
+											"tcp://pc:22000"
+										];
 									name = "PC-linux";
 									autoAcceptFolders = false;
 								};
 							"Macbook" =
 								mkIf config.service.syncthing.devices.macbook.enable {
 									id = "AGENCX4-T4DBKCJ-U4VUN6S-ZE2RBSI-ECBMERW-3OOL5MP-4AEIWFH-GAAN5AV";
+									addresses =
+										lib.mkIf config.service.tailscale.enable [
+											"tcp://book:22000"
+										];
 									name = "Macbook";
 									autoAcceptFolders = false;
 								};
 							"Framework" =
 								mkIf config.service.syncthing.devices.framework.enable {
 									id = "KSLCF4V-WNXVWF7-5MFHBJC-QUQ43A2-JNNRT63-NW4NEMY-WFCGUVD-OCUOAQL";
+									addresses =
+										lib.mkIf config.service.tailscale.enable [
+											"tcp://framework:22000"
+										];
 									name = "Framework";
 									autoAcceptFolders = false;
 								};
