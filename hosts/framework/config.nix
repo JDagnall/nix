@@ -67,6 +67,8 @@
 	networking.networkmanager.enable = true;
 	networking.hostName = "framework";
 
+	security.polkit.enable = true;
+
 	# bluetooth
 	hardware.bluetooth = {
 		enable = true;
@@ -79,10 +81,10 @@
 	};
 	services.blueman.enable = true; # bt manager software
 	services.upower.enable = true; # power management
-	services.power-profiles-daemon.enable = true;
+	services.power-profiles-daemon.enable = false;
 
 	# dont power of on key press
-	services.logind.settings.Login = {HandlePowerKey = "ignore";};
+	# services.logind.settings.Login = {HandlePowerKey = "ignore";};
 
 	services.flatpak.enable = true;
 

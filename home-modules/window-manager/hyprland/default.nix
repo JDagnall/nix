@@ -12,6 +12,7 @@
 		mkOption
 		mkOrder
 		mkMerge
+		types
 		;
 in {
 	options = {
@@ -20,12 +21,18 @@ in {
 			monitors =
 				mkOption {
 					default = [", preferred, auto, 1"];
-					type = lib.types.listOf lib.types.str;
+					type = types.listOf types.str;
 					description = ''
 						The device specific monitor config to be added to the hyprland config.
 						Generally just defines the monitors and thier positions'';
 				};
-			enableTouchpadSwipe = lib.mkEnableOption "Enable touchpad swiping for workspaces";
+			enableTouchpadSwipe = mkEnableOption "Enable touchpad swiping for workspaces";
+			enableHyprPolkit =
+				mkOption {
+					type = types.bool;
+					default = true;
+					description = "Enable hyprpolkit agent, for privellige escalation";
+				};
 		};
 	};
 	config =
@@ -34,6 +41,7 @@ in {
 				wl-clipboard # clipboard
 				wtype # autotype
 			];
+			services.hyprpolkitagent.enable = config.window-manager.hyprland.enableHyprPolkit;
 			wayland.windowManager.hyprland = {
 				enable = true;
 				systemd = let

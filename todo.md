@@ -6,7 +6,6 @@
 - sessioniser, tmux or not. probably wezterm based. Maybe do a sessioniser with hyprland workspaces instead of wezterm.
 - secure boot (nix-community/lanzaboote exists)
 - robust debugger for use in nvim. dont really feel that I need this atm.
-- clipboard utility
 - tmux its useful even if dont use it anymore
 
 ## Fix
@@ -14,20 +13,17 @@
 - Check manual grub entries for windows boot.
 
 - IN GENERAL: look for things that are universal that should be host specific
-- I should change the namespaces of my config to match nixpkgs / home-manager. This namespace duplication stuff with service / services is unecesary, there will only be minor naming conflicts.
+- This namespace duplication stuff with service / services is unnecesary, cant use the same namespaces as nixpkgs because it will cause infinite recursion. Should maybe do a separate namespaces to put my options in.
 - Steam does not detect proton GE, and mangohud doesnt load, probably because the steam running commands are being factored in not the lutris ones.
 - make sure fprintd has fallbacks for password, and try to get more interactive prompts for it on hyprlock and ly.
 - nvim bracket closing is shite, needs <> added as well
 - rust-analyzer only lints on file save
-
+- the ntfs-3g user mapping stuff can be improved, I can create the usermapping file in nix then include it in a mount option. the problem is the windows SID's.
 - turn off mouse in nix loki maybe
-
-- fix ly terminal session having no stdout. May not be possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
+- fix ly terminal session having no stdout. Not possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
 - ly breaks UWSM for some reason
-- i have to add the nix-minecraft overlay to every single config its insanely annoying
 - plasma is totally busted
-- am unable to change config values for thunar
-- in general am unable to include flake inputs for just one host without adding it to every host configuaration
+- try and create config for thunar in nix.
 
 ## Sylix
 

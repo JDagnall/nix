@@ -61,6 +61,8 @@
 		"flakes"
 	];
 
+	security.polkit.enable = true;
+
 	networking.networkmanager.enable = true;
 	networking.hostName = "book";
 
