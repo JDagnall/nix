@@ -81,7 +81,7 @@
 	};
 	services.blueman.enable = true; # bt manager software
 	services.upower.enable = true; # power management
-	services.power-profiles-daemon.enable = false;
+	services.power-profiles-daemon.enable = true;
 
 	# dont power of on key press
 	# services.logind.settings.Login = {HandlePowerKey = "ignore";};

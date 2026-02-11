@@ -4,7 +4,7 @@
 {
 	config,
 	lib,
-	pkgs,
+	# pkgs,
 	modulesPath,
 	...
 }: {
@@ -41,4 +41,7 @@
 
 	nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 	hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+	# useful for the framework drivers, run fwupdmgr update
+	services.fwupd.enable = true;
 }
