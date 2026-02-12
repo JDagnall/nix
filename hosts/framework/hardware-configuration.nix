@@ -6,16 +6,21 @@
 	lib,
 	# pkgs,
 	modulesPath,
+	inputs,
 	...
 }: {
 	imports = [
 		(modulesPath + "/installer/scan/not-detected.nix")
+		inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
 	];
 
 	boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod"];
 	boot.initrd.kernelModules = [];
 	boot.kernelModules = ["kvm-amd"];
 	boot.extraModulePackages = [];
+	# boot.kernelParams = [
+	# 	"xhci_hcd.power_save=0"
+	# ];
 
 	fileSystems."/" = {
 		device = "/dev/disk/by-uuid/292fb08e-ba01-4bcc-a28e-3e2a03d1002a";
@@ -42,6 +47,6 @@
 	nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 	hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-	# useful for the framework drivers, run fwupdmgr update
+	# updates framework drivers, run fwupdmgr update
 	services.fwupd.enable = true;
 }
