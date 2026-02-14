@@ -80,7 +80,7 @@
 		};
 	};
 	services.blueman.enable = true; # bt manager software
-	services.upower.enable = false; # power management
+	services.upower.enable = true; # power management
 	services.power-profiles-daemon.enable = true;
 
 	# dont power of on key press
