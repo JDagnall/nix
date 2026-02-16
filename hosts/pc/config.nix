@@ -55,6 +55,10 @@
 			enable = false;
 			"1.21.10" = false;
 		};
+		vr = {
+			enable = true;
+			wivrn.enable = true;
+		};
 	};
 	# config ------------------------------
 

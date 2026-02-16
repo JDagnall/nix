@@ -4,5 +4,6 @@
 		./gamescope.nix
 		./gamemode.nix
 		./minecraft-servers.nix
+		./vr.nix
 	];
 }
