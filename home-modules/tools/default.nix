@@ -127,6 +127,7 @@ in {
 				type = types.bool;
 				description = "Enable rlwrap. A readline wrapper for cmdline utilities. Use with ssh for high latency connections.";
 			};
+		tools.android-tools.enable = lib.mkEnableOption "Enable android-tools, utilities for android development including adb";
 	};
 	config = let
 		inherit
@@ -149,6 +150,7 @@ in {
 			snakeviz
 			ngrok
 			rlwrap
+			android-tools
 			;
 		basicList = with pkgs; [
 			util-linux
@@ -180,6 +182,7 @@ in {
 			++ optionals tshark.enable [pkgs.tshark]
 			++ optionals snakeviz.enable [pkgs.python312Packages.snakeviz]
 			++ optionals ngrok.enable [pkgs.ngrok]
-			++ optionals rlwrap.enable [pkgs.rlwrap];
+			++ optionals rlwrap.enable [pkgs.rlwrap]
+			++ optionals android-tools.enable [pkgs.android-tools];
 	};
 }

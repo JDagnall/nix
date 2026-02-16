@@ -89,6 +89,7 @@
 	tools.gh-cli.enable = true;
 	tools.nh.enable = true;
 	tools.ngrok.enable = true;
+	tools.android-tools.enable = true;
 
 	nixLoki.enable = true;
 	nixLoki.theme = "tinted-nvim";
