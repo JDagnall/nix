@@ -14,8 +14,14 @@ in {
 	];
 	options = {
 		gaming.heroic.enable = lib.mkEnableOption "Install heroic";
+		gaming.protonplus.enable = lib.mkEnableOption "Install protonplus";
 	};
-	config = {
-		home.packages = [] ++ optionals config.gaming.heroic.enable [pkgs.heroic];
+	config = let
+		inherit (config.gaming) heroic protonplus;
+	in {
+		home.packages =
+			[]
+			++ optionals heroic.enable [pkgs.heroic]
+			++ optionals protonplus.enable [pkgs.protonplus];
 	};
 }

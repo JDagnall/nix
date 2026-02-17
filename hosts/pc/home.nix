@@ -99,6 +99,7 @@
 	gaming.mangohud.enable = true;
 	gaming.prism.enable = true;
 	gaming.heroic.enable = true;
+	gaming.protonplus.enable = true;
 
 	stylix.enableHomeConfig = true; # home-manager specific stylix
 
@@ -109,7 +110,7 @@
 
 	home.file = {
 		home_packages.text = let
-			packages = builtins.map (p: "${p.name}") config.home.packages;
+			packages = map (p: "${p.name}") config.home.packages;
 			sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
 			formatted = builtins.concatStringsSep "\n" sortedUnique;
 		in
