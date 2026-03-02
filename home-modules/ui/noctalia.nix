@@ -13,7 +13,6 @@
 	options = {
 		ui.noctalia = {
 			enable = lib.mkEnableOption "Enable nocatalia config.";
-			systemd.enable = lib.mkEnableOption "Enable launching noctalia from a system service.";
 			lockScreen.enable = lib.mkEnableOption "Enable using noctalia as the idle manager.";
 			osd.enable = lib.mkEnableOption "Enable using noctalia as the osd.";
 			wallpaper.enable = lib.mkEnableOption "Enable using noctalia as the wallpaper.";
@@ -72,8 +71,6 @@
 
 			programs.noctalia-shell = {
 				enable = true;
-				# currently choosing to launch from compositor
-				systemd.enable = noctaliaCfg.systemd.enable;
 				settings = {
 					bar = {
 						barType =
@@ -470,6 +467,15 @@
 							enabled = true;
 							sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
 						};
+						unicode-picker = {
+							enabled = true;
+							sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+						};
+						file-search =
+							lib.mkIf config.tools.fd.enable {
+								enabled = true;
+								sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+							};
 						tailscale =
 							lib.mkIf osConfig.services.tailscale.enable {
 								enabled = true;

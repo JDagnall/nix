@@ -25,7 +25,7 @@
 - plasma is totally busted
 - try and create config for thunar in nix.
 
-## Sylix
+## Stylix
 
 Stylix can be used to theme things universally in nix, use it for theming when it is available
 

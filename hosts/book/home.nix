@@ -39,7 +39,6 @@
 
 	ui.noctalia = {
 		enable = true;
-		systemd.enable = true;
 		lockScreen.enable = true;
 		osd.enable = true;
 		wallpaper.enable = true;
@@ -83,7 +82,7 @@
 
 	home.file = {
 		home_packages.text = let
-			packages = builtins.map (p: "${p.name}") config.home.packages;
+			packages = map (p: "${p.name}") config.home.packages;
 			sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
 			formatted = builtins.concatStringsSep "\n" sortedUnique;
 		in

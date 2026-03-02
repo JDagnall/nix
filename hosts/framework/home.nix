@@ -34,7 +34,6 @@
 
 	ui.noctalia = {
 		enable = true;
-		systemd.enable = true;
 		lockScreen.enable = true;
 		osd.enable = true;
 		wallpaper.enable = true;

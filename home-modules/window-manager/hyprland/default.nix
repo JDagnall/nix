@@ -69,51 +69,57 @@ in {
 						;
 				in {
 					"$mod" = "SUPER";
-					bindel =
+					bindel = let
+						swayosd-bin = "${pkgs.swayosd}/bin/swayosd-client";
+						brightnessctl-bin = "${pkgs.brightnessctl}/bin/brightnessctl";
+						wpctl-bin = "${pkgs.wireplumber}/bin/wpctl";
+					in
 						[]
 						++ optionals (swayosd.enable && brightnessctl.enable)
 						[
-							",XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
-							",XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
+							",XF86MonBrightnessDown, exec, ${swayosd-bin} --brightness lower"
+							",XF86MonBrightnessUp, exec, ${swayosd-bin} --brightness raise"
 						]
 						++ optionals (brightnessctl.enable && !swayosd.enable)
 						[
-							",XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
-							",XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
+							",XF86MonBrightnessUp, exec, ${brightnessctl-bin} -e4 -n2 set 5%+"
+							",XF86MonBrightnessDown, exec, ${brightnessctl-bin} -e4 -n2 set 5%-"
 						]
 						++ optionals brightnessctl.enable
 						[
-							",XF86KbdBrightnessUp, exec, brightnessctl --device=smc::kbd_backlight s 10%+"
-							",XF86KbdBrightnessDown, exec, brightnessctl --device=smc::kbd_backlight s 10%-"
+							",XF86KbdBrightnessUp, exec, ${brightnessctl-bin} --device=smc::kbd_backlight s 10%+"
+							",XF86KbdBrightnessDown, exec, ${brightnessctl-bin} --device=smc::kbd_backlight s 10%-"
 						]
 						++ optionals (swayosd.enable && pipewire.enable)
 						[
-							",XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
-							",XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
-							",XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
-							",XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle"
+							",XF86AudioRaiseVolume, exec, ${swayosd-bin} --output-volume raise"
+							",XF86AudioLowerVolume, exec, ${swayosd-bin} --output-volume lower"
+							",XF86AudioMute, exec, ${swayosd-bin} --output-volume mute-toggle"
+							",XF86AudioMicMute, exec, ${swayosd-bin} --input-volume mute-toggle"
 						]
 						++ optionals (pipewire.enable && !swayosd.enable)
 						[
-							",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-							",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-							",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-							",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+							",XF86AudioRaiseVolume, exec, ${wpctl-bin} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+							",XF86AudioLowerVolume, exec, ${wpctl-bin} set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+							",XF86AudioMute, exec, ${wpctl-bin} set-mute @DEFAULT_AUDIO_SINK@ toggle"
+							",XF86AudioMicMute, exec, ${wpctl-bin} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 						];
 
-					bindl =
+					bindl = let
+						playerctl-bin = "${pkgs.playerctl}/bin/playerctl";
+					in
 						[]
 						++ (
 							if playerctl.enable
 							then [
-								",XF86AudioNext, exec, playerctl next"
-								",XF86AudioPause, exec, playerctl play-pause"
-								",XF86AudioPlay, exec, playerctl play-pause"
-								",XF86AudioPrev, exec, playerctl previous"
+								",XF86AudioNext, exec, ${playerctl-bin} next"
+								",XF86AudioPause, exec, ${playerctl-bin} play-pause"
+								",XF86AudioPlay, exec, ${playerctl-bin} play-pause"
+								",XF86AudioPrev, exec, ${playerctl-bin} previous"
 							]
 							else []
 						);
-					bind = [] ++ optionals config.tools.keepmenu.enable ["$mod, a, exec, keepmenu"];
+					bind = [] ++ optionals config.tools.keepmenu.enable ["$mod, a, exec, ${pkgs.keepmenu}/bin/keepmenu"];
 					monitor = config.window-manager.hyprland.monitors;
 					gesture = [] ++ optionals config.window-manager.hyprland.enableTouchpadSwipe ["3,horizontal,workspace"];
 				};
@@ -125,22 +131,22 @@ in {
 						#################
 						${
 							if config.ui.waybar.autostart
-							then "exec-once = pidof waybar || waybar &"
+							then "exec-once = pidof waybar || ${pkgs.waybar}/bin/waybar &"
 							else ""
 						}
 						                  ${
-							if config.ui.noctalia.enable && !config.ui.noctalia.systemd.enable
-							then "exec-once = noctalia-shell &"
+							if config.ui.noctalia.enable
+							then "exec-once = ${pkgs.noctalia-shell}/bin/noctalia-shell &"
 							else ""
 						}
 						${
 							if config.ui.syncthingtray.autostart
-							then "exec-once = syncthingtray --wait &"
+							then "exec-once = ${pkgs.syncthingtray}/bin/syncthingtray --wait &"
 							else ""
 						}
 						${
 							if config.tools.keepassxc.autostart
-							then "exec-once = keepassxc --minimized &"
+							then "exec-once = ${pkgs.keepassxc}/bin/keepassxc --minimized &"
 							else ""
 						}
 					'';
@@ -152,15 +158,15 @@ in {
 						# there is no alternative for either of these at the moment so they have to be set
 						${
 							if config.ui.rofi.launcherShortcut
-							then "$menu = rofi -show drun"
+							then "$menu = ${pkgs.rofi}/bin/rofi -show drun"
 							else if config.ui.noctalia.launcherShortcut
-							then "$menu = noctalia-shell ipc call launcher toggle"
+							then "$menu = ${pkgs.noctalia-shell}/bin/noctalia-shell ipc call launcher toggle"
 							else ""
 						}
 						${
 							if (config.home.sessionVariables ? TERMINAL)
 							then "$terminal = ${config.home.sessionVariables.TERMINAL}"
-							else "$terminal = wezterm"
+							else "$terminal = ${pkgs.wezterm}/bin/wezterm"
 						}
 					'';
 					orderedConfigFile = mkOrder 500 configFile;

@@ -1,9 +1,10 @@
 {
+	pkgs,
 	lib,
 	config,
 	...
 }: let
-	inherit (lib) types mkIf mkEnableOption mkOption optionals;
+	inherit (lib) types mkIf mkEnableOption mkOption optionals optionalString;
 in {
 	options = {
 		ui.hypridle.enable =
@@ -30,8 +31,7 @@ in {
 					assertion =
 						(config.ui.hypridle.enable && config.tools.brightnessctl.enable) || !config.ui.hypridle.enable;
 					message = ''
-						hypridle cannot work without brightnessctl. Pleas enable brightnessctl
-						or disable hypridle'';
+						hypridle cannot work without brightnessctl. Please enable brightnessctl or disable hypridle'';
 				}
 			];
 			warnings =
@@ -41,61 +41,60 @@ in {
 			# hypridle execs commands after set timeouts of inacrivity,
 			# it also can exec commands when `loginctl lock/unlock` commands are issued
 			services.hypridle = let
+				brightnessctl-bin = "${pkgs.brightnessctl}/bin/brightnessctl";
+				hyprctl-bin = "${pkgs.hyprland}/bin/hyprctl";
+				noctalia-bin = "${pkgs.noctalia-shell}/bin/noctalia-shell";
+				waybar-bin = "${pkgs.waybar}/bin/waybar";
+				hyprlock-bin = "${pkgs.hyprlock}/bin/hyprlock";
 				laptop_profile = [
 					# dim screen after a period of inactivity
 					{
 						timeout = 180; # sec
 						# set brightness low
-						on-timeout = "brightnessctl -s set 10";
+						on-timeout = "${brightnessctl-bin} -s set 10";
 						# set brightness back
-						on-resume = "brightnessctl -r";
+						on-resume = "${brightnessctl-bin} -r";
 					}
 					# do same for keyboard backlight
 					{
 						timeout = 180; # sec
-						on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0";
+						on-timeout = "${brightnessctl-bin} -sd rgb:kbd_backlight set 0";
 						# set brightness back
-						on-resume = "brightnessctl -rd rgb:kbd_backlight";
+						on-resume = "${brightnessctl-bin} -rd rgb:kbd_backlight";
 					}
 					# fully turns the screen off
 					{
 						timeout = 300; # sec
-						on-timeout = "hyprctl dispatch dpms off";
+						on-timeout = "${hyprctl-bin} dispatch dpms off";
 						# change brightness back,
-						on-resume = "hyprctl dispatch dpms on && brightnessctl -r";
+						on-resume = "${hyprctl-bin} dispatch dpms on && brightnessctl -r";
 					}
 					# lock session
 					{
 						timeout = 900; # 15 min
-						# noctalia doesn't currently do DBUS so loginctl doesnt work
-						on-timeout =
-							if config.ui.noctalia.enable
-							then "noctalia-shell ipc call lockScreen lock"
-							else "loginctl lock-session";
+						on-timeout = "loginctl lock-session";
 					}
 					# suspend
 					{
 						timeout = 960; # 16 min
+						# in systemd pkg so not bothering to link to the package
 						on-timeout = "systemctl suspend";
 					}
 				];
 				desktop_profile = [
 					# fully turns the screen off
-					# temporary fix to stop waybar duping
 					{
 						timeout = 300; # sec
-						on-timeout = "pidof waybar && pkill waybar; hyprctl dispatch dpms off;";
+						# temporary fix to stop waybar duping
+						on-timeout = "" + optionalString config.ui.waybar.enable "pidof ${waybar-bin} && pkill ${waybar-bin}; " + " ${hyprctl-bin} dispatch dpms off;";
 						# change brightness back,
-						on-resume = "hyprctl dispatch dpms on && brightnessctl -r; which waybar && exec waybar;";
+						on-resume = "${hyprctl-bin} dispatch dpms on && ${brightnessctl-bin} -r; " + optionalString config.ui.waybar.enable " exec ${waybar-bin};";
 					}
 					# lock session
 					{
 						timeout = 900; # 15 min
-						# noctalia doesn't currently do DBUS so loginctl doesnt work
-						on-timeout =
-							if config.ui.noctalia.enable
-							then "noctalia-shell ipc call lockScreen lock"
-							else "loginctl lock-session";
+						# in systemd pkg so not bothering to link to the package
+						on-timeout = "loginctl lock-session";
 					}
 					# suspend after 30 mins
 					# {
@@ -109,19 +108,22 @@ in {
 					enable = true;
 					settings = {
 						general = {
-							# avoid starting multiple hyprlock instances.
-							lock_cmd = "pidof hyprlock || hyprlock";
+							# runs on a dbus loginctl lock-session signal
+							lock_cmd =
+								if config.ui.noctalia.enable
+								then "${noctalia-bin} ipc call lockScreen lock"
+								else if config.ui.hyprlock.enable
+								# avoid starting multiple hyprlock instances.
+								then "pidof ${hyprlock-bin} || ${hyprlock-bin}"
+								else "";
 							# on_lock_cmd = ""; # when the session is locked at all
 							# on_unlock_cmd = ""; # when the session is unlocked at all
 
 							# lock before suspend.
-							# noctalia doesn't currently do DBUS so loginctl doesnt work
-							before_sleep_cmd =
-								if config.ui.noctalia.enable
-								then "noctalia-shell ipc call lockScreen lock"
-								else "loginctl lock-session";
+							# in systemd pkg so not bothering to link to the package
+							before_sleep_cmd = "loginctl lock-session";
 							# to avoid having to press a key twice to turn on the display.
-							after_sleep_cmd = "hyprctl dispatch dpms on";
+							after_sleep_cmd = "${hyprctl-bin} dispatch dpms on";
 
 							ignore_dbus_inhibit = false;
 							ignore_systemd_inhibit = false;

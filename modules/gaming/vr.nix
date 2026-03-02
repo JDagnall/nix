@@ -40,7 +40,10 @@
 						importOXRRuntimes = true;
 						package = config.programs.steam.package;
 					};
-					monadoEnvironment = {};
+					monadoEnvironment = {
+						STEAMVR_LH_ENABLE = "1";
+						XRT_COMPOSITOR_COMPUTE = "1";
+					};
 					highPriority = true; # high prio capability for async reprojection ?????
 					# I wanna start this manually
 					autoStart = false;
