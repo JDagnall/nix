@@ -45,10 +45,11 @@ in {
 			wayland.windowManager.hyprland = {
 				enable = true;
 				systemd = let
-					inherit (osConfig.programs.hyprland) withUWSM;
+					# inherit (osConfig.programs.hyprland) withUWSM;
 				in {
-					# cannot be enabled if UWSM is enabled in nixos
-					enable = !withUWSM;
+					# cannot be enabled if UWSM is enabled in nixos. This no longer seems to be true
+					# enable = !withUWSM;
+					enable = true;
 					# extraCommands = [];
 					# enableXdgAutostart = true;
 					# variables = [];
