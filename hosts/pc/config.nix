@@ -45,6 +45,8 @@
 	service.wiregaurd.enable = false;
 	service.languagetool.enable = true;
 
+	tools.micro-controller.platformio.enableUdev = true;
+
 	stylix.enableConfig = true;
 
 	gaming = {

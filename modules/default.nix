@@ -9,5 +9,6 @@
 		./service
 		./gaming
 		./desktop-manager
+		./tools
 	];
 }
