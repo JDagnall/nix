@@ -7,7 +7,7 @@
 	# config ------------------------------
 	display-manager.gdm.enable = true;
 	evremap.enable = true;
-	evremap.profile = "logi-k855";
+	evremap.profile = "keychron";
 	window-manager.hyprland.enable = true;
 	boot-loader.systemd-boot.enable = true;
 	fonts.enable = true;

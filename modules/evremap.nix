@@ -11,15 +11,15 @@
 			};
 		evremap.profile =
 			lib.mkOption {
-				type = lib.types.nullOr (lib.types.enum ["logi-k855" "framework" "macbook"]);
+				type = lib.types.nullOr (lib.types.enum ["keychron" "framework" "macbook"]);
 				default = null;
 				description = "The keyboard you are using / the profile you want to use";
 			};
 	};
 	config = let
-		logi_k855 = {
-			phys = "usb-0000:04:00.0-1/input0";
-			device_name = "Logitech USB Receiver";
+		keychron-c3 = {
+			phys = "usb-0000:04:00.0-1/input2";
+			device_name = "Keychron Keychron C3 Pro Keyboard";
 			remap = [
 				{
 					input = ["KEY_LEFTMETA"];
@@ -68,8 +68,8 @@
 			services.evremap = {
 				enable = true;
 				settings =
-					if config.evremap.profile == "logi-k855"
-					then logi_k855
+					if config.evremap.profile == "keychron"
+					then keychron-c3
 					else if config.evremap.profile == "framework"
 					then framework
 					else if config.evremap.profile == "macbook"
