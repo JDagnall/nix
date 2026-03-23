@@ -37,6 +37,10 @@
 		"desc:Acer, preferred, auto-right, 1"
 		"desc:Lenovo, preferred, auto-left, 1"
 	];
+	window-manager.hyprland.workspaces = [
+		"2, monitor:desc:Acer, default:true"
+		"1, monitor:desc:Lenovo, default:true"
+	];
 
 	term.wezterm.enable = true;
 

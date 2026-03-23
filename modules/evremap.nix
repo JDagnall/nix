@@ -18,7 +18,6 @@
 	};
 	config = let
 		keychron-c3 = {
-			phys = "usb-0000:04:00.0-1/input2";
 			device_name = "Keychron Keychron C3 Pro Keyboard";
 			remap = [
 				{

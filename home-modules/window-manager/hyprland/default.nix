@@ -24,7 +24,15 @@ in {
 					type = types.listOf types.str;
 					description = ''
 						The device specific monitor config to be added to the hyprland config.
-						Generally just defines the monitors and thier positions'';
+						Generally just defines the monitors and their positions'';
+				};
+			workspaces =
+				mkOption {
+					default = [];
+					type = types.listOf types.str;
+					description = ''
+						The device specific workspace config to be added to the hyprland config.
+						Generally just defines which workspaces to bind to which monitor.'';
 				};
 			enableTouchpadSwipe = mkEnableOption "Enable touchpad swiping for workspaces";
 			enableHyprPolkit =
@@ -122,6 +130,7 @@ in {
 						);
 					bind = [] ++ optionals config.tools.keepmenu.enable ["$mod, a, exec, ${pkgs.keepmenu}/bin/keepmenu"];
 					monitor = config.window-manager.hyprland.monitors;
+					workspace = config.window-manager.hyprland.workspaces;
 					gesture = [] ++ optionals config.window-manager.hyprland.enableTouchpadSwipe ["3,horizontal,workspace"];
 				};
 				extraConfig = let
