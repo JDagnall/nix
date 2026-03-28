@@ -2,6 +2,7 @@
 	pkgs,
 	lib,
 	config,
+	inputs,
 	...
 }: let
 	inherit (lib) mkIf mkEnableOption;
@@ -22,6 +23,15 @@ in {
 				# make sure hyprland.systemd.enable is false, in home-manager or otherwise
 				# as this will cause launching the session to crash
 				withUWSM = true;
+				package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+				portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+			};
+			# cachix cache for hyprland package, so it doesn't have to be
+			# rebuilt since we are pulling from the development branch
+			nix.settings = {
+				substituters = ["https://hyprland.cachix.org"];
+				trusted-substituters = ["https://hyprland.cachix.org"];
+				trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
 			};
 
 			programs.uwsm.waylandCompositors = {
@@ -43,9 +53,21 @@ in {
 				wezterm # needed or could get stuck without a terminal
 			];
 
-			hardware = {
+			hardware = let
+				# this is necesary because there will be a version mismatch
+				# between hyprlands input pkgs and the global config packages
+				# and apparently hyprland wants exact version matches with mesa
+				hyprland-pkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+			in {
 				# Opengl
-				graphics.enable = true;
+				graphics = {
+					enable = true;
+					package = hyprland-pkgs.mesa;
+
+					# enable 32 Bit, apparently good for steam
+					enable32Bit = true;
+					package32 = hyprland-pkgs.pkgsi686Linux.mesa;
+				};
 			};
 
 			# XDG portal

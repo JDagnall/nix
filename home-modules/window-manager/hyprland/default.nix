@@ -2,6 +2,7 @@
 	pkgs,
 	lib,
 	config,
+	inputs,
 	osConfig,
 	...
 }: let
@@ -52,11 +53,11 @@ in {
 			services.hyprpolkitagent.enable = config.window-manager.hyprland.enableHyprPolkit;
 			wayland.windowManager.hyprland = {
 				enable = true;
-				systemd = let
-					# inherit (osConfig.programs.hyprland) withUWSM;
-				in {
-					# cannot be enabled if UWSM is enabled in nixos. This no longer seems to be true
-					# enable = !withUWSM;
+				package = null;
+				portalPackage = null;
+				# package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+				# portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+				systemd = {
 					enable = true;
 					# extraCommands = [];
 					# enableXdgAutostart = true;

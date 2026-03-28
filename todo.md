@@ -14,7 +14,6 @@
 
 - IN GENERAL: look for things that are universal that should be host specific
 - This namespace duplication stuff with service / services is unnecesary, cant use the same namespaces as nixpkgs because it will cause infinite recursion. Should maybe do a separate namespaces to put my options in.
-- Steam does not detect proton GE, and mangohud doesnt load, probably because the steam running commands are being factored in not the lutris ones.
 - make sure fprintd has fallbacks for password, and try to get more interactive prompts for it on hyprlock and ly.
 - nvim bracket closing is shite, needs <> added as well
 - rust-analyzer only lints on file save

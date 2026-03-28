@@ -25,7 +25,7 @@ in {
 				mkOption {
 					default = config.programs.wezterm.enable;
 					type = lib.types.bool;
-					description = "Disable the wezterm integration";
+					description = "Enable the wezterm integration";
 				};
 		};
 	};
@@ -36,10 +36,7 @@ in {
 			assertions = [
 				{
 					assertion =
-						(
-							(nixLoki.theme == "tinted-nvim" || nixLoki.theme == "mini-base16")
-							&& stylix.enable
-						)
+						stylix.enable
 						|| (nixLoki.theme != "mini-base16" && nixLoki.theme != "tinted-nvim");
 					message = "Using mini-base16 or tinted-nvim with nixLoki requires stylix.";
 				}
