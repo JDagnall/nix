@@ -5,8 +5,9 @@
 - hyprsunset
 - sessioniser, tmux or not. probably wezterm based. Maybe do a sessioniser with hyprland workspaces instead of wezterm.
 - secure boot (nix-community/lanzaboote exists)
-- robust debugger for use in nvim. dont really feel that I need this atm.
 - tmux its useful even if dont use it anymore
+- improve obsidian config to include plugins and configs for them.
+- make a qute browser config, idk if I want to actually use it but I find it interesting.
 
 ## Fix
 
@@ -15,10 +16,7 @@
 - IN GENERAL: look for things that are universal that should be host specific
 - This namespace duplication stuff with service / services is unnecesary, cant use the same namespaces as nixpkgs because it will cause infinite recursion. Should maybe do a separate namespaces to put my options in.
 - make sure fprintd has fallbacks for password, and try to get more interactive prompts for it on hyprlock and ly.
-- nvim bracket closing is shite, needs <> added as well
-- rust-analyzer only lints on file save
 - the ntfs-3g user mapping stuff can be improved, I can create the usermapping file in nix then include it in a mount option. the problem is the windows SID's.
-- turn off mouse in nix loki maybe
 - fix ly terminal session having no stdout. Not possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
 - ly breaks UWSM for some reason
 - plasma is totally busted

@@ -147,7 +147,10 @@ in {
 						}
 						                  ${
 							if config.ui.noctalia.enable
-							then "exec-once = ${pkgs.noctalia-shell}/bin/noctalia-shell &"
+							# have to use the package from the input to have it
+							# match the one that will be loaded into the environment
+							# otherwise ipc calls will not work if its not the same executable
+							then "exec-once = ${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia-shell &"
 							else ""
 						}
 						${
@@ -171,7 +174,10 @@ in {
 							if config.ui.rofi.launcherShortcut
 							then "$menu = ${pkgs.rofi}/bin/rofi -show drun"
 							else if config.ui.noctalia.launcherShortcut
-							then "$menu = ${pkgs.noctalia-shell}/bin/noctalia-shell ipc call launcher toggle"
+							# have to use the package from the input to have it
+							# match the one that will be loaded into the environment
+							# otherwise ipc calls will not work if its not the same executable
+							then "$menu = ${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia-shell ipc call launcher toggle"
 							else ""
 						}
 						${
