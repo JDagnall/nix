@@ -19,7 +19,7 @@ in {
 		./swayosd.nix
 		./applets.nix
 		./vscode.nix
-		./obsidian
+		./obsidian.nix
 		./thunar.nix
 		./imv.nix
 		./hypr-screenshot.nix
