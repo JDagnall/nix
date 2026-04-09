@@ -1,0 +1,4 @@
+/* editor line width -- margins */
+body  {
+    --file-line-width: 75%;
+}
