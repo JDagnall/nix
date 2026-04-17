@@ -97,7 +97,8 @@
 		options = "-d";
 	};
 
-	time.timeZone = "Australia/Brisbane";
+	# time.timeZone = "Australia/Brisbane";
+	services.automatic-timezoned.enable = true;
 
 	# Select internationalisation properties.
 	i18n.defaultLocale = "en_GB.UTF-8";
