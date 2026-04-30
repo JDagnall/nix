@@ -101,7 +101,13 @@
 			};
 		};
 	};
-	services.blueman.enable = true; # bt manager software
+	# bt manager software
+	services.blueman = {
+		enable = true;
+		# let home-manager deal with this,
+		# new default actually manages to conflict with home-manager
+		withApplet = false;
+	};
 
 	services.flatpak.enable = true;
 

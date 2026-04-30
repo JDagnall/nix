@@ -35,7 +35,6 @@
 						};
 					};
 					openFirewall = true;
-					defaultRuntime = true;
 					steam = {
 						importOXRRuntimes = true;
 						package = config.programs.steam.package;

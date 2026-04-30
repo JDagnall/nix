@@ -74,6 +74,7 @@ in {
 			};
 		ui.qbittorrent.enable = lib.mkEnableOption "Install qbittorrent";
 		ui.seahorse.enable = lib.mkEnableOption "Install seahorse";
+		ui.freetube.enable = lib.mkEnableOption "Install freetube";
 	};
 	config = let
 		inherit
@@ -87,6 +88,7 @@ in {
 			vlc
 			qbittorrent
 			seahorse
+			freetube
 			;
 	in {
 		home.packages =
@@ -99,6 +101,7 @@ in {
 			++ optionals drawio.enable [pkgs.drawio]
 			++ optionals vlc.enable [pkgs.vlc]
 			++ optionals qbittorrent.enable [pkgs.qbittorrent]
-			++ optionals seahorse.enable [pkgs.seahorse];
+			++ optionals seahorse.enable [pkgs.seahorse]
+			++ optionals freetube.enable [pkgs.freetube];
 	};
 }

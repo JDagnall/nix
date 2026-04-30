@@ -83,7 +83,13 @@
 			};
 		};
 	};
-	services.blueman.enable = true; # bt manager software
+	# bt manager software
+	services.blueman = {
+		enable = true;
+		# let home-manager deal with this,
+		# new default actually manages to conflict with home-manager
+		withApplet = false;
+	};
 
 	services.flatpak.enable = true;
 
@@ -124,7 +130,7 @@
 
 	# adds list of currently used system packages to /etc/nixos/current-system-packages
 	environment.etc."current-system-packages".text = let
-		packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+		packages = map (p: "${p.name}") config.environment.systemPackages;
 		sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
 		formatted = builtins.concatStringsSep "\n" sortedUnique;
 	in

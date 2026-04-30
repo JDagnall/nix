@@ -8,6 +8,7 @@
 - tmux its useful even if dont use it anymore
 - improve obsidian config to include plugins and configs for them.
 - make a qute browser config, idk if I want to actually use it but I find it interesting.
+- noctalia, manage plugins with nix
 
 ## Fix
 
@@ -21,8 +22,10 @@
 - ly breaks UWSM for some reason
 - plasma is totally busted
 - try and create config for thunar in nix.
-- move notification area in noctalia
-- some kind of slow down on startup with noctalia on framework
+- some kind of slow down on startup with noctalia, but not always
+- sometimes hyprland will unfocus from a window and moving to that workspace will not refocus
+- cannot get SUPER+` keybind, to move focus to other monitor workspace to work in hyprland
+- hyprland seems to give wrong window sizes to certain application when they are paneled, only on framework.
 
 ## Stylix
 

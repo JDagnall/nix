@@ -93,6 +93,8 @@
 	tools.nh.enable = true;
 	tools.ngrok.enable = true;
 	tools.android-tools.enable = false;
+	tools.nix-index.enable = true;
+	tools.nix-index.comma.enable = true;
 
 	nixLoki.enable = true;
 	nixLoki.theme = "tinted-nvim";

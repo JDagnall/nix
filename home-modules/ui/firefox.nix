@@ -15,6 +15,7 @@
 			programs.firefox = {
 				enable = true;
 				profiles = {};
+				configPath = "${config.xdg.configHome}/mozilla/firefox";
 			};
 		};
 }

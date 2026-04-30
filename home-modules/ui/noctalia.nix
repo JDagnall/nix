@@ -99,7 +99,10 @@
 								{id = "Launcher";}
 								{id = "Clock";}
 								{id = "SystemMonitor";}
-								{id = "AudioVisualizer";}
+								{
+									id = "AudioVisualizer";
+									width = 100;
+								}
 								{id = "plugin:catwalk";}
 							];
 							center = [
@@ -376,12 +379,12 @@
 					notifications = {
 						enabled = noctaliaCfg.notificationManager.enable;
 						monitors = [];
-						location = "top_right";
+						location = "bottom_right";
 						overlayLayer = true;
 						respectExpireTimeout = false;
 						lowUrgencyDuration = 3;
-						normalUrgencyDuration = 4;
-						criticalUrgencyDuration = 8;
+						normalUrgencyDuration = 3;
+						criticalUrgencyDuration = 5;
 						enableKeyboardLayoutToast = true;
 						saveToHistory = {
 							low = true;

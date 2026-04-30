@@ -11,6 +11,7 @@ in {
 		./keepassxc.nix
 		./gh-cli.nix
 		./nh.nix
+		./nix-index.nix
 	];
 	# tools which just need to be enabled with no other config
 	options = {
