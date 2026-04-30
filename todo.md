@@ -21,6 +21,8 @@
 - ly breaks UWSM for some reason
 - plasma is totally busted
 - try and create config for thunar in nix.
+- move notification area in noctalia
+- some kind of slow down on startup with noctalia on framework
 
 ## Stylix
 

@@ -68,7 +68,8 @@
 	ui.pavucontrol.enable = true;
 	ui.vlc.enable = true;
 	ui.seahorse.enable = true;
-	# ui.qbittorrent.enable = true;
+	ui.drawio.enable = true;
+	ui.qbittorrent.enable = false;
 
 	tools.git.enable = true;
 	tools.mycli.enable = true;
