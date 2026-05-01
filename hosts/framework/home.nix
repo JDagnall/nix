@@ -54,7 +54,7 @@
 	ui.firefox.enable = true;
 	ui.nwg-look.enable = false;
 	ui.syncthingtray.enable = true;
-	ui.spotify.enable = true;
+	ui.spotify.enable = false;
 	ui.slack.enable = true;
 	ui.legcord.enable = true;
 	ui.nm-applet.enable = true;
@@ -72,7 +72,7 @@
 	ui.qbittorrent.enable = false;
 
 	tools.git.enable = true;
-	tools.mycli.enable = true;
+	tools.mycli.enable = false;
 	tools.keepassxc.enable = true;
 	tools.keepmenu.enable = true;
 	tools.gh-cli.enable = true;
