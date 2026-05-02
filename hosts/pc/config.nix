@@ -33,6 +33,8 @@
 			proj.share = shareDevices;
 			wallpapers.enable = true;
 			wallpapers.share = shareDevices;
+			docs.enable = true;
+			docs.share = shareDevices;
 		};
 	};
 

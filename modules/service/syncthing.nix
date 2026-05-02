@@ -78,6 +78,13 @@ in {
 					default = config.service.syncthing.folders.defaultShareDevices;
 					description = "List of devices to share the wallpapers folder with. Devices must be enabled";
 				};
+			docs.enable = mkEnableOption "Enable the docs folder in syncthing";
+			docs.share =
+				mkOption {
+					type = with types; listOf str;
+					default = config.service.syncthing.folders.defaultShareDevices;
+					description = "List of devices to share the docs folder with. Devices must be enabled";
+				};
 		};
 	};
 	config =
@@ -258,6 +265,19 @@ in {
 										type = "sendreceive";
 										copyOwnershipFromParent = false;
 										devices = config.service.syncthing.folders.wallpapers.share;
+										versioning = {
+											type = "simple";
+										};
+									};
+								"pysjc-vrzgj" =
+									mkIf config.service.syncthing.folders.wallpapers.enable {
+										id = "pysjc-vrzgj";
+										enable = true;
+										label = "docs";
+										path = "~/docs";
+										type = "sendreceive";
+										copyOwnershipFromParent = false;
+										devices = config.service.syncthing.folders.docs.share;
 										versioning = {
 											type = "simple";
 										};

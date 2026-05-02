@@ -1,6 +1,5 @@
 {
 	config,
-	lib,
 	pkgs,
 	...
 }: {
@@ -31,6 +30,8 @@
 			proj.share = ["PC" "PC-windows" "Framework"];
 			wallpapers.enable = true;
 			wallpapers.share = ["PC" "PC-windows" "Framework"];
+			docs.enable = true;
+			docs.share = ["PC" "Framework" "Galaxy-s10e"];
 		};
 		gui.enableLogin = true;
 		gui.setDefaultRoute = true;
@@ -101,7 +102,7 @@
 
 	# adds list of currently used system packages to /etc/nixos/current-system-packages
 	environment.etc."current-system-packages".text = let
-		packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+		packages = map (p: "${p.name}") config.environment.systemPackages;
 		sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
 		formatted = builtins.concatStringsSep "\n" sortedUnique;
 	in

@@ -27,6 +27,8 @@
 		in {
 			secure.enable = true;
 			secure.share = shareDevices;
+			docs.enable = true;
+			docs.share = shareDevices;
 		};
 	};
 
