@@ -12,27 +12,6 @@
 	service.sshd.james.authKeys.enable = true;
 	service.tailscale.enable = true;
 
-	service.syncthing = {
-		enable = true;
-		devices = {
-			orion.enable = true;
-		};
-		folders = {
-			secure.enable = true;
-			secure.share = ["Orion"];
-			classes.enable = true;
-			classes.share = ["Orion"];
-			proj.enable = true;
-			proj.share = ["Orion"];
-			wallpapers.enable = true;
-			wallpapers.share = ["Orion"];
-			docs.enable = true;
-			docs.share = ["Orion"];
-		};
-		gui.enableLogin = true;
-		gui.setDefaultRoute = true;
-	};
-
 	gaming.minecraft-servers = {
 		enable = false;
 		"1.21.10" = false;

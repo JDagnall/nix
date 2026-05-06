@@ -42,12 +42,12 @@
 			"permissions" # POSIX permissions
 			"uid=${
 				if config.users.users ? james && lib.isStringLike config.users.users.james.uid
-				then config.users.users.james.uid
+				then lib.toString config.users.users.james.uid
 				else "1000"
 			}"
 			"gid=${
 				if config.users.groups ? james && lib.isStringLike config.users.groups.james.gid
-				then config.users.groups.james.gid
+				then lib.toString config.users.groups.james.gid
 				else "998"
 			}"
 			"umask=0033"
@@ -67,12 +67,12 @@
 			"permissions" # POSIX permissions
 			"uid=${
 				if config.users.users ? james && lib.isStringLike config.users.users.james.uid
-				then config.users.users.james.uid
+				then lib.toString config.users.users.james.uid
 				else "1000"
 			}"
 			"gid=${
 				if config.users.groups ? james && lib.isStringLike config.users.groups.james.gid
-				then config.users.groups.james.gid
+				then lib.toString config.users.groups.james.gid
 				else "998"
 			}"
 			"umask=0033"

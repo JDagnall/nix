@@ -32,13 +32,24 @@
 		fsType = "vfat";
 		options = ["fmask=0077" "dmask=0077"];
 	};
+
+	# create a group with write access to the drives
+	users.groups."drives" = {
+		members =
+			[]
+			++ lib.optionals (config.users.users ? james) ["james"]
+			++ lib.optionals (config.users.users ? jellyfin) ["jellyfin"];
+	};
 	# old 2TB drive
 	fileSystems."/driveA" = {
 		device = "/dev/disk/by-uuid/e9c2c7e6-70a3-461f-8a37-da0b5f4ddafc";
 		fsType = "ext4";
 		options = [
 			"users" # any user can mount the drive
+			"umask=0007"
 			"nofail" # dont crash if can't mount
+			"uid=${lib.toString config.users.users."root".uid}"
+			"gid=${lib.toString config.users.groups."drives".gid}"
 		];
 	};
 
@@ -48,7 +59,10 @@
 		fsType = "exfat";
 		options = [
 			"users" # any user can mount the drive
+			"umask=0007"
 			"nofail" # dont crash if can't mount
+			"uid=${lib.toString config.users.users."root".uid}"
+			"gid=${lib.toString config.users.groups."drives".gid}"
 		];
 	};
 

@@ -13,24 +13,30 @@
 	service.tailscale.enable = true;
 	service.languagetool.enable = false;
 	service.wiregaurd.enable = true;
-	service.jellyfin.enable = true;
+	service.jellyfin = {
+		enable = true;
+		enableGpuTranscoding = true;
+	};
 
 	service.syncthing = {
 		enable = true;
 		devices = {
-			macmini-server.enable = true;
+			PC.enable = true;
+			macbook.enable = true;
+			framework.enable = true;
+			galaxy-s10e.enable = true;
 		};
 		folders = {
 			secure.enable = true;
-			secure.share = ["MacMini-Server"];
+			secure.share = ["PC" "Galaxy-s10e" "Macbook" "Framework"];
 			classes.enable = true;
-			classes.share = ["MacMini-Server"];
+			classes.share = ["PC" "Framework"];
 			proj.enable = true;
-			proj.share = ["MacMini-Server"];
+			proj.share = ["PC" "Framework"];
 			wallpapers.enable = true;
-			wallpapers.share = ["MacMini-Server"];
+			wallpapers.share = ["PC" "Macbook" "Framework"];
 			docs.enable = true;
-			docs.share = ["MacMini-Server"];
+			docs.share = ["PC" "Framework" "Macbook" "Galaxy-s10e"];
 		};
 		gui.enableLogin = true;
 		gui.setDefaultRoute = true;
