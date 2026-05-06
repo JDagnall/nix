@@ -309,7 +309,7 @@ in {
 							''
 								${pkgs.syncthing}/bin/syncthing generate --gui-user=${config.service.syncthing.gui.username} \
 								--gui-password=$(cat ${config.sops.secrets."syncthing/hashed-gui-password".path}) \
-								                        --config=${config.services.syncthing.configDir} || echo "Failed to set GUI login for syncthing."
+								                        --home=${config.services.syncthing.configDir} || echo "Failed to set GUI login for syncthing."
 							'';
 					};
 				};
