@@ -17,6 +17,12 @@
 		enable = true;
 		enableGpuTranscoding = true;
 	};
+	service.jackett.enable = false;
+	service.qbittorrent.enable = true;
+	service.openvpn = {
+		enable = true;
+		PIAqBitorrentService = true;
+	};
 
 	service.syncthing = {
 		enable = true;
@@ -39,7 +45,7 @@
 			docs.share = ["PC" "Framework" "Macbook" "Galaxy-s10e"];
 		};
 		gui.enableLogin = true;
-		gui.setDefaultRoute = true;
+		gui.setDefaultRoute = false;
 	};
 
 	gaming.minecraft-servers = {

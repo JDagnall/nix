@@ -80,7 +80,6 @@
 	ui.pavucontrol.enable = true;
 	ui.drawio.enable = true;
 	ui.vlc.enable = true;
-	ui.qbittorrent.enable = true;
 	ui.seahorse.enable = true;
 	ui.libreoffice.enable = true;
 

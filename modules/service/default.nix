@@ -8,9 +8,9 @@
 		./ssh.nix
 		./tailscale.nix
 		./jellyfin.nix
-		./jackett.nix
 		./gnome-keyring.nix
 		./wireguard.nix
 		./languagetool.nix
+		./qbittorrent.nix
 	];
 }

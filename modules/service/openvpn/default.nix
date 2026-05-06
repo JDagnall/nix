@@ -8,6 +8,7 @@
 		service.openvpn = {
 			enable = lib.mkEnableOption {description = "Enable openvpn config";};
 			PIA = lib.mkEnableOption "Enable PIA openvpn connections with networkmanager connections ans systemd services.";
+			PIAqBitorrentService = lib.mkEnableOption "Autostarted service, that doesn't redirect non-bound traffic. Intended for qBitorrent to use.";
 		};
 	};
 	config =
@@ -33,7 +34,7 @@
 					};
 					templates = {
 						"PIA-login" =
-							lib.mkIf config.service.openvpn.PIA {
+							lib.mkIf (config.service.openvpn.PIA || config.service.openvpn.PIAqBitorrentService) {
 								content = ''
 									${config.sops.placeholder."VPN/PIA/user"}
 									${config.sops.placeholder."VPN/PIA/pass"}
@@ -56,7 +57,7 @@
 					PIA-Melbourne =
 						lib.mkIf config.service.openvpn.PIA {
 							config = ''
-								config ${builtins.toString ./servers/PIA_melbourne.ovpn}
+								config ${toString ./servers/PIA_melbourne.ovpn}
 								auth-nocache
 							'';
 							autoStart = false;
@@ -66,10 +67,22 @@
 					PIA-Brisbane =
 						lib.mkIf config.service.openvpn.PIA {
 							config = ''
-								config ${builtins.toString ./servers/PIA_brisbane.ovpn}
+								config ${toString ./servers/PIA_brisbane.ovpn}
 								auth-nocache
 							'';
 							autoStart = false;
+							updateResolvConf = true;
+							authUserPass = config.sops.templates."PIA-login".path;
+						};
+					# will only redirect traffic bound to tun0
+					PIA-qBittorrent =
+						lib.mkIf config.service.openvpn.PIAqBitorrentService {
+							config = ''
+								config ${toString ./servers/PIA_melbourne.ovpn}
+								pull-filter ignore redirect-gateway
+								auth-nocache
+							'';
+							autoStart = true;
 							updateResolvConf = true;
 							authUserPass = config.sops.templates."PIA-login".path;
 						};

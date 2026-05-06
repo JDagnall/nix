@@ -67,7 +67,6 @@
 	ui.imv.enable = true;
 	ui.vlc.enable = true;
 	ui.brave.enable = true;
-	ui.qbittorrent.enable = true;
 	ui.seahorse.enable = true;
 	ui.freetube.enable = true;
 

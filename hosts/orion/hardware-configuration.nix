@@ -39,7 +39,8 @@
 		members =
 			[]
 			++ lib.optionals (config.users.users ? james) ["james"]
-			++ lib.optionals (config.users.users ? jellyfin) ["jellyfin"];
+			++ lib.optionals (config.users.users ? jellyfin) ["jellyfin"]
+			++ lib.optionals (config.users.users ? qbittorrent) ["qbittorrent"];
 	};
 
 	# old 2TB drive
