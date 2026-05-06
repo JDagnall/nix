@@ -9,6 +9,11 @@
 - improve obsidian config to include plugins and configs for them.
 - make a qute browser config, idk if I want to actually use it but I find it interesting.
 - noctalia, manage plugins with nix
+- rename all hosts
+- declarative config for jellyfin https://github.com/venkyr77/jellarr
+- nextcloud
+- pihole to define give subdomain to open ports for services
+- qbitorrent webclient for orion with jackett. Will require gaurantee that the connection goes through a vpn
 
 ## Fix
 

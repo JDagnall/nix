@@ -18,7 +18,7 @@
 	service.syncthing = {
 		enable = true;
 		runAsUser = "james";
-		devices.macmini-server.enable = true;
+		devices.orion.enable = true;
 		folders = let
 			shareDevices = ["Orion"];
 		in {

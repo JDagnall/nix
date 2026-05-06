@@ -1,6 +1,7 @@
 {
 	lib,
 	config,
+	osConfig,
 	...
 }: {
 	options = {
@@ -11,38 +12,40 @@
 			programs.ssh = {
 				enable = true;
 				enableDefaultConfig = false;
-				matchBlocks = {
-					server = {
-						hostname = "mini.lan";
-						host = "server";
-						user = "james";
-						identityFile = "~/.ssh/key";
+				# can only reliably resolve these hosts is with tailscale
+				matchBlocks =
+					lib.mkIf osConfig.service.tailscale.enable {
+						mini = {
+							hostname = "mini";
+							host = "server";
+							user = "james";
+							identityFile = "~/.ssh/key";
+						};
+						framework = {
+							hostname = "framework";
+							host = "framework";
+							user = "james";
+							identityFile = "~/.ssh/key";
+						};
+						pc = {
+							hostname = "pc";
+							host = "pc";
+							user = "james";
+							identityFile = "~/.ssh/key";
+						};
+						book = {
+							hostname = "book";
+							host = "book";
+							user = "james";
+							identityFile = "~/.ssh/key";
+						};
+						orion = {
+							hostname = "orion";
+							host = "orion";
+							user = "james";
+							identityFile = "~/.ssh/key";
+						};
 					};
-					framework = {
-						hostname = "framework.lan";
-						host = "framework";
-						user = "james";
-						identityFile = "~/.ssh/key";
-					};
-					pc = {
-						hostname = "pc.lan";
-						host = "pc";
-						user = "james";
-						identityFile = "~/.ssh/key";
-					};
-					book = {
-						hostname = "book.lan";
-						host = "book";
-						user = "james";
-						identityFile = "~/.ssh/key";
-					};
-					orion = {
-						hostname = "orion.lan";
-						host = "orion";
-						user = "james";
-						identityFile = "~/.ssh/key";
-					};
-				};
 			};
 		};
 }

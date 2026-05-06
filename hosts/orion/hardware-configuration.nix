@@ -40,6 +40,7 @@
 			++ lib.optionals (config.users.users ? james) ["james"]
 			++ lib.optionals (config.users.users ? jellyfin) ["jellyfin"];
 	};
+
 	# old 2TB drive
 	fileSystems."/driveA" = {
 		device = "/dev/disk/by-uuid/e9c2c7e6-70a3-461f-8a37-da0b5f4ddafc";
