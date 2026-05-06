@@ -38,7 +38,6 @@ in {
 		devices = {
 			macmini-server.enable = mkEnableOption "Enable the MacMini server as a syncthing device";
 			galaxy-s10e.enable = mkEnableOption "Enable the Galaxy-s10e as a syncthing device";
-			PC-windows.enable = mkEnableOption "Enable the PC-windows install as a syncthing device";
 			PC.enable = mkEnableOption "Enable the PC as a syncthing device";
 			macbook.enable = mkEnableOption "Enable the Macbook as a syncthing device";
 			framework.enable = mkEnableOption "Enable the framework as a syncthing device";
@@ -169,16 +168,6 @@ in {
 									name = "Galaxy-s10e";
 									autoAcceptFolders = false;
 								};
-							"PC-windows" =
-								mkIf config.service.syncthing.devices.PC-windows.enable {
-									id = "2WONTYB-TZI6CPL-ZRPSNNE-UJUEZ7U-MJTIMIB-MEHE7SD-UQ4EKSH-ORQEYAO";
-									addresses =
-										lib.mkIf config.service.tailscale.enable [
-											# "tcp://pc:22000"
-										];
-									name = "PC-windows";
-									autoAcceptFolders = false;
-								};
 							"PC" =
 								mkIf config.service.syncthing.devices.PC.enable {
 									id = "TLTL7NP-L3LLF6M-OZBLULU-42YS7GP-P5OU2K3-KUSCVIU-A4232YP-UVQB5QR";
@@ -210,7 +199,7 @@ in {
 									autoAcceptFolders = false;
 								};
 							"Orion" =
-								mkIf config.service.syncthing.devices.framework.enable {
+								mkIf config.service.syncthing.devices.orion.enable {
 									id = "QQCYANM-MSTQWN3-VPYALHR-XXCWM6V-MU37PWP-VSDOY7F-BSWJFDH-Y4JBXQB";
 									addresses =
 										lib.mkIf config.service.tailscale.enable [
