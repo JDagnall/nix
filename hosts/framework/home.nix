@@ -77,6 +77,8 @@
 	tools.keepmenu.enable = true;
 	tools.gh-cli.enable = true;
 	tools.nh.enable = true;
+	tools.nix-index.enable = true;
+	tools.nix-index.comma.enable = true;
 
 	nixLoki.enable = true;
 

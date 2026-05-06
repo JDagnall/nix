@@ -6,27 +6,18 @@
 	options = {
 		service.sshd.enable = lib.mkEnableOption "Enable the ssh daemon config";
 		service.sshd.james.authKeys.enable = lib.mkEnableOption "Add ssh keys of hosts to authorizedKeys for user james.";
-		ssh.host-pub-keys =
-			lib.mkOption {
-				type = lib.types.attrsOf lib.types.str;
-				description = "List of my user public keys at different hosts for easy reference";
-				default = {};
-			};
 	};
-	config = {
-		ssh.host-pub-keys = {
+	config = let
+		host-pub-keys = {
 			pc = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINi4vaMqWu0EleK32TMjaW/EgMHuNI7iMHYLuHER6p0n james.t.dagnall@gmail.com";
 			framework = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFqllBz9dOTXIAezDIM24SwFD2VLlQJu+XeR2HOmOd48 james.t.dagnall@gmail.com";
 			mini = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEPdrwbgx4Cc8/ty3tynVtUy1RkeyUFc48fJtSEci6K8 james.t.dagnall@gmail.com";
 			book = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEQBo9p33G09SaHZ/hWLUSTeRl+77QrOGk08cMVnE3a2 james@book";
+			orion = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM59+mLQP6jp3NuWKHPUDw3KnPrXcDWqSEOj23FN5eQ5 james.t.dagnall@gmail.com";
 		};
+	in {
 		users.users.james.openssh.authorizedKeys.keys =
-			lib.mkIf config.service.sshd.james.authKeys.enable [
-				config.ssh.host-pub-keys.pc
-				config.ssh.host-pub-keys.framework
-				config.ssh.host-pub-keys.mini
-				config.ssh.host-pub-keys.book
-			];
+			lib.mapAttrsToList (k: v: v) host-pub-keys;
 		sops.secrets = let
 			host = config.networking.hostName;
 		in

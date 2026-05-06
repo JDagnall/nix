@@ -4,60 +4,43 @@
 {
 	config,
 	lib,
-	# pkgs,
-	modulesPath,
 	...
 }: {
-	imports = [
-		(modulesPath + "/installer/scan/not-detected.nix")
-	];
-
 	boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod"];
 	boot.initrd.kernelModules = [];
 	boot.kernelModules = ["kvm-amd"];
 	boot.extraModulePackages = [];
 
-	# 1TB SSD NVME
+	# probably dont
+	# hardware.enableAllFirmware = true;
+	# nixpkgs.config.allowUnfree = true;
+
+	nvidia.enable = true;
+	nixpkgs.config.allowUnfreePredicate = pkg:
+		builtins.elem (lib.getName pkg) [
+			"nvidia-x11"
+			"nvidia-settings"
+		];
+
 	fileSystems."/" = {
-		device = "/dev/disk/by-uuid/1077f024-be91-4ac5-9d5b-c4aa00251e15";
+		device = "/dev/disk/by-label/NIXROOT";
 		fsType = "ext4";
 	};
 
 	fileSystems."/boot" = {
-		device = "/dev/disk/by-uuid/8EC9-010E";
+		device = "/dev/disk/by-label/NIXBOOT";
 		fsType = "vfat";
 		options = ["fmask=0022" "dmask=0022"];
 	};
-	# needed for ntfs filesystems
-	boot.supportedFilesystems = ["ntfs"];
-	# 2TB HDD SATA
-	fileSystems."/games" = {
-		device = "/dev/disk/by-uuid/72F6601C550EB248";
-		fsType = "ntfs-3g";
-		options = [
-			"users" # any user can mount the drive
-			"nofail" # dont crash if can't mount
-			"exec" # permit to excecute binaries
-			"rw"
-			"permissions" # POSIX permissions
-			"uid=${
-				if config.users.users ? james && lib.isStringLike config.users.users.james.uid
-				then config.users.users.james.uid
-				else "1000"
-			}"
-			"gid=${
-				if config.users.groups ? james && lib.isStringLike config.users.groups.james.gid
-				then config.users.groups.james.gid
-				else "998"
-			}"
-			"umask=0033"
-			"fmask=0033"
-			"dmask=0033"
-		];
+	# old 2TB drive
+	fileSystems."/driveA" = {
+		device = "/dev/disk/by-uuid/e9c2c7e6-70a3-461f-8a37-da0b5f4ddafc";
+		fsType = "vfat";
+		options = ["fmask=0022" "dmask=0022"];
 	};
-	# 120 GB SSD SATA
-	fileSystems."/ssd" = {
-		device = "/dev/disk/by-uuid/64B307E260B2E417";
+	# old 1TB drive
+	fileSystems."/driveB" = {
+		device = "/dev/disk/by-uuid/38E2-153B";
 		fsType = "ntfs-3g";
 		options = [
 			"users" # any user can mount the drive
@@ -89,8 +72,7 @@
 	];
 
 	networking.useDHCP = lib.mkDefault true;
-	# networking.interfaces.enp42s0.useDHCP = lib.mkDefault true;
-	# networking.interfaces.wlp34s0.useDHCP = lib.mkDefault true;
+	# networking.interfaces.enp1s0f0.useDHCP = lib.mkDefault true;
 
 	nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 	hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

@@ -3,6 +3,7 @@ keys:
   - &framework age1307534kc8mpamct0d57rms3x7tqr0arwt9lla3xrpevkl6eyxursenfvps
   - &mini age1mev4jvsz3q65nh3p2wznmktankarq9c9qk6z6egmucn78dx5aygq8y7neg
   - &book age1tvjfvkmhaala4e0mhhr9rg9rztefvcvzruf67eemeaajqvfjsdlqt3d9lv
+  - &orion age1xm9s48t53afmtxrf5tatma9mlf60yuyw8uts9my3dnmxn422xsuqsvqmrn
 creation_rules:
   - path_regex: secrets/pc/[^/]+\.yaml$
     key_groups:
@@ -20,3 +21,7 @@ creation_rules:
     key_groups:
       - age:
         - *book
+  - path_regex: secrets/orion/[^/]+\.yaml$
+    key_groups:
+      - age:
+        - *orion

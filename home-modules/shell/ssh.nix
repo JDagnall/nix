@@ -36,6 +36,12 @@
 						user = "james";
 						identityFile = "~/.ssh/key";
 					};
+					orion = {
+						hostname = "orion.lan";
+						host = "orion";
+						user = "james";
+						identityFile = "~/.ssh/key";
+					};
 				};
 			};
 		};

@@ -49,7 +49,7 @@
 	outputs = {
 		nixpkgs,
 		home-manager,
-		nixLoki,
+		# nixLoki,
 		nixos-wsl,
 		...
 	} @ inputs: let
@@ -61,10 +61,10 @@
 					# allows unfree in home-manager.
 					allowUnfree = true;
 				};
-				overlays = [
-					nixLoki.overlays.default
-					nixLoki.overlays.testNixLoki
-				];
+				# overlays = [
+				# 	nixLoki.overlays.default
+				# 	nixLoki.overlays.testNixLoki
+				# ];
 			};
 		mkHomeManagerArgs = host: {
 			home-manager.useGlobalPkgs = true;
@@ -124,6 +124,15 @@
 						./hosts/book/config.nix
 						home-manager.nixosModules.home-manager
 						(mkHomeManagerArgs "book")
+					];
+				};
+			orion =
+				nixpkgs.lib.nixosSystem {
+					inherit specialArgs;
+					modules = [
+						./hosts/orion/config.nix
+						home-manager.nixosModules.home-manager
+						(mkHomeManagerArgs "orion")
 					];
 				};
 			wsl =
