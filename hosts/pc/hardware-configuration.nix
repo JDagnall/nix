@@ -26,7 +26,7 @@
 	fileSystems."/boot" = {
 		device = "/dev/disk/by-uuid/8EC9-010E";
 		fsType = "vfat";
-		options = ["fmask=0022" "dmask=0022"];
+		options = ["fmask=0077" "dmask=0077"];
 	};
 	# needed for ntfs filesystems
 	boot.supportedFilesystems = ["ntfs"];

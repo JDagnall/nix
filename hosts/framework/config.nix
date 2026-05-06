@@ -20,7 +20,7 @@
 		runAsUser = "james";
 		devices.macmini-server.enable = true;
 		folders = let
-			shareDevices = ["MacMini-Server"];
+			shareDevices = ["Orion"];
 		in {
 			secure.enable = true;
 			secure.share = shareDevices;

@@ -10,34 +10,31 @@
 
 	service.sshd.enable = true;
 	service.sshd.james.authKeys.enable = true;
-	service.tailscale.enable = false;
+	service.tailscale.enable = true;
 	service.languagetool.enable = false;
-	service.wiregaurd.enable = false;
-	service.jellyfin.enable = false;
+	service.wiregaurd.enable = true;
+	service.jellyfin.enable = true;
 
-	# service.syncthing = {
-	# 	enable = false;
-	# 	devices = {
-	# 		PC.enable = true;
-	# 		framework.enable = true;
-	# 		macbook.enable = true;
-	# 		galaxy-s10e.enable = true;
-	# 	};
-	# 	folders = {
-	# 		secure.enable = true;
-	# 		secure.share = ["PC" "Framework" "Macbook" "Galaxy-s10e"];
-	# 		classes.enable = true;
-	# 		classes.share = ["PC" "Framework"];
-	# 		proj.enable = true;
-	# 		proj.share = ["PC" "Framework"];
-	# 		wallpapers.enable = true;
-	# 		wallpapers.share = ["PC" "Framework"];
-	# 		docs.enable = true;
-	# 		docs.share = ["PC" "Framework" "Galaxy-s10e"];
-	# 	};
-	# 	gui.enableLogin = true;
-	# 	gui.setDefaultRoute = true;
-	# };
+	service.syncthing = {
+		enable = true;
+		devices = {
+			macmini-server.enable = true;
+		};
+		folders = {
+			secure.enable = true;
+			secure.share = ["MacMini-Server"];
+			classes.enable = true;
+			classes.share = ["MacMini-Server"];
+			proj.enable = true;
+			proj.share = ["MacMini-Server"];
+			wallpapers.enable = true;
+			wallpapers.share = ["MacMini-Server"];
+			docs.enable = true;
+			docs.share = ["MacMini-Server"];
+		};
+		gui.enableLogin = true;
+		gui.setDefaultRoute = true;
+	};
 
 	gaming.minecraft-servers = {
 		enable = false;

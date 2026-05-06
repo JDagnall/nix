@@ -30,37 +30,25 @@
 	fileSystems."/boot" = {
 		device = "/dev/disk/by-label/NIXBOOT";
 		fsType = "vfat";
-		options = ["fmask=0022" "dmask=0022"];
+		options = ["fmask=0077" "dmask=0077"];
 	};
 	# old 2TB drive
 	fileSystems."/driveA" = {
 		device = "/dev/disk/by-uuid/e9c2c7e6-70a3-461f-8a37-da0b5f4ddafc";
-		fsType = "vfat";
-		options = ["fmask=0022" "dmask=0022"];
-	};
-	# old 1TB drive
-	fileSystems."/driveB" = {
-		device = "/dev/disk/by-uuid/38E2-153B";
-		fsType = "ntfs-3g";
+		fsType = "ext4";
 		options = [
 			"users" # any user can mount the drive
 			"nofail" # dont crash if can't mount
-			"exec" # permit to excecute binaries
-			"rw"
-			"permissions" # POSIX permissions
-			"uid=${
-				if config.users.users ? james && lib.isStringLike config.users.users.james.uid
-				then config.users.users.james.uid
-				else "1000"
-			}"
-			"gid=${
-				if config.users.groups ? james && lib.isStringLike config.users.groups.james.gid
-				then config.users.groups.james.gid
-				else "998"
-			}"
-			"umask=0033"
-			"fmask=0033"
-			"dmask=0033"
+		];
+	};
+
+	# old 1TB drive
+	fileSystems."/driveB" = {
+		device = "/dev/disk/by-uuid/38E2-153B";
+		fsType = "exfat";
+		options = [
+			"users" # any user can mount the drive
+			"nofail" # dont crash if can't mount
 		];
 	};
 

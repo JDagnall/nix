@@ -15,23 +15,19 @@
 	service.syncthing = {
 		enable = true;
 		devices = {
-			PC.enable = true;
-			PC-windows.enable = true;
-			framework.enable = true;
-			macbook.enable = true;
-			galaxy-s10e.enable = true;
+			orion.enable = true;
 		};
 		folders = {
 			secure.enable = true;
-			secure.share = ["PC" "PC-windows" "Framework" "Macbook" "Galaxy-s10e"];
+			secure.share = ["Orion"];
 			classes.enable = true;
-			classes.share = ["PC" "PC-windows" "Framework"];
+			classes.share = ["Orion"];
 			proj.enable = true;
-			proj.share = ["PC" "PC-windows" "Framework"];
+			proj.share = ["Orion"];
 			wallpapers.enable = true;
-			wallpapers.share = ["PC" "PC-windows" "Framework"];
+			wallpapers.share = ["Orion"];
 			docs.enable = true;
-			docs.share = ["PC" "Framework" "Galaxy-s10e"];
+			docs.share = ["Orion"];
 		};
 		gui.enableLogin = true;
 		gui.setDefaultRoute = true;

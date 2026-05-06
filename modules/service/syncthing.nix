@@ -42,6 +42,7 @@ in {
 			PC.enable = mkEnableOption "Enable the PC as a syncthing device";
 			macbook.enable = mkEnableOption "Enable the Macbook as a syncthing device";
 			framework.enable = mkEnableOption "Enable the framework as a syncthing device";
+			orion.enable = mkEnableOption "Enable orion as a syncthing device";
 		};
 		folders = {
 			defaultShareDevices =
@@ -206,6 +207,16 @@ in {
 											"tcp://framework:22000"
 										];
 									name = "Framework";
+									autoAcceptFolders = false;
+								};
+							"Orion" =
+								mkIf config.service.syncthing.devices.framework.enable {
+									id = "QQCYANM-MSTQWN3-VPYALHR-XXCWM6V-MU37PWP-VSDOY7F-BSWJFDH-Y4JBXQB";
+									addresses =
+										lib.mkIf config.service.tailscale.enable [
+											"tcp://orion:22000"
+										];
+									name = "Orion";
 									autoAcceptFolders = false;
 								};
 						};

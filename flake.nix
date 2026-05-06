@@ -61,10 +61,6 @@
 					# allows unfree in home-manager.
 					allowUnfree = true;
 				};
-				# overlays = [
-				# 	nixLoki.overlays.default
-				# 	nixLoki.overlays.testNixLoki
-				# ];
 			};
 		mkHomeManagerArgs = host: {
 			home-manager.useGlobalPkgs = true;
@@ -85,11 +81,6 @@
 	in {
 		# nixos entrypoints
 		nixosConfigurations = {
-			virtualbox =
-				nixpkgs.lib.nixosSystem {
-					inherit specialArgs;
-					modules = [./hosts/virtualbox/config.nix];
-				};
 			framework =
 				nixpkgs.lib.nixosSystem {
 					inherit specialArgs;
