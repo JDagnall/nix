@@ -49,8 +49,6 @@
 		options = [
 			"users" # any user can mount the drive
 			"nofail" # dont crash if can't mount
-			"uid=${lib.toString config.users.users."root".uid}"
-			"gid=${lib.toString config.users.groups."drives".gid}"
 		];
 	};
 
