@@ -35,6 +35,7 @@
 
 	# create a group with write access to the drives
 	users.groups."drives" = {
+		gid = 990;
 		members =
 			[]
 			++ lib.optionals (config.users.users ? james) ["james"]
@@ -47,7 +48,6 @@
 		fsType = "ext4";
 		options = [
 			"users" # any user can mount the drive
-			"umask=0007"
 			"nofail" # dont crash if can't mount
 			"uid=${lib.toString config.users.users."root".uid}"
 			"gid=${lib.toString config.users.groups."drives".gid}"
