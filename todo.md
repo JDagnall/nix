@@ -14,13 +14,14 @@
 - nextcloud
 - pihole to define give subdomain to open ports for services
 - qbitorrent webclient for orion with jackett. Will require gaurantee that the connection goes through a vpn
+- look for a way to have wezterm change its look in some way based on whether im ssh'd into a host at that time. And possibly have custom looks for specific hosts.
 
 ## Fix
 
 - Check manual grub entries for windows boot.
 
 - IN GENERAL: look for things that are universal that should be host specific
-- This namespace duplication stuff with service / services is unnecesary, cant use the same namespaces as nixpkgs because it will cause infinite recursion. Should maybe do a separate namespaces to put my options in.
+- Instead of service/services stuff im doing, I need to create a `myConfig` namespace and move my settings into there so I dont have to worry about option name collisions
 - make sure fprintd has fallbacks for password, and try to get more interactive prompts for it on hyprlock and ly.
 - the ntfs-3g user mapping stuff can be improved, I can create the usermapping file in nix then include it in a mount option. the problem is the windows SID's.
 - fix ly terminal session having no stdout. Not possible untill a PR gets merged in nixpkgs https://github.com/NixOS/nixpkgs/pull/427541
@@ -28,7 +29,7 @@
 - plasma is totally busted
 - try and create config for thunar in nix.
 - some kind of slow down on startup with noctalia, but not always
-- sometimes hyprland will unfocus from a window and moving to that workspace will not refocus
+- sometimes hyprland will unfocus from a window and moving to that workspace will not refocus, this is a disconnect between whether switching workspaces / windows is moving my keyboard or mouse functions or both
 - cannot get SUPER+` keybind, to move focus to other monitor workspace to work in hyprland
 - hyprland seems to give wrong window sizes to certain application when they are paneled, only on framework.
 - cannot open terminal from thunar

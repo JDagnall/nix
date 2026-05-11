@@ -8,7 +8,13 @@
 		service.openvpn = {
 			enable = lib.mkEnableOption {description = "Enable openvpn config";};
 			PIA = lib.mkEnableOption "Enable PIA openvpn connections with networkmanager connections ans systemd services.";
-			PIAqBitorrentService = lib.mkEnableOption "Autostarted service, that doesn't redirect non-bound traffic. Intended for qBitorrent to use.";
+			PIAqBittorrentService = lib.mkEnableOption "Autostarted service, that doesn't redirect non-bound traffic. Intended for qBitorrent to use.";
+			defaultInterfaceName =
+				lib.mkOption {
+					default = "tun";
+					type = lib.types.str;
+					description = "Name of the interface the vpn will create and bind to";
+				};
 		};
 	};
 	config =
@@ -34,7 +40,7 @@
 					};
 					templates = {
 						"PIA-login" =
-							lib.mkIf (config.service.openvpn.PIA || config.service.openvpn.PIAqBitorrentService) {
+							lib.mkIf (config.service.openvpn.PIA || config.service.openvpn.PIAqBittorrentService) {
 								content = ''
 									${config.sops.placeholder."VPN/PIA/user"}
 									${config.sops.placeholder."VPN/PIA/pass"}
@@ -50,7 +56,10 @@
 					};
 				};
 
-			services.openvpn = {
+			services.openvpn = let
+				defaultDevice = config.service.openvpn.defaultInterfaceName;
+				qbittorrentDevice = config.service.vpnInterface;
+			in {
 				restartAfterSleep = true;
 				# these get turned into system services
 				servers = {
@@ -59,6 +68,7 @@
 							config = ''
 								config ${toString ./servers/PIA_melbourne.ovpn}
 								auth-nocache
+								dev ${defaultDevice}
 							'';
 							autoStart = false;
 							updateResolvConf = true;
@@ -69,18 +79,20 @@
 							config = ''
 								config ${toString ./servers/PIA_brisbane.ovpn}
 								auth-nocache
+								dev ${defaultDevice}
 							'';
 							autoStart = false;
 							updateResolvConf = true;
 							authUserPass = config.sops.templates."PIA-login".path;
 						};
-					# will only redirect traffic bound to tun0
+					# will only redirect traffic bound to qbittorrentDevice
 					PIA-qBittorrent =
-						lib.mkIf config.service.openvpn.PIAqBitorrentService {
+						lib.mkIf config.service.openvpn.PIAqBittorrentService {
 							config = ''
 								config ${toString ./servers/PIA_melbourne.ovpn}
 								pull-filter ignore redirect-gateway
 								auth-nocache
+								dev ${qbittorrentDevice}
 							'';
 							autoStart = true;
 							updateResolvConf = true;

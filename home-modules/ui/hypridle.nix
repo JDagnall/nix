@@ -2,6 +2,7 @@
 	pkgs,
 	lib,
 	config,
+	inputs,
 	...
 }: let
 	inherit (lib) types mkIf mkEnableOption mkOption optionals optionalString;
@@ -43,9 +44,10 @@ in {
 			services.hypridle = let
 				brightnessctl-bin = "${pkgs.brightnessctl}/bin/brightnessctl";
 				hyprctl-bin = "${pkgs.hyprland}/bin/hyprctl";
-				noctalia-bin = "${pkgs.noctalia-shell}/bin/noctalia-shell";
-				waybar-bin = "${pkgs.waybar}/bin/waybar";
-				hyprlock-bin = "${pkgs.hyprlock}/bin/hyprlock";
+				# other wise it still installs the pacakges into the nix store even if they are not used which is annoying
+				noctalia-bin = lib.optionalString config.ui.noctalia.enable "${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia-shell";
+				waybar-bin = lib.optionalString config.ui.waybar.enable "${pkgs.waybar}/bin/waybar";
+				hyprlock-bin = lib.optionalString config.ui.hyprlock.enable "${pkgs.hyprlock}/bin/hyprlock";
 				laptop_profile = [
 					# dim screen after a period of inactivity
 					{
@@ -88,7 +90,7 @@ in {
 						# temporary fix to stop waybar duping
 						on-timeout = "" + optionalString config.ui.waybar.enable "pidof ${waybar-bin} && pkill ${waybar-bin}; " + " ${hyprctl-bin} dispatch dpms off;";
 						# change brightness back,
-						on-resume = "${hyprctl-bin} dispatch dpms on && ${brightnessctl-bin} -r; " + optionalString config.ui.waybar.enable " exec ${waybar-bin};";
+						on-resume = "${hyprctl-bin} dispatch dpms on;" + optionalString config.ui.waybar.enable " exec ${waybar-bin};";
 					}
 					# lock session
 					{

@@ -4,12 +4,26 @@
 	...
 }: {
 	options = {
-		service.qbittorrent.enable = lib.mkEnableOption "Enable qbittorrent service, with a webui.";
+		service.qbittorrent = {
+			enable = lib.mkEnableOption "Enable qbittorrent service, with a webui.";
+			vpnInterface =
+				lib.mkOption {
+					default = "qbtun";
+					type = lib.types.str;
+					description = "qBittorrent connection needs to go through a vpn and this option sets the interface name it will bind to";
+				};
+		};
 		service.jackett.enable = lib.mkEnableOption "Enable jackett, a torrent search interface for qbittorrent.";
 		service.flaresolverr.enable = lib.mkEnableOption "Enable flaresolverr, solves captchas.";
 	};
 	config =
 		lib.mkIf config.service.qbittorrent.enable {
+			assertions = [
+				{
+					assertion = config.service.openvpn.enable && config.service.openvpn.PIA && config.service.openvpn.PIAqBittorrentService;
+					message = "qBittorrent requires a VPN to tunnel through.";
+				}
+			];
 			services.qbittorrent = {
 				enable = true;
 				user = "qbittorrent";
@@ -19,13 +33,19 @@
 				# torrentingPort = ;
 				serverConfig = {
 					BitTorrent = {
-						ConnectionInterface = "tun0";
-						# idk if this is necesary
-						ConnectionInterfaceAddress = "10.63.128.63";
 						Session = {
+							# bind to vpn device, choosing to do this even if the vpn is not active
+							ConnectionInterface = config.service.qbittorrent.vpnInterface + "0";
+							# idk if this is necesary
+							# ConnectionInterfaceAddress = "10.63.128.63";
 							AddExtensionToIncompleteFiles = true;
 							AddTorrentStopped = false;
 							# DefaultSavePath = "/driveA";
+							GlobalMaxRatio = 1.5;
+							GlobalMaxSeedingMinutes = 60;
+							QueueingSystemEnabled = true;
+							ShareLimitAction = "Stop";
+							# TorrentStopCondition = "FilesChecked";
 						};
 					};
 					LegalNotice.Accepted = true;
@@ -35,10 +55,9 @@
 							Password_PBKDF2 = "@ByteArray(b1ftLzsDQBT52rIa95N6AQ==:H7fEdS+ua5EkRawMWI4JhIosuXx+CgaQsuydDcdUadxAgTClpDVAS10Luln/ZLG0FzEYK+KVryg568X3zS9aIw==)";
 						};
 						General.Locale = "en";
-						# bind to vpn device, choosing to do this even if the vpn is not active
 					};
 				};
-				openFirewall = false;
+				openFirewall = true;
 			};
 			# adding the capability to bind to a network device to qbittorrent service
 			systemd.services.qbittorrent.serviceConfig.AmbientCapabilities = "CAP_NET_RAW";

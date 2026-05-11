@@ -75,6 +75,11 @@
 	];
 	networking.networkmanager.enable = true;
 	networking.hostName = "orion";
+	# allow wake on lan with magic packet for this computer
+	networking.interfaces."eth0".wakeOnLan = {
+		enable = true;
+		policy = "magic";
+	};
 
 	# garbage collector
 	nix.gc = {
