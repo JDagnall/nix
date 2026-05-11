@@ -8,7 +8,7 @@
 			enable = lib.mkEnableOption "Enable qbittorrent service, with a webui.";
 			vpnInterface =
 				lib.mkOption {
-					default = "qbtun";
+					default = "qbtun0";
 					type = lib.types.str;
 					description = "qBittorrent connection needs to go through a vpn and this option sets the interface name it will bind to";
 				};
@@ -35,7 +35,8 @@
 					BitTorrent = {
 						Session = {
 							# bind to vpn device, choosing to do this even if the vpn is not active
-							ConnectionInterface = config.service.qbittorrent.vpnInterface + "0";
+							Interface = config.service.qbittorrent.vpnInterface;
+							InterfaceName = config.service.qbittorrent.vpnInterface;
 							# idk if this is necesary
 							# ConnectionInterfaceAddress = "10.63.128.63";
 							AddExtensionToIncompleteFiles = true;

@@ -13,7 +13,7 @@
 				lib.mkOption {
 					default = "tun";
 					type = lib.types.str;
-					description = "Name of the interface the vpn will create and bind to";
+					description = "Name of the interface the vpn will create and bind to. Not specifying a number will assign a dynamic one.";
 				};
 		};
 	};
@@ -93,6 +93,7 @@
 								pull-filter ignore redirect-gateway
 								auth-nocache
 								dev ${qbittorrentDevice}
+								dev-type tun
 							'';
 							autoStart = true;
 							updateResolvConf = true;
