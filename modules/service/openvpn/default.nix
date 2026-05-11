@@ -58,7 +58,7 @@
 
 			services.openvpn = let
 				defaultDevice = config.service.openvpn.defaultInterfaceName;
-				qbittorrentDevice = config.service.vpnInterface;
+				qbittorrentDevice = config.service.qbittorrent.vpnInterface;
 			in {
 				restartAfterSleep = true;
 				# these get turned into system services

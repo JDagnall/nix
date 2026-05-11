@@ -20,7 +20,7 @@
 		lib.mkIf config.service.qbittorrent.enable {
 			assertions = [
 				{
-					assertion = config.service.openvpn.enable && config.service.openvpn.PIA && config.service.openvpn.PIAqBittorrentService;
+					assertion = config.service.openvpn.enable && config.service.openvpn.PIAqBittorrentService;
 					message = "qBittorrent requires a VPN to tunnel through.";
 				}
 			];

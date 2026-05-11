@@ -21,7 +21,7 @@
 	service.qbittorrent.enable = true;
 	service.openvpn = {
 		enable = true;
-		PIAqBitorrentService = true;
+		PIAqBittorrentService = true;
 	};
 
 	service.syncthing = {
@@ -76,9 +76,9 @@
 	networking.networkmanager.enable = true;
 	networking.hostName = "orion";
 	# allow wake on lan with magic packet for this computer
-	networking.interfaces."eth0".wakeOnLan = {
+	networking.interfaces."enp34s0".wakeOnLan = {
 		enable = true;
-		policy = "magic";
+		policy = ["magic"];
 	};
 
 	# garbage collector
