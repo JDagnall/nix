@@ -12,7 +12,7 @@
 		};
 		nixLoki = {
 			url = "github:JDagnall/nixLoki";
-			# url = "path:/home/james/nixLoki";
+			# url = "path:/home/james/repo/nixLoki";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		stylix = {

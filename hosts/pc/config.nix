@@ -17,6 +17,7 @@
 
 	service.sshd.enable = true;
 	service.sshd.james.authKeys.enable = true;
+	service.avahi.enable = true; # mdns
 
 	service.syncthing = {
 		enable = true;

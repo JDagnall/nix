@@ -76,6 +76,7 @@ in {
 		ui.seahorse.enable = lib.mkEnableOption "Install seahorse";
 		ui.freetube.enable = lib.mkEnableOption "Install freetube";
 		ui.jellyfin-desktop.enable = lib.mkEnableOption "Install jellyfin-desktop";
+		ui.zotero.enable = lib.mkEnableOption "Install zotero";
 	};
 	config = let
 		inherit
@@ -91,6 +92,7 @@ in {
 			seahorse
 			freetube
 			jellyfin-desktop
+			zotero
 			;
 	in {
 		home.packages =
@@ -105,6 +107,7 @@ in {
 			++ optionals qbittorrent.enable [pkgs.qbittorrent]
 			++ optionals seahorse.enable [pkgs.seahorse]
 			++ optionals freetube.enable [pkgs.freetube]
-			++ optionals jellyfin-desktop.enable [pkgs.jellyfin-desktop];
+			++ optionals jellyfin-desktop.enable [pkgs.jellyfin-desktop]
+			++ optionals zotero.enable [pkgs.zotero];
 	};
 }

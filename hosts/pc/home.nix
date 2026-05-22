@@ -83,6 +83,7 @@
 	ui.seahorse.enable = true;
 	ui.libreoffice.enable = true;
 	ui.jellyfin-desktop.enable = true;
+	ui.zotero.enable = true;
 
 	tools.keepassxc.enable = true;
 	tools.keepmenu.enable = true;

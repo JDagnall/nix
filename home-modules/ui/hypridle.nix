@@ -67,9 +67,8 @@ in {
 					# fully turns the screen off
 					{
 						timeout = 300; # sec
-						on-timeout = "${hyprctl-bin} dispatch dpms off";
-						# change brightness back,
-						on-resume = "${hyprctl-bin} dispatch dpms on && brightnessctl -r";
+						on-timeout = "" + optionalString config.ui.waybar.enable "pidof ${waybar-bin} && pkill ${waybar-bin}; " + " ${hyprctl-bin} dispatch dpms off;";
+						on-resume = "" + optionalString config.ui.waybar.enable " exec ${waybar-bin};";
 					}
 					# lock session
 					{
@@ -89,8 +88,7 @@ in {
 						timeout = 300; # sec
 						# temporary fix to stop waybar duping
 						on-timeout = "" + optionalString config.ui.waybar.enable "pidof ${waybar-bin} && pkill ${waybar-bin}; " + " ${hyprctl-bin} dispatch dpms off;";
-						# change brightness back,
-						on-resume = "${hyprctl-bin} dispatch dpms on;" + optionalString config.ui.waybar.enable " exec ${waybar-bin};";
+						on-resume = "" + optionalString config.ui.waybar.enable " exec ${waybar-bin};";
 					}
 					# lock session
 					{

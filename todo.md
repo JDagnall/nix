@@ -15,12 +15,15 @@
 - pihole to define give subdomain to open ports for services
 - qbitorrent webclient for orion with jackett. Will require gaurantee that the connection goes through a vpn
 - look for a way to have wezterm change its look in some way based on whether im ssh'd into a host at that time. And possibly have custom looks for specific hosts.
+- hyprland moved config to lua, yay. update hyprland config
+- keychain should open on user login
 
 ## Fix
 
 - Check manual grub entries for windows boot.
 
 - IN GENERAL: look for things that are universal that should be host specific
+- when creating a new terminal window/tab in a directory with direnv, it can take a second and commands entered in that period dont take effect, its very annoying
 - Instead of service/services stuff im doing, I need to create a `myConfig` namespace and move my settings into there so I dont have to worry about option name collisions
 - make sure fprintd has fallbacks for password, and try to get more interactive prompts for it on hyprlock and ly.
 - the ntfs-3g user mapping stuff can be improved, I can create the usermapping file in nix then include it in a mount option. the problem is the windows SID's.
