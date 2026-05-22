@@ -10,19 +10,28 @@
 
 	service.sshd.enable = true;
 	service.sshd.james.authKeys.enable = true;
+	services.avahi.enable = true;
 	service.tailscale.enable = true;
 	service.languagetool.enable = false;
 	service.wiregaurd.enable = true;
-	service.jellyfin = {
+	service.openvpn.enable = true;
+	service.caddy.enable = true;
+	service.dnsmasq = {
 		enable = true;
-		enableGpuTranscoding = true;
+		network-interfaces = ["enp34s0" "tailscale0"];
 	};
-	service.jackett.enable = false;
-	service.qbittorrent.enable = true;
-	service.openvpn = {
+
+	service.media-services = {
 		enable = true;
-		PIAqBittorrentService = true;
+		jellyfin = {
+			enable = true;
+			enableGpuTranscoding = true;
+		};
+		qbittorrent.enable = true;
+		sonarr.enable = true;
+		prowlarr.enable = true;
 	};
+	service.openvpn.PIAqBittorrentService = true;
 
 	service.syncthing = {
 		enable = true;

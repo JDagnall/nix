@@ -33,6 +33,7 @@
 - cannot get SUPER+` keybind, to move focus to other monitor workspace to work in hyprland
 - hyprland seems to give wrong window sizes to certain application when they are paneled, only on framework.
 - cannot open terminal from thunar
+- Make all services that use the drive, run as the drive group instead of just being a part of it.
 
 ## Stylix
 

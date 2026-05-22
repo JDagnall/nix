@@ -44,5 +44,6 @@
 				# };
 				authKeyFile = config.sops.secrets."tailscale/authKey".path;
 			};
+			# networking.extraHosts = "${config.networking.hostName}.home ${config.networking.hostName}";
 		};
 }

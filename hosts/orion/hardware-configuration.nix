@@ -40,7 +40,8 @@
 			[]
 			++ lib.optionals (config.users.users ? james) ["james"]
 			++ lib.optionals (config.users.users ? jellyfin) ["jellyfin"]
-			++ lib.optionals (config.users.users ? qbittorrent) ["qbittorrent"];
+			++ lib.optionals (config.users.users ? qbittorrent) ["qbittorrent"]
+			++ lib.optionals (config.users.users ? sonarr) ["sonarr"];
 	};
 
 	# old 2TB drive

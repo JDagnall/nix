@@ -7,10 +7,12 @@
 		./openvpn
 		./ssh.nix
 		./tailscale.nix
-		./jellyfin.nix
 		./gnome-keyring.nix
 		./wireguard.nix
 		./languagetool.nix
-		./qbittorrent.nix
+		./avahi.nix
+		./dnsmasq.nix
+		./caddy
+		./media-services
 	];
 }

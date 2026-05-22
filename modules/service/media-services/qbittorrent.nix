@@ -2,9 +2,11 @@
 	lib,
 	config,
 	...
-}: {
+}: let
+	cfg = config.service.media-services;
+in {
 	options = {
-		service.qbittorrent = {
+		service.media-services.qbittorrent = {
 			enable = lib.mkEnableOption "Enable qbittorrent service, with a webui.";
 			vpnInterface =
 				lib.mkOption {
@@ -13,11 +15,9 @@
 					description = "qBittorrent connection needs to go through a vpn and this option sets the interface name it will bind to";
 				};
 		};
-		service.jackett.enable = lib.mkEnableOption "Enable jackett, a torrent search interface for qbittorrent.";
-		service.flaresolverr.enable = lib.mkEnableOption "Enable flaresolverr, solves captchas.";
 	};
 	config =
-		lib.mkIf config.service.qbittorrent.enable {
+		lib.mkIf (cfg.enable && cfg.qbittorrent.enable) {
 			assertions = [
 				{
 					assertion = config.service.openvpn.enable && config.service.openvpn.PIAqBittorrentService;
@@ -27,7 +27,7 @@
 			services.qbittorrent = {
 				enable = true;
 				user = "qbittorrent";
-				group = "qbittorrent";
+				group = cfg.group.name;
 				extraArgs = ["--confirm-legal-notice"];
 				webuiPort = 9494;
 				# torrentingPort = ;
@@ -35,8 +35,8 @@
 					BitTorrent = {
 						Session = {
 							# bind to vpn device, choosing to do this even if the vpn is not active
-							Interface = config.service.qbittorrent.vpnInterface;
-							InterfaceName = config.service.qbittorrent.vpnInterface;
+							Interface = cfg.qbittorrent.vpnInterface;
+							InterfaceName = cfg.qbittorrent.vpnInterface;
 							# idk if this is necesary
 							# ConnectionInterfaceAddress = "10.63.128.63";
 							AddExtensionToIncompleteFiles = true;
@@ -62,22 +62,5 @@
 			};
 			# adding the capability to bind to a network device to qbittorrent service
 			systemd.services.qbittorrent.serviceConfig.AmbientCapabilities = "CAP_NET_RAW";
-			# provides a torznab searching interface and API
-			services.jackett =
-				lib.mkIf config.service.jackett.enable {
-					enable = true;
-					openFirewall = false;
-					port = 9117;
-					user = "jackett";
-					group = "jackett";
-					# dataDir =;
-				};
-			# solves cloudflare captchas
-			services.flaresolverr =
-				lib.mkIf config.service.jackett.enable {
-					enable = true;
-					openFirewall = false;
-					port = 8191;
-				};
 		};
 }
