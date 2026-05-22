@@ -15,6 +15,8 @@
 
 	service.pipewire.enable = true;
 
+	service.avahi.enable = true;
+
 	service.sshd.enable = true;
 	service.sshd.james.authKeys.enable = true;
 
