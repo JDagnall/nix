@@ -12,13 +12,14 @@
 	service.sshd.james.authKeys.enable = true;
 	services.avahi.enable = true;
 	service.tailscale.enable = true;
+	service.tailscale.tailnet = "stonecat-barometric";
 	service.languagetool.enable = false;
 	service.wiregaurd.enable = true;
 	service.openvpn.enable = true;
 	service.caddy.enable = true;
 	service.dnsmasq = {
 		enable = true;
-		network-interfaces = ["enp34s0" "tailscale0"];
+		localNetworkInterface = "enp34s0";
 	};
 
 	service.media-services = {
@@ -54,7 +55,7 @@
 			docs.share = ["PC" "Framework" "Macbook" "Galaxy-s10e"];
 		};
 		gui.enableLogin = true;
-		gui.setDefaultRoute = false;
+		gui.setDefaultRoute = true;
 	};
 
 	gaming.minecraft-servers = {

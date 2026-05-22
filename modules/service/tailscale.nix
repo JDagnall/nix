@@ -5,7 +5,15 @@
 	...
 }: {
 	options = {
-		service.tailscale.enable = lib.mkEnableOption "Enable tailscale.";
+		service.tailscale = {
+			enable = lib.mkEnableOption "Enable tailscale.";
+			tailnet =
+				lib.mkOption {
+					description = "The tailnet name, which can be used for magic DNS";
+					type = lib.types.nullOr lib.types.str;
+					default = null;
+				};
+		};
 	};
 	config =
 		lib.mkIf config.service.tailscale.enable {
