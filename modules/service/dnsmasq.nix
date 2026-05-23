@@ -57,7 +57,7 @@
 						++ (mkServiceSubdomain "prowlarr" serviceCfg.media-services.prowlarr.enable)
 						++ (mkServiceSubdomain "flaresolverr" serviceCfg.media-services.flaresolverr.enable);
 					interface = [localInterface] ++ lib.optionals config.service.tailscale.enable [tailscaleInterface];
-					server = ["1.1.1.1" "8.8.8.8"]; # cloudflare and google, not really needed
+					server = ["208.67.222.123" "1.1.1.1"]; # opendns and cloudflare, not really needed
 				};
 			};
 			networking.firewall.allowedTCPPorts = [53];
