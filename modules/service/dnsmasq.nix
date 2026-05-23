@@ -1,3 +1,5 @@
+# The purpose of this configuration is to host a DNS server for the machine to
+# host domain entries pointing to itself on, its not and ad-block / privacy dns server like pihole.
 {
 	lib,
 	config,
@@ -23,6 +25,7 @@
 	config = let
 		host = config.networking.hostName;
 		localInterface = config.service.dnsmasq.localNetworkInterface;
+		tailscaleEnabled = config.service.tailscale.enable;
 		tailscaleInterface = config.service.dnsmasq.tailscaleNetworkInterface;
 	in
 		lib.mkIf config.service.dnsmasq.enable {
@@ -32,15 +35,27 @@
 				settings = {
 					address = [];
 					# create dns entry for this device, networks utilising this server should be able to easily navigate to this device
-					interface-name =
+					interface-name = let
+						mkServiceSubdomain = service: option:
+							if option
+							then ["${service}.${host}.home,${localInterface}"] ++ lib.optionals tailscaleEnabled ["${service}.${host}.tail,${tailscaleInterface}"]
+							else [];
+						serviceCfg = config.service;
+					in
 						[
 							"${host}.home,${localInterface}"
-							"*.${host}.home,${localInterface}"
 						]
 						++ lib.optionals config.service.tailscale.enable [
 							"${host}.tail,${tailscaleInterface}"
-							"*.${host}.tail,${tailscaleInterface}"
-						];
+						]
+						# add subdomain for each service configured to run on this machine, annoyingly
+						# interface-name does not support wildcard expansion
+						++ (mkServiceSubdomain "syncthing" serviceCfg.syncthing.enable)
+						++ (mkServiceSubdomain "qbittorrent" serviceCfg.media-services.qbittorrent.enable)
+						++ (mkServiceSubdomain "jellyfin" serviceCfg.media-services.jellyfin.enable)
+						++ (mkServiceSubdomain "sonarr" serviceCfg.media-services.sonarr.enable)
+						++ (mkServiceSubdomain "prowlarr" serviceCfg.media-services.prowlarr.enable)
+						++ (mkServiceSubdomain "flaresolverr" serviceCfg.media-services.flaresolverr.enable);
 					interface = [localInterface] ++ lib.optionals config.service.tailscale.enable [tailscaleInterface];
 					server = ["1.1.1.1" "8.8.8.8"]; # cloudflare and google, not really needed
 				};
