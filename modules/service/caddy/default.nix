@@ -70,6 +70,7 @@
 							extraConfig = ''
 								tls internal
 								root /etc/${default_http_path}
+								templates
 								file_server
 								${lib.optionalString servicesCfg.syncthing.enable (mkServicePath "syncthing" 8384)}
 								${lib.optionalString servicesCfg.media-services.qbittorrent.enable (mkServicePath "qbittorrent" 9494)}

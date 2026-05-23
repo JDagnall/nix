@@ -1,5 +1,59 @@
 <html>
+  <style>
+    body {
+      justify: center;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: dark-gray;
+      text: gray;
+      font-family: Roboto;
+    }
+    .serviceContainer {
+      display: flex;
+      flex-grow: 3;
+      flex-wrap: wrap;
+      padding: 5%;
+      margin: 5%;
+      border: solid;
+      border-radius: 10px;
+      border-color: gray;
+      text-justify: center;
+    }
+    .serviceButton {
+      display: flex;
+      padding: 5%;
+      margin: 5%;
+      border: solid;
+      border-radius: 10px;
+      border-color: gray;
+      width: 10rem;
+      height: 10rem;
+      max-width: 10rem;
+      max-height: 10rem;
+      text-justify: center;
+      align-items: center;
+    }
+    .serviceButton:hover {
+      background: light-gray;
+      text: dark-gray;
+    }
+    .serviceIcon {
+      display: flex;
+      flex-grow: 1;
+    }
+  </style>
   <body>
     <h1>Hello There!</h1>
+    <div class="serviceContainer">
+      <div class="serviceButton">
+        <img class="serviceIcon" src="jellyfin.{{.Host}}/favicon.ico" />
+        <p>Jellyfin</p>
+      </div>
+      <div class="serviceButton">
+        <img class="serviceIcon" src="sonarr.{{.Host}}/favicon.ico" />
+        <p>Sonarr</p>
+      </div>
+    </div>
   </body>
 </html>

@@ -8,7 +8,7 @@ in {
 	options = {
 		term.wezterm = {
 			enable = mkEnableOption "Enable wezterm config";
-			default =
+			isDefaultTerm =
 				lib.mkOption {
 					type = lib.types.bool;
 					default = true;
@@ -23,7 +23,7 @@ in {
 				enableZshIntegration = config.shell.zsh.enable;
 				extraConfig = builtins.readFile ./wezterm.lua;
 			};
-			home.sessionVariables.TERMINAL = "wezterm";
+			home.sessionVariables.TERMINAL = mkIf config.term.wezterm.isDefaultTerm "wezterm";
 			stylix.targets.wezterm.enable = config.stylix.enableHomeConfig;
 		};
 }
