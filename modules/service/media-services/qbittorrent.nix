@@ -55,7 +55,10 @@ in {
 							Username = "james";
 							Password_PBKDF2 = "@ByteArray(b1ftLzsDQBT52rIa95N6AQ==:H7fEdS+ua5EkRawMWI4JhIosuXx+CgaQsuydDcdUadxAgTClpDVAS10Luln/ZLG0FzEYK+KVryg568X3zS9aIw==)";
 						};
-						General.Locale = "en";
+						General = {
+							Locale = "en";
+							StatusbarExternalIPDisplayed = true;
+						};
 					};
 				};
 				openFirewall = true;

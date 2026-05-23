@@ -60,5 +60,7 @@
 					server = ["1.1.1.1" "8.8.8.8"]; # cloudflare and google, not really needed
 				};
 			};
+			networking.firewall.allowedTCPPorts = [53];
+			networking.firewall.allowedUDPPorts = [53];
 		};
 }
