@@ -21,13 +21,20 @@
 		# default route http server location
 		# relative to /etc
 		default_http_path = "caddy/www";
+		# grabs all the non-nix files from this directory
+		caddy_homepage_files = lib.fileset.toList (lib.fileset.fileFilter (file: !file.hasExt "nix") ./.);
+		caddy_homepage_links =
+			map (x: {
+					"${default_http_path}/${baseNameOf x}" = {
+						source = x;
+						user = config.services.caddy.user;
+						group = config.services.caddy.group;
+					};
+				})
+			caddy_homepage_files;
 	in
 		lib.mkIf config.service.caddy.enable {
-			environment.etc."${default_http_path}/index.html" = {
-				source = ./caddy_index.html;
-				user = config.services.caddy.user;
-				group = config.services.caddy.group;
-			};
+			environment.etc = lib.mergeAttrsList caddy_homepage_links;
 			services.caddy = {
 				enable = true;
 				openFirewall = true;
@@ -50,13 +57,51 @@
 					tailscaleEnabled = config.service.tailscale.enable && tailnet != null;
 					domainAliases = ["home" "tail"] ++ lib.optionals tailscaleEnabled ["${tailnet}.ts.net"];
 					servicesCfg = config.service;
+					activeServices =
+						[]
+						++ lib.optionals servicesCfg.syncthing.enable [
+							{
+								name = "syncthing";
+								port = 8384;
+							}
+						]
+						++ lib.optionals servicesCfg.media-services.qbittorrent.enable [
+							{
+								name = "qbittorrent";
+								port = 9494;
+							}
+						]
+						++ lib.optionals servicesCfg.media-services.jellyfin.enable [
+							{
+								name = "jellyfin";
+								port = 8096;
+							}
+						]
+						++ lib.optionals servicesCfg.media-services.sonarr.enable [
+							{
+								name = "sonarr";
+								port = 8989;
+							}
+						]
+						++ lib.optionals servicesCfg.media-services.prowlarr.enable [
+							{
+								name = "prowlarr";
+								port = 9696;
+							}
+						]
+						++ lib.optionals servicesCfg.media-services.flaresolverr.enable [
+							{
+								name = "flaresolverr";
+								port = 8191;
+							}
+						];
 					mkServiceSubDomain = name: port: {
 						"${name}.${host}.local" = {
 							extraConfig = ''
 								tls internal
 								reverse_proxy localhost:${toString port}
 							'';
-							serverAliases = lib.map (x: "${name}.${host}.${x}") domainAliases;
+							serverAliases = map (x: "${name}.${host}.${x}") domainAliases;
 						};
 					};
 					mkServicePath = name: port: ''
@@ -70,24 +115,17 @@
 							extraConfig = ''
 								tls internal
 								root /etc/${default_http_path}
-								templates
+								vars activeServices "${lib.concatStringsSep " " (map (x: x.name) activeServices)}"
+								templates {
+								    mime text/html text/plain text/javascript
+								}
 								file_server
-								${lib.optionalString servicesCfg.syncthing.enable (mkServicePath "syncthing" 8384)}
-								${lib.optionalString servicesCfg.media-services.qbittorrent.enable (mkServicePath "qbittorrent" 9494)}
-								${lib.optionalString servicesCfg.media-services.jellyfin.enable (mkServicePath "jellyfin" 8096)}
-								${lib.optionalString servicesCfg.media-services.sonarr.enable (mkServicePath "sonarr" 8989)}
-								${lib.optionalString servicesCfg.media-services.prowlarr.enable (mkServicePath "prowlarr" 9696)}
-								${lib.optionalString servicesCfg.media-services.flaresolverr.enable (mkServicePath "flaresolverr" 8191)}
+								${lib.concatStringsSep "\n" (map (x: mkServicePath x.name x.port) activeServices)}
 							'';
-							serverAliases = lib.map (x: "${host}.${x}") domainAliases;
+							serverAliases = map (x: "${host}.${x}") domainAliases;
 						};
 					}
-					// lib.optionalAttrs servicesCfg.syncthing.enable (mkServiceSubDomain "syncthing" 8384)
-					// lib.optionalAttrs servicesCfg.media-services.qbittorrent.enable (mkServiceSubDomain "qbittorrent" 9494)
-					// lib.optionalAttrs servicesCfg.media-services.jellyfin.enable (mkServiceSubDomain "jellyfin" 8096)
-					// lib.optionalAttrs servicesCfg.media-services.sonarr.enable (mkServiceSubDomain "sonarr" 8989)
-					// lib.optionalAttrs servicesCfg.media-services.prowlarr.enable (mkServiceSubDomain "prowlarr" 9696)
-					// lib.optionalAttrs servicesCfg.media-services.flaresolverr.enable (mkServiceSubDomain "flaresolverr" 8191);
+					// lib.mergeAttrsList (map (x: mkServiceSubDomain x.name x.port) activeServices);
 			};
 		};
 }
