@@ -2,96 +2,96 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-	config,
-	lib,
-	# pkgs,
-	modulesPath,
-	...
+    config,
+    lib,
+    # pkgs,
+    modulesPath,
+    ...
 }: {
-	imports = [
-		(modulesPath + "/installer/scan/not-detected.nix")
-	];
+    imports = [
+        (modulesPath + "/installer/scan/not-detected.nix")
+    ];
 
-	boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod"];
-	boot.initrd.kernelModules = [];
-	boot.kernelModules = ["kvm-amd"];
-	boot.extraModulePackages = [];
+    boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod"];
+    boot.initrd.kernelModules = [];
+    boot.kernelModules = ["kvm-amd"];
+    boot.extraModulePackages = [];
 
-	# 1TB SSD NVME
-	fileSystems."/" = {
-		device = "/dev/disk/by-uuid/1077f024-be91-4ac5-9d5b-c4aa00251e15";
-		fsType = "ext4";
-	};
+    # 1TB SSD NVME
+    fileSystems."/" = {
+        device = "/dev/disk/by-uuid/1077f024-be91-4ac5-9d5b-c4aa00251e15";
+        fsType = "ext4";
+    };
 
-	fileSystems."/boot" = {
-		device = "/dev/disk/by-uuid/8EC9-010E";
-		fsType = "vfat";
-		options = ["fmask=0077" "dmask=0077"];
-	};
-	# needed for ntfs filesystems
-	boot.supportedFilesystems = ["ntfs"];
-	# 2TB HDD SATA
-	fileSystems."/games" = {
-		device = "/dev/disk/by-uuid/72F6601C550EB248";
-		fsType = "ntfs-3g";
-		options = [
-			"users" # any user can mount the drive
-			"nofail" # dont crash if can't mount
-			"exec" # permit to excecute binaries
-			"rw"
-			"permissions" # POSIX permissions
-			"uid=${
-				if config.users.users ? james && lib.isStringLike config.users.users.james.uid
-				then lib.toString config.users.users.james.uid
-				else "1000"
-			}"
-			"gid=${
-				if config.users.groups ? james && lib.isStringLike config.users.groups.james.gid
-				then lib.toString config.users.groups.james.gid
-				else "998"
-			}"
-			"umask=0033"
-			"fmask=0033"
-			"dmask=0033"
-		];
-	};
-	# 120 GB SSD SATA
-	fileSystems."/ssd" = {
-		device = "/dev/disk/by-uuid/64B307E260B2E417";
-		fsType = "ntfs-3g";
-		options = [
-			"users" # any user can mount the drive
-			"nofail" # dont crash if can't mount
-			"exec" # permit to excecute binaries
-			"rw"
-			"permissions" # POSIX permissions
-			"uid=${
-				if config.users.users ? james && lib.isStringLike config.users.users.james.uid
-				then lib.toString config.users.users.james.uid
-				else "1000"
-			}"
-			"gid=${
-				if config.users.groups ? james && lib.isStringLike config.users.groups.james.gid
-				then lib.toString config.users.groups.james.gid
-				else "998"
-			}"
-			"umask=0033"
-			"fmask=0033"
-			"dmask=0033"
-		];
-	};
+    fileSystems."/boot" = {
+        device = "/dev/disk/by-uuid/8EC9-010E";
+        fsType = "vfat";
+        options = ["fmask=0077" "dmask=0077"];
+    };
+    # needed for ntfs filesystems
+    boot.supportedFilesystems = ["ntfs"];
+    # 2TB HDD SATA
+    fileSystems."/games" = {
+        device = "/dev/disk/by-uuid/72F6601C550EB248";
+        fsType = "ntfs-3g";
+        options = [
+            "users" # any user can mount the drive
+            "nofail" # dont crash if can't mount
+            "exec" # permit to excecute binaries
+            "rw"
+            "permissions" # POSIX permissions
+            "uid=${
+                if config.users.users ? james && lib.isStringLike config.users.users.james.uid
+                then lib.toString config.users.users.james.uid
+                else "1000"
+            }"
+            "gid=${
+                if config.users.groups ? james && lib.isStringLike config.users.groups.james.gid
+                then lib.toString config.users.groups.james.gid
+                else "998"
+            }"
+            "umask=0033"
+            "fmask=0033"
+            "dmask=0033"
+        ];
+    };
+    # 120 GB SSD SATA
+    fileSystems."/ssd" = {
+        device = "/dev/disk/by-uuid/64B307E260B2E417";
+        fsType = "ntfs-3g";
+        options = [
+            "users" # any user can mount the drive
+            "nofail" # dont crash if can't mount
+            "exec" # permit to excecute binaries
+            "rw"
+            "permissions" # POSIX permissions
+            "uid=${
+                if config.users.users ? james && lib.isStringLike config.users.users.james.uid
+                then lib.toString config.users.users.james.uid
+                else "1000"
+            }"
+            "gid=${
+                if config.users.groups ? james && lib.isStringLike config.users.groups.james.gid
+                then lib.toString config.users.groups.james.gid
+                else "998"
+            }"
+            "umask=0033"
+            "fmask=0033"
+            "dmask=0033"
+        ];
+    };
 
-	swapDevices = [
-		{
-			device = "/var/lib/swapFile";
-			size = 32 * 1024;
-		}
-	];
+    swapDevices = [
+        {
+            device = "/var/lib/swapFile";
+            size = 32 * 1024;
+        }
+    ];
 
-	networking.useDHCP = lib.mkDefault true;
-	# networking.interfaces.enp42s0.useDHCP = lib.mkDefault true;
-	# networking.interfaces.wlp34s0.useDHCP = lib.mkDefault true;
+    networking.useDHCP = lib.mkDefault true;
+    # networking.interfaces.enp42s0.useDHCP = lib.mkDefault true;
+    # networking.interfaces.wlp34s0.useDHCP = lib.mkDefault true;
 
-	nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-	hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+    hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

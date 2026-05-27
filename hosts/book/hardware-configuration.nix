@@ -2,67 +2,67 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-	config,
-	lib,
-	...
+    config,
+    lib,
+    ...
 }: {
-	boot.initrd.availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "firewire_ohci" "usb_storage" "usbhid" "sd_mod" "sdhci_pci"];
+    boot.initrd.availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "firewire_ohci" "usb_storage" "usbhid" "sd_mod" "sdhci_pci"];
 
-	# probably dont
-	# hardware.enableAllFirmware = true;
-	# nixpkgs.config.allowUnfree = true;
+    # probably dont
+    # hardware.enableAllFirmware = true;
+    # nixpkgs.config.allowUnfree = true;
 
-	# newer b43 network drivers
-	# boot.kernelModules = ["kvm-intel" "b43" "hid_apple"];
-	# boot.blacklistedKernelModules = ["wl"];
-	# networking.enableB43Firmware = true;
+    # newer b43 network drivers
+    # boot.kernelModules = ["kvm-intel" "b43" "hid_apple"];
+    # boot.blacklistedKernelModules = ["wl"];
+    # networking.enableB43Firmware = true;
 
-	# old broadcom_sta network drivers
-	boot.initrd.kernelModules = ["wl"];
-	boot.kernelModules = ["kvm-intel" "wl" "hid_apple"];
-	boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
-	nixpkgs.config.allowInsecurePredicate = pkg:
-		builtins.elem (lib.getName pkg) [
-			"broadcom-sta"
-		];
+    # old broadcom_sta network drivers
+    boot.initrd.kernelModules = ["wl"];
+    boot.kernelModules = ["kvm-intel" "wl" "hid_apple"];
+    boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
+    nixpkgs.config.allowInsecurePredicate = pkg:
+        builtins.elem (lib.getName pkg) [
+            "broadcom-sta"
+        ];
 
-	# both are proprietary
-	nixpkgs.config.allowUnfreePredicate = pkg:
-		builtins.elem (lib.getName pkg) [
-			"broadcom-sta"
-			# "b43-firmware"
-		];
+    # both are proprietary
+    nixpkgs.config.allowUnfreePredicate = pkg:
+        builtins.elem (lib.getName pkg) [
+            "broadcom-sta"
+            # "b43-firmware"
+        ];
 
-	boot.blacklistedKernelModules = ["uvcvideo"];
-	boot.kernelParams = [
-		"hid_apple.swap_fn_leftctrl=1"
-	];
+    boot.blacklistedKernelModules = ["uvcvideo"];
+    boot.kernelParams = [
+        "hid_apple.swap_fn_leftctrl=1"
+    ];
 
-	fileSystems."/" = {
-		device = "/dev/disk/by-label/NIXROOT";
-		fsType = "ext4";
-	};
+    fileSystems."/" = {
+        device = "/dev/disk/by-label/NIXROOT";
+        fsType = "ext4";
+    };
 
-	fileSystems."/boot" = {
-		device = "/dev/disk/by-label/NIXBOOT";
-		fsType = "vfat";
-		options = ["fmask=0077" "dmask=0077"];
-	};
+    fileSystems."/boot" = {
+        device = "/dev/disk/by-label/NIXBOOT";
+        fsType = "vfat";
+        options = ["fmask=0077" "dmask=0077"];
+    };
 
-	swapDevices = [
-		{
-			device = "/.swapfile";
-			size = 2 * 1024;
-		}
-	];
+    swapDevices = [
+        {
+            device = "/.swapfile";
+            size = 2 * 1024;
+        }
+    ];
 
-	# Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-	# (the default) this is the recommended approach. When using systemd-networkd it's
-	# still possible to use this option, but it's recommended to use it in conjunction
-	# with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-	networking.useDHCP = lib.mkDefault true;
-	# networking.interfaces.enp1s0f0.useDHCP = lib.mkDefault true;
+    # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+    # (the default) this is the recommended approach. When using systemd-networkd it's
+    # still possible to use this option, but it's recommended to use it in conjunction
+    # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+    networking.useDHCP = lib.mkDefault true;
+    # networking.interfaces.enp1s0f0.useDHCP = lib.mkDefault true;
 
-	nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-	hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+    hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

@@ -1,129 +1,125 @@
 {
-	pkgs,
-	lib,
-	config,
-	osConfig,
-	...
+    pkgs,
+    lib,
+    config,
+    osConfig,
+    ...
 }: let
-	inherit
-		(lib)
-		mkIf
-		mkEnableOption
-		mkOption
-		types
-		optionals
-		optionalAttrs
-		;
-	inherit (config.tools) keepassxc keepmenu;
+    inherit
+        (lib)
+        mkIf
+        mkEnableOption
+        mkOption
+        types
+        optionals
+        optionalAttrs
+        ;
+    inherit (config.tools) keepassxc keepmenu;
 in {
-	options = {
-		tools.keepassxc.enable =
-			mkEnableOption {
-				description = "Enable keepassxc config";
-			};
-		tools.keepmenu.enable =
-			mkEnableOption {
-				description = "Enable keepmenu. If rofi is enabled, it will be enabled as a plugin there aswell";
-			};
-		tools.keepassxc.autostart =
-			mkOption {
-				type = types.bool;
-				default = keepassxc.enable;
-				description = ''
-					Enable autostart for keepassxc. Configured in 
-					whichever enabled config should be responsible for autostarts.'';
-			};
-	};
-	config =
-		mkIf keepassxc.enable {
-			programs.keepassxc = {
-				enable = true;
-				settings = {
-					General = {
-						BackupBeforeSave = true;
-						BackupFilePathPattern = "{DB_FILENAME}.bak.kdbx";
-						ConfigVersion = 2;
-						GlobalAutoTypeKey = 65;
-						GlobalAutoTypeModifiers = 100663296;
-						MinimiseAfterUnlock = true;
-					};
-					Browser = {
-						Enabled = true;
-					};
-					GUI = {
-						ApplicationTheme = "dark";
-						ColorPasswords = true;
-						MinimizeOnClose = true;
-						MinimizeOnStartup = true;
-						MinimizeToTray = true;
-						MonospaceNotes = true;
-						ShowTrayIcon = true;
-						TrayIconAppearance = "colorful";
-					};
-					Security = {
-						ClearClipboardTimeout = 30;
-						LockDatabaseScreenLock = false;
-					};
-					# freedesktop secret service implementation, requires enabled groups in databases
-					FdoSecrets = {
-						Enabled = false;
-						ShowNotification = true;
-						ConfirmDeleteItem = false;
-						ConfirmAccessItem = false;
-						UnlockBeforeSearch = true;
-					};
-				};
-			};
+    options = {
+        tools.keepassxc.enable = mkEnableOption {
+            description = "Enable keepassxc config";
+        };
+        tools.keepmenu.enable = mkEnableOption {
+            description = "Enable keepmenu. If rofi is enabled, it will be enabled as a plugin there aswell";
+        };
+        tools.keepassxc.autostart = mkOption {
+            type = types.bool;
+            default = keepassxc.enable;
+            description = ''
+                Enable autostart for keepassxc. Configured in 
+                whichever enabled config should be responsible for autostarts.'';
+        };
+    };
+    config = mkIf keepassxc.enable {
+        programs.keepassxc = {
+            enable = true;
+            settings = {
+                General = {
+                    BackupBeforeSave = true;
+                    BackupFilePathPattern = "{DB_FILENAME}.bak.kdbx";
+                    ConfigVersion = 2;
+                    GlobalAutoTypeKey = 65;
+                    GlobalAutoTypeModifiers = 100663296;
+                    MinimiseAfterUnlock = true;
+                };
+                Browser = {
+                    Enabled = true;
+                };
+                GUI = {
+                    ApplicationTheme = "dark";
+                    ColorPasswords = true;
+                    MinimizeOnClose = true;
+                    MinimizeOnStartup = true;
+                    MinimizeToTray = true;
+                    MonospaceNotes = true;
+                    ShowTrayIcon = true;
+                    TrayIconAppearance = "colorful";
+                };
+                Security = {
+                    ClearClipboardTimeout = 30;
+                    LockDatabaseScreenLock = false;
+                };
+                # freedesktop secret service implementation, requires enabled groups in databases
+                FdoSecrets = {
+                    Enabled = false;
+                    ShowNotification = true;
+                    ConfirmDeleteItem = false;
+                    ConfirmAccessItem = false;
+                    UnlockBeforeSearch = true;
+                };
+            };
+        };
 
-			assertions = [
-				{
-					assertion = config.ui.rofi.enable || !keepmenu.enable;
-					message = "Keepmenu requires rofi. Please enable rofi or disable keepmenu.";
-				}
-			];
+        assertions = [
+            {
+                assertion = config.ui.rofi.enable || !keepmenu.enable;
+                message = "Keepmenu requires rofi. Please enable rofi or disable keepmenu.";
+            }
+        ];
 
-			home.packages =
-				[]
-				++ optionals keepmenu.enable [
-					pkgs.keepmenu
-				]
-				++ optionals (config.window-manager.hyprland.enable && keepmenu.enable) [
-					pkgs.wl-clipboard # neeeded for clipboard on wayland
-					pkgs.wtype # needed for autotype on wayland
-				];
-			# create config file for keepmenu
-			xdg.configFile."keepmenu/config.ini" = let
-				inherit (lib) generators;
-				inherit (config) window-manager;
-				inherit (osConfig.service.syncthing.folders) secure;
-				inherit (osConfig.services.syncthing) dataDir;
-				settings = {
-					dmenu = {
-						dmenu_command = "rofi";
-					};
-					dmenu_passphrase = {
-						obscure = true;
-					};
-					database =
-						{
-							autotype_default = "{USERNAME}{DELAY 200}{TAB}{PASSWORD}{ENTER}";
-							pw_cache_period_min = 60;
-						}
-						// optionalAttrs secure.enable {
-							# could add more databases like this
-							database_1 = "${dataDir}/secure/Passwords.kdbx";
-						}
-						// optionalAttrs (config.home.sessionVariables ? TERMINAL) {
-							terminal = config.home.sessionVariables.TERMINAL;
-						}
-						// optionalAttrs window-manager.hyprland.enable {
-							type_library = "wtype";
-						};
-				};
-				iniSettings = generators.toINI {} settings;
-			in
-				mkIf config.tools.keepmenu.enable {
-					text = iniSettings;
-				};
-		};
+        home.packages =
+            []
+            ++ optionals keepmenu.enable [
+                pkgs.keepmenu
+            ]
+            ++ optionals (config.window-manager.hyprland.enable && keepmenu.enable) [
+                pkgs.wl-clipboard # neeeded for clipboard on wayland
+                pkgs.wtype # needed for autotype on wayland
+            ];
+        # create config file for keepmenu
+        xdg.configFile."keepmenu/config.ini" = let
+            inherit (lib) generators;
+            inherit (config) window-manager;
+            inherit (osConfig.service.syncthing.folders) secure;
+            inherit (osConfig.services.syncthing) dataDir;
+            settings = {
+                dmenu = {
+                    dmenu_command = "rofi";
+                };
+                dmenu_passphrase = {
+                    obscure = true;
+                };
+                database =
+                    {
+                        autotype_default = "{USERNAME}{DELAY 200}{TAB}{PASSWORD}{ENTER}";
+                        pw_cache_period_min = 60;
+                    }
+                    // optionalAttrs secure.enable {
+                        # could add more databases like this
+                        database_1 = "${dataDir}/secure/Passwords.kdbx";
+                    }
+                    // optionalAttrs (config.home.sessionVariables ? TERMINAL) {
+                        terminal = config.home.sessionVariables.TERMINAL;
+                    }
+                    // optionalAttrs window-manager.hyprland.enable {
+                        type_library = "wtype";
+                    };
+            };
+            iniSettings = generators.toINI {} settings;
+        in
+            mkIf config.tools.keepmenu.enable {
+                text = iniSettings;
+            };
+    };
 }

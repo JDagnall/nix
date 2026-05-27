@@ -1,38 +1,36 @@
 {
-	# pkgs,
-	lib,
-	config,
-	...
+    # pkgs,
+    lib,
+    config,
+    ...
 }: let
-	inherit (lib) mkIf mkEnableOption;
+    inherit (lib) mkIf mkEnableOption;
 in {
-	options = {
-		nvidia.enable =
-			mkEnableOption {
-				description = ''
-					Enable the required setting for using an NVIDIA GPU with with various software,
-					expect this to grow with options for specific software
-				'';
-			};
-	};
-	config =
-		mkIf config.nvidia.enable {
-			# nvidia drivers are proprietary
-			hardware.nvidia = {
-				modesetting.enable = true;
+    options = {
+        nvidia.enable = mkEnableOption {
+            description = ''
+                Enable the required setting for using an NVIDIA GPU with with various software,
+                expect this to grow with options for specific software
+            '';
+        };
+    };
+    config = mkIf config.nvidia.enable {
+        # nvidia drivers are proprietary
+        hardware.nvidia = {
+            modesetting.enable = true;
 
-				# not using this at the moment, if stuff crashed waking up from sleep, try to use it
-				powerManagement.enable = true;
+            # not using this at the moment, if stuff crashed waking up from sleep, try to use it
+            powerManagement.enable = true;
 
-				# open source kernel module, still in development, might be worth a try
-				open = true;
+            # open source kernel module, still in development, might be worth a try
+            open = true;
 
-				# graphical settings menu
-				nvidiaSettings = true;
+            # graphical settings menu
+            nvidiaSettings = true;
 
-				# could be stable, production, beta or latest
-				package = config.boot.kernelPackages.nvidiaPackages.stable;
-			};
-			services.xserver.videoDrivers = ["nvidia"];
-		};
+            # could be stable, production, beta or latest
+            package = config.boot.kernelPackages.nvidiaPackages.stable;
+        };
+        services.xserver.videoDrivers = ["nvidia"];
+    };
 }

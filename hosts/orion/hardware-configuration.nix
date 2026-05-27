@@ -2,81 +2,81 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-	config,
-	lib,
-	...
+    config,
+    lib,
+    ...
 }: {
-	boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod"];
-	boot.initrd.kernelModules = [];
-	boot.kernelModules = ["kvm-amd"];
-	boot.extraModulePackages = [];
+    boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod"];
+    boot.initrd.kernelModules = [];
+    boot.kernelModules = ["kvm-amd"];
+    boot.extraModulePackages = [];
 
-	# probably dont
-	# hardware.enableAllFirmware = true;
-	# nixpkgs.config.allowUnfree = true;
+    # probably dont
+    # hardware.enableAllFirmware = true;
+    # nixpkgs.config.allowUnfree = true;
 
-	nvidia.enable = true;
-	nixpkgs.config.allowUnfreePredicate = pkg:
-		builtins.elem (lib.getName pkg) [
-			"nvidia-x11"
-			"nvidia-settings"
-		];
+    nvidia.enable = true;
+    nixpkgs.config.allowUnfreePredicate = pkg:
+        builtins.elem (lib.getName pkg) [
+            "nvidia-x11"
+            "nvidia-settings"
+        ];
 
-	fileSystems."/" = {
-		device = "/dev/disk/by-label/NIXROOT";
-		fsType = "ext4";
-	};
+    fileSystems."/" = {
+        device = "/dev/disk/by-label/NIXROOT";
+        fsType = "ext4";
+    };
 
-	fileSystems."/boot" = {
-		device = "/dev/disk/by-label/NIXBOOT";
-		fsType = "vfat";
-		options = ["fmask=0077" "dmask=0077"];
-	};
+    fileSystems."/boot" = {
+        device = "/dev/disk/by-label/NIXBOOT";
+        fsType = "vfat";
+        options = ["fmask=0077" "dmask=0077"];
+    };
 
-	# create a group with write access to the drives
-	users.groups."drives" = {
-		gid = 990;
-		members =
-			[]
-			++ lib.optionals (config.users.users ? james) ["james"]
-			++ lib.optionals (config.users.users ? jellyfin) ["jellyfin"]
-			++ lib.optionals (config.users.users ? qbittorrent) ["qbittorrent"]
-			++ lib.optionals (config.users.users ? sonarr) ["sonarr"];
-	};
+    # create a group with write access to the drives
+    users.groups."drives" = {
+        gid = 990;
+        members =
+            []
+            ++ lib.optionals (config.users.users ? james) ["james"]
+            ++ lib.optionals (config.users.users ? jellyfin) ["jellyfin"]
+            ++ lib.optionals (config.users.users ? qbittorrent) ["qbittorrent"]
+            ++ lib.optionals (config.users.users ? sonarr) ["sonarr"];
+    };
 
-	# old 2TB drive
-	fileSystems."/driveA" = {
-		device = "/dev/disk/by-uuid/e9c2c7e6-70a3-461f-8a37-da0b5f4ddafc";
-		fsType = "ext4";
-		options = [
-			"users" # any user can mount the drive
-			"nofail" # dont crash if can't mount
-		];
-	};
+    # old 2TB drive
+    fileSystems."/driveA" = {
+        device = "/dev/disk/by-uuid/e9c2c7e6-70a3-461f-8a37-da0b5f4ddafc";
+        fsType = "ext4";
+        options = [
+            "users" # any user can mount the drive
+            "nofail" # dont crash if can't mount
+        ];
+    };
 
-	# old 1TB drive
-	fileSystems."/driveB" = {
-		device = "/dev/disk/by-uuid/38E2-153B";
-		fsType = "exfat";
-		options = [
-			"users" # any user can mount the drive
-			"umask=0007"
-			"nofail" # dont crash if can't mount
-			"uid=${lib.toString config.users.users."root".uid}"
-			"gid=${lib.toString config.users.groups."drives".gid}"
-		];
-	};
+    # old 1TB drive
+    fileSystems."/driveB" = {
+        device = "/dev/disk/by-uuid/38E2-153B";
+        fsType = "exfat";
+        options = [
+            "users" # any user can mount the drive
+            "umask=0007"
+            "nofail" # dont crash if can't mount
+            "uid=${lib.toString config.users.users."root".uid}"
+            "gid=${lib.toString config.users.groups."drives".gid}"
+        ];
+    };
 
-	swapDevices = [
-		{
-			device = "/var/lib/swapFile";
-			size = 32 * 1024;
-		}
-	];
+    swapDevices = [
+        {
+            device = "/var/lib/swapFile";
+            size = 32 * 1024;
+        }
+    ];
 
-	networking.useDHCP = lib.mkDefault true;
-	# networking.interfaces.enp1s0f0.useDHCP = lib.mkDefault true;
+    networking.useDHCP = lib.mkDefault true;
+    # networking.interfaces.enp1s0f0.useDHCP = lib.mkDefault true;
 
-	nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-	hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+    hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

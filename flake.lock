@@ -625,11 +625,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779598980,
-        "narHash": "sha256-MGuAsXcWLUAVNbGHtB5wRXGaTcQ6RauKbBbaEwcW4bg=",
+        "lastModified": 1779600965,
+        "narHash": "sha256-5QZkSvZnMjgq6UbaWSS6zNTLK6AXSe3EqAqx8+MuyBg=",
         "owner": "JDagnall",
         "repo": "nixLoki",
-        "rev": "5142643f00e113854a9f789804566b9c68400e1f",
+        "rev": "b25989299c9bf4711defb8415e0779c373531742",
         "type": "github"
       },
       "original": {

@@ -1,20 +1,19 @@
 {
-	pkgs,
-	lib,
-	config,
-	...
+    pkgs,
+    lib,
+    config,
+    ...
 }: {
-	options = {
-		tools.nix-index.enable = lib.mkEnableOption "Enable the nix-index tool. Which allows you to search for nix binaries in the nix store and nixpkgs. Replaces command-not-found.";
-		tools.nix-index.comma.enable = lib.mkEnableOption "Enable comma, a tool that uses nix index to download / retreive pkgs from the store or nixpkgs and run them";
-	};
-	config =
-		lib.mkIf config.tools.nix-index.enable {
-			programs.command-not-found.enable = false;
-			programs.nix-index = {
-				enable = true;
-				enableZshIntegration = config.shell.zsh.enable;
-			};
-			home.packages = lib.mkIf config.tools.nix-index.comma.enable [pkgs.comma];
-		};
+    options = {
+        tools.nix-index.enable = lib.mkEnableOption "Enable the nix-index tool. Which allows you to search for nix binaries in the nix store and nixpkgs. Replaces command-not-found.";
+        tools.nix-index.comma.enable = lib.mkEnableOption "Enable comma, a tool that uses nix index to download / retreive pkgs from the store or nixpkgs and run them";
+    };
+    config = lib.mkIf config.tools.nix-index.enable {
+        programs.command-not-found.enable = false;
+        programs.nix-index = {
+            enable = true;
+            enableZshIntegration = config.shell.zsh.enable;
+        };
+        home.packages = lib.mkIf config.tools.nix-index.comma.enable [pkgs.comma];
+    };
 }

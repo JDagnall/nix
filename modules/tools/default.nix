@@ -1,3 +1,3 @@
 {...}: {
-	imports = [./micro-controller.nix];
+    imports = [./micro-controller.nix];
 }

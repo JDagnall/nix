@@ -1,57 +1,57 @@
 {
-	config,
-	# lib,
-	pkgs,
-	...
+    config,
+    # lib,
+    pkgs,
+    ...
 }: {
-	# config ------------------------------
-	service.docker.enable = true;
-	service.docker.groupUsers = ["james"];
+    # config ------------------------------
+    service.docker.enable = true;
+    service.docker.groupUsers = ["james"];
 
-	stylix.enableConfig = true;
+    stylix.enableConfig = true;
 
-	# nix of wsl seems to need this for some reason
-	programs.dconf.enable = true;
-	# config ------------------------------
+    # nix of wsl seems to need this for some reason
+    programs.dconf.enable = true;
+    # config ------------------------------
 
-	imports = [
-		../../james.nix
-		../../modules
-		../../stylix.nix
-	];
+    imports = [
+        ../../james.nix
+        ../../modules
+        ../../stylix.nix
+    ];
 
-	environment.systemPackages = with pkgs; [home-manager];
+    environment.systemPackages = with pkgs; [home-manager];
 
-	nix.settings.experimental-features = [
-		"nix-command"
-		"flakes"
-	];
+    nix.settings.experimental-features = [
+        "nix-command"
+        "flakes"
+    ];
 
-	networking.hostName = "wsl";
+    networking.hostName = "wsl";
 
-	services.openssh.enable = true;
+    services.openssh.enable = true;
 
-	# garbage collector
-	nix.gc = {
-		automatic = true;
-		dates = "weekly";
-		persistent = true;
-		randomizedDelaySec = "10min";
-		options = "-d";
-	};
+    # garbage collector
+    nix.gc = {
+        automatic = true;
+        dates = "weekly";
+        persistent = true;
+        randomizedDelaySec = "10min";
+        options = "-d";
+    };
 
-	time.timeZone = "Australia/Brisbane";
+    time.timeZone = "Australia/Brisbane";
 
-	# use latest linux kernal
-	boot.kernelPackages = pkgs.linuxPackages_latest;
+    # use latest linux kernal
+    boot.kernelPackages = pkgs.linuxPackages_latest;
 
-	# adds list of currently used system packages to /etc/nixos/current-system-packages
-	environment.etc."current-system-packages".text = let
-		packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
-		sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
-		formatted = builtins.concatStringsSep "\n" sortedUnique;
-	in
-		formatted;
+    # adds list of currently used system packages to /etc/nixos/current-system-packages
+    environment.etc."current-system-packages".text = let
+        packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+        sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
+        formatted = builtins.concatStringsSep "\n" sortedUnique;
+    in
+        formatted;
 
-	system.stateVersion = "25.05"; # Did you read the comment?
+    system.stateVersion = "25.05"; # Did you read the comment?
 }

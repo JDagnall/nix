@@ -6,10 +6,10 @@
     cfg = config.service.media-services;
 in {
     options = {
-        service.media-services.sonarr.enable = lib.mkEnableOption "Enable Sonarr.";
+        service.media-services.radarr.enable = lib.mkEnableOption "Enable Radarr.";
     };
     config = lib.mkIf (cfg.enable && cfg.sonarr.enable) {
-        services.sonarr = {
+        services.radarr = {
             enable = true;
             openFirewall = false; # tailscale;
             # dataDir = ;
@@ -19,9 +19,9 @@ in {
             settings = {
                 log.analyticsEnabled = false;
                 server = {
-                    port = 8989;
+                    port = 7878;
                     bindaddress = "localhost";
-                    # would be 'sonarr', if intended to access through reverse proxy,
+                    # would be 'radarr', if intended to access through reverse proxy,
                     # in format domain-name.com/prowlarr
                     # urlbase = ;
                 };
