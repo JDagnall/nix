@@ -16,7 +16,6 @@
     shell.zsh.enable = true;
     shell.zsh.dircolors.enable = true;
     shell.zsh.direnv.enable = true;
-    shell.zsh.vi-mode.enable = true;
     shell.bat.enable = true;
     shell.eza.enable = true;
     shell.fzf.enable = true;

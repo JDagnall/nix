@@ -16,7 +16,6 @@
     shell.zsh.enable = true;
     shell.zsh.dircolors.enable = true;
     shell.zsh.direnv.enable = true;
-    shell.zsh.vi-mode.enable = true;
     shell.bat.enable = true;
     shell.eza.enable = true;
     shell.fzf.enable = true;
@@ -41,7 +40,7 @@
 
     home.file = {
         home_packages.text = let
-            packages = builtins.map (p: "${p.name}") config.home.packages;
+            packages = map (p: "${p.name}") config.home.packages;
             sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
             formatted = builtins.concatStringsSep "\n" sortedUnique;
         in

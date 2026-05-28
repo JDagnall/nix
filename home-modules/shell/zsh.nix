@@ -2,6 +2,7 @@
     pkgs,
     lib,
     config,
+    inputs,
     ...
 }: let
     inherit
@@ -19,6 +20,9 @@ in {
         shell.zsh.direnv.enable = mkEnableOption {description = "Enable direnv config.";};
         shell.zsh.vi-mode.enable = mkEnableOption {description = "Enable vi-mode in zsh.";};
     };
+
+    # direnv-instant needs an import cause its not in home-manager
+    imports = [inputs.direnv-instant.homeModules.direnv-instant];
 
     config = mkIf config.shell.zsh.enable {
         programs.zsh = {
@@ -189,6 +193,8 @@ in {
             # config = {}; # written to .toml config file
             silent = false;
         };
+        # makes it so that there is no loading time stepping into an env
+        programs.direnv-instant.enable = config.shell.zsh.direnv.enable;
 
         home = {
             shell.enableZshIntegration = true;

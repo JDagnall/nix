@@ -39,6 +39,10 @@
             url = "github:hyprwm/Hyprland";
             # inputs.nixpkgs.follows = "nixpkgs"; # apparently this doesn't work
         };
+        direnv-instant = {
+            url = "github:Mic92/direnv-instant";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         # plasma-manager = {
         # 	url = "github:nix-community/plasma-manager";
         # 	inputs.nixpkgs.follows = "nixpkgs";
