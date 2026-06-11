@@ -4,7 +4,7 @@
     config,
     ...
 }: let
-    inherit (lib) mkOption optionals types;
+    inherit (lib) mkEnableOption optionals;
 in {
     imports = [
         ./rofi.nix
@@ -30,46 +30,19 @@ in {
     ];
     # ui packages that only need to be installed
     options = {
-        ui.nwg-look.enable = mkOption {
-            default = false;
-            type = types.bool;
-            description = "Install nwg-look";
-        };
-        ui.spotify.enable = mkOption {
-            default = false;
-            type = types.bool;
-            description = "Install spotify";
-        };
-        ui.legcord.enable = mkOption {
-            default = false;
-            type = types.bool;
-            description = "Install legcord";
-        };
-        ui.slack.enable = mkOption {
-            default = false;
-            type = types.bool;
-            description = "Install slack";
-        };
-        ui.pavucontrol.enable = mkOption {
-            default = false;
-            type = types.bool;
-            description = "Install pavucontrol";
-        };
-        ui.drawio.enable = mkOption {
-            default = false;
-            type = types.bool;
-            description = "Install draw.io";
-        };
-        ui.vlc.enable = mkOption {
-            default = false;
-            type = types.bool;
-            description = "Install vlc";
-        };
-        ui.qbittorrent.enable = lib.mkEnableOption "Install qbittorrent";
-        ui.seahorse.enable = lib.mkEnableOption "Install seahorse";
-        ui.freetube.enable = lib.mkEnableOption "Install freetube";
-        ui.jellyfin-desktop.enable = lib.mkEnableOption "Install jellyfin-desktop";
-        ui.zotero.enable = lib.mkEnableOption "Install zotero";
+        ui.nwg-look.enable = mkEnableOption "Install nwg-look";
+        ui.spotify.enable = mkEnableOption "Install spotify";
+        ui.legcord.enable = mkEnableOption "Install legcord";
+        ui.slack.enable = mkEnableOption "Install slack";
+        ui.pavucontrol.enable = mkEnableOption "Install pavucontrol";
+        ui.drawio.enable = mkEnableOption "Install draw.io";
+        ui.vlc.enable = mkEnableOption "Install vlc";
+        ui.qbittorrent.enable = mkEnableOption "Install qbittorrent";
+        ui.seahorse.enable = mkEnableOption "Install seahorse";
+        ui.freetube.enable = mkEnableOption "Install freetube";
+        ui.jellyfin-desktop.enable = mkEnableOption "Install jellyfin-desktop";
+        ui.zotero.enable = mkEnableOption "Install zotero";
+        ui.audacity.enable = mkEnableOption "Install audacity";
     };
     config = let
         inherit
@@ -86,6 +59,7 @@ in {
             freetube
             jellyfin-desktop
             zotero
+            audacity
             ;
     in {
         home.packages =
@@ -101,6 +75,7 @@ in {
             ++ optionals seahorse.enable [pkgs.seahorse]
             ++ optionals freetube.enable [pkgs.freetube]
             ++ optionals jellyfin-desktop.enable [pkgs.jellyfin-desktop]
-            ++ optionals zotero.enable [pkgs.zotero];
+            ++ optionals zotero.enable [pkgs.zotero]
+            ++ optionals audacity.enable [pkgs.audacity];
     };
 }
