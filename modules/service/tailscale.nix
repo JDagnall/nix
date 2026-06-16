@@ -60,27 +60,24 @@
             # };
             authKeyFile = config.sops.secrets."tailscale/authKey".path;
         };
+
+        environment.systemPackages = with pkgs; [ethtool];
         systemd.services."tailscale-interface-patch" = {
-            description = "Apply interface rules to enable disable tcp segmentation for tailscale";
-            wants = ["network-pre.target"];
+            enable = true;
+            description = "Apply interface rules to enable disable tcp segmentation and enable udp gro forwarding for tailscale";
+            after = ["tailscaled.service"];
+            wants = ["tailscaled.service"];
             wantedBy = ["mulit-user.target"];
             serviceConfig = {
                 Type = "oneshot";
                 RemainAfterExit = true;
-                ExecStart = let
-                    script = pkgs.writeShellApplication {
-                        name = "tailscale-interface-patch";
-                        text = ''
-                            ${pkgs.ethtool}/bin/ethtool -K ${config.service.tailscale.interfaceName} tcp-segmentation-offload off generic-segmentation-offload off;
-                            ${lib.concatStringsSep "\n" (map (x: "${pkgs.ethtool}/bin/ethool -K ${x} rx-udp-gro-forwarding on rx-gro-list off;") (config.service.tailscale.physicalInterfaces))}
-                        '';
-                    };
-                in
-                    lib.getExe script;
+                script = ''
+                    ${pkgs.ethtool}/bin/ethtool -K ${config.service.tailscale.interfaceName} tcp-segmentation-offload off generic-segmentation-offload off;
+                    ${lib.concatStringsSep "\n" (map (x: "${pkgs.ethtool}/bin/ethool -K ${x} rx-udp-gro-forwarding on rx-gro-list off;") (config.service.tailscale.physicalInterfaces))}
+                '';
             };
         };
         # clamp the MSS from network devices to the tailscale device
-
         networking.firewall.extraCommands = lib.concatStringsSep "\n" (map (
             interface: ''
                 iptables -t mangle -A FORWARD -i ${config.service.tailscale.interfaceName} -o ${interface} -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
