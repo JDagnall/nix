@@ -68,13 +68,13 @@
             after = ["tailscaled.service"];
             wants = ["tailscaled.service"];
             wantedBy = ["mulit-user.target"];
+            script = ''
+                ${pkgs.ethtool}/bin/ethtool -K ${config.service.tailscale.interfaceName} tcp-segmentation-offload off generic-segmentation-offload off;
+                ${lib.concatStringsSep "\n" (map (x: "${pkgs.ethtool}/bin/ethtool -K ${x} rx-udp-gro-forwarding on rx-gro-list off;") (config.service.tailscale.physicalInterfaces))}
+            '';
             serviceConfig = {
                 Type = "oneshot";
                 RemainAfterExit = true;
-                script = ''
-                    ${pkgs.ethtool}/bin/ethtool -K ${config.service.tailscale.interfaceName} tcp-segmentation-offload off generic-segmentation-offload off;
-                    ${lib.concatStringsSep "\n" (map (x: "${pkgs.ethtool}/bin/ethool -K ${x} rx-udp-gro-forwarding on rx-gro-list off;") (config.service.tailscale.physicalInterfaces))}
-                '';
             };
         };
         # clamp the MSS from network devices to the tailscale device
