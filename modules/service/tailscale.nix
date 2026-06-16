@@ -22,6 +22,7 @@
                 default = [];
                 description = "Physical network devices to apply settings to for tailscales performance.";
             };
+            interfacePatch = lib.mkEnableOption "Some network interfaces (specifically NIC's with driver r8169) need certain settings disabled to work smoothly";
         };
     };
     config = lib.mkIf config.service.tailscale.enable {
@@ -61,28 +62,42 @@
             authKeyFile = config.sops.secrets."tailscale/authKey".path;
         };
 
-        environment.systemPackages = with pkgs; [ethtool];
-        systemd.services."tailscale-interface-patch" = {
+        # needed for service
+        environment.systemPackages = lib.mkIf config.service.tailscale.interfacePatch [pkgs.ethtool pkgs.gnugrep];
+        systemd.services."tailscale-interface-patch" = lib.mkIf config.service.tailscale.interfacePatch {
             enable = true;
-            description = "Apply interface rules to enable disable tcp segmentation and enable udp gro forwarding for tailscale";
+            description = "Apply interface rules to fix driver checksum bug for r8169 drivers with tailscale.";
             after = ["tailscaled.service"];
             wants = ["tailscaled.service"];
             wantedBy = ["mulit-user.target"];
-            script = ''
-                ${pkgs.ethtool}/bin/ethtool -K ${config.service.tailscale.interfaceName} tcp-segmentation-offload off generic-segmentation-offload off;
-                ${lib.concatStringsSep "\n" (map (x: "${pkgs.ethtool}/bin/ethtool -K ${x} rx-udp-gro-forwarding on rx-gro-list off;") (config.service.tailscale.physicalInterfaces))}
+            script = let
+                tailscaleInterfaceScript = interface: ''
+                    ${pkgs.ethtool}/bin/ethtool -K ${interface} tso off gso off || true;
+                    echo ${interface}:
+                    ${pkgs.ethtool}/bin/ethtool -k ${interface} | ${pkgs.gnugrep}/bin/grep -E 'tcp-segmentation-offload|generic-segmentation-offload' || true;
+                    echo '\n'
+                '';
+                physInterfaceScript = interface: ''
+                    ${pkgs.ethtool}/bin/ethtool -K ${interface} tso off gso off gro off lro off rx off tx off || true;
+                    echo ${interface}:
+                    ${pkgs.ethtool}/bin/ethtool -k ${interface} | ${pkgs.gnugrep}/bin/grep -E 'rx-checksumming|tx-checksumming|tcp-segmentation-offload|generic-segmentation-offload|generic-receive-offload|large-receive-offload' || true;
+                    echo '\n'
+                '';
+            in ''
+                ${tailscaleInterfaceScript config.service.tailscale.interfaceName}
+                ${lib.concatStringsSep "\n" (map physInterfaceScript (config.service.tailscale.physicalInterfaces))}
             '';
             serviceConfig = {
                 Type = "oneshot";
                 RemainAfterExit = true;
             };
         };
-        # clamp the MSS from network devices to the tailscale device
-        networking.firewall.extraCommands = lib.concatStringsSep "\n" (map (
+        # clamp the MSS from the tailscale device to network devices
+        networking.firewall.extraCommands = lib.mkIf config.service.tailscale.interfacePatch (lib.concatStringsSep "\n" (map (
             interface: ''
                 iptables -t mangle -A FORWARD -i ${config.service.tailscale.interfaceName} -o ${interface} -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
                 ip6tables -t mangle -A FORWARD -i ${config.service.tailscale.interfaceName} -o ${interface} -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
             ''
-        ) (config.service.tailscale.physicalInterfaces));
+        ) (config.service.tailscale.physicalInterfaces)));
     };
 }

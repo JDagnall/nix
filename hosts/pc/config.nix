@@ -46,6 +46,7 @@
     service.tailscale = {
         enable = true;
         physicalInterfaces = ["enp7s0"];
+        interfacePatch = true;
     };
     service.gnome-keyring.enable = true;
     service.wiregaurd.enable = false;

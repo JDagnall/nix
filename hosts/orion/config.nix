@@ -14,6 +14,7 @@
     service.tailscale = {
         enable = true;
         physicalInterfaces = ["enp34s0"];
+        interfacePatch = true;
     };
     service.tailscale.tailnet = "stonecat-barometric";
     service.languagetool.enable = false;
