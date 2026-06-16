@@ -8,10 +8,10 @@ in {
     options = {
         service.media-services.radarr.enable = lib.mkEnableOption "Enable Radarr.";
     };
-    config = lib.mkIf (cfg.enable && cfg.sonarr.enable) {
+    config = lib.mkIf (cfg.enable && cfg.radarr.enable) {
         services.radarr = {
             enable = true;
-            openFirewall = false; # tailscale;
+            openFirewall = false; # tailscale / caddy
             # dataDir = ;
             # user = ;
             group = cfg.group.name;

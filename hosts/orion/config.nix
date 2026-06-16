@@ -11,7 +11,10 @@
     service.sshd.enable = true;
     service.sshd.james.authKeys.enable = true;
     services.avahi.enable = true;
-    service.tailscale.enable = true;
+    service.tailscale = {
+        enable = true;
+        physicalInterfaces = ["enp34s0"];
+    };
     service.tailscale.tailnet = "stonecat-barometric";
     service.languagetool.enable = false;
     service.wiregaurd.enable = true;
@@ -32,6 +35,7 @@
         sonarr.enable = true;
         radarr.enable = true;
         prowlarr.enable = true;
+        seerr.enable = true;
     };
     service.openvpn.PIAqBittorrentService = true;
 

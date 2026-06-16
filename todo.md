@@ -29,6 +29,8 @@
 - A more declarative and strict way to bind services like Qbittorrent to a VPN / just
   any network interface (https://github.com/Maroka-chan/VPN-Confinement there may be other options).
 - Remove old Syncthing certs from git history (https://github.com/newren/git-filter-repo).
+- maybe a more robust setup for binding qbittorrent to a vpn interface, currently just
+  using internal settings, should maybe also, restrict the application with permissions.
 
 ## Fix
 
@@ -58,6 +60,7 @@
 - Cannot open terminal from Thunar
 - Polkit opens for some things, particularly with network manager for things that
   elevation of privilege is not required.
+- When creating a new terminal window/tab in a directory with direnv, it can take a second and commands entered in that period dont take effect, its very annoying
 
 ## Stylix
 

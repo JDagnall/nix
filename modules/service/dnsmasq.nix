@@ -52,10 +52,12 @@
                         ++ (mkServiceSubdomain "qbittorrent" serviceCfg.media-services.qbittorrent.enable)
                         ++ (mkServiceSubdomain "jellyfin" serviceCfg.media-services.jellyfin.enable)
                         ++ (mkServiceSubdomain "sonarr" serviceCfg.media-services.sonarr.enable)
+                        ++ (mkServiceSubdomain "radarr" serviceCfg.media-services.radarr.enable)
                         ++ (mkServiceSubdomain "prowlarr" serviceCfg.media-services.prowlarr.enable)
-                        ++ (mkServiceSubdomain "flaresolverr" serviceCfg.media-services.flaresolverr.enable);
+                        ++ (mkServiceSubdomain "flaresolverr" serviceCfg.media-services.flaresolverr.enable)
+                        ++ (mkServiceSubdomain "seerr" serviceCfg.media-services.seerr.enable);
                     interface = [localInterface] ++ lib.optionals config.service.tailscale.enable [tailscaleInterface];
-                    server = ["208.67.222.123" "1.1.1.1"]; # opendns and cloudflare, not really needed
+                    server = ["1.1.1.1" "8.8.8.8"]; # cloudflaew and google, not really needed
                 };
             };
             networking.firewall.allowedTCPPorts = [53];

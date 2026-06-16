@@ -81,6 +81,12 @@
                                 port = 8989;
                             }
                         ]
+                        ++ lib.optionals servicesCfg.media-services.radarr.enable [
+                            {
+                                name = "radarr";
+                                port = 7878;
+                            }
+                        ]
                         ++ lib.optionals servicesCfg.media-services.prowlarr.enable [
                             {
                                 name = "prowlarr";
@@ -91,6 +97,12 @@
                             {
                                 name = "flaresolverr";
                                 port = 8191;
+                            }
+                        ]
+                        ++ lib.optionals servicesCfg.media-services.seerr.enable [
+                            {
+                                name = "seerr";
+                                port = 5055;
                             }
                         ];
                     mkServiceSubDomain = name: port: {

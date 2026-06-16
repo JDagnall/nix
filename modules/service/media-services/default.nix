@@ -30,7 +30,9 @@ in {
                 ++ lib.optionals (config.users.users ? jellyfin) ["jellyfin"]
                 ++ lib.optionals (config.users.users ? qbittorrent) ["qbittorrent"]
                 ++ lib.optionals (config.users.users ? prowlarr) ["prowlarr"]
-                ++ lib.optionals (config.users.users ? sonarr) ["sonarr"];
+                ++ lib.optionals (config.users.users ? sonarr) ["sonarr"]
+                ++ lib.optionals (config.users.users ? radarr) ["radarr"]
+                ++ lib.optionals (config.users.users ? seerr) ["seerr"];
         };
     };
 
@@ -40,5 +42,6 @@ in {
         ./sonarr.nix
         ./prowlarr.nix
         ./radarr.nix
+        ./seerr.nix
     ];
 }
