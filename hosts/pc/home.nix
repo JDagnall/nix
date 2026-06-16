@@ -76,7 +76,7 @@
     ui.thunar.enable = true;
     ui.imv.enable = true;
     ui.hypr-screenshot.enable = true;
-    ui.easyeffects.enable = false;
+    ui.easyeffects.enable = true;
     ui.pavucontrol.enable = true;
     ui.drawio.enable = true;
     ui.vlc.enable = true;

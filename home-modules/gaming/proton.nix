@@ -10,7 +10,7 @@ in {
         gaming.proton.enable = mkEnableOption {
             description = ''
                 Enable Proton-GE. This is a fork that is supposed to be slightly better.
-                             The command protonup installs and updates it to the latest version.
+                The command protonup installs and updates it to the latest version.
             '';
         };
     };

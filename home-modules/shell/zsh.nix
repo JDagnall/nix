@@ -190,7 +190,10 @@ in {
         programs.direnv = mkIf config.shell.zsh.direnv.enable {
             enable = true;
             enableZshIntegration = true;
-            # config = {}; # written to .toml config file
+            # written to .toml config file
+            config = {
+                hide_env_diff = true;
+            };
             silent = false;
         };
         # makes it so that there is no loading time stepping into an env
