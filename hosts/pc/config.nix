@@ -43,7 +43,10 @@
     service.docker.groupUsers = ["james"];
     service.openvpn.enable = true;
     service.openvpn.PIA = true;
-    service.tailscale.enable = true;
+    service.tailscale = {
+        enable = true;
+        physicalInterfaces = ["enp7s0"];
+    };
     service.gnome-keyring.enable = true;
     service.wiregaurd.enable = false;
     service.languagetool.enable = true;
