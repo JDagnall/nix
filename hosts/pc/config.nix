@@ -115,6 +115,9 @@
         # new default actually manages to conflict with home-manager
         withApplet = false;
     };
+    # CUPS for network printing
+    services.printing.enable = true;
+    services.printing.browsed.enable = true; # auto discovery
 
     services.flatpak.enable = true;
 
