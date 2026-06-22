@@ -13,14 +13,14 @@
             hostName = config.networking.hostName;
             # ipv4 = ;
             # ipv6 = ;
-            # nssmdns4 = ;
-            # nssmdns6 = ;
+            nssmdns4 = true;
+            nssmdns6 = true;
             publish = {
-                # enable = ;
-                # domain = ;
-                # hinfo = ;
-                # userServices = ;
-                # workstation = ;
+                enable = true;
+                domain = true;
+                hinfo = true;
+                userServices = true;
+                workstation = true;
             };
             # extraConfig = "";
             # extraServiceFiles = {};
