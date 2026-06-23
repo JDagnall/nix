@@ -50,5 +50,6 @@ in {
                 hardwareDecodingCodecs.h264 = true;
             };
         };
+        systemd.services.jellyfin.serviceConfig.Umask = lib.mkForce "0007";
     };
 }

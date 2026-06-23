@@ -28,5 +28,6 @@ in {
                 update.automatically = false;
             };
         };
+        systemd.services.sonarr.serviceConfig.Umask = "0007";
     };
 }

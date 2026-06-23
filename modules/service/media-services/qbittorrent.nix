@@ -61,7 +61,10 @@ in {
             };
             openFirewall = true;
         };
-        # adding the capability to bind to a network device to qbittorrent service
-        systemd.services.qbittorrent.serviceConfig.AmbientCapabilities = "CAP_NET_RAW";
+        systemd.services.qbittorrent.serviceConfig = {
+            # adding the capability to bind to a network device to qbittorrent service
+            AmbientCapabilities = "CAP_NET_RAW";
+            Umask = "0007";
+        };
     };
 }

@@ -28,5 +28,6 @@ in {
                 update.automatically = false;
             };
         };
+        systemd.services.radarr.serviceConfig.Umask = "0007";
     };
 }
