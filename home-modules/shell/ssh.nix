@@ -12,36 +12,31 @@
             enable = true;
             enableDefaultConfig = false;
             # can only reliably resolve these hosts is with tailscale
-            matchBlocks = lib.mkIf osConfig.service.tailscale.enable {
-                mini = {
-                    hostname = "mini";
-                    host = "server";
-                    user = "james";
-                    identityFile = "~/.ssh/key";
+            settings = lib.mkIf osConfig.service.tailscale.enable {
+                "Host mini" = {
+                    HostName = "mini";
+                    User = "james";
+                    IdentityFile = "~/.ssh/key";
                 };
-                framework = {
-                    hostname = "framework";
-                    host = "framework";
-                    user = "james";
-                    identityFile = "~/.ssh/key";
+                "Host framework" = {
+                    HostName = "framework";
+                    User = "james";
+                    IdentityFile = "~/.ssh/key";
                 };
-                pc = {
-                    hostname = "pc";
-                    host = "pc";
-                    user = "james";
-                    identityFile = "~/.ssh/key";
+                "Host pc" = {
+                    HostName = "pc";
+                    User = "james";
+                    IdentityFile = "~/.ssh/key";
                 };
-                book = {
-                    hostname = "book";
-                    host = "book";
-                    user = "james";
-                    identityFile = "~/.ssh/key";
+                "Host book" = {
+                    HostName = "book";
+                    User = "james";
+                    IdentityFile = "~/.ssh/key";
                 };
-                orion = {
-                    hostname = "orion";
-                    host = "orion";
-                    user = "james";
-                    identityFile = "~/.ssh/key";
+                "Host orion" = {
+                    HostName = "orion";
+                    User = "james";
+                    IdentityFile = "~/.ssh/key";
                 };
             };
         };

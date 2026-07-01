@@ -55,7 +55,7 @@
     ui.syncthingtray.enable = true;
     ui.spotify.enable = false;
     ui.slack.enable = true;
-    ui.legcord.enable = true;
+    ui.discord.enable = true;
     ui.nm-applet.enable = true;
     ui.bt-applet.enable = true;
     ui.vscode.enable = false;

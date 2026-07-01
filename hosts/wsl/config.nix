@@ -10,7 +10,7 @@
 
     stylix.enableConfig = true;
 
-    # nix of wsl seems to need this for some reason
+    # nix on wsl seems to need this for some reason
     programs.dconf.enable = true;
     # config ------------------------------
 
@@ -18,6 +18,7 @@
         ../../james.nix
         ../../modules
         ../../stylix.nix
+        ../../sops.nix
     ];
 
     environment.systemPackages = with pkgs; [home-manager];

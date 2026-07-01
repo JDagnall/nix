@@ -8,7 +8,6 @@
     display-manager.gdm.enable = true;
     boot-loader.grub.enable = true;
     window-manager.hyprland.enable = true;
-    fonts.enable = true;
     sops.enable = true;
     evremap.enable = true;
     evremap.profile = "macbook";
@@ -75,6 +74,7 @@
     };
     # battery managment
     services.upower.enable = true;
+    services.power-profiles-daemon.enable = true;
 
     # bluetooth
     hardware.bluetooth = {
@@ -87,12 +87,7 @@
         };
     };
     # bt manager software
-    services.blueman = {
-        enable = true;
-        # let home-manager deal with this,
-        # new default actually manages to conflict with home-manager
-        withApplet = false;
-    };
+    services.blueman.enable = true;
 
     services.flatpak.enable = true;
 

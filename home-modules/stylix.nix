@@ -24,7 +24,7 @@
         # to silence a warning. This adopts the old behaviour. technically the new
         # behaviour sets gtk4.theme to null, but i have no idea if that is compatible
         # with stylix
-        gtk.gtk4.theme = config.gtk.theme;
+        # gtk.gtk4.theme = config.gtk.theme;
         stylix = {
             # icons aren't in nixos stylix for some reason
             icons = {

@@ -65,22 +65,6 @@ config.tab_bar_at_bottom = true
 config.tab_max_width = 32
 config.use_fancy_tab_bar = false
 
--- FONT
--- ## trying stylix
-
--- wezterm.font("VictorMono Nerd Font Mono", { weight = "Regular", stretch = "Normal", style = "Normal" })
--- -- config.font = wezterm.font_with_fallback {
--- --   'Fira Code',
--- --   'DengXian',
--- -- }
--- config.font_size = 10.0
--- -- config.cell_width
--- -- config.line_height
--- config.font = wezterm.font({
--- 	family = "JetBrains Mono",
--- 	harfbuzz_features = { "calt=1", "clig=1", "liga=1", "zero" },
--- })
-
 local function basename(s)
 	return string.gsub(s, "^.*[\\/]([^/\\]+)[/\\]?$", "%1")
 end

@@ -8,7 +8,6 @@
     display-manager.gdm.enable = true;
     window-manager.hyprland.enable = true;
     boot-loader.grub.enable = true;
-    fonts.enable = true;
     sops.enable = true;
     evremap.enable = true;
     evremap.profile = "framework";
@@ -82,12 +81,7 @@
         };
     };
     # bt manager software
-    services.blueman = {
-        enable = true;
-        # let home-manager deal with this,
-        # new default actually manages to conflict with home-manager
-        withApplet = false;
-    };
+    services.blueman.enable = true;
 
     services.upower.enable = true; # power management
     services.power-profiles-daemon.enable = true;

@@ -1,6 +1,5 @@
 {...}: {
     imports = [
-        ./fonts.nix
         ./nvidia.nix
         ./evremap.nix
         ./window-manager

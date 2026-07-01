@@ -32,7 +32,12 @@ in {
     options = {
         ui.nwg-look.enable = mkEnableOption "Install nwg-look";
         ui.spotify.enable = mkEnableOption "Install spotify";
+        # can't use either of these electron apps till the fixes related
+        # to this: https://github.com/NixOS/nixpkgs/issues/535580
+        # are merged into unstable
+        ui.vesktop.enable = mkEnableOption "Install vesktop";
         ui.legcord.enable = mkEnableOption "Install legcord";
+        ui.discord.enable = mkEnableOption "Install discord";
         ui.slack.enable = mkEnableOption "Install slack";
         ui.pavucontrol.enable = mkEnableOption "Install pavucontrol";
         ui.drawio.enable = mkEnableOption "Install draw.io";
@@ -49,7 +54,9 @@ in {
             (config.ui)
             nwg-look
             spotify
+            vesktop
             legcord
+            discord
             slack
             pavucontrol
             drawio
@@ -66,7 +73,9 @@ in {
             []
             ++ optionals nwg-look.enable [pkgs.nwg-look]
             ++ optionals spotify.enable [pkgs.spotify]
+            ++ optionals vesktop.enable [pkgs.vesktop]
             ++ optionals legcord.enable [pkgs.legcord]
+            ++ optionals discord.enable [pkgs.discord]
             ++ optionals slack.enable [pkgs.slack]
             ++ optionals pavucontrol.enable [pkgs.pavucontrol]
             ++ optionals drawio.enable [pkgs.drawio]

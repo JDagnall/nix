@@ -1,5 +1,5 @@
 {
-    config,
+    # config,
     pkgs,
     lib,
     inputs,
@@ -51,13 +51,6 @@
                     name = "Noto Color Emoji"; # is default, there is a monochrome one too
                     package = pkgs.noto-fonts-color-emoji;
                 };
-                # other font packages to install
-                packages = [
-                    pkgs.nerd-fonts.victor-mono
-                    pkgs.nerd-fonts.fira-code
-                    pkgs.nerd-fonts.jetbrains-mono
-                    pkgs.nerd-fonts.noto
-                ];
                 # define font sizes in differnet contexts. In points, 72 per inch
                 sizes = {
                     applications = 12;
@@ -65,6 +58,15 @@
                     popups = 10;
                     terminal = 10;
                 };
+            };
+            targets.font-packages.enable = true;
+            targets.fontconfig = {
+                enable = true;
+                fonts.enable = true;
+            };
+            targets.console = {
+                enable = true;
+                colors.enable = true;
             };
             # supported apps for opacity is limited
             opacity = {

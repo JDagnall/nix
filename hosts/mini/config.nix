@@ -5,7 +5,6 @@
 }: {
     # config ------------------------------
     boot-loader.systemd-boot.enable = true;
-    fonts.enable = true;
     sops.enable = true;
 
     service.sshd.enable = true;

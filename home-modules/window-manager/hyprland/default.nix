@@ -49,6 +49,7 @@ in {
         services.hyprpolkitagent.enable = config.window-manager.hyprland.enableHyprPolkit;
         wayland.windowManager.hyprland = {
             enable = true;
+            configType = "hyprlang";
             package = null;
             portalPackage = null;
             # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;

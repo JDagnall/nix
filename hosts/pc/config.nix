@@ -10,7 +10,6 @@
     evremap.profile = "keychron";
     window-manager.hyprland.enable = true;
     boot-loader.systemd-boot.enable = true;
-    fonts.enable = true;
     sops.enable = true;
 
     service.pipewire.enable = true;
@@ -109,12 +108,7 @@
         };
     };
     # bt manager software
-    services.blueman = {
-        enable = true;
-        # let home-manager deal with this,
-        # new default actually manages to conflict with home-manager
-        withApplet = false;
-    };
+    services.blueman.enable = true;
     # CUPS for network printing
     services.printing.enable = true;
     services.printing.browsed.enable = true; # auto discovery
