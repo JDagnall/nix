@@ -33,7 +33,7 @@
     config = let
         noctaliaCfg = config.ui.noctalia;
     in
-        lib.mkIf config.ui.noctalia.enable rec {
+        lib.mkIf config.ui.noctalia.enable {
             assertions = [
                 {
                     assertion = config.window-manager.hyprland.enable;
@@ -66,12 +66,6 @@
                 ["Noctalia will be unable to provide battery information if services.upower is disabled in nixos config"]
                 ++ lib.optionals (!(osConfig.services.tuned.enable || osConfig.services.power-profiles-daemon.enable) && noctaliaCfg.deviceProfile == "laptop")
                 ["Noctalia will be unable to provide power profiles information without one of services.tuned or services.power-profiles-daemon in nixos config"];
-
-            # add noctalia cachix so it doesnt have to build
-            nix.settings = {
-                substituters = ["https://noctalia.cachix.org"];
-                trusted-public-keys = ["noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="];
-            };
 
             programs.noctalia-shell = {
                 enable = true;
