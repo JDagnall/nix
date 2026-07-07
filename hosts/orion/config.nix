@@ -64,8 +64,9 @@
     };
 
     gaming.minecraft-servers = {
-        enable = false;
-        "1.21.10" = false;
+        enable = true;
+        groupMembers = ["james"];
+        "26.2" = true;
     };
 
     stylix.enableConfig = true;

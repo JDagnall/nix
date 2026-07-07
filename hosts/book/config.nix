@@ -56,8 +56,6 @@
 
     environment.systemPackages = with pkgs; [home-manager];
 
-    # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [];
-
     nix.settings.experimental-features = [
         "nix-command"
         "flakes"

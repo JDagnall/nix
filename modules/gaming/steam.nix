@@ -10,6 +10,7 @@
         };
     };
     config = lib.mkIf config.gaming.steam.enable {
+        allowedUnfreePkgNames = ["steam" "steam-unwrapped"];
         programs.steam = {
             enable = true;
             protontricks.enable = false;

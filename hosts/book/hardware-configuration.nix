@@ -27,11 +27,7 @@
         ];
 
     # both are proprietary
-    nixpkgs.config.allowUnfreePredicate = pkg:
-        builtins.elem (lib.getName pkg) [
-            "broadcom-sta"
-            # "b43-firmware"
-        ];
+    allowedUnfreePkgNames = ["broadcom-sta"];
 
     boot.blacklistedKernelModules = ["uvcvideo"];
     boot.kernelParams = [

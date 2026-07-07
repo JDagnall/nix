@@ -27,11 +27,7 @@
     # 	];
 
     # both are proprietary
-    nixpkgs.config.allowUnfreePredicate = pkg:
-        builtins.elem (lib.getName pkg) [
-            # "broadcom-sta"
-            "b43-firmware"
-        ];
+    allowedUnfreePkgNames = ["b43-firmware"];
 
     fileSystems."/" = {
         device = "/dev/disk/by-label/NIXROOT";

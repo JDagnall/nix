@@ -16,11 +16,10 @@
     # nixpkgs.config.allowUnfree = true;
 
     nvidia.enable = true;
-    nixpkgs.config.allowUnfreePredicate = pkg:
-        builtins.elem (lib.getName pkg) [
-            "nvidia-x11"
-            "nvidia-settings"
-        ];
+    allowedUnfreePkgNames = [
+        "nvidia-x11"
+        "nvidia-settings"
+    ];
 
     fileSystems."/" = {
         device = "/dev/disk/by-label/NIXROOT";
