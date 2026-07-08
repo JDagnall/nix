@@ -29,6 +29,7 @@
 
     tools.git.enable = true;
     tools.nh.enable = true;
+    tools.btop.enable = true;
 
     nixLoki.enable = true;
     nixLoki.theme = "tinted-nvim";

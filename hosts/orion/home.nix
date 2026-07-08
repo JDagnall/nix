@@ -30,6 +30,8 @@
     tools.nh.enable = true;
     tools.nix-index.enable = true;
     tools.nix-index.comma.enable = true;
+    tools.btop.enable = true;
+    tools.btop.useGpuPkg = true;
 
     nixLoki.enable = true;
     nixLoki.theme = "tinted-nvim";

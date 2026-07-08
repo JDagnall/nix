@@ -58,10 +58,6 @@
         steam.enable = true;
         gamemode.enable = true;
         gamescope.enable = true;
-        minecraft-servers = {
-            enable = false;
-            "1.21.10" = false;
-        };
         vr = {
             enable = true;
             wivrn.enable = true;

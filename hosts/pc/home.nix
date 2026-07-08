@@ -68,7 +68,7 @@
     ui.syncthingtray.enable = true;
     ui.spotify.enable = true;
     ui.slack.enable = true;
-    ui.discord.enable = true;
+    ui.vesktop.enable = true;
     ui.nm-applet.enable = true;
     ui.bt-applet.enable = true;
     ui.vscode.enable = true;
@@ -96,6 +96,8 @@
     tools.android-tools.enable = false;
     tools.nix-index.enable = true;
     tools.nix-index.comma.enable = true;
+    tools.btop.enable = true;
+    tools.btop.useGpuPkg = true;
 
     nixLoki.enable = true;
     nixLoki.theme = "tinted-nvim";

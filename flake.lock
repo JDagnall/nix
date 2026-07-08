@@ -623,6 +623,26 @@
         "type": "github"
       }
     },
+    "nix-index-database": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1783414108,
+        "narHash": "sha256-RY8e+gR2/DhXsYDxGDL6Hhe9+POD9u4+llwxMBqMQDs=",
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+        "rev": "96d6de10eb281b98f5cfcd1841394c03da5df77c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+        "type": "github"
+      }
+    },
     "nix-minecraft": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -668,11 +688,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783057634,
-        "narHash": "sha256-ZU3WEkjIP6/CjlMqDN3Ini0TeDJro7fZIDZ3BSGMYag=",
+        "lastModified": 1783516820,
+        "narHash": "sha256-8oO5VqAHdLyuKFj7Y4GsdnkKKWXlKE9Z0aw2LQIxhBs=",
         "owner": "JDagnall",
         "repo": "nixLoki",
-        "rev": "9c582d90fae4d226ba8b8b4314e27fbcd4f7a91e",
+        "rev": "b6bf8f8e7d9d85ca83bed8725b70e202fc5021a7",
         "type": "github"
       },
       "original": {
@@ -752,11 +772,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1782723713,
-        "narHash": "sha256-oPXCU/SSUokcGaJREHibG1CBX3+s/W7orDWQOZDsEeQ=",
+        "lastModified": 1782959384,
+        "narHash": "sha256-xnJJk+ct+D2+wdRxj1wk36w5zV9RVESwRqcklPdt3fM=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+        "rev": "65179426c83bb3f6bc14898b42ea1c6f01d374b0",
         "type": "github"
       },
       "original": {
@@ -864,6 +884,7 @@
         "direnv-instant": "direnv-instant",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "nix-index-database": "nix-index-database",
         "nix-minecraft": "nix-minecraft",
         "nixLoki": "nixLoki",
         "nixos-hardware": "nixos-hardware",

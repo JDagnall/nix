@@ -31,6 +31,11 @@
         fsType = "vfat";
         options = ["fmask=0077" "dmask=0077"];
     };
+    # old 2TB drive
+    fileSystems."/driveA" = {
+        device = "/dev/disk/by-uuid/e9c2c7e6-70a3-461f-8a37-da0b5f4ddafc";
+        fsType = "ext4";
+    };
 
     # create a group with write access to the drives
     users.groups."drives" = {
@@ -43,16 +48,8 @@
             ++ lib.optionals (config.users.users ? sonarr) ["sonarr"];
     };
 
-    # old 2TB drive
-    fileSystems."/driveA" = {
-        device = "/dev/disk/by-uuid/e9c2c7e6-70a3-461f-8a37-da0b5f4ddafc";
-        fsType = "ext4";
-        options = [
-            "users" # any user can mount the drive
-            "nofail" # dont crash if can't mount
-        ];
-    };
-
+    # needed for ntfs filesystems
+    boot.supportedFilesystems = ["ntfs"];
     # old 1TB drive
     fileSystems."/driveB" = {
         device = "/dev/disk/by-uuid/38E2-153B";

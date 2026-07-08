@@ -78,6 +78,7 @@
     tools.nh.enable = true;
     tools.nix-index.enable = true;
     tools.nix-index.comma.enable = true;
+    tools.btop.enable = true;
 
     nixLoki.enable = true;
 
