@@ -32,7 +32,7 @@
                 };
             sops.templates = {
                 "transmissionCredentials" = {
-                    content = lib.toJSON {
+                    content = builtins.toJSON {
                         "rpc_username" = config.sops.placeholder."transmission/user";
                         "rpc_password" = config.sops.placeholder."transmission/pass";
                     };

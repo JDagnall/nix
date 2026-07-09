@@ -61,6 +61,7 @@
         vr = {
             enable = true;
             wivrn.enable = true;
+            alvr.enable = true;
         };
     };
     # config ------------------------------

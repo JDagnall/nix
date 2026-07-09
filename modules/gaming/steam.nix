@@ -13,6 +13,12 @@
         allowedUnfreePkgNames = ["steam" "steam-unwrapped"];
         programs.steam = {
             enable = true;
+            package = pkgs.steam.override {
+                # Allows Monado/WiVRn to be used
+                extraProfile = lib.optionalString config.gaming.vr.wivrn.enable ''
+                    export PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES=1
+                '';
+            };
             protontricks.enable = false;
             gamescopeSession = {
                 enable = true;
