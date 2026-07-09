@@ -69,6 +69,12 @@
                                 port = 9494;
                             }
                         ]
+                        ++ lib.optionals servicesCfg.media-services.transmission.enable [
+                            {
+                                name = "transmission";
+                                port = 9091;
+                            }
+                        ]
                         ++ lib.optionals servicesCfg.media-services.jellyfin.enable [
                             {
                                 name = "jellyfin";

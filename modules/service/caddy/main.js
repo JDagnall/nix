@@ -15,6 +15,7 @@ const serviceFavicons = [
   ["syncthing", "syncthing.net"],
   ["qbittorrent", "qbittorrent.org"],
   ["seerr", "seerr.dev"],
+  ["transmission", "transmissionbt.com"],
 ];
 const serviceFaviconMap = new Map(serviceFavicons);
 

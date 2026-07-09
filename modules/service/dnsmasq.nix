@@ -50,6 +50,7 @@
                         # interface-name does not support wildcard expansion
                         ++ (mkServiceSubdomain "syncthing" serviceCfg.syncthing.enable)
                         ++ (mkServiceSubdomain "qbittorrent" serviceCfg.media-services.qbittorrent.enable)
+                        ++ (mkServiceSubdomain "transmission" serviceCfg.media-services.transmission.enable)
                         ++ (mkServiceSubdomain "jellyfin" serviceCfg.media-services.jellyfin.enable)
                         ++ (mkServiceSubdomain "sonarr" serviceCfg.media-services.sonarr.enable)
                         ++ (mkServiceSubdomain "radarr" serviceCfg.media-services.radarr.enable)

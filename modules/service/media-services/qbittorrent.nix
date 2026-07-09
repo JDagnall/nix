@@ -8,20 +8,16 @@ in {
     options = {
         service.media-services.qbittorrent = {
             enable = lib.mkEnableOption "Enable qbittorrent service, with a webui.";
-            vpnInterface = lib.mkOption {
-                default = "qbtun0";
-                type = lib.types.str;
-                description = "qBittorrent connection needs to go through a vpn and this option sets the interface name it will bind to";
-            };
         };
     };
     config = lib.mkIf (cfg.enable && cfg.qbittorrent.enable) {
         assertions = [
             {
-                assertion = config.service.openvpn.enable && config.service.openvpn.PIAqBittorrentService;
-                message = "qBittorrent requires a VPN to tunnel through.";
+                assertion = config.service.openvpn.enable && config.service.openvpn.PIATorrentService;
+                message = "Qbittorrent requires a VPN to tunnel through.";
             }
         ];
+        users.groups.${config.service.openvpn.PIATorrentGroupName}.members = [config.users.users."qbittorrent".name];
         services.qbittorrent = {
             enable = true;
             user = "qbittorrent";
@@ -33,8 +29,8 @@ in {
                 BitTorrent = {
                     Session = {
                         # bind to vpn device, choosing to do this even if the vpn is not active
-                        Interface = cfg.qbittorrent.vpnInterface;
-                        InterfaceName = cfg.qbittorrent.vpnInterface;
+                        InterfaceName = config.service.openvpn.PIATorrentDevName;
+                        Interface = config.service.openvpn.PIATorrentDevName;
                         # idk if this is necesary
                         # ConnectionInterfaceAddress = "10.63.128.63";
                         AddExtensionToIncompleteFiles = true;

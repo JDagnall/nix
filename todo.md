@@ -29,6 +29,9 @@
 - A more declarative and strict way to bind services like Qbittorrent to a VPN / just
   any network interface (https://github.com/Maroka-chan/VPN-Confinement there may be other options).
 - Remove old syncthing certs from git history (https://github.com/newren/git-filter-repo).
+- Immich
+- Bitwarden / Bitlocker
+- central auth provider for servers
 - Backups for lots of stuff, namely Minecraft worlds. Possibly using rdiff-backup which
   does incremental backups.
 

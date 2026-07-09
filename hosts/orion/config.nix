@@ -37,7 +37,7 @@
         prowlarr.enable = true;
         seerr.enable = true;
     };
-    service.openvpn.PIAqBittorrentService = true;
+    service.openvpn.PIATorrentService = true;
 
     service.syncthing = {
         enable = true;
