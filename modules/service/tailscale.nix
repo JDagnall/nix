@@ -71,20 +71,22 @@
             wants = ["tailscaled.service"];
             wantedBy = ["mulit-user.target"];
             script = let
-                tailscaleInterfaceScript = interface: ''
+                tailscaleInterfaceScript = let
+                    interface = config.service.tailscale.interfaceName;
+                in ''
                     ${pkgs.ethtool}/bin/ethtool -K ${interface} tso off gso off || true;
                     echo ${interface}:
                     ${pkgs.ethtool}/bin/ethtool -k ${interface} | ${pkgs.gnugrep}/bin/grep -E 'tcp-segmentation-offload|generic-segmentation-offload' || true;
-                    echo '\n'
+                    echo ""
                 '';
                 physInterfaceScript = interface: ''
                     ${pkgs.ethtool}/bin/ethtool -K ${interface} tso off gso off gro off lro off rx off tx off || true;
                     echo ${interface}:
                     ${pkgs.ethtool}/bin/ethtool -k ${interface} | ${pkgs.gnugrep}/bin/grep -E 'rx-checksumming|tx-checksumming|tcp-segmentation-offload|generic-segmentation-offload|generic-receive-offload|large-receive-offload' || true;
-                    echo '\n'
+                    echo ""
                 '';
             in ''
-                ${tailscaleInterfaceScript config.service.tailscale.interfaceName}
+                ${tailscaleInterfaceScript}
                 ${lib.concatStringsSep "\n" (map physInterfaceScript (config.service.tailscale.physicalInterfaces))}
             '';
             serviceConfig = {

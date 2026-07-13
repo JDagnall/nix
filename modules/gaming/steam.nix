@@ -14,10 +14,14 @@
         programs.steam = {
             enable = true;
             package = pkgs.steam.override {
-                # Allows Monado/WiVRn to be used
-                extraProfile = lib.optionalString config.gaming.vr.wivrn.enable ''
-                    export PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES=1
-                '';
+                extraBwrapArgs = ["--bind ${pkgs.xrizer} ${pkgs.xrizer}"];
+                extraEnv = let
+                    compat = config.gaming.vr.wivrn.compatLib;
+                in
+                    lib.mkIf config.gaming.vr.wivrn.enable {
+                        PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES = "1";
+                        VR_OVERRIDE = "${pkgs.${compat}}/lib/${compat}";
+                    };
             };
             protontricks.enable = false;
             gamescopeSession = {
