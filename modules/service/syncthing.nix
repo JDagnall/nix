@@ -155,7 +155,7 @@ in {
                             autoAcceptFolders = false;
                         };
                         "PC" = mkIf config.service.syncthing.devices.PC.enable {
-                            id = "TLTL7NP-L3LLF6M-OZBLULU-42YS7GP-P5OU2K3-KUSCVIU-A4232YP-UVQB5QR";
+                            id = "LUNWAUX-SIKFQ5O-PDYIJW7-3DCCK2A-ZAGF4M2-MR2XTCL-UNNA2O4-CEZLDQX";
                             addresses = lib.mkIf config.service.tailscale.enable [
                                 "tcp://pc:22000"
                             ];
