@@ -55,31 +55,6 @@
             "dmask=0033"
         ];
     };
-    # 120 GB SSD SATA
-    fileSystems."/ssd" = {
-        device = "/dev/disk/by-uuid/64B307E260B2E417";
-        fsType = "ntfs-3g";
-        options = [
-            "users" # any user can mount the drive
-            "nofail" # dont crash if can't mount
-            "exec" # permit to excecute binaries
-            "rw"
-            "permissions" # POSIX permissions
-            "uid=${
-                if config.users.users ? james && lib.isStringLike config.users.users.james.uid
-                then lib.toString config.users.users.james.uid
-                else "1000"
-            }"
-            "gid=${
-                if config.users.groups ? james && lib.isStringLike config.users.groups.james.gid
-                then lib.toString config.users.groups.james.gid
-                else "998"
-            }"
-            "umask=0033"
-            "fmask=0033"
-            "dmask=0033"
-        ];
-    };
 
     swapDevices = [
         {

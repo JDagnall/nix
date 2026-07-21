@@ -6,7 +6,7 @@
     # config ------------------------------
     display-manager.gdm.enable = true;
     evremap.enable = true;
-    evremap.profile = "keychron";
+    evremap.profile = "keychron-c3";
     window-manager.hyprland.enable = true;
     boot-loader.systemd-boot.enable = true;
     sops.enable = true;

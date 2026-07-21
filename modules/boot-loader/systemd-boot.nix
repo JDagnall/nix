@@ -12,6 +12,8 @@
     config = lib.mkIf config.boot-loader.systemd-boot.enable {
         boot.loader.systemd-boot = {
             enable = true;
+            # for debugging, etc
+            edk2-uefi-shell.enable = true;
         };
         boot.loader.efi.canTouchEfiVariables = true;
     };
