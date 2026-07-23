@@ -19,12 +19,12 @@
 
     # 1TB SSD NVME
     fileSystems."/" = {
-        device = "/dev/disk/by-uuid/1077f024-be91-4ac5-9d5b-c4aa00251e15";
+        device = "/dev/disk/by-label/NIXROOT";
         fsType = "ext4";
     };
 
     fileSystems."/boot" = {
-        device = "/dev/disk/by-uuid/8EC9-010E";
+        device = "/dev/disk/by-label/NIXBOOT";
         fsType = "vfat";
         options = ["fmask=0077" "dmask=0077"];
     };
@@ -32,7 +32,7 @@
     boot.supportedFilesystems = ["ntfs"];
     # 2TB HDD SATA
     fileSystems."/games" = {
-        device = "/dev/disk/by-uuid/72F6601C550EB248";
+        device = "/dev/disk/by-label/LINUX_GAMES";
         fsType = "ntfs-3g";
         options = [
             "users" # any user can mount the drive

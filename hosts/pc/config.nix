@@ -51,6 +51,8 @@
     service.languagetool.enable = true;
 
     tools.micro-controller.platformio.enableUdev = true;
+    tools.wireshark.enable = true;
+    tools.wireshark.users = ["james"];
 
     stylix.enableConfig = true;
 

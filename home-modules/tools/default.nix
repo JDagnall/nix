@@ -72,12 +72,6 @@
             desc = "";
         }
         {
-            name = "tshark";
-            default = true;
-            pkg = pkgs.tshark;
-            desc = "";
-        }
-        {
             name = "snakeviz";
             default = false;
             pkg = pkgs.python314Packages.snakeviz;
