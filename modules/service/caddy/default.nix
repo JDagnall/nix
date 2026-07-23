@@ -67,6 +67,13 @@
                             {
                                 name = "qbittorrent";
                                 port = 9494;
+                                # qbittorrent really does not like reverse proxies
+                                extraRevProxyCfg = ''
+                                    header_up Host localhost:9494
+                                    header_up X-Forwarded-Host {hostport}
+                                    header_up -Origin
+                                    header_up -Referer
+                                '';
                             }
                         ]
                         ++ lib.optionals servicesCfg.media-services.transmission.enable [
@@ -111,18 +118,24 @@
                                 port = 5055;
                             }
                         ];
-                    mkServiceSubDomain = name: port: {
-                        "${name}.${host}.local" = {
+                    mkServiceSubDomain = service: {
+                        "${service.name}.${host}.local" = {
                             extraConfig = ''
                                 tls internal
-                                reverse_proxy localhost:${toString port}
+                                reverse_proxy localhost:${toString service.port} {
+                                    ${service.extraRevProxyCfg or ""}
+                                }
+                                ${service.extraSubDomainCfg or ""}
                             '';
-                            serverAliases = map (x: "${name}.${host}.${x}") domainAliases;
+                            serverAliases = map (x: "${service.name}.${host}.${x}") domainAliases;
                         };
                     };
-                    mkServicePath = name: port: ''
-                        handle_path /${name}* {
-                        	reverse_proxy localhost:${toString port}
+                    mkServicePath = service: ''
+                        handle_path /${service.name}* {
+                        	reverse_proxy localhost:${toString service.port} {
+                                    ${service.extraRevProxyCfg or ""}
+                            }
+                            ${service.extraSubPathCfg or ""}
                         }
                     '';
                 in
@@ -136,12 +149,12 @@
                                     mime text/html text/plain text/javascript
                                 }
                                 file_server
-                                ${lib.concatStringsSep "\n" (map (x: mkServicePath x.name x.port) activeServices)}
+                                ${lib.concatStringsSep "\n" (map (x: mkServicePath x) activeServices)}
                             '';
                             serverAliases = map (x: "${host}.${x}") domainAliases;
                         };
                     }
-                    // lib.mergeAttrsList (map (x: mkServiceSubDomain x.name x.port) activeServices);
+                    // lib.mergeAttrsList (map (x: mkServiceSubDomain x) activeServices);
             };
         };
 }

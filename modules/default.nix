@@ -11,6 +11,7 @@
         ./boot-loader
         ./service
         ./gaming
+        ./network.nix
         ./desktop-manager
         ./tools
     ];

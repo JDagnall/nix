@@ -12,15 +12,10 @@
                 type = lib.types.nullOr lib.types.str;
                 default = null;
             };
-            interfaceName = lib.mkOption {
+            interface = lib.mkOption {
                 type = lib.types.str;
                 default = "tailscale0";
                 description = "The name of the network interface tailscale will use.";
-            };
-            physicalInterfaces = lib.mkOption {
-                type = lib.types.listOf lib.types.str;
-                default = [];
-                description = "Physical network devices to apply settings to for tailscales performance.";
             };
             interfacePatch = lib.mkEnableOption "Some network interfaces (specifically NIC's with driver r8169) need certain settings disabled to work smoothly";
         };
@@ -38,7 +33,7 @@
             port = 41641;
             openFirewall = true;
             permitCertUid = null;
-            interfaceName = config.service.tailscale.interfaceName;
+            interfaceName = config.service.tailscale.interface;
             extraUpFlags = [];
             extraSetFlags = [];
             extraDaemonFlags = [];
@@ -86,8 +81,8 @@
                     echo ""
                 '';
             in ''
-                ${tailscaleInterfaceScript}
-                ${lib.concatStringsSep "\n" (map physInterfaceScript (config.service.tailscale.physicalInterfaces))}
+                ${tailscaleInterfaceScript config.service.tailscale.interface}
+                ${lib.concatStringsSep "\n" (map physInterfaceScript (config.network.physicalInterfaces))}
             '';
             serviceConfig = {
                 Type = "oneshot";
@@ -95,11 +90,16 @@
             };
         };
         # clamp the MSS from the tailscale device to network devices
-        networking.firewall.extraCommands = lib.mkIf config.service.tailscale.interfacePatch (lib.concatStringsSep "\n" (map (
-            interface: ''
-                iptables -t mangle -A FORWARD -i ${config.service.tailscale.interfaceName} -o ${interface} -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
-                ip6tables -t mangle -A FORWARD -i ${config.service.tailscale.interfaceName} -o ${interface} -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
-            ''
-        ) (config.service.tailscale.physicalInterfaces)));
+        networking.firewall = let
+            mkIpRule = cmd: interface: ''
+                iptables -t mangle -${cmd} FORWARD -i ${config.service.tailscale.interface} -o ${interface} -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu || true
+                ip6tables -t mangle -${cmd} FORWARD -i ${config.service.tailscale.interface} -o ${interface} -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu || true
+            '';
+            physInterfaces = config.network.physicalInterfaces;
+        in
+            lib.mkIf config.service.tailscale.interfacePatch {
+                extraCommands = builtins.concatStringsSep "\n" (map (interface: mkIpRule "A" interface) physInterfaces);
+                extraStopCommands = builtins.concatStringsSep "\n" (map (interface: mkIpRule "D" interface) physInterfaces);
+            };
     };
 }

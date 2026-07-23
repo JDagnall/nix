@@ -4,14 +4,14 @@
         ./docker.nix
         ./fprintd.nix
         ./pipewire.nix
-        ./openvpn
+        ./vpn
         ./ssh.nix
         ./tailscale.nix
         ./gnome-keyring.nix
-        ./wireguard.nix
         ./languagetool.nix
         ./avahi.nix
         ./dnsmasq.nix
+        ./resolved.nix
         ./caddy
         ./media-services
     ];

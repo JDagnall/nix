@@ -18,18 +18,14 @@ in {
         # nvidia drivers are proprietary
         hardware.nvidia = {
             modesetting.enable = true;
-
             # not using this at the moment, if stuff crashed waking up from sleep, try to use it
             powerManagement.enable = true;
-
             # open source kernel module, still in development, might be worth a try
             open = true;
-
             # graphical settings menu
-            nvidiaSettings = true;
-
+            nvidiaSettings = false;
             # could be stable, production, beta or latest
-            package = config.boot.kernelPackages.nvidiaPackages.stable;
+            branch = "stable";
         };
         services.xserver.videoDrivers = ["nvidia"];
     };

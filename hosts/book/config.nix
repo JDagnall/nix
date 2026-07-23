@@ -35,8 +35,8 @@
 
     service.docker.enable = true;
     service.docker.groupUsers = ["james"];
-    service.openvpn.enable = true;
-    service.openvpn.PIA = true;
+    service.vpn.pia.enable = true;
+    service.vpn.pia.openvpn.enable = true;
     service.tailscale.enable = false;
     service.gnome-keyring.enable = true;
 

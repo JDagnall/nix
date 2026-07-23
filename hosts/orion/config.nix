@@ -7,23 +7,20 @@
     boot-loader.systemd-boot.enable = true;
     sops.enable = true;
 
+    network.physicalInterfaces = ["enp34s0"];
+
     service.sshd.enable = true;
     service.sshd.james.authKeys.enable = true;
     services.avahi.enable = true;
     service.tailscale = {
         enable = true;
-        physicalInterfaces = ["enp34s0"];
         interfacePatch = true;
     };
     service.tailscale.tailnet = "stonecat-barometric";
     service.languagetool.enable = false;
-    service.wiregaurd.enable = true;
-    service.openvpn.enable = true;
     service.caddy.enable = true;
-    service.dnsmasq = {
-        enable = true;
-        localNetworkInterface = "enp34s0";
-    };
+    service.resolved.enable = true;
+    service.dnsmasq.enable = true;
 
     service.media-services = {
         enable = true;
@@ -36,8 +33,18 @@
         radarr.enable = true;
         prowlarr.enable = true;
         seerr.enable = true;
+        transmission.enable = false;
     };
-    service.openvpn.PIATorrentService = true;
+    service.vpn.pia = {
+        enable = true;
+        torrentCon = {
+            enable = true;
+            type = "wiregaurd";
+            portForward = true;
+        };
+        openvpn.enable = false;
+        wiregaurd.enable = true;
+    };
 
     service.syncthing = {
         enable = true;
@@ -89,7 +96,9 @@
         "nix-command"
         "flakes"
     ];
-    networking.networkmanager.enable = true;
+    # network manager is less suitable for servers
+    networking.useNetworkd = true;
+    systemd.network.enable = true;
     networking.hostName = "orion";
     # allow wake on lan with magic packet for this computer
     networking.interfaces."enp34s0".wakeOnLan = {

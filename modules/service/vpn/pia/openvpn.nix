@@ -3,155 +3,82 @@
     lib,
     config,
     ...
-}: {
+}: let
+    cfg = config.service.vpn.pia.openvpn;
+in {
     options = {
-        service.openvpn = {
-            enable = lib.mkEnableOption {description = "Enable openvpn config";};
-            PIA = lib.mkEnableOption "Enable PIA openvpn connections with networkmanager connections ans systemd services.";
-            PIATorrentService = lib.mkEnableOption ''
-                Autostarted service, that doesn't redirect non-bound traffic. Intended for torrent clients to use.
-                Will create a group, members of which will be prohibited from accessing the internet unless via the interface created
-                this is enforced with an iptables rule.
+        service.vpn.pia.openvpn = {
+            enable = lib.mkEnableOption ''
+                Enable PIA openvpn config, this config is only a regular nixos openvpn service
+                + a network manager config.
             '';
             defaultInterfaceName = lib.mkOption {
                 default = "tun";
                 type = lib.types.str;
                 description = "Name of the interface the vpn will create and bind to. Not specifying a number will assign a dynamic one.";
             };
-            PIATorrentDevName = lib.mkOption {
-                default = "torrtun0";
-                type = lib.types.str;
-                description = ''
-                    Name of the interface the torrent service will create, requires a number at the end else one will be automatically
-                    assigned and the interface name in the config will be invalid.
-                '';
-            };
-            PIATorrentGroupName = lib.mkOption {
-                default = "torrentVPN";
-                type = lib.types.str;
-                description = "Name of the group to users to the VPN interface.";
-            };
         };
     };
     config = let
-        torrentDev = config.service.openvpn.PIATorrentDevName;
-        torrentGroup = config.service.openvpn.PIATorrentGroupName;
+        torrentConCfg = config.service.vpn.pia.torrentCon;
+        torrentConEnabled = torrentConCfg.enable && torrentConCfg.type == "openvpn";
+        torrentDev = torrentConCfg.interface;
+        defaultDevice = cfg.defaultInterfaceName;
     in
-        lib.mkIf config.service.openvpn.enable {
-            assertions = [
-                {
-                    assertion = config.sops.enable;
-                    message = "Openvpn requires sops to be enabled to retrieve credentials.";
-                }
-                {
-                    assertion = (lib.match "[^0-9]+[0-9]" config.service.openvpn.PIATorrentDevName) != null;
-                    message = ''
-                        The device name specified for the torrent device must include a number at the end, otherwise one will
-                        be assigned to it by openvpn and the configuration will not have access to the correct device name.
-                    '';
-                }
-            ];
-
+        lib.mkIf (config.service.vpn.pia.enable && cfg.enable) {
             sops = lib.mkIf config.sops.enable {
-                secrets = let
-                    host = config.networking.hostName;
-                in {
-                    "VPN/PIA/user" = {
-                        sopsFile = ../../../secrets/${host}/vpn.yaml;
-                    };
-                    "VPN/PIA/pass" = {
-                        sopsFile = ../../../secrets/${host}/vpn.yaml;
-                    };
-                };
                 templates = {
-                    "PIA-login" = lib.mkIf (config.service.openvpn.PIA || config.service.openvpn.PIATorrentService) {
+                    "PIA-login" = {
                         content = ''
                             ${config.sops.placeholder."VPN/PIA/user"}
                             ${config.sops.placeholder."VPN/PIA/pass"}
                         '';
                     };
-                    "NetworkManager-profiles-env" = lib.mkIf config.service.openvpn.PIA {
-                        content =
-                            ''''
-                            + lib.optionalString config.service.openvpn.PIA
-                            "PIA_USERNAME=${config.sops.placeholder."VPN/PIA/user"}";
+                    "NetworkManager-profiles-env" = {
+                        content = "PIA_USERNAME=${config.sops.placeholder."VPN/PIA/user"}";
                     };
                 };
             };
 
-            services.openvpn = let
-                defaultDevice = config.service.openvpn.defaultInterfaceName;
-            in {
+            services.openvpn = {
                 restartAfterSleep = true;
                 # these get turned into system services
-                servers = {
-                    PIA-Melbourne = lib.mkIf config.service.openvpn.PIA {
-                        config = ''
-                            config ${toString ./servers/PIA_melbourne.ovpn}
-                            auth-nocache
-                            dev ${defaultDevice}
-                        '';
-                        autoStart = false;
+                servers = let
+                    mkOvpnCfg = cfg: {
+                        config =
+                            ''
+                                config ${cfg.ovpnCfg}
+                                auth-nocache
+                                dev-type tun
+                                dev ${cfg.dev}
+                            ''
+                            + cfg.extraCfg or "";
+                        autoStart = cfg.autoStart;
                         updateResolvConf = true;
                         authUserPass = config.sops.templates."PIA-login".path;
                     };
-                    PIA-Brisbane = lib.mkIf config.service.openvpn.PIA {
-                        config = ''
-                            config ${toString ./servers/PIA_brisbane.ovpn}
-                            auth-nocache
-                            dev ${defaultDevice}
-                        '';
+                in {
+                    PIA-Melbourne = mkOvpnCfg {
+                        ovpnCfg = toString ./PIA_melbourne.ovpn;
+                        dev = defaultDevice;
                         autoStart = false;
-                        updateResolvConf = true;
-                        authUserPass = config.sops.templates."PIA-login".path;
                     };
-                    # will only redirect traffic bound to qbittorrentDevice
-                    PIA-torrent = lib.mkIf config.service.openvpn.PIATorrentService {
-                        config = ''
-                            config ${toString ./servers/PIA_melbourne.ovpn}
-                            pull-filter ignore redirect-gateway
-                            auth-nocache
-                            dev ${torrentDev}
-                            dev-type tun
-                        '';
+                    PIA-Brisbane = mkOvpnCfg {
+                        ovpnCfg = toString ./PIA_brisbane.ovpn;
+                        dev = defaultDevice;
+                        autoStart = false;
+                    };
+                    # will only redirect traffic bound to the device
+                    PIA-torrent = lib.mkIf torrentConEnabled (mkOvpnCfg {
+                        ovpnCfg = toString ./PIA_melbourne.ovpn;
+                        dev = torrentDev;
                         autoStart = true;
-                        updateResolvConf = true;
-                        authUserPass = config.sops.templates."PIA-login".path;
-                    };
+                        extraCfg = ''
+                            pull-filter ignore redirect-gateway
+                        '';
+                    });
                 };
             };
-            users.groups.${torrentGroup} = {name = torrentGroup;};
-            # any packets made by a member of the group that are not directed to the
-            # the VPN interface are jumped to the REJECT chain
-            networking.firewall.extraCommands = ''
-                iptables -A OUTPUT -m owner --gid-owner ${torrentGroup} \! -o ${torrentDev} -j REJECT
-                ip6tables -A OUTPUT -m owner --gid-owner ${torrentGroup} \! -o ${torrentDev} -j REJECT
-            '';
-
-            # systemd.services.NetworkManager-profiles-env = {
-            # 	description = "Create env file for NetworkManager-ensure-profiles.service from sops secrets.";
-            # 	wantedBy = ["multi-user.target"];
-            # 	before = ["network-online.target" "NetworkManager-ensure-profiles.service"];
-            # 	after = ["NetworkManager.service"];
-            # 	script = let
-            # 		dir = "/run/secrets/VPN";
-            # 		file = "/run/secrets/VPN/NetworkManager-ensure-profiles.env";
-            # 	in
-            # 		''
-            # 			mkdir -p ${dir}
-            # 			if [ -a ${file} ]; then
-            # 			    rm ${file}
-            # 			fi
-            # 			touch ${file}
-            # 			chmod 600 ${file}
-            # 		''
-            # 		+ lib.optionalString config.service.openvpn.PIA
-            # 		''echo "PIA_USERNAME=$(cat ${config.sops.secrets."VPN/PIA/user".path})\n" >> ${file}'';
-            # 	serviceConfig = {
-            # 		Umask = "0177";
-            # 		Type = "oneshot";
-            # 	};
-            # };
 
             networking.networkmanager = lib.mkIf config.networking.networkmanager.enable {
                 plugins = [
@@ -160,11 +87,11 @@
                 # use google and cloudflare nameservers
                 # insertNameservers = ["8.8.8.8" "1.1.1.1"];
                 ensureProfiles = {
-                    environmentFiles = [
+                    environmentFiles = lib.mkIf config.sops.enable [
                         config.sops.templates."NetworkManager-profiles-env".path
                     ];
                     profiles = {
-                        PIA_openvpn_brisbane = lib.mkIf config.service.openvpn.PIA {
+                        PIA_openvpn_brisbane = {
                             connection = {
                                 id = "PIA_openvpn_brisbane";
                                 type = "vpn";
@@ -202,7 +129,7 @@
                                 connection-type = "password";
                             };
                         };
-                        PIA_openvpn_melbourne = lib.mkIf config.service.openvpn.PIA {
+                        PIA_openvpn_melbourne = {
                             connection = {
                                 id = "PIA_openvpn_melbourne";
                                 type = "vpn";

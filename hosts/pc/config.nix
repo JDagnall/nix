@@ -10,6 +10,7 @@
     window-manager.hyprland.enable = true;
     boot-loader.systemd-boot.enable = true;
     sops.enable = true;
+    network.physicalInterfaces = ["enp7s0" "wlp6s0"];
 
     service.pipewire.enable = true;
 
@@ -39,15 +40,13 @@
 
     service.docker.enable = true;
     service.docker.groupUsers = ["james"];
-    service.openvpn.enable = true;
-    service.openvpn.PIA = true;
+    service.vpn.pia.enable = true;
+    service.vpn.pia.openvpn.enable = true;
     service.tailscale = {
         enable = true;
-        physicalInterfaces = ["enp7s0"];
         interfacePatch = true;
     };
     service.gnome-keyring.enable = true;
-    service.wiregaurd.enable = false;
     service.languagetool.enable = true;
 
     tools.micro-controller.platformio.enableUdev = true;

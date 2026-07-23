@@ -47,6 +47,10 @@
             url = "github:nix-community/nix-index-database";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        pia-tools = {
+            url = "github:JDagnall/pia-tools/add_qbittorrent";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         # plasma-manager = {
         # 	url = "github:nix-community/plasma-manager";
         # 	inputs.nixpkgs.follows = "nixpkgs";

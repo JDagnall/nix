@@ -37,13 +37,12 @@
     service.docker.enable = true;
     service.docker.groupUsers = ["james"];
     service.fprintd.enable = true;
-    service.openvpn.enable = true;
-    service.openvpn.PIA = true;
+    service.vpn.pia.enable = true;
+    service.vpn.pia.openvpn.enable = true;
     service.sshd.enable = true;
     service.sshd.james.authKeys.enable = true;
     service.tailscale.enable = true;
     service.gnome-keyring.enable = true;
-    service.wiregaurd.enable = false;
 
     stylix.enableConfig = true;
     # config ------------------------------
