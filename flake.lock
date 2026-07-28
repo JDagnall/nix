@@ -882,16 +882,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1784786991,
-        "narHash": "sha256-ofTHaRWymnnlbEoVGFW1f1IHw4sf8KjSnV0QOCH8RsM=",
-        "owner": "JDagnall",
+        "lastModified": 1784996136,
+        "narHash": "sha256-qGe/e48U1PdNk9ZUq9Pqy0lrJtIw8lnPpyBjpqImPxk=",
+        "owner": "jdelkins",
         "repo": "pia-tools",
-        "rev": "44f8c57f8ff169d7bcabbe26c0e0af0c54de7878",
+        "rev": "4679cffce003ab2d1a0ae7539c27884c504f7948",
         "type": "github"
       },
       "original": {
-        "owner": "JDagnall",
-        "ref": "add_qbittorrent",
+        "owner": "jdelkins",
         "repo": "pia-tools",
         "type": "github"
       }

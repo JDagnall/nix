@@ -40,6 +40,10 @@ in {
         };
     };
     config = lib.mkIf config.service.dnsmasq.enable {
+        # using dnsmasq witht the tailscale interface creates a race condition
+        # at startup where tailscale may not have created it's interface before
+        # dnsmasq intitialises, causing it to crash. So we just start it after tailscale
+        systemd.services.dnsmasq.after = lib.optionals tailscaleEnabled ["tailscaled.service"];
         services.dnsmasq = {
             enable = true;
             resolveLocalQueries = !resolvedEnabled;

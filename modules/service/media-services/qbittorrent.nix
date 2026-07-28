@@ -59,6 +59,7 @@ in {
             in {
                 "qbittorrent/user" = secretCfg;
                 "qbittorrent/pass" = secretCfg;
+                "qbittorrent/hashedPass" = secretCfg;
                 "qbittorrent/apikey" = secretCfg;
             };
             sops.templates = {
@@ -93,7 +94,7 @@ in {
                         Preferences = {
                             WebUI = {
                                 Username = config.sops.placeholder."qbittorrent/user";
-                                Password_PBKDF2 = config.sops.placeholder."qbittorrent/pass";
+                                Password_PBKDF2 = config.sops.placeholder."qbittorrent/hashedPass";
                                 APIKey = config.sops.placeholder."qbittorrent/apikey";
                             };
                             General = {

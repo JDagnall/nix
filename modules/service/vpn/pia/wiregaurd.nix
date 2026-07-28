@@ -48,8 +48,9 @@ in {
                     ''
                     + lib.optionalString config.service.media-services.qbittorrent.enable ''
                         QBITTORRENT_APIKEY=${sops-placeholder."qbittorrent/apikey"}
-
                     ''
+                    # QBITTORRENT_USERNAME=${sops-placeholder."qbittorrent/user"}
+                    # QBITTORRENT_PASSWORD=${sops-placeholder."qbittorrent/pass"}
                     + lib.optionalString config.service.media-services.transmission.enable ''
                         TRANSMISSION_USERNAME=${sops-placeholder."transmission/user"}
                         TRANSMISSION_PASSWORD=${sops-placeholder."transmission/pass"}

@@ -48,7 +48,7 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         pia-tools = {
-            url = "github:JDagnall/pia-tools/add_qbittorrent";
+            url = "github:jdelkins/pia-tools";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         # plasma-manager = {

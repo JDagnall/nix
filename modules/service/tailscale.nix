@@ -67,7 +67,7 @@
             wantedBy = ["mulit-user.target"];
             script = let
                 tailscaleInterfaceScript = let
-                    interface = config.service.tailscale.interfaceName;
+                    interface = config.service.tailscale.interface;
                 in ''
                     ${pkgs.ethtool}/bin/ethtool -K ${interface} tso off gso off || true;
                     echo ${interface}:
@@ -81,7 +81,7 @@
                     echo ""
                 '';
             in ''
-                ${tailscaleInterfaceScript config.service.tailscale.interface}
+                ${tailscaleInterfaceScript}
                 ${lib.concatStringsSep "\n" (map physInterfaceScript (config.network.physicalInterfaces))}
             '';
             serviceConfig = {
