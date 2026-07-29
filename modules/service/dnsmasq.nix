@@ -40,10 +40,12 @@ in {
         };
     };
     config = lib.mkIf config.service.dnsmasq.enable {
-        # using dnsmasq witht the tailscale interface creates a race condition
-        # at startup where tailscale may not have created it's interface before
-        # dnsmasq intitialises, causing it to crash. So we just start it after tailscale
-        systemd.services.dnsmasq.after = lib.optionals tailscaleEnabled ["tailscaled.service"];
+        # using dnsmasq with the `interface-name` option creates a race condition
+        # at startup where interfaces may not be initialised before dnsmasq intitialises,
+        # causing it to crash. So we just start the unit after, network-online.target and
+        # tailscale if necesary
+        systemd.services.dnsmasq.after = ["network-online.target"] ++ lib.optional tailscaleEnabled "tailscaled.service";
+        systemd.services.dnsmasq.requires = ["network-online.target"] ++ lib.optional tailscaleEnabled "tailscaled.service";
         services.dnsmasq = {
             enable = true;
             resolveLocalQueries = !resolvedEnabled;
