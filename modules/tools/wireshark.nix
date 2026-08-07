@@ -22,7 +22,7 @@ in {
             # just assuming that if you want wireshark you want it to
             # be able to read traffic
             dumpcap.enable = true; # permission pcap network traffic
-            usbmon.enable = true; # permission to pcap usb traffic
+            usbmon.enable = false; # permission to pcap usb traffic
         };
         users.groups."wireshark".members = cfg.users;
     };

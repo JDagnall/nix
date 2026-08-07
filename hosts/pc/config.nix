@@ -40,8 +40,8 @@
 
     service.docker.enable = true;
     service.docker.groupUsers = ["james"];
-    service.vpn.pia.enable = true;
-    service.vpn.pia.openvpn.enable = true;
+    service.vpn.pia.enable = false;
+    service.vpn.pia.openvpn.enable = false;
     service.tailscale = {
         enable = true;
         interfacePatch = true;
