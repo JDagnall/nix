@@ -89,10 +89,11 @@ in {
                 # Name of systemd service for pia-tools tunnel reset.
                 # resetServiceName = "pia-reset-${ifname}" ; # name of service that resets the conn
                 # when the connection is reset (is systemd timer cfg format)
-                # resetTimerConfig = {
-                #     OnCalendar = "Wed *-*-* 03:00:00";
-                #     RandomizedDelaySec = "72h";
-                # };
+                resetTimerConfig = {
+                    # runs on mondays and friday following some failures with connections being dropped
+                    OnCalendar = "Mon,Fri *-*-* 03:00:00";
+                    RandomizedDelaySec = "12h";
+                };
                 # refreshServiceName = "pia-pf-refresh-${ifname}" ; # name of service that resets the PF
                 # same as above timer cfg but for the port forward
                 # refreshTimerConfig = {

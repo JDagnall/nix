@@ -32,7 +32,7 @@ in {
                 ++ lib.optionals (config.users.users ? prowlarr) ["prowlarr"]
                 ++ lib.optionals (config.users.users ? sonarr) ["sonarr"]
                 ++ lib.optionals (config.users.users ? radarr) ["radarr"]
-                ++ lib.optionals (config.users.users ? radarr) ["radarr"]
+                ++ lib.optionals (config.users.users ? jackett) ["jackett"]
                 ++ lib.optionals (config.users.users ? transmission) ["transmission"];
         };
     };
@@ -45,5 +45,7 @@ in {
         ./radarr.nix
         ./seerr.nix
         ./transmission.nix
+        ./flaresolverr.nix
+        ./jackett.nix
     ];
 }

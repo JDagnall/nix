@@ -32,6 +32,8 @@
         sonarr.enable = true;
         radarr.enable = true;
         prowlarr.enable = true;
+        jackett.enable = false;
+        flaresolverr.enable = true;
         seerr.enable = true;
         transmission.enable = false;
     };
@@ -105,6 +107,9 @@
         enable = true;
         policy = ["magic"];
     };
+
+    # Prowlarr does not like ipv6
+    networking.enableIPv6 = false;
 
     # garbage collector
     nix.gc = {

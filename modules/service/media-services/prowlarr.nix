@@ -6,16 +6,12 @@
     cfg = config.service.media-services;
 in {
     options = {
-        service.media-services = {
-            prowlarr.enable = lib.mkEnableOption "Enable Prowlarr.";
-            flaresolverr.enable = lib.mkOption {
-                type = lib.types.bool;
-                default = cfg.prowlarr.enable;
-                description = "Enable flaresolverr, solves captchas.";
-            };
+        service.media-services.prowlarr = {
+            enable = lib.mkEnableOption "Enable Prowlarr.";
         };
     };
     config = lib.mkIf cfg.enable {
+        warnings = lib.optional config.networking.enableIPv6 "Prowlarr may not work with captcha solvers if ipv6 is enabled.";
         services.prowlarr = lib.mkIf cfg.prowlarr.enable {
             enable = true;
             openFirewall = false; # tailscale;
@@ -26,18 +22,12 @@ in {
                 server = {
                     port = 9696;
                     bindaddress = "localhost";
-                    # would be 'prowlar', if intended to access through reverse proxy,
+                    # would be 'prowlarr', if intended to access through reverse proxy,
                     # in format domain-name.com/prowlarr
                     # urlbase = ;
                 };
                 update.automatically = false;
             };
-        };
-        # solves cloudflare captchas
-        services.flaresolverr = lib.mkIf cfg.flaresolverr.enable {
-            enable = true;
-            openFirewall = false;
-            port = 8191;
         };
     };
 }

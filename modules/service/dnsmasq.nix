@@ -1,6 +1,9 @@
 # The purpose of this configuration is to host a DNS server for the machine to
 # host domain entries pointing to itself on, its not and ad-block / privacy dns server like pihole.
+# TODO: This module does have some generalisation problems, using the `interface` options
+# should be some kind of enable option. Something to fix after dendritic is implimented.
 {
+    pkgs,
     lib,
     config,
     ...
@@ -12,6 +15,7 @@
     physicalInterfaces = config.network.physicalInterfaces;
     tailscaleInterface = config.service.tailscale.interface;
     loopbackInterface = config.network.loopbackInterface;
+    networkdEnabled = config.networking.useNetworkd;
 in {
     options = {
         service.dnsmasq = {
@@ -40,12 +44,35 @@ in {
         };
     };
     config = lib.mkIf config.service.dnsmasq.enable {
+        warnings = lib.optional (!networkdEnabled) [
+            "Dnsmasq may not work well with non systemd-networkd network configs at startup, interfaces may not come up in time for the service"
+        ];
         # using dnsmasq with the `interface-name` option creates a race condition
         # at startup where interfaces may not be initialised before dnsmasq intitialises,
-        # causing it to crash. So we just start the unit after, network-online.target and
-        # tailscale if necesary
-        systemd.services.dnsmasq.after = ["network-online.target"] ++ lib.optional tailscaleEnabled "tailscaled.service";
-        systemd.services.dnsmasq.requires = ["network-online.target"] ++ lib.optional tailscaleEnabled "tailscaled.service";
+        # causing it to crash.
+        # networkd has a good soloution to this with the `systemd-networkd-wait-online` tool
+        # but NetworkManager does not. TODO: It would be possible to write a service that just
+        # checks `ip link` untill an address is configured for the interfaces. But I am not
+        # using this with NetworkManager at the moment
+        systemd.services.dnsmasq-wait-for-interfaces = lib.mkIf networkdEnabled {
+            after = ["systemd-networkd.service"];
+            serviceConfig = {
+                Type = "oneshot";
+                ExecStart = let
+                    interfaceOpts = map (interface: "-i ${interface}") (physicalInterfaces ++ lib.optional tailscaleEnabled tailscaleInterface);
+                in
+                    # Setting a default timeout of 120s, waiting for ipv4 addresses to be specified for the provided interfaces
+                    ''
+                        ${pkgs.systemd}/lib/systemd/systemd-networkd-wait-online --timeout=120 ${lib.concatStringsSep " " interfaceOpts} --ipv4
+                    '';
+                RemainAfterExit = true;
+            };
+        };
+        # inject the systemd dependency
+        systemd.services.dnsmasq = lib.mkIf networkdEnabled {
+            after = ["dnsmasq-wait-for-interfaces.service"];
+            requires = ["dnsmasq-wait-for-interfaces.service"];
+        };
         services.dnsmasq = {
             enable = true;
             resolveLocalQueries = !resolvedEnabled;
@@ -76,6 +103,7 @@ in {
                     ++ (mkServiceSubdomain "radarr" serviceCfg.media-services.radarr.enable)
                     ++ (mkServiceSubdomain "prowlarr" serviceCfg.media-services.prowlarr.enable)
                     ++ (mkServiceSubdomain "flaresolverr" serviceCfg.media-services.flaresolverr.enable)
+                    ++ (mkServiceSubdomain "jackett" serviceCfg.media-services.jackett.enable)
                     ++ (mkServiceSubdomain "seerr" serviceCfg.media-services.seerr.enable);
 
                 # TODO: this will need more work if other configs for other dns servers are added

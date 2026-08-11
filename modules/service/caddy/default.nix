@@ -112,6 +112,12 @@
                                 port = 8191;
                             }
                         ]
+                        ++ lib.optionals servicesCfg.media-services.jackett.enable [
+                            {
+                                name = "jackett";
+                                port = 9117;
+                            }
+                        ]
                         ++ lib.optionals servicesCfg.media-services.seerr.enable [
                             {
                                 name = "seerr";
