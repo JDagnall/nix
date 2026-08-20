@@ -38,7 +38,7 @@ in {
                 # theme = "catppuccinMocha";
                 style = "plain";
                 paging = "never";
-                color = "always";
+                color = "auto";
             };
         };
         programs.zsh.shellAliases = mkIf config.shell.zsh.enable {

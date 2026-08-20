@@ -1,5 +1,4 @@
 {
-    pkgs,
     lib,
     config,
     inputs,
@@ -13,8 +12,8 @@
     options = {
         ui.noctalia = {
             enable = lib.mkEnableOption "Enable nocatalia config.";
+            systemd.enable = lib.mkEnableOption "Enable systemd unit activation." // {default = true;};
             lockScreen.enable = lib.mkEnableOption "Enable using noctalia as the idle manager.";
-            osd.enable = lib.mkEnableOption "Enable using noctalia as the osd.";
             wallpaper.enable = lib.mkEnableOption "Enable using noctalia as the wallpaper.";
             notificationManager.enable = lib.mkEnableOption "Enable using noctalia as the notification manager.";
             launcherShortcut = lib.mkEnableOption "Enable shortcut (probably Meta+D) for the launcher.";
@@ -23,11 +22,7 @@
                 type = lib.types.enum ["desktop" "laptop"];
                 description = "The device profile for things like the idle timeouts and battery monitoring, ect.";
             };
-            clipboardManager.enable = lib.mkOption {
-                type = lib.types.bool;
-                default = true;
-                description = "Whether to enable the clipboard manager, requires wl-clipboard.";
-            };
+            polkit.enable = lib.mkEnableOption "Enable using noctalia as a polkit" // {default = osConfig.security.polkit.enable;};
         };
     };
     config = let
@@ -67,444 +62,253 @@
                 ++ lib.optionals (!(osConfig.services.tuned.enable || osConfig.services.power-profiles-daemon.enable) && noctaliaCfg.deviceProfile == "laptop")
                 ["Noctalia will be unable to provide power profiles information without one of services.tuned or services.power-profiles-daemon in nixos config"];
 
-            programs.noctalia-shell = {
+            programs.noctalia = {
                 enable = true;
+                systemd.enable = noctaliaCfg.systemd.enable;
+                validateConfig = true;
                 settings = {
+                    widget = {
+                        launcher = {};
+                        # control-center = {};
+                        notifications = {
+                            hide_when_no_unread = true;
+                        };
+                        network = {
+                            vpn_status = "replace"; # both | hidden | replace
+                        };
+                        privacy = {
+                            hide_inactive = true;
+                        };
+                        clock = {
+                            format = "{:%H:%M | %a, %d %b}";
+                            vertical_format = "{:%H\n%M}";
+                            tooltip_format = "{:%A, %B %d, %Y}";
+                        };
+                        audio_visualizer = {
+                            width = 100;
+                        };
+                        tray = {
+                            drawer = true;
+                        };
+                    };
                     bar = {
-                        barType =
-                            if noctaliaCfg.deviceProfile == "desktop"
-                            then "floating"
-                            else "simple";
-                        position = "top";
-                        monitors = [];
-                        density = "default";
-                        showOutline = false;
-                        showCapsule = true;
-                        # useSeparateOpacity = false;
-                        # backgroundOpacity = 0.8;
-                        floating = noctaliaCfg.deviceProfile == "desktop";
-                        marginVertical = 4;
-                        marginHorizontal = 4;
-                        frameThickness = 8;
-                        frameRadius = 12;
-                        outerCorners = true;
-                        hideOnOverview = false;
-                        displayMode = "always_visible";
-                        autoHideDelay = 500;
-                        autoShowDelay = 150;
-                        widgets = {
-                            left = [
-                                {id = "Launcher";}
-                                {id = "Clock";}
-                                {id = "SystemMonitor";}
-                                {
-                                    id = "AudioVisualizer";
-                                    width = 100;
-                                }
-                                {id = "plugin:catwalk";}
+                        order = ["main"];
+                        # can be any number of named bars
+                        main = {
+                            enabled = true;
+                            position = "top";
+                            auto_hide = false;
+                            reserve_space = true; #compositor exclusion zone
+                            # thickness = 34;
+                            background_opacity = 0.8;
+                            # border = "outline";
+                            # border_width = 0.0;
+                            # shadow = true;
+                            # contact_shadow = false;
+                            # panel_overlap = 1;
+                            # radius = 12;
+                            # radius_top_left = 12;
+                            # radius_top_right = 12;
+                            # radius_bottom_left = 12;
+                            # radius_bottom_right = 12;
+                            # concave_edge_corners = true;
+                            # margin_ends = 100;
+                            # margin_edge = 0;
+                            # margin_opposite_edge = 0;
+                            # padding = 14;
+                            # widget_spacing = 6;
+                            # hover_highlight = true;
+                            # scale = 1.0;
+                            # font_weight = 500;
+                            capsule = true;
+                            # capsule_fill = "surface_variant";
+                            # capsule_thickness = 0.76;
+                            # capsule_radius = 8.0;
+                            # capsule_opacity = 1.0;
+                            start = [
+                                "launcher"
+                                "clock"
+                                "weather"
+                                "sysmon"
+                                "audio_visualizer"
                             ];
                             center = [
-                                {id = "Workspace";}
+                                "workspaces"
                             ];
-                            right =
+                            end =
                                 [
-                                    {id = "Tray";}
-                                    {id = "NotificationHistory";}
-                                    {id = "plugin:privacy-indicator";}
+                                    "tray"
+                                    "notifications"
+                                    "privacy"
+                                    "clipboard"
                                 ]
-                                ++ lib.optionals noctaliaCfg.clipboardManager.enable [{id = "plugin:clipper";}]
                                 ++ [
-                                    {id = "Volume";}
-                                    {id = "Network";}
-                                    {id = "Bluetooth";}
-                                    {id = "VPN";}
+                                    "volume"
+                                    "network"
+                                    "bluetooth"
                                 ]
-                                ++ lib.optionals osConfig.services.tailscale.enable [{id = "plugin:tailscale";}]
+                                # ++ lib.optionals osConfig.services.tailscale.enable [{id = "plugin:tailscale";}]
                                 ++ lib.optionals (noctaliaCfg.deviceProfile == "laptop") [
-                                    {id = "Battery";}
-                                    {id = "Brightness";}
+                                    "battery"
+                                    "brightness"
                                 ]
                                 ++ [
-                                    {id = "ControlCenter";}
+                                    "control-center"
                                 ];
                         };
-                        screenOverrides = [];
                     };
-                    general = {
-                        avatarImage = builtins.fetchurl {
+                    shell = {
+                        corner_radius_scale = 1.0; # 0 = square, 1 = default, 2 = extra rounded
+                        time_format = "{:%H:%M}"; # default shell UI time format
+                        date_format = "%A, %x"; # default shell UI date format
+                        # looks way better as a mono font
+                        font_family = lib.mkForce (lib.optionalString config.stylix.enableHomeConfig config.stylix.fonts.monospace.name);
+                        offline_mode = false; # block all outgoing HTTP when true
+                        panel_anchor_bar = "main";
+                        telemetry_enabled = false; # send an anonymous startup ping
+                        polkit_agent = noctaliaCfg.polkit.enable;
+                        password_style = "default"; # default | random
+                        settings_show_advanced = true; # show advanced settings by default in Settings
+                        # settings_window_translucent = false
+                        show_location = true;
+                        # app_icon_colorize   = false
+                        # app_icon_color      = "on_surface"
+                        clipboard_enabled = true;
+                        clipboard_history_max_entries = 100;
+                        clipboard_keep_from_closed_apps = true; # keep the last copied item pasteable after the app you copied it from closes
+                        clipboard_auto_paste = "auto"; # off | auto | ctrl_v | ctrl_shift_v | shift_insert
+                        # clipboard_image_action_command = "";
+                        shared_gl_context = true;
+                        # lang                = "en"
+                        avatar_path = builtins.fetchurl {
                             url = "https://cdnb.artstation.com/p/assets/images/images/035/450/685/large/ryth-asset.jpg";
                             name = "pyro_frog.jpg";
                             sha256 = "sha256:0gcnw96b43z2l5pm2iaarz6rxb7snxn8a8vldxvqn6hzppvl4wp8";
                         };
-                        showScreenCorners = false;
-                        forceBlackScreenCorners = false;
-                        animationSpeed = 1.75;
-                        animationDisabled = false;
-                        compactLockScreen = false;
-                        lockOnSuspend = true;
-                        showSessionButtonsOnLockScreen = true;
-                        showHibernateOnLockScreen = false;
-                        enableShadows = true;
-                        shadowDirection = "bottom_right";
-                        shadowOffsetX = 2;
-                        shadowOffsetY = 3;
-                        language = "";
-                        allowPanelsOnScreenWithoutBar = true;
-                        showChangelogOnStartup = true;
-                        telemetryEnabled = false;
-                        enableLockScreenCountdown = true;
-                        lockScreenCountdownDuration = 10000;
-                        autoStartAuth = false;
-                        allowPasswordWithFprintd = osConfig.service.fprintd.enable;
-                    };
-                    ui = {
-                        tooltipsEnabled = true;
-                        panelsAttachedToBar = true;
-                        settingsPanelMode = "attached";
-                        wifiDetailsViewMode = "grid";
-                        bluetoothDetailsViewMode = "grid";
-                        networkPanelView = "wifi";
-                        bluetoothHideUnnamedDevices = false;
-                        boxBorderEnabled = false;
-                    };
-                    location = {
-                        name = "Brisbane";
-                        weatherEnabled = true;
-                        weatherShowEffects = true;
-                        use12hourFormat = false;
-                        showWeekNumberInCalendar = false;
-                        showCalendarEvents = false;
-                        showCalendarWeather = true;
-                        analogClockInCalendar = false;
-                        # Monday?
-                        firstDayOfWeek = -1;
-                        hideWeatherTimezone = false;
-                        hideWeatherCityName = false;
-                    };
-                    calendar = {
-                        cards = [
-                            {
-                                enabled = true;
-                                id = "calendar-header-card";
-                            }
-                            {
-                                enabled = true;
-                                id = "calendar-month-card";
-                            }
-                            {
-                                enabled = true;
-                                id = "weather-card";
-                            }
-                        ];
+                        privacy = {
+                            # mic_filter_regex = "";
+                            # cam_filter_regex = "";
+                            # screen_filter_regex = "";
+                        };
+                        animation = {
+                            enabled = true;
+                            # speed = 1.0;
+                        };
+                        launcher = {
+                            categories = true;
+                            show_icons = true;
+                            compact = false;
+                            app_grid = false;
+                            # pinned = [];
+                            providers = {};
+                        };
+                        panel = {
+                            transparency_mode = "glass";
+                        };
                     };
                     wallpaper = {
                         enabled = noctaliaCfg.wallpaper.enable;
-                        overviewEnabled = false;
-                        # directory = "";
-                        # monitorDirectories = [];
-                        enableMultiMonitorDirectories = false;
-                        showHiddenFiles = false;
-                        viewMode = "single";
-                        setWallpaperOnAllMonitors = true;
-                        fillMode = "fill";
-                        automationEnabled = false;
-                        wallpaperChangeMode = "random";
-                        randomIntervalSec = 300;
-                        transitionDuration = 1500;
-                        transitionType = "random";
-                        transitionEdgeSmoothness = 0.05;
-                        panelPosition = "follow_bar";
-                        hideWallpaperFilenames = false;
-                        sortOrder = "name";
+                        fill_mode = "crop";
                     };
-                    appLauncher = {
-                        enableClipboardHistory = noctaliaCfg.clipboardManager.enable;
-                        autoPasteClipboard = false;
-                        enableClipPreview = true;
-                        clipboardWrapText = true;
-                        # just assuming here that wl-clipboard is being used. May need to fix later
-                        clipboardWatchTextCommand = "wl-paste --type text --watch cliphist store";
-                        clipboardWatchImageCommand = "wl-paste --type image --watch cliphist store";
-                        position = "center";
-                        pinnedApps = [];
-                        useApp2Unit = false;
-                        sortByMostUsed = true;
-                        terminalCommand = lib.mkIf (config.home.sessionVariables ? TERMINAL) "${config.home.sessionVariables.TERMINAL} -e";
-                        customLaunchPrefixEnabled = false;
-                        customLaunchPrefix = "";
-                        viewMode = "list";
-                        showCategories = true;
-                        iconMode = "tabler";
-                        showIconBackground = false;
-                        enableSettingsSearch = true;
-                        enableWindowsSearch = true;
-                        ignoreMouseInput = false;
-                        screenshotAnnotationTool = "";
+                    theme = {
+                        source = lib.optionalString config.stylix.enableHomeConfig "custom";
                     };
-                    controlCenter = {
-                        position = "close_to_bar_button";
-                        diskPath = "/";
-                        shortcuts = {
-                            left = [
-                                {id = "Network";}
-                                {id = "Bluetooth";}
-                                {id = "NoctaliaPerformance";}
-                            ];
-                            right =
-                                [
-                                    {id = "Notifications";}
-                                    {id = "KeepAwake";}
-                                ]
-                                ++ lib.optionals (noctaliaCfg.deviceProfile == "laptop") [
-                                    {id = "PowerProfile";}
-                                    {id = "NightLight";}
-                                ];
-                        };
-                        cards =
-                            [
-                                {
-                                    enabled = true;
-                                    id = "profile-card";
-                                }
-                                {
-                                    enabled = true;
-                                    id = "shortcuts-card";
-                                }
-                                {
-                                    enabled = true;
-                                    id = "audio-card";
-                                }
-                            ]
-                            ++ lib.optionals (noctaliaCfg.deviceProfile == "laptop") [
-                                {
-                                    enabled = false;
-                                    id = "brightness-card";
-                                }
-                            ]
-                            ++ [
-                                {
-                                    enabled = true;
-                                    id = "weather-card";
-                                }
-                                {
-                                    enabled = true;
-                                    id = "media-sysmon-card";
-                                }
-                            ];
-                    };
-                    systemMonitor = {
-                        cpuWarningThreshold = 80;
-                        cpuCriticalThreshold = 90;
-                        tempWarningThreshold = 80;
-                        tempCriticalThreshold = 90;
-                        gpuWarningThreshold = 80;
-                        gpuCriticalThreshold = 90;
-                        memWarningThreshold = 80;
-                        memCriticalThreshold = 90;
-                        swapWarningThreshold = 80;
-                        swapCriticalThreshold = 90;
-                        diskWarningThreshold = 80;
-                        diskCriticalThreshold = 90;
-                        cpuPollingInterval = 1000;
-                        gpuPollingInterval = 3000;
-                        enableDgpuMonitoring = false;
-                        memPollingInterval = 1000;
-                        diskPollingInterval = 30000;
-                        networkPollingInterval = 1000;
-                        loadAvgPollingInterval = 3000;
-                        useCustomColors = false;
-                    };
-                    dock = {
-                        enabled = false;
-                        # position = "bottom";
-                        # displayMode = "auto_hide";
-                        # backgroundOpacity = 1;
-                        # floatingRatio = 1;
-                        # size = 1;
-                        # onlySameOutput = true;
-                        # monitors = [];
-                        # pinnedApps = [];
-                        # colorizeIcons = false;
-                        # pinnedStatic = false;
-                        # inactiveIndicators = false;
-                        # deadOpacity = 0.6;
-                        # animationSpeed = 1;
-                    };
-                    network = {
-                        wifiEnabled = true;
-                        bluetoothRssiPollingEnabled = false;
-                        bluetoothRssiPollIntervalMs = 10000;
-                        wifiDetailsViewMode = "grid";
-                        bluetoothDetailsViewMode = "grid";
-                        bluetoothHideUnnamedDevices = false;
-                    };
-                    sessionMenu = {
-                        enableCountdown = true;
-                        countdownDuration = 2000;
-                        position = "center";
-                        showHeader = true;
-                        largeButtonsStyle = true;
-                        largeButtonsLayout = "single-row";
-                        showNumberLabels = true;
-                        powerOptions = [
-                            {
-                                action = "lock";
-                                enabled = true;
-                            }
-                            {
-                                action = "suspend";
-                                enabled = true;
-                            }
-                            {
-                                action = "hibernate";
-                                enabled = true;
-                            }
-                            {
-                                action = "reboot";
-                                enabled = true;
-                            }
-                            {
-                                action = "logout";
-                                enabled = true;
-                            }
-                            {
-                                action = "shutdown";
-                                enabled = true;
-                            }
-                        ];
-                    };
-                    notifications = {
-                        enabled = noctaliaCfg.notificationManager.enable;
-                        monitors = [];
-                        location = "bottom_right";
-                        overlayLayer = true;
-                        respectExpireTimeout = false;
-                        lowUrgencyDuration = 3;
-                        normalUrgencyDuration = 3;
-                        criticalUrgencyDuration = 5;
-                        enableKeyboardLayoutToast = true;
-                        saveToHistory = {
-                            low = true;
-                            normal = true;
-                            critical = true;
-                        };
-                        sounds = {
-                            enabled = false;
-                            volume = 0.5;
-                            separateSounds = false;
-                            criticalSoundFile = "";
-                            normalSoundFile = "";
-                            lowSoundFile = "";
-                            excludedApps = "discord,firefox,chrome,chromium,edge";
-                        };
-                        enableMediaToast = false;
+                    backdrop = {enabled = false;};
+                    notification = {
+                        enable_daemon = noctaliaCfg.notificationManager.enable;
                     };
                     osd = {
-                        enabled = noctaliaCfg.osd.enable;
-                        location = "top_middle";
-                        autoHideMs = 2000;
-                        overlayLayer = true;
-                        enabledTypes = [
-                            0
-                            1
-                            2
-                        ];
-                        monitors = [];
+                        kinds = {
+                            volume = true;
+                            volume_output = true;
+                            volume_input = true;
+                            brightness = true;
+                            wifi = false;
+                            bluetooth = false;
+                            power_profile = false;
+                            caffeine = false;
+                            nightlight = false;
+                            dnd = false;
+                            lock_keys = false;
+                            keyboard_layout = false;
+                            privacy = true;
+                        };
                     };
-                    audio = {
-                        volumeStep = 5;
-                        volumeOverdrive = false;
-                        cavaFrameRate = 30;
-                        visualizerType = "linear";
-                        mprisBlacklist = [];
-                        preferredPlayer = "";
-                        volumeFeedback = false;
+                    lockscreen = {enabled = noctaliaCfg.lockScreen.enable;};
+                    system.monitor = {
+                        enabled = true;
+                        cpu_poll_seconds = 1000;
+                        gpu_poll_seconds = 3000;
+                        memory_poll_seconds = 1000;
+                        disk_poll_seconds = 30000;
+                        network_poll_seconds = 1000;
                     };
-                    brightness = {
-                        brightnessStep = 5;
-                        enforceMinimum = true;
-                        enableDdcSupport = false;
+                    calendar = {enabled = false;};
+                    control_center = {
+                        calendar = {};
                     };
-                    colorSchemes = {
-                        darkMode = true;
+                    weather = {
+                        enabled = true;
+                        unit = "celsius";
                     };
-                    templates = {
-                        activeTemplates = [];
-                        enableUserTheming = true;
-                    };
-                    nightLight = {
+                    audio = {};
+                    brightness = {};
+                    nightlight = {
                         enabled = noctaliaCfg.deviceProfile == "laptop";
-                        forced = false;
-                        autoSchedule = true;
-                        nightTemp = "4000";
-                        dayTemp = "6500";
-                        manualSunrise = "06:30";
-                        manualSunset = "18:30";
+                        temperature_day = "6500";
+                        temperature_night = "4000";
                     };
-                    hooks = {
-                        enabled = false;
+                    location = {
+                        auto_locate = true;
+                        # address = "Toronto CA";
                     };
-                    desktopWidgets = {
-                        enabled = false;
-                        gridSnap = false;
-                        monitorWidgets = [];
+                    idle.behavior = {
+                        lock = {enabled = false;};
+                        screen-off = {enabled = false;};
                     };
+                    keybinds = {
+                        up = ["up" "ctrl+p"];
+                        down = ["down" "ctrl+n"];
+                    };
+                    dock = {enabled = false;};
+                    desktop_widgets = {enabled = false;};
+                    control_center = {
+                        # shortcuts = [];
+                    };
+                    hooks = {};
                 };
-                plugins = {
-                    sources = [
-                        {
-                            enabled = true;
-                            name = "Official Noctalia Plugins";
-                            url = "https://github.com/noctalia-dev/noctalia-plugins";
-                        }
-                    ];
-                    states = {
-                        catwalk = {
-                            enabled = true;
-                            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-                        };
-                        privacy-indicator = {
-                            enabled = true;
-                            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-                        };
-                        unicode-picker = {
-                            enabled = true;
-                            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-                        };
-                        file-search = lib.mkIf config.tools.fd.enable {
-                            enabled = true;
-                            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-                        };
-                        tailscale = lib.mkIf osConfig.services.tailscale.enable {
-                            enabled = true;
-                            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-                        };
-                        clipper = lib.mkIf noctaliaCfg.clipboardManager.enable {
-                            enabled = true;
-                            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-                        };
-                        # keybind-cheatsheet = {
-                        # 	enabled = true;
-                        # 	sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-                        # };
-                    };
-                    version = 1;
-                };
-                pluginSettings = {
-                    catwalk = {};
-                    privacy-indicator = {
-                        hideInactive = true;
-                    };
-                    tailscale = {
-                        compactMode = true;
-                        terminalCommand = lib.mkIf (config.home.sessionVariables ? TERMINAL) config.home.sessionVariables.TERMINAL;
-                    };
-                    clipper = {};
-                    # keybind-cheatsheet = {};
-                };
+                # plugins = {
+                # sources = [
+                #     {
+                #         enabled = true;
+                #         name = "Official Noctalia Plugins";
+                #         url = "https://github.com/noctalia-dev/noctalia-plugins";
+                #     }
+                # ];
+                # states = {
+                #     unicode-picker = {
+                #         enabled = true;
+                #         sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+                #     };
+                #     file-search = lib.mkIf config.tools.fd.enable {
+                #         enabled = true;
+                #         sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+                #     };
+                #     tailscale = lib.mkIf osConfig.services.tailscale.enable {
+                #         enabled = true;
+                #         sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+                #     };
+                # };
+                # version = 1;
             };
+            # pluginSettings = {
+            #     tailscale = {
+            #         compactMode = true;
+            #         terminalCommand = lib.mkIf (config.home.sessionVariables ? TERMINAL) config.home.sessionVariables.TERMINAL;
+            #     };
+            # };
+            # };
 
-            home.packages = [] ++ lib.optionals noctaliaCfg.clipboardManager.enable [pkgs.cliphist];
-            stylix.targets.noctalia-shell.enable = config.stylix.enableHomeConfig;
+            stylix.targets.noctalia.enable = config.stylix.enableHomeConfig;
         };
 }

@@ -65,6 +65,7 @@
   elevation of privilege is not required.
 - When creating a new terminal window/tab in a directory with direnv, it can take a second and commands entered in that period dont take effect, its very annoying
 - Keyring for use should unlock on login
+- zsh config is slow to start sometimes and is making blocking network calls
 
 ## Stylix
 

@@ -34,11 +34,7 @@ in {
                     Generally just defines which workspaces to bind to which monitor.'';
             };
             enableTouchpadSwipe = mkEnableOption "Enable touchpad swiping for workspaces";
-            enableHyprPolkit = mkOption {
-                type = types.bool;
-                default = true;
-                description = "Enable hyprpolkit agent, for privellige escalation";
-            };
+            enableHyprPolkit = mkEnableOption "Enable hyprpolkit agent, for privellige escalation";
         };
     };
     config = mkIf config.window-manager.hyprland.enable {
@@ -143,7 +139,7 @@ in {
                         else ""
                     }
                                       ${
-                        if config.ui.noctalia.enable
+                        if (config.ui.noctalia.enable && !config.ui.noctalia.systemd.enable)
                         # have to use the package from the input to have it
                         # match the one that will be loaded into the environment
                         # otherwise ipc calls will not work if its not the same executable
@@ -174,7 +170,7 @@ in {
                         # have to use the package from the input to have it
                         # match the one that will be loaded into the environment
                         # otherwise ipc calls will not work if its not the same executable
-                        then "$menu = ${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia-shell ipc call launcher toggle"
+                        then "$menu = ${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia msg panel-toggle launcher"
                         else ""
                     }
                     ${

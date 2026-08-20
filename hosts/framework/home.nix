@@ -34,12 +34,11 @@
     ui.noctalia = {
         enable = true;
         lockScreen.enable = true;
-        osd.enable = true;
         wallpaper.enable = true;
+        polkit.enable = true;
         notificationManager.enable = true;
         launcherShortcut = true;
         deviceProfile = "laptop";
-        clipboardManager.enable = true;
     };
 
     ui.rofi.enable = true;

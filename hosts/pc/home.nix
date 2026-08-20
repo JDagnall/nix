@@ -46,12 +46,11 @@
 
     ui.noctalia = {
         enable = true;
-        launcherShortcut = true;
+        polkit.enable = true;
         lockScreen.enable = true;
-        osd.enable = true;
+        launcherShortcut = true;
         wallpaper.enable = true;
         notificationManager.enable = true;
-        clipboardManager.enable = true;
         deviceProfile = "desktop";
     };
 

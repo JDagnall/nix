@@ -40,11 +40,10 @@
     ui.noctalia = {
         enable = true;
         lockScreen.enable = true;
-        osd.enable = true;
+        polkit.enable = true;
         wallpaper.enable = true;
         notificationManager.enable = true;
         launcherShortcut = true;
-        clipboardManager.enable = true;
         deviceProfile = "laptop";
     };
 
