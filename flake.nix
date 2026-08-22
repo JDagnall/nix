@@ -32,8 +32,8 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         noctalia = {
-            url = "github:noctalia-dev/noctalia";
-            inputs.nixpkgs.follows = "nixpkgs";
+            url = "github:noctalia-dev/noctalia/cachix";
+            # inputs.nixpkgs.follows = "nixpkgs"; # not doing this because it causes cachix misses
         };
         hyprland = {
             url = "github:hyprwm/Hyprland";
