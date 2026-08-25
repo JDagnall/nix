@@ -13,6 +13,9 @@
         ui.noctalia = {
             enable = lib.mkEnableOption "Enable nocatalia config.";
             systemd.enable = lib.mkEnableOption "Enable systemd unit activation." // {default = true;};
+            autostart.enable = lib.mkEnableOption ''
+                Autostart noctalia with an alternative program e.g. a window manager. Generally unecesary because of the systemd service
+            '';
             lockScreen.enable = lib.mkEnableOption "Enable using noctalia as the idle manager.";
             wallpaper.enable = lib.mkEnableOption "Enable using noctalia as the wallpaper.";
             notificationManager.enable = lib.mkEnableOption "Enable using noctalia as the notification manager.";
@@ -53,6 +56,10 @@
                 {
                     assertion = noctaliaCfg.enable != config.ui.mako.enable;
                     message = "Noctalia and mako should not be enabled together.";
+                }
+                {
+                    assertion = !(noctaliaCfg.autostart.enable && noctaliaCfg.systemd.enable);
+                    message = "The systemd service and autostart command should not be enabled together.";
                 }
             ];
             warnings =

@@ -11,8 +11,6 @@
         mkIf
         mkEnableOption
         mkOption
-        mkOrder
-        mkMerge
         types
         ;
 in {
@@ -20,15 +18,47 @@ in {
         window-manager.hyprland = {
             enable = mkEnableOption "Enable Hyprland config";
             monitors = mkOption {
-                default = [", preferred, auto, 1"];
-                type = types.listOf types.str;
+                default = [{output = "";}];
+                type = types.listOf (types.submodule {
+                    options = {
+                        output = mkOption {
+                            type = types.str;
+                            description = "Display output specification as per hyprland specification.";
+                        };
+                        mode = mkOption {
+                            type = types.str;
+                            default = "preferred";
+                            description = "Display output mode as per hyprland specification.";
+                        };
+                        position = mkOption {
+                            default = "auto";
+                            type = types.str;
+                            description = "Position for the monitor as per hyprland specification.";
+                        };
+                        scale = mkOption {
+                            type = types.int;
+                            description = "The scale factor for the monitor";
+                            default = 1;
+                        };
+                    };
+                });
                 description = ''
                     The device specific monitor config to be added to the hyprland config.
                     Generally just defines the monitors and their positions'';
             };
             workspaces = mkOption {
                 default = [];
-                type = types.listOf types.str;
+                type = types.listOf (types.submodule {
+                    options = {
+                        workspace = mkOption {
+                            type = types.str;
+                            description = "Workspace number/name as per hyprland specification.";
+                        };
+                        rules = mkOption {
+                            type = types.attrsOf (types.oneOf [types.int types.str]);
+                        };
+                    };
+                });
                 description = ''
                     The device specific workspace config to be added to the hyprland config.
                     Generally just defines which workspaces to bind to which monitor.'';
@@ -45,7 +75,7 @@ in {
         services.hyprpolkitagent.enable = config.window-manager.hyprland.enableHyprPolkit;
         wayland.windowManager.hyprland = {
             enable = true;
-            configType = "hyprlang";
+            configType = "lua";
             package = null;
             portalPackage = null;
             # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
@@ -56,6 +86,12 @@ in {
                 # enableXdgAutostart = true;
                 # variables = [];
             };
+            extraLuaFiles = {
+                main = {
+                    autoLoad = true;
+                    content = builtins.readFile ./hyprland.lua;
+                };
+            };
             # importantPrefixes = [];
             # portalPackage = ;
             xwayland.enable = true;
@@ -63,132 +99,113 @@ in {
             sourceFirst = true;
             settings = let
                 inherit (lib) optionals;
-                inherit (config.ui) swayosd;
+                luaInline = lib.generators.mkLuaInline;
                 inherit (osConfig.services) pipewire;
-                inherit
-                    (config.tools)
-                    brightnessctl
-                    playerctl
-                    ;
             in {
-                "$mod" = "SUPER";
-                bindel = let
-                    swayosd-bin = "${pkgs.swayosd}/bin/swayosd-client";
+                bind = let
+                    inherit
+                        (config.tools)
+                        brightnessctl
+                        playerctl
+                        ;
                     brightnessctl-bin = "${pkgs.brightnessctl}/bin/brightnessctl";
                     wpctl-bin = "${pkgs.wireplumber}/bin/wpctl";
-                in
-                    []
-                    ++ optionals (swayosd.enable && brightnessctl.enable)
-                    [
-                        ",XF86MonBrightnessDown, exec, ${swayosd-bin} --brightness lower"
-                        ",XF86MonBrightnessUp, exec, ${swayosd-bin} --brightness raise"
-                    ]
-                    ++ optionals (brightnessctl.enable && !swayosd.enable)
-                    [
-                        ",XF86MonBrightnessUp, exec, ${brightnessctl-bin} -e4 -n2 set 5%+"
-                        ",XF86MonBrightnessDown, exec, ${brightnessctl-bin} -e4 -n2 set 5%-"
-                    ]
-                    ++ optionals brightnessctl.enable
-                    [
-                        ",XF86KbdBrightnessUp, exec, ${brightnessctl-bin} --device=smc::kbd_backlight s 10%+"
-                        ",XF86KbdBrightnessDown, exec, ${brightnessctl-bin} --device=smc::kbd_backlight s 10%-"
-                    ]
-                    ++ optionals (swayosd.enable && pipewire.enable)
-                    [
-                        ",XF86AudioRaiseVolume, exec, ${swayosd-bin} --output-volume raise"
-                        ",XF86AudioLowerVolume, exec, ${swayosd-bin} --output-volume lower"
-                        ",XF86AudioMute, exec, ${swayosd-bin} --output-volume mute-toggle"
-                        ",XF86AudioMicMute, exec, ${swayosd-bin} --input-volume mute-toggle"
-                    ]
-                    ++ optionals (pipewire.enable && !swayosd.enable)
-                    [
-                        ",XF86AudioRaiseVolume, exec, ${wpctl-bin} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-                        ",XF86AudioLowerVolume, exec, ${wpctl-bin} set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-                        ",XF86AudioMute, exec, ${wpctl-bin} set-mute @DEFAULT_AUDIO_SINK@ toggle"
-                        ",XF86AudioMicMute, exec, ${wpctl-bin} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-                    ];
-
-                bindl = let
                     playerctl-bin = "${pkgs.playerctl}/bin/playerctl";
-                in
-                    []
-                    ++ (
-                        if playerctl.enable
-                        then [
-                            ",XF86AudioNext, exec, ${playerctl-bin} next"
-                            ",XF86AudioPause, exec, ${playerctl-bin} play-pause"
-                            ",XF86AudioPlay, exec, ${playerctl-bin} play-pause"
-                            ",XF86AudioPrev, exec, ${playerctl-bin} previous"
-                        ]
-                        else []
-                    );
-                bind = [] ++ optionals config.tools.keepmenu.enable ["$mod, a, exec, ${pkgs.keepmenu}/bin/keepmenu"];
-                monitor = config.window-manager.hyprland.monitors;
-                workspace = config.window-manager.hyprland.workspaces;
-                gesture = [] ++ optionals config.window-manager.hyprland.enableTouchpadSwipe ["3,horizontal,workspace"];
-            };
-            extraConfig = let
-                configFile = builtins.readFile ./hyprland.conf;
-                autostarts = ''
-                    #################
-                    ### AUTOSTART ###
-                    #################
-                    ${
-                        if config.ui.waybar.autostart
-                        then "exec-once = pidof waybar || ${pkgs.waybar}/bin/waybar &"
-                        else ""
-                    }
-                                      ${
-                        if (config.ui.noctalia.enable && !config.ui.noctalia.systemd.enable)
-                        # have to use the package from the input to have it
-                        # match the one that will be loaded into the environment
-                        # otherwise ipc calls will not work if its not the same executable
-                        then "exec-once = ${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia-shell &"
-                        else ""
-                    }
-                    ${
-                        if config.ui.syncthingtray.autostart
-                        then "exec-once = ${pkgs.syncthingtray}/bin/syncthingtray --wait &"
-                        else ""
-                    }
-                    ${
-                        if config.tools.keepassxc.autostart
-                        then "exec-once = ${pkgs.keepassxc}/bin/keepassxc --minimized &"
-                        else ""
-                    }
-                '';
-                variables = ''
-                    #################
-                    ### VARIABLES ###
-                    #################
-                    # $mod = SUPER # sets "Windows" key as the main mod key
-                    # there is no alternative for either of these at the moment so they have to be set
-                    ${
-                        if config.ui.rofi.launcherShortcut
-                        then "$menu = ${pkgs.rofi}/bin/rofi -show drun"
-                        else if config.ui.noctalia.launcherShortcut
+                    mod_key = "SUPER";
+                    # flags for the binds
+                    el_bind_flags = {
+                        locked = true;
+                        repeating = true;
+                    };
+                    l_bind_flags = {
+                        locked = true;
+                    };
+                    mkBind = bind: action: flags: {
+                        _args = [
+                            (luaInline bind)
+                            (luaInline "hl.dsp.exec_cmd(\"${action}\")")
+                            flags
+                        ];
+                    };
+                    # the order of these does not follow any logic, they just shouldnt be enabled at the same time
+                    terminal =
+                        if (config.home.sessionVariables ? TERMINAL)
+                        then config.home.sessionVariables.TERMINAL
+                        else "${pkgs.wezterm}/bin/wezterm";
+                    launcherCmd =
+                        if config.ui.noctalia.launcherShortcut
                         # have to use the package from the input to have it
                         # match the one that will be loaded into the environment
                         # otherwise ipc calls will not work if its not the same executable
                         then "$menu = ${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia msg panel-toggle launcher"
-                        else ""
-                    }
-                    ${
-                        if (config.home.sessionVariables ? TERMINAL)
-                        then "$terminal = ${config.home.sessionVariables.TERMINAL}"
-                        else "$terminal = ${pkgs.wezterm}/bin/wezterm"
-                    }
-                '';
-                orderedConfigFile = mkOrder 500 configFile;
-                orderedVariables = mkOrder 250 variables;
-                orderedAutostarts = mkOrder 1000 autostarts;
-                merged = mkMerge [
-                    orderedVariables
-                    orderedConfigFile
-                    orderedAutostarts
-                ];
-            in
-                merged;
+                        else if config.ui.rofi.launcherShortcut
+                        then "${pkgs.rofi}/bin/rofi -show drun"
+                        else "";
+                in
+                    [
+                        (mkBind "${mod_key} .. \"+ t\"" "${terminal}" {})
+                    ]
+                    ++ optionals (launcherCmd != "") [
+                        (mkBind "${mod_key} .. \"+ d\"" "${launcherCmd}" {})
+                    ]
+                    ++ optionals brightnessctl.enable
+                    [
+                        (mkBind "XF86MonBrightnessUp" "${brightnessctl-bin} -e4 -n2 set 5%+" el_bind_flags)
+                        (mkBind "XF86MonBrightnessDown" "${brightnessctl-bin} -e4 -n2 set 5%-" el_bind_flags)
+                        (mkBind "XF86KbdBrightnessUp" "${brightnessctl-bin} --device=smc::kbd_backlight s 10%+" el_bind_flags)
+                        (mkBind "XF86KbdBrightnessDown" "${brightnessctl-bin} --device=smc::kbd_backlight s 10%-" el_bind_flags)
+                    ]
+                    ++ optionals pipewire.enable
+                    [
+                        (mkBind "XF86AudioRaiseVolume" "${wpctl-bin} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+" el_bind_flags)
+                        (mkBind "XF86AudioLowerVolume" "${wpctl-bin} set-volume @DEFAULT_AUDIO_SINK@ 5%-" el_bind_flags)
+                        (mkBind "XF86AudioMute" "${wpctl-bin} set-mute @DEFAULT_AUDIO_SINK@ toggle" el_bind_flags)
+                        (mkBind "XF86AudioMicMute" "${wpctl-bin} set-mute @DEFAULT_AUDIO_SOURCE@ toggle" el_bind_flags)
+                    ]
+                    ++ optionals config.tools.keepmenu.enable [
+                        (mkBind "${mod_key} .. \"+ a\"" "${pkgs.keepmenu}/bin/keepmenu" {})
+                    ]
+                    ++ lib.optionals playerctl.enable [
+                        (mkBind "XF86AudioNext" "${playerctl-bin} next" l_bind_flags)
+                        (mkBind "XF86AudioPause" "${playerctl-bin} play-pause" l_bind_flags)
+                        (mkBind "XF86AudioPlay" "${playerctl-bin} play-pause" l_bind_flags)
+                        (mkBind "XF86AudioPrev" "${playerctl-bin} previous" l_bind_flags)
+                    ];
+                # these are event callbacks, the hl.on() function, can be used for autostarts
+                on = let
+                    mkAutostart = cmd: {_args = [(luaInline "hyprland.start") (luaInline "function () ${cmd} end")];};
+                in
+                    lib.optionals config.ui.waybar.autostart [(mkAutostart "pidof waybar || ${pkgs.waybar}/bin/waybar &")]
+                    # have to use the package from the input to have it
+                    # match the one that will be loaded into the environment
+                    # otherwise ipc calls will not work if its not the same executable
+                    ++ lib.optionals (config.ui.noctalia.enable && !config.ui.noctalia.autostart.enable) [(mkAutostart "${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia-shell &")]
+                    ++ lib.optionals config.ui.syncthingtray.autostart [(mkAutostart "${pkgs.syncthingtray}/bin/syncthingtray --wait &")]
+                    ++ lib.optionals config.tools.keepassxc.autostart [(mkAutostart "${pkgs.keepassxc}/bin/keepassxc --minimized &")];
+                monitor = let
+                    mkMonitor = monitor: {__args = monitor;};
+                in
+                    map mkMonitor config.window-manager.hyprland.monitors;
+                workspace = let
+                    mkWorkspace = workspace: {
+                        _args = [({workspace = workspace.workspace;} // workspace.rules)];
+                    };
+                in
+                    map mkWorkspace config.window-manager.hyprland.workspaces;
+                gesture =
+                    []
+                    ++ optionals config.window-manager.hyprland.enableTouchpadSwipe [
+                        {
+                            _args = [
+                                {
+                                    fingers = 3;
+                                    direction = "horizontal";
+                                    action = "workspace";
+                                }
+                            ];
+                        }
+                    ];
+            };
         };
         stylix.targets.hyprland = mkIf config.stylix.enableHomeConfig {
             enable = true;

@@ -34,12 +34,30 @@
 
     window-manager.hyprland.enable = true;
     window-manager.hyprland.monitors = [
-        "desc:Acer, preferred, auto-right, 1"
-        "desc:Lenovo, preferred, auto-left, 1"
+        {
+            output = "desc:Acer";
+            position = "auto-right";
+        }
+        {
+            output = "desc:Lenovo";
+            position = "auto-left";
+        }
     ];
     window-manager.hyprland.workspaces = [
-        "2, monitor:desc:Acer, default:true"
-        "1, monitor:desc:Lenovo, default:true"
+        {
+            workspace = "1";
+            rules = {
+                monitor = "desc:Lenovo";
+                default = true;
+            };
+        }
+        {
+            workspace = "2";
+            rules = {
+                monitor = "desc:Acer";
+                default = true;
+            };
+        }
     ];
 
     term.wezterm.enable = true;

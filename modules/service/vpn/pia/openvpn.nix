@@ -107,7 +107,7 @@ in {
                             };
                             proxy = {};
                             vpn = {
-                                ca = "${./servers/cert.pem}";
+                                ca = "${./cert.pem}";
                                 # password-flags = "0"; # secrets stored in network manager root readable file
                                 password-flags = "1"; # secrets stored in nm-file-secret-agent
                                 username = "$PIA_USERNAME";
@@ -145,7 +145,7 @@ in {
                             };
                             proxy = {};
                             vpn = {
-                                ca = "${./servers/cert.pem}";
+                                ca = "${./cert.pem}";
                                 # password-flags = "0"; # secrets stored in network manager root readable file
                                 password-flags = "1"; # secrets stored in nm-file-secret-agent
                                 username = "$PIA_USERNAME";
