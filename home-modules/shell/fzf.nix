@@ -84,13 +84,19 @@ in {
             defaultCommand = defaultCmd;
             defaultOptions = defaultOpts;
             # ALT-C directory search
-            changeDirWidgetCommand = "fd --type d --hidden --follow --color never --exclude '.git'";
-            changeDirWidgetOptions = ["--preview='tree -C {}'"];
+            changeDirWidget = {
+                command = "fd --type d --hidden --follow --color never --exclude '.git'";
+                options = ["--preview='tree -C {}'"];
+            };
             # CTRL-T file search
-            fileWidgetCommand = defaultCmd;
-            fileWidgetOptions = ["--preview ${preview}"];
+            fileWidget = {
+                command = defaultCmd;
+                options = ["--preview ${preview}"];
+            };
             # CTRL-R history  search
-            historyWidgetOptions = ["--no-preview"];
+            historyWidget = {
+                options = ["--no-preview"];
+            };
         };
         stylix.targets.fzf.enable = config.stylix.enableHomeConfig;
         programs.zsh.sessionVariables = mkIf config.shell.zsh.enable {

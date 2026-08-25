@@ -82,6 +82,7 @@
                         };
                         network = {
                             vpn_status = "replace"; # both | hidden | replace
+                            show_label = false;
                         };
                         privacy = {
                             hide_inactive = true;

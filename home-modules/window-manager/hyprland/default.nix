@@ -55,7 +55,7 @@ in {
                             description = "Workspace number/name as per hyprland specification.";
                         };
                         rules = mkOption {
-                            type = types.attrsOf (types.oneOf [types.int types.str]);
+                            type = types.attrsOf (types.oneOf [types.int types.str types.bool]);
                         };
                     };
                 });
@@ -183,10 +183,10 @@ in {
                     ++ lib.optionals config.ui.syncthingtray.autostart [(mkAutostart "${pkgs.syncthingtray}/bin/syncthingtray --wait &")]
                     ++ lib.optionals config.tools.keepassxc.autostart [(mkAutostart "${pkgs.keepassxc}/bin/keepassxc --minimized &")];
                 monitor = let
-                    mkMonitor = monitor: {_args = monitor;};
+                    mkMonitor = monitor: {_args = [monitor];};
                 in
                     map mkMonitor config.window-manager.hyprland.monitors;
-                workspace = let
+                workspace_rule = let
                     mkWorkspace = workspace: {
                         _args = [({workspace = workspace.workspace;} // workspace.rules)];
                     };

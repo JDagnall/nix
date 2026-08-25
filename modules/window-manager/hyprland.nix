@@ -20,7 +20,7 @@ in {
             # UWSM improves systemd compatability stuff with wayland
             # make sure hyprland.systemd.enable is false, in home-manager or otherwise
             # as this will cause launching the session to crash
-            withUWSM = true;
+            withUWSM = false;
             package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
             portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
         };
