@@ -3,7 +3,6 @@
 -- 	-- sensitivity = -0.5
 -- })
 
-local hl = require("hl")
 local mod = "SUPER"
 hl.bind(mod .. " + Q", hl.dsp.window.close())
 hl.bind(mod .. " + V", hl.dsp.window.float({ action = "toggle" }))
@@ -259,7 +258,7 @@ hl.config({
 	},
 	-- https://wiki.hyprland.org/Configuring/Variables/#animations
 	animations = {
-		enabled = "yes, please :)",
+		enabled = true,
 		-- Default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
 	},
 	-- Ref https://wiki.hyprland.org/Configuring/Workspace-Rules/

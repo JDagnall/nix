@@ -87,7 +87,7 @@
                             hide_inactive = true;
                         };
                         clock = {
-                            format = "{:%H:%M | %a, %d %b}";
+                            format = "{:%H:%M %a, %d %b}";
                             vertical_format = "{:%H\n%M}";
                             tooltip_format = "{:%A, %B %d, %Y}";
                         };
@@ -96,6 +96,12 @@
                         };
                         tray = {
                             drawer = true;
+                        };
+                        brightness = {
+                            show_label = false;
+                        };
+                        battery = {
+                            show_label = false;
                         };
                     };
                     bar = {

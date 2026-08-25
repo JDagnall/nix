@@ -72,10 +72,6 @@ in {
             screenrec-screen-script
             screenrec-select-script
         ];
-        wayland.windowManager.hyprland.settings.bind = [
-            ''$mod SHIFT, s, exec, screencap-select-script''
-            '',Print, exec, screencap-screen-script''
-        ];
         # swappy config
         xdg.configFile."swappy/config".text = ''
             [Default]

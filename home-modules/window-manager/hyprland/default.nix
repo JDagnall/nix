@@ -18,7 +18,7 @@ in {
         window-manager.hyprland = {
             enable = mkEnableOption "Enable Hyprland config";
             monitors = mkOption {
-                default = [{output = "";}];
+                default = [];
                 type = types.listOf (types.submodule {
                     options = {
                         output = mkOption {
@@ -81,7 +81,7 @@ in {
             # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
             # portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
             systemd = {
-                enable = true;
+                enable = !(osConfig.programs.hyprland.withUWSM);
                 # extraCommands = [];
                 # enableXdgAutostart = true;
                 # variables = [];
@@ -89,7 +89,7 @@ in {
             extraLuaFiles = {
                 main = {
                     autoLoad = true;
-                    content = builtins.readFile ./hyprland.lua;
+                    content = builtins.readFile ./main.lua;
                 };
             };
             # importantPrefixes = [];
@@ -122,7 +122,7 @@ in {
                     };
                     mkBind = bind: action: flags: {
                         _args = [
-                            (luaInline bind)
+                            (luaInline "\"${bind}\"")
                             (luaInline "hl.dsp.exec_cmd(\"${action}\")")
                             flags
                         ];
@@ -137,16 +137,16 @@ in {
                         # have to use the package from the input to have it
                         # match the one that will be loaded into the environment
                         # otherwise ipc calls will not work if its not the same executable
-                        then "$menu = ${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia msg panel-toggle launcher"
+                        then "${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia msg panel-toggle launcher"
                         else if config.ui.rofi.launcherShortcut
                         then "${pkgs.rofi}/bin/rofi -show drun"
                         else "";
                 in
                     [
-                        (mkBind "${mod_key} .. \"+ t\"" "${terminal}" {})
+                        (mkBind "${mod_key} + t" "${terminal}" {})
                     ]
                     ++ optionals (launcherCmd != "") [
-                        (mkBind "${mod_key} .. \"+ d\"" "${launcherCmd}" {})
+                        (mkBind "${mod_key} + d" "${launcherCmd}" {})
                     ]
                     ++ optionals brightnessctl.enable
                     [
@@ -163,7 +163,7 @@ in {
                         (mkBind "XF86AudioMicMute" "${wpctl-bin} set-mute @DEFAULT_AUDIO_SOURCE@ toggle" el_bind_flags)
                     ]
                     ++ optionals config.tools.keepmenu.enable [
-                        (mkBind "${mod_key} .. \"+ a\"" "${pkgs.keepmenu}/bin/keepmenu" {})
+                        (mkBind "${mod_key} + a" "${pkgs.keepmenu}/bin/keepmenu" {})
                     ]
                     ++ lib.optionals playerctl.enable [
                         (mkBind "XF86AudioNext" "${playerctl-bin} next" l_bind_flags)
@@ -173,17 +173,17 @@ in {
                     ];
                 # these are event callbacks, the hl.on() function, can be used for autostarts
                 on = let
-                    mkAutostart = cmd: {_args = [(luaInline "hyprland.start") (luaInline "function () ${cmd} end")];};
+                    mkAutostart = cmd: {_args = [(luaInline "\"hyprland.start\"") (luaInline "function () hl.exec_cmd(\"${cmd}\") end")];};
                 in
                     lib.optionals config.ui.waybar.autostart [(mkAutostart "pidof waybar || ${pkgs.waybar}/bin/waybar &")]
                     # have to use the package from the input to have it
                     # match the one that will be loaded into the environment
                     # otherwise ipc calls will not work if its not the same executable
-                    ++ lib.optionals (config.ui.noctalia.enable && !config.ui.noctalia.autostart.enable) [(mkAutostart "${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia-shell &")]
+                    ++ lib.optionals (config.ui.noctalia.enable && config.ui.noctalia.autostart.enable) [(mkAutostart "${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia &")]
                     ++ lib.optionals config.ui.syncthingtray.autostart [(mkAutostart "${pkgs.syncthingtray}/bin/syncthingtray --wait &")]
                     ++ lib.optionals config.tools.keepassxc.autostart [(mkAutostart "${pkgs.keepassxc}/bin/keepassxc --minimized &")];
                 monitor = let
-                    mkMonitor = monitor: {__args = monitor;};
+                    mkMonitor = monitor: {_args = monitor;};
                 in
                     map mkMonitor config.window-manager.hyprland.monitors;
                 workspace = let
