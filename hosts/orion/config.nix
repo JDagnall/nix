@@ -64,9 +64,9 @@
             proj.enable = true;
             proj.share = ["PC" "Framework"];
             wallpapers.enable = true;
-            wallpapers.share = ["PC" "Macbook" "Framework"];
+            wallpapers.share = ["PC" "Framework"];
             docs.enable = true;
-            docs.share = ["PC" "Framework" "Macbook" "Galaxy-s10e"];
+            docs.share = ["PC" "Framework" "Galaxy-s10e"];
         };
         gui.enableLogin = true;
         gui.setDefaultRoute = true;

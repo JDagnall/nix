@@ -32,11 +32,11 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         noctalia = {
-            url = "github:noctalia-dev/noctalia/cachix";
+            url = "github:noctalia-dev/noctalia/refs/tags/v5.0.0-beta.9";
             # inputs.nixpkgs.follows = "nixpkgs"; # not doing this because it causes cachix misses
         };
         hyprland = {
-            url = "github:hyprwm/Hyprland";
+            url = "github:hyprwm/Hyprland/refs/tags/v0.56.1";
             # inputs.nixpkgs.follows = "nixpkgs"; # apparently this doesn't work
         };
         direnv-instant = {
