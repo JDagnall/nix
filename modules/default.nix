@@ -31,13 +31,15 @@
         };
     };
     config = {
+        # TODO: noctalia has been added to nixpkgs unstable and home-manager unstable
+        # so the next time both are updated this can go
         # TEMPORARY, there just isn't anywhere else to put this atm
         # dendritic would fix this
         # add noctalia cachix so it doesn't have to build
-        # nix.settings = {
-        #     extra-substituters = ["https://noctalia.cachix.org"];
-        #     extra-trusted-public-keys = ["noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="];
-        # };
+        nix.settings = {
+            extra-substituters = ["https://noctalia.cachix.org"];
+            extra-trusted-public-keys = ["noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="];
+        };
         # predicate that allows any pkg names in allowedUnfreePkgNames
         allowedUnfreePkgPredicates = [
             (pkg: builtins.elem (lib.getName pkg) config.allowedUnfreePkgNames)

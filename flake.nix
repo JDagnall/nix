@@ -31,6 +31,9 @@
             url = "github:Infinidoge/nix-minecraft";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        # TODO: noctalia has been added to nixpkgs unstable and home-manager unstable
+        # so the next time both are updated this can go
         noctalia = {
             url = "github:noctalia-dev/noctalia/refs/tags/v5.0.0-beta.9";
             # inputs.nixpkgs.follows = "nixpkgs"; # not doing this because it causes cachix misses

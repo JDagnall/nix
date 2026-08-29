@@ -5,7 +5,8 @@
     osConfig,
     ...
 }: {
-    # import the noctalia module (its a flake input)
+    # TODO: noctalia has been added to nixpkgs unstable and home-manager unstable
+    # so the next time both are updated this can go
     imports = [
         inputs.noctalia.homeModules.default
     ];
@@ -244,6 +245,7 @@
                             nightlight = false;
                             dnd = false;
                             lock_keys = false;
+                            now_playing = false;
                             keyboard_layout = false;
                             privacy = true;
                         };
