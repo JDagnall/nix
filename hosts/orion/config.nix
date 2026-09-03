@@ -18,9 +18,24 @@
     };
     service.tailscale.tailnet = "stonecat-barometric";
     service.languagetool.enable = false;
-    service.caddy.enable = true;
+    service.caddy = {
+        enable = true;
+        email = "james.t.dagnall@gmail.com";
+        orion = {
+            enable = true;
+            domainName = "home.waluigimangione.dev";
+        };
+    };
     service.resolved.enable = true;
-    service.dnsmasq.enable = true;
+    service.dnsmasq = {
+        enable = true;
+        orion = {
+            enable = true;
+            domainName = "home.waluigimangione.dev";
+            localIp = "192.168.1.2";
+            tailscaleIp = "100.121.250.78";
+        };
+    };
 
     service.media-services = {
         enable = true;
@@ -37,6 +52,8 @@
         seerr.enable = true;
         transmission.enable = false;
     };
+    # add myself to the media group
+    users.groups."media".members = ["james"];
     service.vpn.pia = {
         enable = true;
         torrentCon = {
@@ -90,6 +107,8 @@
         ../../stylix.nix
         ../../sops.nix
         ./stylix.nix
+        ./caddy.nix
+        ./dnsmasq.nix
     ];
 
     environment.systemPackages = with pkgs; [home-manager];

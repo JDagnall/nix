@@ -53,79 +53,21 @@
                     host = config.networking.hostName;
                     tailnet = config.service.tailscale.tailnet;
                     tailscaleEnabled = config.service.tailscale.enable && tailnet != null;
-                    domainAliases = ["home" "tail"] ++ lib.optionals tailscaleEnabled ["${tailnet}.ts.net"];
-                    servicesCfg = config.service;
-                    activeServices =
-                        []
-                        ++ lib.optionals servicesCfg.syncthing.enable [
-                            {
-                                name = "syncthing";
-                                port = 8384;
-                            }
-                        ]
-                        ++ lib.optionals servicesCfg.media-services.qbittorrent.enable [
-                            {
-                                name = "qbittorrent";
-                                port = 9494;
-                                # qbittorrent really does not like reverse proxies
-                                extraRevProxyCfg = ''
-                                    header_up Host localhost:9494
-                                    header_up X-Forwarded-Host {hostport}
-                                    header_up -Origin
-                                    header_up -Referer
-                                '';
-                            }
-                        ]
-                        ++ lib.optionals servicesCfg.media-services.transmission.enable [
-                            {
-                                name = "transmission";
-                                port = 9091;
-                            }
-                        ]
-                        ++ lib.optionals servicesCfg.media-services.jellyfin.enable [
-                            {
-                                name = "jellyfin";
-                                port = 8096;
-                            }
-                        ]
-                        ++ lib.optionals servicesCfg.media-services.sonarr.enable [
-                            {
-                                name = "sonarr";
-                                port = 8989;
-                            }
-                        ]
-                        ++ lib.optionals servicesCfg.media-services.radarr.enable [
-                            {
-                                name = "radarr";
-                                port = 7878;
-                            }
-                        ]
-                        ++ lib.optionals servicesCfg.media-services.prowlarr.enable [
-                            {
-                                name = "prowlarr";
-                                port = 9696;
-                            }
-                        ]
-                        ++ lib.optionals servicesCfg.media-services.flaresolverr.enable [
-                            {
-                                name = "flaresolverr";
-                                port = 8191;
-                            }
-                        ]
-                        ++ lib.optionals servicesCfg.media-services.jackett.enable [
-                            {
-                                name = "jackett";
-                                port = 9117;
-                            }
-                        ]
-                        ++ lib.optionals servicesCfg.media-services.seerr.enable [
-                            {
-                                name = "seerr";
-                                port = 5055;
-                            }
-                        ];
-                    mkServiceSubDomain = service: {
-                        "${service.name}.${host}.local" = {
+                    alternativeTLDs = ["home" "tail"] ++ lib.optionals tailscaleEnabled ["${tailnet}.ts.net"];
+                    activeServices = map (service:
+                        service
+                        // lib.mkIf (service.name == "qbittorrent") {
+                            # qbittorrent really does not like reverse proxies
+                            extraRevProxyCfg = ''
+                                header_up Host localhost:9494
+                                header_up X-Forwarded-Host {hostport}
+                                header_up -Origin
+                                header_up -Referer
+                            '';
+                        })
+                    config.service.media-services.activeServices;
+                    mkServiceSubDomain = service: hostname: TLDs: {
+                        "${service.name}.${hostname}.local" = {
                             extraConfig = ''
                                 tls internal
                                 reverse_proxy localhost:${toString service.port} {
@@ -133,7 +75,7 @@
                                 }
                                 ${service.extraSubDomainCfg or ""}
                             '';
-                            serverAliases = map (x: "${service.name}.${host}.${x}") domainAliases;
+                            serverAliases = map (x: "${service.name}.${hostname}.${x}") TLDs;
                         };
                     };
                     mkServicePath = service: ''
@@ -157,10 +99,10 @@
                                 file_server
                                 ${lib.concatStringsSep "\n" (map (x: mkServicePath x) activeServices)}
                             '';
-                            serverAliases = map (x: "${host}.${x}") domainAliases;
+                            serverAliases = map (x: "${host}.${x}") alternativeTLDs;
                         };
                     }
-                    // lib.mergeAttrsList (map (x: mkServiceSubDomain x) activeServices);
+                    // lib.mergeAttrsList (map (x: mkServiceSubDomain x host alternativeTLDs) activeServices);
             };
         };
 }

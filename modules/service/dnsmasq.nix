@@ -16,6 +16,7 @@
     tailscaleInterface = config.service.tailscale.interface;
     loopbackInterface = config.network.loopbackInterface;
     networkdEnabled = config.networking.useNetworkd;
+    activeServices = config.service.media-services.activeServices;
 in {
     options = {
         service.dnsmasq = {
@@ -81,13 +82,9 @@ in {
                 address = [];
                 # create dns entry for this device, networks utilising this server should be able to easily navigate to this device
                 interface-name = let
-                    mkServiceSubdomain = service: option:
-                        if option
-                        then
-                            (lib.map (phys: "${service}.${host}.home,${phys}") physicalInterfaces)
-                            ++ lib.optionals tailscaleEnabled ["${service}.${host}.tail,${tailscaleInterface}"]
-                        else [];
-                    serviceCfg = config.service;
+                    mkServiceSubdomain = service:
+                        (lib.map (phys: "${service.name}.${host}.home,${phys}") physicalInterfaces)
+                        ++ lib.optionals tailscaleEnabled ["${service.name}.${host}.tail,${tailscaleInterface}"];
                 in
                     (lib.map (phys: "${host}.home,${phys}") physicalInterfaces)
                     ++ lib.optionals config.service.tailscale.enable [
@@ -95,16 +92,7 @@ in {
                     ]
                     # add subdomain for each service configured to run on this machine, annoyingly
                     # interface-name does not support wildcard expansion
-                    ++ (mkServiceSubdomain "syncthing" serviceCfg.syncthing.enable)
-                    ++ (mkServiceSubdomain "qbittorrent" serviceCfg.media-services.qbittorrent.enable)
-                    ++ (mkServiceSubdomain "transmission" serviceCfg.media-services.transmission.enable)
-                    ++ (mkServiceSubdomain "jellyfin" serviceCfg.media-services.jellyfin.enable)
-                    ++ (mkServiceSubdomain "sonarr" serviceCfg.media-services.sonarr.enable)
-                    ++ (mkServiceSubdomain "radarr" serviceCfg.media-services.radarr.enable)
-                    ++ (mkServiceSubdomain "prowlarr" serviceCfg.media-services.prowlarr.enable)
-                    ++ (mkServiceSubdomain "flaresolverr" serviceCfg.media-services.flaresolverr.enable)
-                    ++ (mkServiceSubdomain "jackett" serviceCfg.media-services.jackett.enable)
-                    ++ (mkServiceSubdomain "seerr" serviceCfg.media-services.seerr.enable);
+                    ++ builtins.concatLists (map mkServiceSubdomain activeServices);
 
                 # TODO: this will need more work if other configs for other dns servers are added
                 # probably a dns parent config
