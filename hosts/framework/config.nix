@@ -5,7 +5,7 @@
     ...
 }: {
     # config ------------------------------
-    display-manager.gdm.enable = true;
+    display-manager.regreet.enable = true;
     window-manager.hyprland.enable = true;
     boot-loader.grub.enable = true;
     sops.enable = true;

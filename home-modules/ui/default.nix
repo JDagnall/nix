@@ -27,6 +27,7 @@ in {
         ./brave.nix
         ./noctalia.nix
         ./libresuite.nix
+        ./jellyfin-desktop.nix
     ];
     # ui packages that only need to be installed
     options = {
@@ -45,7 +46,6 @@ in {
         ui.qbittorrent.enable = mkEnableOption "Install qbittorrent";
         ui.seahorse.enable = mkEnableOption "Install seahorse";
         ui.freetube.enable = mkEnableOption "Install freetube";
-        ui.jellyfin-desktop.enable = mkEnableOption "Install jellyfin-desktop";
         ui.zotero.enable = mkEnableOption "Install zotero";
         ui.audacity.enable = mkEnableOption "Install audacity";
     };
@@ -64,7 +64,6 @@ in {
             qbittorrent
             seahorse
             freetube
-            jellyfin-desktop
             zotero
             audacity
             ;
@@ -83,7 +82,6 @@ in {
             ++ optionals qbittorrent.enable [pkgs.qbittorrent]
             ++ optionals seahorse.enable [pkgs.seahorse]
             ++ optionals freetube.enable [pkgs.freetube]
-            ++ optionals jellyfin-desktop.enable [pkgs.jellyfin-desktop]
             ++ optionals zotero.enable [pkgs.zotero]
             ++ optionals audacity.enable [pkgs.audacity];
     };

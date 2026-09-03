@@ -283,8 +283,9 @@
                         screen-off = {enabled = false;};
                     };
                     keybinds = {
-                        up = ["up" "ctrl+p"];
-                        down = ["down" "ctrl+n"];
+                        up = ["Up" "Ctrl+p"];
+                        down = ["Down" "Ctrl+n"];
+                        cancel = ["Escape" "Ctrl+c"];
                     };
                     dock = {enabled = false;};
                     desktop_widgets = {enabled = false;};

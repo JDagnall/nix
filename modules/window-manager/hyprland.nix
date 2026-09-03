@@ -24,6 +24,15 @@ in {
             package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
             portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
         };
+        programs.uwsm.enable = true;
+        services.displayManager.defaultSession = "hyprland-uwsm"; # possibly unecesary, or should maybe be a separate option
+        programs.uwsm.waylandCompositors = {
+            hyprland = {
+                prettyName = "Hyprland";
+                comment = "Hyprland compositor managed by UWSM";
+                binPath = "/run/current-system/sw/bin/start-hyprland";
+            };
+        };
         # cachix cache for hyprland package, so it doesn't have to be
         # rebuilt since we are pulling from the development branch
         nix.settings = {
