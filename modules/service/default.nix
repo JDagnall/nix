@@ -14,5 +14,6 @@
         ./resolved.nix
         ./caddy
         ./media-services
+        ./scrutiny.nix
     ];
 }

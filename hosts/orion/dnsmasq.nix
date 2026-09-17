@@ -39,7 +39,7 @@
             tailscaleEnabled = config.service.tailscale.enable;
             localIp = config.service.dnsmasq.orion.localIp;
             tailscaleIp = config.service.dnsmasq.orion.tailscaleIp;
-            mkSubdomain = service: (["/${domain}/${localIp}"] ++ lib.optional tailscaleEnabled "/${domain}/${tailscaleIp}");
+            mkSubdomain = service: (["/${service.name}.${domain}/${localIp}"] ++ lib.optional tailscaleEnabled "/${service.name}.${domain}/${tailscaleIp}");
         in {
             address = ["/${domain}/${localIp}"] ++ lib.optional tailscaleEnabled "/${domain}/${tailscaleIp}" ++ (builtins.concatLists (map mkSubdomain activeServices));
         };

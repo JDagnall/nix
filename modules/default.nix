@@ -14,6 +14,7 @@
         ./network.nix
         ./desktop-manager
         ./tools
+        ./msmtp.nix
     ];
     options = {
         allowedUnfreePkgNames = lib.mkOption {

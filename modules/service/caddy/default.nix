@@ -54,17 +54,20 @@
                     tailnet = config.service.tailscale.tailnet;
                     tailscaleEnabled = config.service.tailscale.enable && tailnet != null;
                     alternativeTLDs = ["home" "tail"] ++ lib.optionals tailscaleEnabled ["${tailnet}.ts.net"];
-                    activeServices = map (service:
-                        service
-                        // lib.mkIf (service.name == "qbittorrent") {
-                            # qbittorrent really does not like reverse proxies
+                    extraServiceConfig = {
+                        qbittorrent = {
                             extraRevProxyCfg = ''
                                 header_up Host localhost:9494
                                 header_up X-Forwarded-Host {hostport}
                                 header_up -Origin
                                 header_up -Referer
                             '';
-                        })
+                        };
+                    };
+                    activeServices = map (
+                        service:
+                            service // (extraServiceConfig.${service.name} or {})
+                    )
                     config.service.media-services.activeServices;
                     mkServiceSubDomain = service: hostname: TLDs: {
                         "${service.name}.${hostname}.local" = {

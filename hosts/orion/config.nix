@@ -6,8 +6,25 @@
     # config ------------------------------
     boot-loader.systemd-boot.enable = true;
     sops.enable = true;
-
     network.physicalInterfaces = ["enp34s0"];
+    zfs.enable = false; # enable the RAID
+    msmtp = {
+        enable = true;
+        accounts = {
+            gmail = {
+                host = "smtp.gmail.com";
+                auth = true;
+                user = "james.t.dagnall";
+                from = "james.t.dagnall@gmail.com";
+            };
+        };
+        defaultAccount = "gmail";
+        defaultAlias = {
+            to = "james.t.dagnall@gmail.com";
+        };
+    };
+    # so I can use 'sendmail'
+    users.groups."msmtp".members = [config.users.groups."james".name];
 
     service.sshd.enable = true;
     service.sshd.james.authKeys.enable = true;
@@ -18,6 +35,7 @@
     };
     service.tailscale.tailnet = "stonecat-barometric";
     service.languagetool.enable = false;
+    service.scrutiny.enable = true;
     service.caddy = {
         enable = true;
         email = "james.t.dagnall@gmail.com";
@@ -109,6 +127,7 @@
         ./stylix.nix
         ./caddy.nix
         ./dnsmasq.nix
+        ./zfs.nix
     ];
 
     environment.systemPackages = with pkgs; [home-manager];

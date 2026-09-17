@@ -52,17 +52,20 @@
             };
             virtualHosts = let
                 domain = config.service.caddy.orion.domainName;
-                activeServices = map (service:
-                    service
-                    // lib.mkIf (service.name == "qbittorrent") {
-                        # qbittorrent really does not like reverse proxies
+                extraServiceConfig = {
+                    qbittorrent = {
                         extraRevProxyCfg = ''
                             header_up Host localhost:9494
                             header_up X-Forwarded-Host {hostport}
                             header_up -Origin
                             header_up -Referer
                         '';
-                    })
+                    };
+                };
+                activeServices = map (
+                    service:
+                        service // (extraServiceConfig.${service.name} or {})
+                )
                 config.service.media-services.activeServices;
                 mkServiceSubdomain = service: ''
                     @${service.name} host ${service.name}.${domain}
