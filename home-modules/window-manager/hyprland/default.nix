@@ -2,7 +2,6 @@
     pkgs,
     lib,
     config,
-    inputs,
     osConfig,
     ...
 }: let
@@ -134,10 +133,7 @@ in {
                         else "${pkgs.wezterm}/bin/wezterm";
                     launcherCmd =
                         if config.ui.noctalia.launcherShortcut
-                        # have to use the package from the input to have it
-                        # match the one that will be loaded into the environment
-                        # otherwise ipc calls will not work if its not the same executable
-                        then "${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia msg panel-toggle launcher"
+                        then "${pkgs.noctalia}/bin/noctalia msg panel-toggle launcher"
                         else if config.ui.rofi.launcherShortcut
                         then "${pkgs.rofi}/bin/rofi -show drun"
                         else "";
@@ -176,10 +172,7 @@ in {
                     mkAutostart = cmd: {_args = [(luaInline "\"hyprland.start\"") (luaInline "function () hl.exec_cmd(\"${cmd}\") end")];};
                 in
                     lib.optionals config.ui.waybar.autostart [(mkAutostart "pidof waybar || ${pkgs.waybar}/bin/waybar &")]
-                    # have to use the package from the input to have it
-                    # match the one that will be loaded into the environment
-                    # otherwise ipc calls will not work if its not the same executable
-                    ++ lib.optionals (config.ui.noctalia.enable && config.ui.noctalia.autostart.enable) [(mkAutostart "${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia &")]
+                    ++ lib.optionals (config.ui.noctalia.enable && config.ui.noctalia.autostart.enable) [(mkAutostart "${pkgs.noctalia}/bin/noctalia &")]
                     ++ lib.optionals config.ui.syncthingtray.autostart [(mkAutostart "${pkgs.syncthingtray}/bin/syncthingtray --wait &")]
                     ++ lib.optionals config.tools.keepassxc.autostart [(mkAutostart "${pkgs.keepassxc}/bin/keepassxc --minimized &")];
                 monitor = let

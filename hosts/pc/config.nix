@@ -4,7 +4,7 @@
     ...
 }: {
     # config ------------------------------
-    display-manager.regreet.enable = true;
+    display-manager.noctalia-greeter.enable = true;
     evremap.enable = true;
     evremap.profile = "keychron-c3";
     window-manager.hyprland.enable = true;

@@ -9,7 +9,7 @@
     };
     config = lib.mkIf config.ui.libreoffice.enable {
         home.packages = with pkgs; [
-            libreoffice-qt-fresh
+            libreoffice-qt-stable
             hunspell # language dictionaries for libreoffice
             hunspellDicts.en_GB-ise
             hunspellDicts.en_AU

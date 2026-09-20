@@ -21,7 +21,7 @@ in {
             icons = "auto";
             # theme = {}
         };
-        programs.zsh.shellAliases = mkIf config.shell.zsh.enable {
+        home.shellAliases = {
             ls = mkForce "eza";
             lt = "eza --tree --level 3 -I .git";
         };

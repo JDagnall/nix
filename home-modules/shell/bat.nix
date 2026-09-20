@@ -41,7 +41,7 @@ in {
                 color = "auto";
             };
         };
-        programs.zsh.shellAliases = mkIf config.shell.zsh.enable {
+        home.shellAliases = {
             man = "batman --paging=always";
             cat = "bat";
         };

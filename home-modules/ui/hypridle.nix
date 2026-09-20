@@ -2,7 +2,6 @@
     pkgs,
     lib,
     config,
-    inputs,
     ...
 }: let
     inherit (lib) types mkIf mkEnableOption mkOption optionals optionalString;
@@ -41,8 +40,7 @@ in {
         services.hypridle = let
             brightnessctl-bin = "${pkgs.brightnessctl}/bin/brightnessctl";
             hyprctl-bin = "${pkgs.hyprland}/bin/hyprctl";
-            # other wise it still installs the pacakges into the nix store even if they are not used which is annoying
-            noctalia-bin = lib.optionalString config.ui.noctalia.enable "${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia-shell";
+            noctalia-bin = lib.optionalString config.ui.noctalia.enable "${pkgs.noctalia}/bin/noctalia";
             waybar-bin = lib.optionalString config.ui.waybar.enable "${pkgs.waybar}/bin/waybar";
             hyprlock-bin = lib.optionalString config.ui.hyprlock.enable "${pkgs.hyprlock}/bin/hyprlock";
             laptop_profile = [
@@ -108,7 +106,7 @@ in {
                         # runs on a dbus loginctl lock-session signal
                         lock_cmd =
                             if config.ui.noctalia.enable
-                            then "${noctalia-bin} ipc call lockScreen lock"
+                            then "${noctalia-bin} msg session lock"
                             else if config.ui.hyprlock.enable
                             # avoid starting multiple hyprlock instances.
                             then "pidof ${hyprlock-bin} || ${hyprlock-bin}"

@@ -142,7 +142,7 @@ in {
 
             home.packages = mkIf (pager == "diffnav") [pkgs.diffnav];
 
-            programs.zsh.shellAliases = mkIf config.shell.zsh.enable {
+            home.shellAliases = {
                 gap = "git add --patch";
                 gs = "git status";
                 gl = "git log --all --graph --pretty=format:'%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n'";

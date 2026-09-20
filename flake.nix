@@ -35,17 +35,10 @@
             url = "github:Infinidoge/nix-minecraft";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-
-        # TODO: noctalia has been added to nixpkgs unstable and home-manager unstable
-        # so the next time both are updated this can go
-        noctalia = {
-            url = "github:noctalia-dev/noctalia/refs/tags/v5.0.0-beta.9";
-            # inputs.nixpkgs.follows = "nixpkgs"; # not doing this because it causes cachix misses
-        };
-        hyprland = {
-            url = "github:hyprwm/Hyprland/refs/tags/v0.56.1";
-            # inputs.nixpkgs.follows = "nixpkgs"; # apparently this doesn't work
-        };
+        # hyprland = {
+        #     url = "github:hyprwm/Hyprland/refs/tags/v0.56.2";
+        #     # inputs.nixpkgs.follows = "nixpkgs"; # apparently this doesn't work
+        # };
         direnv-instant = {
             url = "github:Mic92/direnv-instant";
             inputs.nixpkgs.follows = "nixpkgs";

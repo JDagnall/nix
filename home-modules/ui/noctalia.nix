@@ -1,15 +1,9 @@
 {
     lib,
     config,
-    inputs,
     osConfig,
     ...
 }: {
-    # TODO: noctalia has been added to nixpkgs unstable and home-manager unstable
-    # so the next time both are updated this can go
-    imports = [
-        inputs.noctalia.homeModules.default
-    ];
     options = {
         ui.noctalia = {
             enable = lib.mkEnableOption "Enable nocatalia config.";
@@ -73,7 +67,7 @@
             programs.noctalia = {
                 enable = true;
                 systemd.enable = noctaliaCfg.systemd.enable;
-                validateConfig = true;
+                checkConfig = true;
                 settings = {
                     widget = {
                         launcher = {};

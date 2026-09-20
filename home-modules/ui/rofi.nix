@@ -27,12 +27,17 @@ in {
     config = mkIf config.ui.rofi.enable {
         programs.rofi = {
             enable = true;
-            cycle = true; # cycle through results
-            extraConfig = {
+            settings = {
+                cycle = true; # cycle through results
+                location = "center";
+                modes = [
+                    "drun"
+                    "window"
+                    "ssh"
+                ];
                 show-icons = true;
                 terminal = mkIf (config.home.sessionVariables ? TERMINAL) config.home.sessionVariables.TERMINAL;
                 drun-display-format = "{icon} {name}";
-                location = 0;
                 disable-history = false;
                 hide-scrollbar = true;
                 display-drun = " 󰀻  Apps ";
@@ -47,12 +52,6 @@ in {
                 sort = true; # sorts in order of fuzzy match
                 sorting-method = "fzf";
             };
-            location = "center";
-            modes = [
-                "drun"
-                "window"
-                "ssh"
-            ];
             # terminal =  # path to terminal to be used to run terminal cmds
 
             # layout stuff, stylix does colours
