@@ -48,25 +48,11 @@
         services.caddy = {
             package = pkgs.caddy.withPlugins {
                 plugins = ["github.com/caddy-dns/cloudflare@v0.2.4"];
-                hash = "sha256-7GoH8YLCoPmPExQxoga2FHB58zQDoZVf1BBwkVi0SsQ=";
+                hash = "sha256-dQvk6ezY6TQ1J7PjhCXnThF/SqVgPwBO8/RXzHCY+js=";
             };
             virtualHosts = let
                 domain = config.service.caddy.orion.domainName;
-                extraServiceConfig = {
-                    qbittorrent = {
-                        extraRevProxyCfg = ''
-                            header_up Host localhost:9494
-                            header_up X-Forwarded-Host {hostport}
-                            header_up -Origin
-                            header_up -Referer
-                        '';
-                    };
-                };
-                activeServices = map (
-                    service:
-                        service // (extraServiceConfig.${service.name} or {})
-                )
-                config.service.media-services.activeServices;
+                activeServices = lib.filter (x: x.mkRevProxy) (lib.attrValues config.service.media-services.services);
                 mkServiceSubdomain = service: ''
                     @${service.name} host ${service.name}.${domain}
                     handle @${service.name} {

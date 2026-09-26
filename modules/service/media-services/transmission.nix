@@ -19,6 +19,13 @@ in {
                 message = "Transmission requires a VPN to tunnel through.";
             }
         ];
+        service.media-services.services.transmission = {
+            port = 9091;
+            user = "transmission";
+            inMediaGroup = true;
+            mkRevProxy = true;
+        };
+
         service.vpn.pia.torrentCon.groupMembers = lib.optionals piaCfg.torrentCon.updateTransmissionPort [config.services.transmission.user];
         sops.secrets = let
             host = config.networking.hostName;
@@ -44,12 +51,14 @@ in {
                 mode = "600";
             };
         };
-        services.transmission = {
+        services.transmission = let
+            serviceCfg = config.service.media-services.services.transmission;
+        in {
             enable = true;
             # extraFlags = ;
             # home = ;
-            user = "transmission";
-            group = mediaCfg.group.name;
+            user = serviceCfg.user;
+            group = lib.mkif serviceCfg.inMediaGroup mediaCfg.group.name;
             credentialsFile = config.sops.templates."transmissionCredentials".path;
             downloadDirPermissions = "770";
             openPeerPorts = false; # TODO: find out if this needs to be enabled with a VPN port forward (probably not)
@@ -61,7 +70,7 @@ in {
                 # RPC
                 rpc-authentication-required = true;
                 rpc-bind-address = "127.0.0.1"; # only local host
-                rpc-port = 9091;
+                rpc-port = serviceCfg.port;
                 rpc-enabled = true;
                 anti-brute-force-enabled = true;
                 anti-brute-force-threshold = 100;

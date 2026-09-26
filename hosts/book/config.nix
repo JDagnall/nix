@@ -19,9 +19,9 @@
     service.sshd.enable = true;
     service.sshd.james.authKeys.enable = true;
 
-    service.syncthing = {
+    service.media-services.syncthing = {
         enable = true;
-        runAsUser = "james";
+        user = "james";
         devices.orion.enable = true;
         folders = let
             shareDevices = ["Orion"];

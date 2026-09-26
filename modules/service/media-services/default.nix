@@ -20,22 +20,34 @@ in {
                     type = lib.types.int;
                 };
             };
-            activeServices = lib.mkOption {
-                description = "Currently active media services.";
-                default = [];
-                type = with lib.types;
-                    listOf (submodule {
-                        options = {
-                            name = lib.mkOption {
-                                type = str;
-                                description = "Name of the service";
-                            };
-                            port = lib.mkOption {
-                                type = port;
-                                description = "Port that the service runs on";
-                            };
+            services = lib.mkOption {
+                type = lib.types.attrsOf (lib.types.submodule ({name, ...}: {
+                    freeformType = lib.types.attrsOf lib.types.anything;
+                    options = {
+                        name = lib.mkOption {
+                            type = lib.types.str;
+                            default = name;
                         };
-                    });
+                        port = lib.mkOption {
+                            type = lib.types.port;
+                            description = "Port that the service runs on";
+                        };
+                        user = lib.mkOption {
+                            type = lib.types.nullOr lib.types.str;
+                            description = "The user that this service runs under.";
+                        };
+                        inMediaGroup = lib.mkOption {
+                            type = lib.types.bool;
+                            default = false;
+                            description = "Whether the user the service runs under should be added to the media group.";
+                        };
+                        mkRevProxy = lib.mkOption {
+                            type = lib.types.bool;
+                            description = "Whether to reverse proxy this service.";
+                            default = false;
+                        };
+                    };
+                }));
             };
         };
     };
@@ -43,60 +55,8 @@ in {
         users.groups.${cfg.group.name} = {
             # gid = 999;
             members =
-                []
-                ++ lib.optionals (config.users.users ? jellyfin) ["jellyfin"]
-                ++ lib.optionals (config.users.users ? qbittorrent) ["qbittorrent"]
-                ++ lib.optionals (config.users.users ? prowlarr) ["prowlarr"]
-                ++ lib.optionals (config.users.users ? sonarr) ["sonarr"]
-                ++ lib.optionals (config.users.users ? radarr) ["radarr"]
-                ++ lib.optionals (config.users.users ? jackett) ["jackett"]
-                ++ lib.optionals (config.users.users ? transmission) ["transmission"];
+                lib.uniqueStrings (lib.map (x: x.user) (lib.filter (x: x.inMediaGroup) (lib.attrValues cfg.services)));
         };
-        # defining the active services here for now instead on in each services file
-        # respectively. This will all be redone in the move to denritic anyway.
-        service.media-services.activeServices =
-            []
-            ++ lib.optional config.service.syncthing.enable {
-                name = "syncthing";
-                port = 8384;
-            }
-            ++ lib.optional cfg.qbittorrent.enable {
-                name = "qbittorrent";
-                port = 9494;
-            }
-            ++ lib.optional cfg.transmission.enable {
-                name = "transmission";
-                port = 9091;
-            }
-            ++ lib.optional cfg.jellyfin.enable {
-                name = "jellyfin";
-                port = 8096;
-            }
-            ++ lib.optional cfg.sonarr.enable {
-                name = "sonarr";
-                port = 8989;
-            }
-            ++ lib.optional cfg.radarr.enable {
-                name = "radarr";
-                port = 7878;
-            }
-            ++ lib.optional cfg.prowlarr.enable {
-                name = "prowlarr";
-                port = 9696;
-            }
-            ++ lib.optional cfg.flaresolverr.enable
-            {
-                name = "flaresolverr";
-                port = 8191;
-            }
-            ++ lib.optional cfg.jackett.enable {
-                name = "jackett";
-                port = 9117;
-            }
-            ++ lib.optional cfg.seerr.enable {
-                name = "seerr";
-                port = 5055;
-            };
     };
 
     imports = [
@@ -109,5 +69,7 @@ in {
         ./transmission.nix
         ./flaresolverr.nix
         ./jackett.nix
+        ./immich.nix
+        ./syncthing.nix
     ];
 }

@@ -30,6 +30,12 @@ in {
                 assertion = config.hardware.graphics.enable;
                 message = "GPU transcoding requires `hardware.graphics.enable` to load GPU drivers";
             };
+        service.media-services.services.jellyfin = {
+            port = 8096;
+            user = "jellyfin";
+            inMediaGroup = true;
+            mkRevProxy = true;
+        };
         environment.systemPackages = with pkgs; [
             jellyfin-web
             jellyfin-ffmpeg # should be used by the service?
@@ -42,11 +48,13 @@ in {
         ];
         # permissions for using the gpu
         users.users.${config.services.jellyfin.user}.extraGroups = lib.optionals cfg.jellyfin.enableGpuTranscoding ["render" "video"];
-        services.jellyfin = {
+        services.jellyfin = let
+            serviceCfg = config.service.media-services.services.jellyfin;
+        in {
             enable = true;
-            openFirewall = true;
-            user = "jellyfin";
-            group = cfg.group.name;
+            openFirewall = true; # tv on lan
+            user = serviceCfg.user;
+            group = lib.mkIf serviceCfg.inMediaGroup cfg.group.name;
             # cacheDir = "/var/lib/jellyfin";
             # logDir = "/var/lib/jellyfin/log";
             hardwareAcceleration = {

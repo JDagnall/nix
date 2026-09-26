@@ -39,23 +39,24 @@ in {
             # the VPN interface are jumped to the REJECT chain
             sops.templates."pia-tools-env" = let
                 sops-placeholder = config.sops.placeholder;
-            in {
-                # can assume based on options that PIA user/pass are set in sops
-                content =
-                    ''
-                        PIA_USERNAME=${sops-placeholder."VPN/PIA/user"}
-                        PIA_PASSWORD=${sops-placeholder."VPN/PIA/pass"}
-                    ''
-                    + lib.optionalString config.service.media-services.qbittorrent.enable ''
-                        QBITTORRENT_APIKEY=${sops-placeholder."qbittorrent/apikey"}
-                    ''
-                    # QBITTORRENT_USERNAME=${sops-placeholder."qbittorrent/user"}
-                    # QBITTORRENT_PASSWORD=${sops-placeholder."qbittorrent/pass"}
-                    + lib.optionalString config.service.media-services.transmission.enable ''
-                        TRANSMISSION_USERNAME=${sops-placeholder."transmission/user"}
-                        TRANSMISSION_PASSWORD=${sops-placeholder."transmission/pass"}
-                    '';
-            };
+            in
+                lib.mkIf config.sops.enable {
+                    # can assume based on options that PIA user/pass are set in sops
+                    content =
+                        ''
+                            PIA_USERNAME=${sops-placeholder."VPN/PIA/user"}
+                            PIA_PASSWORD=${sops-placeholder."VPN/PIA/pass"}
+                        ''
+                        + lib.optionalString config.service.media-services.qbittorrent.enable ''
+                            QBITTORRENT_APIKEY=${sops-placeholder."qbittorrent/apikey"}
+                        ''
+                        # QBITTORRENT_USERNAME=${sops-placeholder."qbittorrent/user"}
+                        # QBITTORRENT_PASSWORD=${sops-placeholder."qbittorrent/pass"}
+                        + lib.optionalString config.service.media-services.transmission.enable ''
+                            TRANSMISSION_USERNAME=${sops-placeholder."transmission/user"}
+                            TRANSMISSION_PASSWORD=${sops-placeholder."transmission/pass"}
+                        '';
+                };
             boot.kernelModules = ["wireguard"];
 
             # modules will not make the user & group if it is not the default

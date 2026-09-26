@@ -91,7 +91,7 @@ in {
         xdg.configFile."keepmenu/config.ini" = let
             inherit (lib) generators;
             inherit (config) window-manager;
-            inherit (osConfig.service.syncthing.folders) secure;
+            inherit (osConfig.service.media-services.syncthing.folders) secure;
             inherit (osConfig.services.syncthing) dataDir;
             settings = {
                 dmenu = {

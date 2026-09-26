@@ -15,10 +15,19 @@ in {
         };
     };
     config = lib.mkIf cfg.enable {
-        services.flaresolverr = lib.mkIf cfg.flaresolverr.enable {
-            enable = true;
-            openFirewall = false;
+        service.media-services.services.flaresolverr = {
             port = 8191;
+            user = "flaresolverr";
+            inMediaGroup = false;
+            mkRevProxy = true;
         };
+        services.flaresolverr = let
+            serviceCfg = config.service.media-services.services.flaresolverr;
+        in
+            lib.mkIf cfg.flaresolverr.enable {
+                enable = true;
+                openFirewall = false;
+                port = serviceCfg.port;
+            };
     };
 }

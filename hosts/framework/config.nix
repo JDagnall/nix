@@ -14,7 +14,7 @@
 
     service.pipewire.enable = true;
 
-    service.syncthing = {
+    service.media-services.syncthing = {
         enable = true;
         runAsUser = "james";
         devices.orion.enable = true;

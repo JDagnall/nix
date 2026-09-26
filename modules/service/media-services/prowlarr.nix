@@ -10,9 +10,17 @@ in {
             enable = lib.mkEnableOption "Enable Prowlarr.";
         };
     };
-    config = lib.mkIf cfg.enable {
+    config = lib.mkIf (cfg.enable && cfg.prowlarr.enable) {
         warnings = lib.optional config.networking.enableIPv6 "Prowlarr may not work with captcha solvers if ipv6 is enabled.";
-        services.prowlarr = lib.mkIf cfg.prowlarr.enable {
+        service.media-services.services.prowlarr = {
+            port = 9696;
+            user = "prowlarr";
+            inMediaGroup = false;
+            mkRevProxy = true;
+        };
+        services.prowlarr = let
+            serviceCfg = config.service.media-services.services.prowlarr;
+        in {
             enable = true;
             openFirewall = false; # tailscale;
             # dataDir = ;
@@ -20,7 +28,7 @@ in {
             settings = {
                 log.analyticsEnabled = false;
                 server = {
-                    port = 9696;
+                    port = serviceCfg.port;
                     bindaddress = "localhost";
                     # would be 'prowlarr', if intended to access through reverse proxy,
                     # in format domain-name.com/prowlarr

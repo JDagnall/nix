@@ -34,7 +34,7 @@
             }
         ];
         services.dnsmasq.settings = let
-            activeServices = config.service.media-services.activeServices;
+            activeServices = lib.filter (x: x.mkRevProxy) (lib.attrValues config.service.media-services.services);
             domain = config.service.dnsmasq.orion.domainName;
             tailscaleEnabled = config.service.tailscale.enable;
             localIp = config.service.dnsmasq.orion.localIp;

@@ -16,7 +16,7 @@
     tailscaleInterface = config.service.tailscale.interface;
     loopbackInterface = config.network.loopbackInterface;
     networkdEnabled = config.networking.useNetworkd;
-    activeServices = config.service.media-services.activeServices;
+    activeServices = lib.filter (x: x.mkRevProxy) (lib.attrValues config.service.media-services.services);
 in {
     options = {
         service.dnsmasq = {

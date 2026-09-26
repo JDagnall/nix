@@ -11,13 +11,22 @@ in {
         };
     };
     config = {
-        services.jackett = lib.mkIf cfg.jackett.enable {
-            enable = true;
-            openFirewall = false; # tailscale
-            # dataDir = ;
-            # user= "jackett";
-            group = cfg.group.name;
-            # port = 9117;
+        service.media-services.services.jackett = {
+            port = 9117;
+            user = "jackett";
+            inMediaGroup = true;
+            mkRevProxy = true;
         };
+        services.jackett = let
+            serviceCfg = config.service.media-services.services.jackett;
+        in
+            lib.mkIf cfg.jackett.enable {
+                enable = true;
+                openFirewall = false; # tailscale
+                # dataDir = ;
+                user = serviceCfg.user;
+                group = lib.mkIf serviceCfg.inMediaGroup cfg.group.name;
+                port = serviceCfg.port;
+            };
     };
 }

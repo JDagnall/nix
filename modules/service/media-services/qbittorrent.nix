@@ -51,17 +51,32 @@ in {
                     message = "Qbittorrent requires sops to load credentials";
                 }
             ];
+            service.media-services.services.qbittorrent = rec {
+                port = 9494;
+                user = "qbittorrent";
+                inMediaGroup = true;
+                mkRevProxy = true;
+                # qbittorrent really doesnt like being proxied so these headers
+                # get set to stop it from denying the request
+                extraRevProxyCfg = ''
+                    header_up Host localhost:${toString port}
+                    header_up X-Forwarded-Host {hostport}
+                    header_up -Origin
+                    header_up -Referer
+                '';
+            };
             sops.secrets = let
                 host = config.networking.hostName;
                 secretCfg = {
                     sopsFile = ../../../secrets/${host}/qbittorrent.yaml;
                 };
-            in {
-                "qbittorrent/user" = secretCfg;
-                "qbittorrent/pass" = secretCfg;
-                "qbittorrent/hashedPass" = secretCfg;
-                "qbittorrent/apikey" = secretCfg;
-            };
+            in
+                lib.mkIf config.sops.enable {
+                    "qbittorrent/user" = secretCfg;
+                    "qbittorrent/pass" = secretCfg;
+                    "qbittorrent/hashedPass" = secretCfg;
+                    "qbittorrent/apikey" = secretCfg;
+                };
             sops.templates = {
                 "qbittorrent-config" = {
                     mode = "400";
@@ -109,15 +124,17 @@ in {
             # service.vpn.pia.torrentCon.groupMembers = lib.optionals vpnEnabled [
             #     config.services.qbittorrent.user
             # ];
-            services.qbittorrent = {
+            services.qbittorrent = let
+                serviceCfg = cfg.services.qbittorrent;
+            in {
                 enable = true;
-                user = "qbittorrent";
-                group = cfg.group.name;
+                user = serviceCfg.user;
+                group = lib.mkIf serviceCfg.inMediaGroup cfg.group.name;
                 extraArgs = ["--confirm-legal-notice"];
-                webuiPort = 9494;
+                webuiPort = serviceCfg.port;
                 # torrentingPort = ;
                 serverConfig = {};
-                openFirewall = true; # TODO: doesnt like to accessed through rev proxy, some header is busted
+                openFirewall = false;
             };
             systemd.services."qbittorrent".serviceConfig = {
                 # The module ususally does this with a config file generated from the serverConfig attr,

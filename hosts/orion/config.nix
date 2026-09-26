@@ -69,6 +69,31 @@
         flaresolverr.enable = true;
         seerr.enable = true;
         transmission.enable = false;
+        immich.enable = true;
+
+        syncthing = {
+            enable = true;
+            devices = {
+                PC.enable = true;
+                macbook.enable = true;
+                framework.enable = true;
+                galaxy-s10e.enable = true;
+            };
+            folders = {
+                secure.enable = true;
+                secure.share = ["PC" "Galaxy-s10e" "Macbook" "Framework"];
+                classes.enable = true;
+                classes.share = ["PC" "Framework"];
+                proj.enable = true;
+                proj.share = ["PC" "Framework"];
+                wallpapers.enable = true;
+                wallpapers.share = ["PC" "Framework"];
+                docs.enable = true;
+                docs.share = ["PC" "Framework" "Galaxy-s10e"];
+            };
+            gui.enableLogin = true;
+            gui.setDefaultRoute = true;
+        };
     };
     # add myself to the media group
     users.groups."media".members = ["james"];
@@ -81,30 +106,6 @@
         };
         openvpn.enable = false;
         wiregaurd.enable = true;
-    };
-
-    service.syncthing = {
-        enable = true;
-        devices = {
-            PC.enable = true;
-            macbook.enable = true;
-            framework.enable = true;
-            galaxy-s10e.enable = true;
-        };
-        folders = {
-            secure.enable = true;
-            secure.share = ["PC" "Galaxy-s10e" "Macbook" "Framework"];
-            classes.enable = true;
-            classes.share = ["PC" "Framework"];
-            proj.enable = true;
-            proj.share = ["PC" "Framework"];
-            wallpapers.enable = true;
-            wallpapers.share = ["PC" "Framework"];
-            docs.enable = true;
-            docs.share = ["PC" "Framework" "Galaxy-s10e"];
-        };
-        gui.enableLogin = true;
-        gui.setDefaultRoute = true;
     };
 
     gaming.minecraft-servers = {

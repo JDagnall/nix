@@ -17,7 +17,7 @@
             # have a good solution to this.
             # vaults = {
             # 	classes =
-            # 		lib.mkIf osConfig.service.syncthing.folders.classes.enable {
+            # 		lib.mkIf osConfig.service.media-services.syncthing.folders.classes.enable {
             # 			enable = true;
             # 			target = "classes/obsidian";
             # 		};
@@ -218,7 +218,7 @@
         };
         stylix.targets.obsidian = {
             enable = true;
-            vaultNames = [] ++ lib.optionals osConfig.service.syncthing.folders.classes.enable ["classes"];
+            vaultNames = [] ++ lib.optionals osConfig.service.media-services.syncthing.folders.classes.enable ["classes"];
         };
     };
 }

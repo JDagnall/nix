@@ -18,9 +18,9 @@
     service.sshd.james.authKeys.enable = true;
     service.avahi.enable = true; # mdns
 
-    service.syncthing = {
+    service.media-services.syncthing = {
         enable = true;
-        runAsUser = "james";
+        user = "james";
         devices.orion.enable = true;
         folders = let
             shareDevices = ["Orion"];
