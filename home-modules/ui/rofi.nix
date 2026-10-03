@@ -29,7 +29,7 @@ in {
             enable = true;
             settings = {
                 cycle = true; # cycle through results
-                location = "center";
+                location = 1;
                 modes = [
                     "drun"
                     "window"

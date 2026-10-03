@@ -58,6 +58,7 @@
     gaming = {
         steam.enable = true;
         gamemode.enable = true;
+        gamemode.users = ["james"];
         gamescope.enable = true;
         vr = {
             enable = true;

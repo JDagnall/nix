@@ -28,7 +28,7 @@
                             builtins.filter (p: (p.pname or "") != "openldap") originalPkgs ++ [customLdap];
                     });
             };
-            extraPackages = with pkgs; [flatpak];
+            extraPackages = with pkgs; [flatpak umu-launcher winetricks];
             defaultWinePackage = pkgs.proton-ge-bin;
             protonPackages = [pkgs.proton-ge-bin];
             winePackages = [];
@@ -43,5 +43,7 @@
             };
             steamPackage = osConfig.programs.steam.package;
         };
+        # for vr env vars
+        xdg.configFile."openxr/1/active_runtime.json".source = lib.mkIf osConfig.gaming.vr.enable "${pkgs.wivrn}/share/openxr/1/openxr_wivrn.json";
     };
 }

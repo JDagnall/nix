@@ -17,23 +17,23 @@
 - Nextcloud
 - Look for a way to have wezterm change its look in some way based on whether I'm ssh 'd
   into a host at that time. And possibly have custom looks for specific hosts.
-- Hyprland moved config to Lua, yay. Update Hyprland config
 - Keychain should open on user login
 - Remote rebuilding, in a sustainable and secure way. Probably the best way to do this is
   hosting the repo myself on Orion, then using git hooks / a service to push rebuilds to
-  each host as they come up. At least on the tailnet.
+  each host as they come up. At least on the tailnet. Look at deploy-rs.
 - Move `media-services` and other similar services to a new module, maybe `servers` or
   something similar.
 - Maybe host a git server on Orion and then mirror my repo's there to GitHub and / or
   Codeberg.
 - A more declarative and strict way to bind services like Qbittorrent to a VPN / just
   any network interface (https://github.com/Maroka-chan/VPN-Confinement there may be other options).
-- Remove old syncthing certs from git history (https://github.com/newren/git-filter-repo).
-- Immich
-- Bitwarden / Bitlocker
-- central auth provider for servers
+- Bitwarden/Vaultwarden or something similar.
+- central auth provider for servers, maybe Authentik
 - Backups for lots of stuff, namely Minecraft worlds. Possibly using rdiff-backup which
   does incremental backups.
+- Largely the zsh config is pretty outdated, but specifically I want to be able to pull
+  out the current command into a temp nvim file, in order to edit more efficiently.
+  Bonus if I can get decent LSP/completion and maybe even docs.
 
 ## Fix
 
