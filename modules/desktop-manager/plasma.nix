@@ -1,13 +1,10 @@
 {
-    pkgs,
     lib,
-    config,
+    # inputs,
     ...
 }: {
-    options = {
-        desktop-manager.plasma.enable = lib.mkEnableOption "Enable KDE Plasma 6 config";
-    };
-    config = lib.mkIf config.desktop-manager.plasma.enable {
+    flake.modules.nixos.plasma = {pkgs, ...}: {
+        # imports = [inputs.plasma-manager.nixosModules.default];
         services.desktopManager.plasma6 = {
             enable = true;
             enableQt5Integration = true;

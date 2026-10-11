@@ -1,35 +1,31 @@
-{
-    pkgs,
-    lib,
-    config,
-    ...
-}: {
-    options = {
-        gaming.vr.enable = lib.mkEnableOption "Enable VR configuration";
-        gaming.vr.wivrn = {
-            enable = lib.mkEnableOption "Enable WiVRn, a wireless VR streamer";
-            compatLib = lib.mkOption {
-                default = "xrizer";
-                type = lib.types.enum ["xrizer" "opencomposite"];
-                description = "The compatability library to use for openVR.";
-            };
+{...}: {
+    flake.modules.nixos.alvr = {
+        programs.alvr = {
+            enable = true;
+            openFirewall = true;
         };
-
-        gaming.vr.alvr.enable = lib.mkEnableOption "Enable ALVR, a wireless VR streamer";
     };
-    config = let
-    in
-        lib.mkIf config.gaming.vr.enable {
-            services.wivrn = lib.mkIf config.gaming.vr.wivrn.enable {
+    flake.modules.nixos.wivrn = {
+        pkgs,
+        config,
+        ...
+    }: let
+        compatlib = "xrizer";
+        # compatlib = "opencomposite";
+    in {
+        config = {
+            myConfig.steam. extraEnv = {
+                PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES = "1";
+                VR_OVERRIDE = "${pkgs.${compatlib}}/lib/${compatlib}";
+            };
+            services.wivrn = {
                 enable = true;
                 # package = pkgs.wivrn;
                 config = {
                     enable = true;
-                    json = let
-                        compat = config.gaming.vr.wivrn.compatLib;
-                    in {
+                    json = {
                         # encoder = [ # can manually configure encoders ];
-                        # openvr-compat-path = "${pkgs.${compat}}/lib/${compat}";
+                        openvr-compat-path = "${pkgs.${compatlib}}/lib/${compatlib}";
                         application = [pkgs.wayvr]; # start on connect
                     };
                 };
@@ -48,12 +44,9 @@
                 # I wanna start this manually
                 autoStart = false;
             };
-            environment.systemPackages = lib.mkIf config.gaming.vr.wivrn.enable [
-                pkgs.${config.gaming.vr.wivrn.compatLib}
+            environment.systemPackages = config.gaming.vr.wivrn.enable [
+                pkgs.${compatlib}
             ];
-            programs.alvr = lib.mkIf config.gaming.vr.alvr.enable {
-                enable = true;
-                openFirewall = true;
-            };
         };
+    };
 }

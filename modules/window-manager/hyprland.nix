@@ -1,18 +1,10 @@
-{
-    pkgs,
-    lib,
-    config,
-    ...
-}: let
-    inherit (lib) mkIf mkEnableOption;
-in {
-    options = {
-        window-manager.hyprland.enable = mkEnableOption {
-            default = false;
-            description = "enable hyprland window-manager";
-        };
-    };
-    config = mkIf config.window-manager.hyprland.enable {
+{...}: {
+    flake.modules.nixos.hyprland = {
+        pkgs,
+        # config,
+        ...
+    }: let
+    in {
         programs.hyprland = {
             enable = true;
             xwayland.enable = true;

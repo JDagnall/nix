@@ -1,15 +1,5 @@
-{
-    lib,
-    config,
-    ...
-}: {
-    options = {
-        boot-loader.systemd-boot.enable = lib.mkEnableOption {
-            default = false;
-            description = "Enable systemd boot loader";
-        };
-    };
-    config = lib.mkIf config.boot-loader.systemd-boot.enable {
+{...}: {
+    flake.modules.nixos.systemd-boot = {...}: {
         boot.loader.systemd-boot = {
             enable = true;
             # for debugging, etc

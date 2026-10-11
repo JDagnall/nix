@@ -1,15 +1,5 @@
-{
-    # pkgs,
-    lib,
-    config,
-    ...
-}: {
-    options = {
-        gaming.gamescope.enable = lib.mkEnableOption {
-            description = "Enable gamescope. Optimisations for game windows and processes.";
-        };
-    };
-    config = lib.mkIf config.gaming.gamescope.enable {
+{...}: {
+    flake.modules.nixos.gamescope = {...}: {
         programs.gamescope = {
             enable = true;
             capSysNice = true;
