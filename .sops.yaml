@@ -25,3 +25,11 @@ creation_rules:
     key_groups:
       - age:
         - *orion
+  - path_regex: secrets/common/[^/]+\.yaml$
+    key_groups:
+      - age:
+        - *pc
+        - *framework
+        - *mini
+        - *book
+        - *orion

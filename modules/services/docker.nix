@@ -4,8 +4,8 @@
         config,
         ...
     }: {
-        options = {
-            service.docker.groupUsers = lib.mkOption {
+        options.my = {
+            services.docker.groupUsers = lib.mkOption {
                 default = [];
                 type = with lib.types; listOf str;
                 description = "Names of users to be added to the docker group.";
