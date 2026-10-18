@@ -2,6 +2,7 @@
     flake.modules.nixos.network = {config, ...}: let
         # cfg = config.network;
     in {
+        key = "my/nixos/network";
         options.my = {
             network = {
                 physicalInterfaces = lib.mkOption {

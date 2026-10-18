@@ -5,14 +5,16 @@
 }: {
     flake.modules.nixos.mini = {pkgs, ...}: {
         imports = with self.modules.nixos; [
+            default
             systemd-boot
             sops
+            network
             ssh
             avahi
             tailscale
 
             # USERS
-            mini.james
+            mini-james
         ];
         config = {
             # my configs -----------------------------------------------------

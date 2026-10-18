@@ -3,7 +3,7 @@
     lib,
     ...
 }: {
-    flake.modules.nixos.wsl.james = {
+    flake.modules.nixos.wsl-james = {
         pkgs,
         config,
         ...

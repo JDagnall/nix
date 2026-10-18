@@ -1,7 +1,7 @@
 {self, ...}: {
     flake.modules.nixos.radarr = {config, ...}: let
         arrCfg = config.my.servers.arr;
-        # cfg = config.service.media-services.radarr;
+        # cfg = config.my.servers.radarr;
     in {
         imports = with self.modules.nixos; [servers arr];
         config = {

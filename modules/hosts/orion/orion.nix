@@ -5,9 +5,9 @@
 }: {
     flake.modules.nixos.orion = {pkgs, ...}: {
         imports = with self.modules.nixos; [
+            default
             systemd-boot
             sops
-            msmtp
             avahi
             tailscale
             resolved
@@ -15,7 +15,6 @@
             minecraft-servers
 
             # servers
-            caddy
             scrutiny
             jellyfin
             qbittorrent
@@ -28,31 +27,15 @@
             immich
 
             # USERS
-            orion.james
+            orion-james
         ];
         config = {
             # my config options
             my = {
-                network.physicalInterfaces = ["enp34s0"];
-                tools.msmtp = {
-                    accounts = {
-                        gmail = {
-                            host = "smtp.gmail.com";
-                            auth = true;
-                            user = "james.t.dagnall";
-                            from = "james.t.dagnall@gmail.com";
-                        };
-                    };
-                    defaultAccount = "gmail";
-                    defaultAlias = {
-                        to = "james.t.dagnall@gmail.com";
-                    };
-                };
                 services.tailscale = {
                     interfacePatch = true;
                     tailnet = "stonecat-barometric";
                 };
-                servers.caddy.email = "james.t.dagnall@gmail.com";
 
                 # TODO: should maybe go in user config
                 gaming.minecraft-servers = {

@@ -2,7 +2,7 @@
     flake.modules.nixos.seerr = {config, ...}: let
         # arrCfg = config.my.servers.arr;
     in {
-        import = with self.modules.nixos; [servers arr];
+        imports = with self.modules.nixos; [servers arr];
         config = {
             my.servers.servers.seerr = {
                 port = 5055;

@@ -8,7 +8,7 @@
     ...
 }: {
     flake.modules.nixos.msmtp = {config, ...}: let
-        cfg = config.msmtp;
+        cfg = config.my.tools.msmtp;
     in {
         imports = with self.modules.nixos; [sops];
         options.my.tools.msmtp = {

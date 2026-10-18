@@ -15,7 +15,7 @@
             }
         ];
         options = {
-            gaming.minecraft-servers = {
+            my.gaming.minecraft-servers = {
                 groupMembers = lib.mkOption {
                     type = with lib.types; listOf str;
                     default = [];
@@ -25,9 +25,11 @@
             };
         };
 
-        config = {
+        config = let
+            cfg = config.my.gaming.minecraft-servers;
+        in {
             allowedUnfreePkgNames = ["minecraft-server"];
-            users.groups."minecraft".members = config.gaming.minecraft-servers.groupMembers;
+            users.groups."minecraft".members = cfg.groupMembers;
             services.minecraft-servers = let
                 defaultServerConfig = {
                     restart = "no";
@@ -55,7 +57,7 @@
 
                 servers = {
                     "26.2" = lib.recursiveUpdate defaultServerConfig {
-                        enable = config.gaming.minecraft-servers."26.2";
+                        enable = cfg."26.2";
                         package = pkgs.fabricServers.fabric-26_2.override (old: {
                             jre_headless = lib.warnIf (
                                 lib.versions.major old.jre_headless.version == "25"

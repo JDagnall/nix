@@ -9,7 +9,7 @@
         arrCfg = config.my.servers.arr;
         # vpnCfg = config.my.services.vpn.torrentCon;
     in {
-        imports = with self.modules.nixos; [servers arr sops vpn];
+        imports = with self.modules.nixos; [servers arr sops vpn-torrent-connection];
         config = {
             my.servers.servers.transmission = {
                 port = 9091;
@@ -18,7 +18,7 @@
                 mkRevProxy = true;
             };
 
-            service.vpn.pia.torrentCon.groupMembers = [serverCfg.group];
+            my.services.vpn.torrentCon.groupMembers = [serverCfg.group];
             sops.secrets = let
                 host = config.networking.hostName;
                 secretSettings = {

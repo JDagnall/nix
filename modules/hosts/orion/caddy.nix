@@ -28,6 +28,7 @@
                 };
             };
             systemd.services.caddy.serviceConfig.EnvironmentFile = config.sops.templates."caddy-env-file".path;
+            my.servers.proxy.caddy.email = "james.t.dagnall@gmail.com";
             services.caddy = let
                 domain = "waluigimangione.dev";
             in {

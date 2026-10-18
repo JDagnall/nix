@@ -33,7 +33,7 @@
             };
             # assumes docker-compose is wanted
             environment.systemPackages = with pkgs; [docker-compose];
-            users.extraGroups.docker.members = config.service.docker.groupUsers;
+            users.extraGroups.docker.members = config.my.services.docker.groupUsers;
         };
     };
 }

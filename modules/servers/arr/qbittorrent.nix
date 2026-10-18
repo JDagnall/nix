@@ -14,7 +14,7 @@
             arrCfg = config.my.servers.arr;
             # cfg = config.my.servers.arr.qbittorrent;
             serverCfg = config.my.servers.servers.qbittorrent;
-            vpnCfg = config.my.service.vpn.pia.torrentCon;
+            vpnCfg = config.my.services.vpn.pia.torrentCon;
             torrentVPNInterface = vpnCfg.interface;
             inherit (builtins) concatStringsSep isAttrs isString;
             inherit (lib) collect mapAttrsRecursive escape replaceString;
@@ -62,13 +62,12 @@
                 secretCfg = {
                     sopsFile = "${inputs.secrets}/${host}/qbittorrent.yaml";
                 };
-            in
-                lib.mkIf config.sops.enable {
-                    "qbittorrent/user" = secretCfg;
-                    "qbittorrent/pass" = secretCfg;
-                    "qbittorrent/hashedPass" = secretCfg;
-                    "qbittorrent/apikey" = secretCfg;
-                };
+            in {
+                "qbittorrent/user" = secretCfg;
+                "qbittorrent/pass" = secretCfg;
+                "qbittorrent/hashedPass" = secretCfg;
+                "qbittorrent/apikey" = secretCfg;
+            };
             sops.templates = {
                 "qbittorrent-config" = {
                     mode = "400";

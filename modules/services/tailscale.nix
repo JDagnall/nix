@@ -6,6 +6,7 @@
 }: {
     # interface pattern container for the
     flake.modules.nixos.tailscale-interface = {
+        key = "my/nixos/tailscale-interface";
         options = {
             my.services.tailscale = {
                 enabled = lib.mkEnableOption "Whether tailscale is enabled.";
@@ -99,7 +100,7 @@
                     '';
                 in ''
                     ${tailscaleInterfaceScript}
-                    ${lib.concatStringsSep "\n" (map physInterfaceScript (config.network.physicalInterfaces))}
+                    ${lib.concatStringsSep "\n" (map physInterfaceScript (config.my.network.physicalInterfaces))}
                 '';
                 serviceConfig = {
                     Type = "oneshot";
@@ -108,11 +109,12 @@
             };
             # clamp the MSS from the tailscale device to network devices
             networking.firewall = let
+                tsInterface = config.my.services.tailscale.interface;
                 mkIpRule = cmd: interface: ''
-                    iptables -t mangle -${cmd} FORWARD -i ${config.service.tailscale.interface} -o ${interface} -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu || true
-                    ip6tables -t mangle -${cmd} FORWARD -i ${config.service.tailscale.interface} -o ${interface} -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu || true
+                    iptables -t mangle -${cmd} FORWARD -i ${tsInterface} -o ${interface} -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu || true
+                    ip6tables -t mangle -${cmd} FORWARD -i ${tsInterface} -o ${interface} -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu || true
                 '';
-                physInterfaces = config.network.physicalInterfaces;
+                physInterfaces = config.my.network.physicalInterfaces;
             in
                 lib.mkIf config.my.services.tailscale.interfacePatch {
                     extraCommands = builtins.concatStringsSep "\n" (map (interface: mkIpRule "A" interface) physInterfaces);

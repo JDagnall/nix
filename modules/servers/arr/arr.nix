@@ -3,10 +3,11 @@
     lib,
     ...
 }: {
-    flake.modules.nixos.default = {config, ...}: let
-        cfg = config.servers.arr;
+    flake.modules.nixos.arr = {config, ...}: let
+        cfg = config.my.servers.arr;
     in {
         imports = with self.modules.nixos; [servers];
+        key = "my/nixos/arr";
         options.my = {
             servers.arr = {
                 # TODO: need something here for defining access to an actual directory
@@ -39,8 +40,11 @@
                 };
             };
         };
-        config = lib.mkIf cfg.enable {
-            users.users.${cfg.user.name} = {};
+        config = {
+            users.users.${cfg.user.name} = {
+                isSystemUser = true;
+                group = "${cfg.group.name}";
+            };
             users.groups.${cfg.group.name} = {
                 members = cfg.group.members;
             };

@@ -4,7 +4,7 @@
     inputs,
     ...
 }: {
-    flake.modules.nixos.syncthing.server = {
+    flake.modules.nixos.syncthing-server = {
         pkgs,
         config,
         ...
@@ -26,14 +26,13 @@
                     sopsFile = "${inputs.secrets}/${host}/syncthing.yaml";
                     restartUnits = ["syncthing.service"];
                 };
-            in
-                lib.mkIf config.sops.enable {
-                    "syncthing/gui-password" = secretSettings;
-                    "syncthing/hashed-gui-password" = secretSettings;
-                    "syncthing/gui-username" = secretSettings;
-                };
+            in {
+                "syncthing/gui-username" = secretSettings;
+                "syncthing/gui-password" = secretSettings;
+                "syncthing/hashed-gui-password" = secretSettings;
+            };
             services.syncthing = {
-                guiAddress = lib.mkForce "${serverCfg.host}:${serverCfg.port}";
+                guiAddress = lib.mkForce "${serverCfg.host}:${toString serverCfg.port}";
                 # guiPasswordFile = config.sops.secrets."syncthing/password".path;
             };
             networking.firewall.allowedTCPPorts = lib.mkIf serverCfg.openFirewall [serverCfg.port];
@@ -55,7 +54,7 @@
                     Type = "oneshot";
                     ExecStart = pkgs.writers.writeBash "add-syncthing-gui-login"
                     ''
-                        ${pkgs.syncthing}/bin/syncthing generate --gui-user=$(cat ${config.sops.secrets."gui-username"}) \
+                        ${pkgs.syncthing}/bin/syncthing generate --gui-user=$(cat ${config.sops.secrets."syncthing/gui-username".path}) \
                         --gui-password=$(cat ${config.sops.secrets."syncthing/hashed-gui-password".path}) \
                         --home=${config.services.syncthing.configDir} || echo "Failed to set GUI login for syncthing."
                     '';

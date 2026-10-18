@@ -141,11 +141,10 @@ in {
                     sopsFile = "${inputs.secrets}/${host}/syncthing.yaml";
                     restartUnits = ["syncthing.service"];
                 };
-            in
-                lib.mkIf config.sops.enable {
-                    "syncthing/key" = secretSettings;
-                    "syncthing/cert" = secretSettings;
-                };
+            in {
+                "syncthing/key" = secretSettings;
+                "syncthing/cert" = secretSettings;
+            };
             systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true"; # Don't create default ~/Sync folder
             services.syncthing =
                 {
@@ -186,11 +185,10 @@ in {
                     sopsFile = "${inputs.secrets}/${host}/syncthing.yaml";
                     restartUnits = ["syncthing.service"];
                 };
-            in
-                lib.mkIf config.sops.enable {
-                    "syncthing/key" = secretSettings;
-                    "syncthing/cert" = secretSettings;
-                };
+            in {
+                "syncthing/key" = secretSettings;
+                "syncthing/cert" = secretSettings;
+            };
             systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true"; # Don't create default ~/Sync folder
             services.syncthing =
                 {

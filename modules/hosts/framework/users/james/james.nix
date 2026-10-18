@@ -1,8 +1,7 @@
 {self, ...}: {
-    flake.modules.nixos.framework.james = {...}: {
+    flake.modules.nixos.framework-james = {...}: {
         imports = with self.modules.nixos; [
             hyprland
-            gnome-keyring
             docker
             # TODO: need to be importing some version of my user config
         ];
@@ -12,5 +11,5 @@
             };
         };
     };
-    # flake.modules.home.framework.james = {};
+    # flake.modules.home.framework-james = {};
 }

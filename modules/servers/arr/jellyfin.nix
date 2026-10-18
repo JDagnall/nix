@@ -53,7 +53,7 @@
                 enable = true;
                 openFirewall = serverCfg.openFirewall; # tv on lan
                 user = serverCfg.user;
-                group = serverCfg.group.name;
+                group = serverCfg.group;
                 # cacheDir = "/var/lib/jellyfin";
                 # logDir = "/var/lib/jellyfin/log";
                 hardwareAcceleration = {

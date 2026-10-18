@@ -26,7 +26,7 @@
                 hostnames = lib.mkOption {
                     description = "Host names to create virtual hosts for each server.";
                     type = with lib.types; listOf str;
-                    default = ["${host}.home"] ++ lib.optional tailscaleEnabled ["${host}.tail"];
+                    default = ["${host}.home"] ++ lib.optional tailscaleEnabled "${host}.tail";
                 };
             };
         };

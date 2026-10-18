@@ -5,7 +5,7 @@
         ...
     }: {
         options = {
-            gaming.gamemode = {
+            my.gaming.gamemode = {
                 users = lib.mkOption {
                     default = [];
                     type = lib.types.listOf lib.types.str;
@@ -14,7 +14,7 @@
             };
         };
         config = {
-            users.groups."gamemode".members = config.gaming.gamemode.users;
+            users.groups."gamemode".members = config.my.gaming.gamemode.users;
             programs.gamemode = {
                 enable = true;
                 enableRenice = true;

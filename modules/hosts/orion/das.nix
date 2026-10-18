@@ -1,15 +1,12 @@
 {
+    self,
     lib,
     inputs,
     ...
 }: {
-    flake.modules.nixos.orion = {
-        pkgs,
-        config,
-        ...
-    }: let
+    flake.modules.nixos.orion = {pkgs, ...}: let
     in {
-        imports = [inputs.disko.nixosModules.disko];
+        imports = with self.modules.nixos; [inputs.disko.nixosModules.disko msmtp];
         config = let
             disks = {
                 sas1 = {
@@ -26,6 +23,22 @@
             boot.supportedFilesystems = {zfs = true;};
             boot.zfs = {
                 forceImportRoot = false;
+            };
+            my = {
+                tools.msmtp = {
+                    accounts = {
+                        gmail = {
+                            host = "smtp.gmail.com";
+                            auth = true;
+                            user = "james.t.dagnall";
+                            from = "james.t.dagnall@gmail.com";
+                        };
+                    };
+                    defaultAccount = "gmail";
+                    defaultAlias = {
+                        to = "james.t.dagnall@gmail.com";
+                    };
+                };
             };
             # overriding kernelPackages and falling back to the last LTS version
             # which ZFS supports, this should gaurantee that ZFS supports the kernel version
@@ -44,15 +57,15 @@
                 zed = {
                     settings = {
                         ZED_DEBUG_LOG = "/tmp/zed.debug.log";
-                        ZED_EMAIL_ADDR = lib.mkIf config.msmtp.enable ["root"];
-                        ZED_EMAIL_PROG = lib.mkIf config.msmtp.enable "${pkgs.msmtp}/bin/msmtp";
+                        ZED_EMAIL_ADDR = ["root"];
+                        ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";
                         ZED_EMAIL_OPTS = "@ADDRESS@";
                         ZED_NOTIFY_INTERVAL_SECS = 3600;
                         ZED_NOTIFY_VERBOSE = false; # only notify when pool is unhealthy
                         ZED_USE_ENCLOSURE_LEDS = true;
                         ZED_SCRUB_AFTER_RESILVER = true;
                     };
-                    enableMail = config.msmtp.enable;
+                    enableMail = true;
                 };
             };
 
@@ -66,8 +79,8 @@
                 # -o on : Enable SMART automatic offline data collection
                 # -s (S/../.././02|L/../01/./03) : Run Short self-test daily at 2AM, Long test monthly on the 1st at 3AM
                 # -m root : Send mail alerts to root
-                defaults.monitored = "-a -o on -s (S/../.././02|L/../1/./03)" + lib.optionalString config.msmtp.enable " -m root";
-                notifications.mail = lib.mkIf config.msmtp.enable {
+                defaults.monitored = "-a -o on -s (S/../.././02|L/../1/./03) -m root";
+                notifications.mail = {
                     mailer = "${pkgs.msmtp}/bin/msmtp";
                 };
             };

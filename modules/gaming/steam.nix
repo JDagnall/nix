@@ -4,10 +4,10 @@
         config,
         ...
     }: let
-        cfg = config.myConfig.gaming.steam;
+        cfg = config.my.gaming.steam;
     in {
         options = {
-            myConfig.gaming.steam.extraEnv = lib.mkOption {
+            my.gaming.steam.extraEnv = lib.mkOption {
                 type = with lib.types; attrsOf str;
                 default = {};
                 description = "Environment variables to add to the steam runtime.";

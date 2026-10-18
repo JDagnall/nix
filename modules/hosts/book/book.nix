@@ -5,16 +5,18 @@
 }: {
     flake.modules.nixos.book = {pkgs, ...}: {
         imports = with self.modules.nixos; [
+            default
             grub
             noctalia-greeter
             sops
+            network
             pipewire
             avahi
             pia-openvpn
             bluetooth
 
             # USERS
-            book.james
+            book-james
         ];
         config = {
             # config ------------------------------

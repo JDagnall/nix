@@ -1,5 +1,5 @@
 {self, ...}: {
-    flake.modules.nixos.pc.james = {...}: {
+    flake.modules.nixos.pc-james = {...}: {
         imports = with self.modules.nixos; [
             # TODO: Should be importing a version of my user module
             hyprland
@@ -9,19 +9,19 @@
             gamescope
             wivrn
             # alvr
+            wireshark
             micro-controller
             # pia-openvpn
             # language-tool
-            gnome-keyring
         ];
         config = {
             my = {
                 services.docker.groupUsers = ["james"];
-                gamemode.users = ["james"];
+                gaming.gamemode.users = ["james"];
                 services.micro-controller.udevGroupMembers = ["james"];
                 tools.wireshark.users = ["james"];
             };
         };
     };
-    # flake.modules.home.pc.james = {...}: {};
+    # flake.modules.home.pc-james = {...}: {};
 }

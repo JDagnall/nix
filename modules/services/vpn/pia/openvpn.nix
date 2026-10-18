@@ -10,7 +10,7 @@
     }: let
         cfg = config.my.services.vpn.pia.openvpn;
     in {
-        import = with self.modules.nixos; [vpn pia sops];
+        imports = with self.modules.nixos; [vpn pia sops];
         options.my = {
             services.vpn.pia.openvpn = {
                 interface = lib.mkOption {
@@ -75,7 +75,7 @@
                 # use google and cloudflare nameservers
                 # insertNameservers = ["8.8.8.8" "1.1.1.1"];
                 ensureProfiles = {
-                    environmentFiles = lib.mkIf config.sops.enable [
+                    environmentFiles = [
                         config.sops.templates."NetworkManager-profiles-env".path
                     ];
                     profiles = {
@@ -159,7 +159,7 @@
                     # for openvpn at the moment network manager defaults to using the gnome keyring to store passwords.
                     # secrets.entries =
                     # 	[]
-                    # 	++ lib.optionals config.service.openvpn.PIA [
+                    # 	++ lib.optionals config.my.services.vpn.pia.openvpn [
                     # 		{
                     # 			file = config.sops.secrets."VPN/PIA/pass".path;
                     # 			key = "password";

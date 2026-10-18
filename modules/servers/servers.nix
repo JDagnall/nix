@@ -4,6 +4,7 @@
 # wants be forwared (rev proxy, subdomain, etc)
 {lib, ...}: {
     flake.modules.nixos.servers = {...}: {
+        key = "my/nixos/servers";
         options.my = {
             servers = {
                 servers = lib.mkOption {

@@ -8,22 +8,30 @@
     lib,
     ...
 }: {
+    flake.modules.nixos.dnsmasq-interface = {...}: {
+        key = "my/nixos/dnsmasq-interface";
+        options = {
+            my.servers.dns.dnsmasq = {
+                enabled = lib.mkEnableOption "Dnsmasq is enabled as a DNS server.";
+            };
+        };
+    };
     flake.modules.nixos.dnsmasq = {
         pkgs,
         config,
         ...
     }: let
-        cfg = config.my.servers.dnsmasq;
+        cfg = config.my.servers.dns.dnsmasq;
         tailscaleEnabled = config.my.services.tailscale.enabled;
         resolvedEnabled = config.services.resolved.enable;
         host = config.networking.hostName;
-        physicalInterfaces = config.network.physicalInterfaces;
-        tailscaleInterface = config.service.tailscale.interface;
-        loopbackInterface = config.network.loopbackInterface;
+        physicalInterfaces = config.my.network.physicalInterfaces;
+        tailscaleInterface = config.my.services.tailscale.interface;
+        loopbackInterface = config.my.network.loopbackInterface;
         networkdEnabled = config.networking.useNetworkd;
         activeServices = lib.filter (x: x.mkRevProxy) (lib.attrValues config.my.servers.servers);
     in {
-        imports = with self.modules.nixos; [servers tailscale-interface];
+        imports = with self.modules.nixos; [servers tailscale-interface dnsmasq-interface];
         options.my = {
             servers.dns.dnsmasq = {
                 hostnames = lib.mkOption {
@@ -34,7 +42,7 @@
                     '';
                     default = ["${host}.home"];
                 };
-                tailscaleHostNames = lib.mkOption {
+                tailscaleHostnames = lib.mkOption {
                     type = with lib.types; listOf str;
                     description = ''
                         Hostnames to create entries for on the tailnet, again just for fowarding subdomains of services.
@@ -45,6 +53,7 @@
             };
         };
         config = {
+            my.servers.dns.dnsmasq.enabled = true;
             warnings = lib.optional (!networkdEnabled) [
                 "Dnsmasq may not work well with non systemd-networkd network configs at startup, interfaces may not come up in time for the service"
             ];
@@ -85,21 +94,19 @@
                     # interface-name does not support wildcard expansion
                     interface-name = let
                         mkServiceSubdomains = service: hostnames: interfaces:
-                            builtins.concatLists (
-                                map (hostname:
-                                    map (
-                                        interface:
-                                            if service != null
-                                            then "${service.name}.${hostname},${interface}"
-                                            else "${hostname}.${interface}"
-                                    )
-                                    interfaces)
-                                hostnames
-                            );
+                            map (hostname:
+                                map (
+                                    interface:
+                                        if service != null
+                                        then "${service.name}.${hostname},${interface}"
+                                        else "${hostname}.${interface}"
+                                )
+                                interfaces)
+                            hostnames;
                     in
-                        builtins.concatLists [
-                            (mkServiceSubdomains null cfg.hostNames physicalInterfaces)
-                            (lib.optionals tailscaleEnabled (mkServiceSubdomains null cfg.tailscaleHostNames [tailscaleInterface]))
+                        lib.lists.flatten [
+                            (mkServiceSubdomains null cfg.hostnames physicalInterfaces)
+                            (lib.optionals tailscaleEnabled (mkServiceSubdomains null cfg.tailscaleHostnames [tailscaleInterface]))
                             (map (service: mkServiceSubdomains service cfg.hostnames physicalInterfaces) activeServices)
                             (lib.optionals tailscaleEnabled (map (service: mkServiceSubdomains service cfg.tailscaleHostnames [tailscaleInterface]) activeServices))
                         ];
@@ -109,7 +116,7 @@
 
                     # interfaces that dnsmasq will bind to the default route on, meaning it will eat port 53
                     # for the whole interface
-                    interface = physicalInterfaces ++ lib.optionals tailscaleEnabled [tailscaleInterface] ++ lib.optionals (!resolvedEnabled) [loopbackInterface];
+                    interface = physicalInterfaces ++ lib.optional tailscaleEnabled tailscaleInterface ++ lib.optional (!resolvedEnabled) loopbackInterface;
 
                     # systemd-resolved is slightly tempermental, it cannot easily be moved off of its
                     # default bind of 127.0.0.53-54:53 without potentially breaking other systemd services

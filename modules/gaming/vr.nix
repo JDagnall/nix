@@ -14,7 +14,7 @@
         # compatlib = "opencomposite";
     in {
         config = {
-            myConfig.steam. extraEnv = {
+            my.gaming.steam.extraEnv = {
                 PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES = "1";
                 VR_OVERRIDE = "${pkgs.${compatlib}}/lib/${compatlib}";
             };

@@ -1,5 +1,5 @@
 {...}: {
-    flake.modules.nixos.orion.james = {config, ...}: {
+    flake.modules.nixos.orion-james = {config, ...}: {
         # TODO: should import a version of my user module here
         # imports = with self.modules.nixos; [];
         config = {
@@ -12,5 +12,5 @@
             };
         };
     };
-    # flake.modules.home.pc.james = {...}: {};
+    # flake.modules.home.pc-james = {...}: {};
 }

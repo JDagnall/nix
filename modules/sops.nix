@@ -4,6 +4,9 @@
         config,
         ...
     }: {
+        # doesn't actually need it but if a module is importing outside modules
+        # there should probably be a key just in case.
+        key = "my/nixos/sops";
         imports = [
             inputs.sops-nix.nixosModules.sops
         ];

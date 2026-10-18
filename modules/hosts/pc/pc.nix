@@ -4,18 +4,19 @@
     ...
 }: {
     flake.modules.nixos.pc = {...}: {
-        modules = [];
         imports = with self.modules.nixos; [
+            default
             systemd-boot
             noctalia-greeter
             sops
+            network
             avahi
             bluetooth
             pipewire
             tailscale
 
             # USERS
-            pc.james
+            pc-james
         ];
         config = {
             networking.hostName = "pc";

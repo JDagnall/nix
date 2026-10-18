@@ -3,7 +3,7 @@
     lib,
     ...
 }: {
-    flake.modules.nixos.mini.james = {
+    flake.modules.nixos.mini-james = {
         pkgs,
         config,
         ...

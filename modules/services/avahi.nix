@@ -4,6 +4,7 @@
     ...
 }: {
     flake.modules.nixos.avahi-interface = {...}: {
+        key = "my/nixos/avahi-interface";
         options.my = {
             services.avahi.enabled = lib.mkEnableOption "Avahi is enabled.";
         };

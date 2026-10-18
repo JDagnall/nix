@@ -5,7 +5,7 @@
     ...
 }: {
     flake.modules.nixos.ssh = {...}: {
-        imports = with self.modules.home; [sops];
+        imports = with self.modules.nixos; [sops];
         config = {
             sops.secrets = {
                 "ssh/publicKeys/james/book" = {
@@ -14,7 +14,7 @@
             };
         };
     };
-    flake.modules.nixos.book.james = {config, ...}: {
+    flake.modules.nixos.book-james = {config, ...}: {
         imports = with self.modules.nixos; [sops ssh];
         config = {
             sops.templates."ssh-james-authorizedKeys" = let

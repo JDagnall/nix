@@ -5,6 +5,7 @@
     ...
 }: {
     flake.modules.nixos.stylix-interface = {...}: {
+        key = "my/nixos/stylix-interface"; # intended to be imported many times
         options.my = {
             stylix = {
                 enabled = lib.mkEnableOption "Stylix is enabled";
@@ -12,6 +13,9 @@
         };
     };
     flake.modules.nixos.stylix = {pkgs, ...}: {
+        # doesn't actually need it but if a module is importing outside modules
+        # there should probably be a key just in case.
+        key = "my/nixos/stylix";
         imports = [
             inputs.stylix.nixosModules.stylix
             self.modules.nixos.stylix-interface

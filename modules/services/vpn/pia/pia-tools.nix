@@ -10,7 +10,7 @@
         config,
         ...
     }: let
-        # cfg = config.service.vpn.pia.wiregaurd;
+        # cfg = config.my.services.vpn.pia.pia-tools;
     in {
         imports = with self.modules.nixos; [inputs.pia-tools.nixosModules.default vpn pia vpn-torrent-connection sops];
         config = let

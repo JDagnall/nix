@@ -5,16 +5,18 @@
 }: {
     flake.modules.nixos.framework = {pkgs, ...}: {
         imports = with self.modules.nixos; [
+            default
             grub
             noctalia-greeter
             sops
+            network
             pipewire
             pia-openvpn
             tailscale
             bluetooth
 
             # USERS
-            framework.james
+            framework-james
         ];
         config = {
             # my options ------------------------------
@@ -25,8 +27,6 @@
                     tailnet = "stonecat-barometric";
                 };
             };
-
-            service.tailscale.enable = true;
 
             # One liner NixOs options ----------------------------------------
             networking.hostName = "framework";

@@ -19,9 +19,6 @@
                 openFirewall = serverCfg.openFirewall;
                 settings = {
                     web = {
-                        # if I am going to use this it should be forwarded over caddy, but
-                        # I have not refactored the wat services are done yet. When I have this will
-                        # go along with that. And the host will be set to localhost.
                         listen = {
                             host = serverCfg.host;
                             port = serverCfg.port;

@@ -1,5 +1,6 @@
 {
     self,
+    lib,
     inputs,
     ...
 }: {
@@ -7,10 +8,11 @@
         imports = with self.modules.nixos; [
             inputs.nixos-wsl.nixosModules.default # wsl compat
 
+            default
             docker
 
             # USERS
-            wsl.james
+            wsl-james
         ];
         config = {
             # My Config ------------------------------------------------------
@@ -30,6 +32,7 @@
             # use latest linux kernal
             boot.kernelPackages = pkgs.linuxPackages_latest;
             system.stateVersion = "25.05"; # Did you read the comment?
+            nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
         };
     };
     flake.nixosConfigurations.wsl = inputs.nixpkgs.lib.nixosSystem {

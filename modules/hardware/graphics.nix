@@ -3,9 +3,10 @@
     flake.modules.nixos.gpu = {config, ...}: let
         cfg = config.my.hardware.gpu;
     in {
+        key = "my/nixos/gpu";
         options.my.hardware.gpu = {
             type = lib.mkOption {
-                type = with lib.types; nullOr enum ["nvidia" "amd"];
+                type = with lib.types; nullOr (enum ["nvidia" "amd"]);
                 default = null;
                 description = ''
                     The type of GPU, that being nvidia or AMD, null is for no gpu configured

@@ -5,11 +5,11 @@
     ...
 }: {
     flake.modules.nixos.immich = {config, ...}: let
-        cfg = config.service.media-services.immich;
+        cfg = config.my.servers.immich;
     in {
         imports = with self.modules.nixos; [servers gpu sops];
-        options.my = {
-            servers.immich = {
+        options = {
+            my.servers.immich = {
                 enableHarwareAcceleration = lib.mkEnableOption "Enable GPU acceleration." // {default = config.my.hardware.gpu.type != null;};
                 dataDir = lib.mkOption {
                     type = lib.types.path;
@@ -24,7 +24,7 @@
                 then [gpuDev]
                 else [];
         in {
-            servers.servers.immich = {
+            my.servers.servers.immich = {
                 port = 2283;
                 user = "immich";
                 group = "immich";
@@ -35,18 +35,16 @@
                 secretCfg = {
                     sopsFile = "${inputs.secrets}/${hostName}/immich.yaml";
                 };
-            in
-                lib.mkIf config.sops.enable {
-                    "immich/db_pass" = secretCfg;
-                };
+            in {
+                "immich/db_pass" = secretCfg;
+            };
             sops.templates."immich-env" = let
                 sops-placeholder = config.sops.placeholder;
-            in
-                lib.mkIf config.sops.enable {
-                    content = ''
-                        DB_PASSWORD=${sops-placeholder."immich/db_pass"}
-                    '';
-                };
+            in {
+                content = ''
+                    DB_PASSWORD=${sops-placeholder."immich/db_pass"}
+                '';
+            };
 
             # nvidia may need these extra devices to work
             systemd.services.jellyfin.serviceConfig.DeviceAllow = lib.optionals (cfg.enableHarwareAcceleration && config.my.hardware.gpu.type == "nvidia") [
@@ -55,7 +53,7 @@
                 "/dev/nvidia-uvm rw"
             ];
             services.immich = let
-                serverCfg = config.servers.servers.immich;
+                serverCfg = config.my.servers.servers.immich;
             in {
                 enable = true;
                 user = serverCfg.user;

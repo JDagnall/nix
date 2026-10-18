@@ -7,10 +7,10 @@
         };
     };
 in {
-    flake.modules.nixos.syncthing.pc = deviceSettings;
-    flake.modules.home.syncthing.pc = deviceSettings;
+    flake.modules.nixos.syncthing-pc = deviceSettings;
+    flake.modules.home.syncthing-pc = deviceSettings;
     flake.modules.home.pc = {...}: {
-        imports = with self.modules.home; [syncthing syncthing.orion];
+        imports = with self.modules.home; [syncthing syncthing-orion];
         config.my = {
             # TODO: needs rework
             services.syncthing.folders = let

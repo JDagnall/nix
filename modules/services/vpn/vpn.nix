@@ -6,6 +6,7 @@
     # not sure if there is any generalised vpn options.
     # there would be if i wanted to enforce only one connection / type.
     flake.modules.nixos.vpn = {...}: {
+        key = "my/nixos/vpn";
         options = {};
     };
 
@@ -16,11 +17,12 @@
     flake.modules.nixos.vpn-torrent-connection = {config, ...}: let
         cfg = config.my.services.vpn.torrentCon;
     in {
-        imports = [self.modules.nixos.vpn];
+        key = "my/nixos/vpn-torrent-connection";
+        imports = with self.modules.nixos; [vpn tailscale-interface network];
         options = {
             my.services.vpn.torrentCon = {
                 type = lib.mkOption {
-                    type = with lib.types; nullOr enum ["pia-tools"];
+                    type = with lib.types; nullOr (enum ["pia-tools"]);
                     default = null;
                     description = ''
                         Whichever module is handling the torrent connection.
@@ -52,36 +54,35 @@
                     message = "A VPN torrent connection needs to be specified. A module is importing a connection";
                 }
             ];
-            users.groups.${cfg.torrentCon.group} = {
-                name = cfg.torrentCon.group;
-                members = cfg.torrentCon.groupMembers;
+            users.groups.${cfg.group} = {
+                name = cfg.group;
+                members = cfg.groupMembers;
             };
             # any packets made by a member of the group that are not directed to the
             # the VPN interface are jumped to the REJECT chain
             networking.firewall = let
                 mkGrpInterfaceRule = cmd: interface: jump-table: ''
-                    iptables -${cmd} OUTPUT -m owner --gid-owner ${cfg.torrentCon.group} --suppl-groups -o ${interface} -j ACCEPT || true
-                    ip6tables -${cmd} OUTPUT -m owner --gid-owner ${cfg.torrentCon.group} --suppl-groups -o ${interface} -j ACCEPT || true
+                    iptables -${cmd} OUTPUT -m owner --gid-owner ${cfg.group} --suppl-groups -o ${interface} -j ACCEPT || true
+                    ip6tables -${cmd} OUTPUT -m owner --gid-owner ${cfg.group} --suppl-groups -o ${interface} -j ACCEPT || true
                 '';
-            in
-                lib.mkIf cfg.torrentCon.enable {
-                    # ip tables rules execute in order, we will accept connections on the loopback then tailscale then the VPN and reject all others
-                    extraCommands = ''
-                        ${mkGrpInterfaceRule "A" config.network.loopbackInterface "ACCEPT"}
-                        ${lib.optionalString config.service.tailscale.enable (mkGrpInterfaceRule "A" config.service.tailscale.interface "ACCEPT")}
-                        ${mkGrpInterfaceRule "A" cfg.torrentCon.interface "ACCEPT"}
-                        iptables -A OUTPUT -m owner --gid-owner ${cfg.torrentCon.group} --suppl-groups -j REJECT || true
-                        ip6tables -A OUTPUT -m owner --gid-owner ${cfg.torrentCon.group} --suppl-groups -j REJECT || true
-                    '';
-                    # nixos apparently does not clear ip tables rules on rebuild
-                    extraStopCommands = ''
-                        ${mkGrpInterfaceRule "D" config.network.loopbackInterface "ACCEPT"}
-                        ${lib.optionalString config.service.tailscale.enable (mkGrpInterfaceRule "D" config.service.tailscale.interface "ACCEPT")}
-                        ${mkGrpInterfaceRule "D" cfg.torrentCon.interface "ACCEPT"}
-                        iptables -D OUTPUT -m owner --gid-owner ${cfg.torrentCon.group} --suppl-groups -j REJECT || true
-                        ip6tables -D OUTPUT -m owner --gid-owner ${cfg.torrentCon.group} --suppl-groups -j REJECT || true
-                    '';
-                };
+            in {
+                # ip tables rules execute in order, we will accept connections on the loopback then tailscale then the VPN and reject all others
+                extraCommands = ''
+                    ${mkGrpInterfaceRule "A" config.my.network.loopbackInterface "ACCEPT"}
+                    ${lib.optionalString config.my.services.tailscale.enabled (mkGrpInterfaceRule "A" config.my.services.tailscale.interface "ACCEPT")}
+                    ${mkGrpInterfaceRule "A" cfg.interface "ACCEPT"}
+                    iptables -A OUTPUT -m owner --gid-owner ${cfg.group} --suppl-groups -j REJECT || true
+                    ip6tables -A OUTPUT -m owner --gid-owner ${cfg.group} --suppl-groups -j REJECT || true
+                '';
+                # nixos apparently does not clear ip tables rules on rebuild
+                extraStopCommands = ''
+                    ${mkGrpInterfaceRule "D" config.my.network.loopbackInterface "ACCEPT"}
+                    ${lib.optionalString config.my.services.tailscale.enabled (mkGrpInterfaceRule "D" config.my.services.tailscale.interface "ACCEPT")}
+                    ${mkGrpInterfaceRule "D" cfg.interface "ACCEPT"}
+                    iptables -D OUTPUT -m owner --gid-owner ${cfg.group} --suppl-groups -j REJECT || true
+                    ip6tables -D OUTPUT -m owner --gid-owner ${cfg.group} --suppl-groups -j REJECT || true
+                '';
+            };
         };
     };
 }
