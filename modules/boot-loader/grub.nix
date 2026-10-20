@@ -3,15 +3,6 @@
     lib,
     ...
 }: {
-    # TODO: needs to be moved to pc host folder
-    flake.modules.nixos.pc = {...}: {
-        boot.loader.grub.extraEntries = ''
-            menuentry 'Windows' {
-                search --fs-uuid --no-floppy --set=root 063D-CA76
-                chainloader ($\{root})/efi/Microsoft/Boot/bootmgfw.efi
-            }
-        '';
-    };
     flake.modules.nixos.grub = {config, ...}: {
         imports = with self.modules.nixos; [stylix-interface];
         config = {

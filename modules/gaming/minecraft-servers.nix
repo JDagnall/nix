@@ -28,7 +28,7 @@
         config = let
             cfg = config.my.gaming.minecraft-servers;
         in {
-            allowedUnfreePkgNames = ["minecraft-server"];
+            my.allowedUnfreePkgNames = ["minecraft-server"];
             users.groups."minecraft".members = cfg.groupMembers;
             services.minecraft-servers = let
                 defaultServerConfig = {

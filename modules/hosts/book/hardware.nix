@@ -12,7 +12,7 @@
             boot.kernelModules = ["kvm-intel" "wl" "hid_apple"];
             boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
             # both are proprietary
-            allowedUnfreePkgNames = ["broadcom-sta"];
+            my.allowedUnfreePkgNames = ["broadcom-sta"];
 
             boot.blacklistedKernelModules = ["uvcvideo"];
             boot.kernelParams = [

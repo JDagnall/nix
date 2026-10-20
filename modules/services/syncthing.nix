@@ -107,9 +107,48 @@
         };
     };
 in {
+    # run as system user
+    flake.modules.nixos.syncthing = {config, ...}: let
+        cfg = config.my.services.syncthing;
+        tailscaleEnabled = config.my.services.tailscale.enabled;
+    in {
+        imports = with self.modules.nixos; [sops];
+        options.my.services.syncthing = {
+            devices = lib.mkOption {
+                type = with lib.types; attrsOf deviceType {};
+            };
+            folders = lib.mkOption {
+                type = with lib.types; attrsOf folderType {};
+            };
+        };
+        config = {
+            sops.secrets = let
+                host = config.networking.hostName;
+                secretSettings = {
+                    sopsFile = "${inputs.secrets}/${host}/syncthing.yaml";
+                    restartUnits = ["syncthing.service"];
+                };
+            in {
+                "syncthing/key" = secretSettings;
+                "syncthing/cert" = secretSettings;
+            };
+            systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true"; # Don't create default ~/Sync folder
+            services.syncthing =
+                {
+                    cert = "${config.sops.secrets."syncthing/cert".path}";
+                    key = "${config.sops.secrets."syncthing/key".path}";
+                    settings = {
+                        devices = builtins.mapAttrs (_: device: (mkDevice device tailscaleEnabled)) cfg.devices;
+                        folders = builtins.mapAttrs (_: folder: (mkFolder folder)) cfg.folders;
+                    };
+                }
+                // commonServiceConfig;
+        };
+    };
+
     # this is specifically a "client" user syncthing service. It does not forward
     # its gui at all and thus doesn't need to configure authentication for it.
-    flake.modules.home.syncthing = {
+    flake.modules.homeManager.syncthing = {
         osConfig,
         config,
         ...
@@ -117,7 +156,7 @@ in {
         cfg = config.my.services.syncthing;
         tailscaleEnabled = osConfig.my.services.tailscale.enabled;
     in {
-        imports = with self.modules.home; [sops];
+        imports = with self.modules.homeManager; [sops];
         options.my.services.syncthing = {
             devices = lib.mkOption {
                 type = with lib.types; attrsOf deviceType;
@@ -154,44 +193,6 @@ in {
                     #     username = config.home.username;
                     #     passwordFile = config.sops.secrets."syncthing.password".path;
                     # };
-                    cert = "${config.sops.secrets."syncthing/cert".path}";
-                    key = "${config.sops.secrets."syncthing/key".path}";
-                    settings = {
-                        devices = builtins.mapAttrs (_: device: (mkDevice device tailscaleEnabled)) cfg.devices;
-                        folders = builtins.mapAttrs (_: folder: (mkFolder folder)) cfg.folders;
-                    };
-                }
-                // commonServiceConfig;
-        };
-    };
-    # run as system user
-    flake.modules.nixos.syncthing = {config, ...}: let
-        cfg = config.my.services.syncthing;
-        tailscaleEnabled = config.my.services.tailscale.enabled;
-    in {
-        imports = with self.modules.nixos; [sops];
-        options.my.services.syncthing = {
-            devices = lib.mkOption {
-                type = with lib.types; attrsOf deviceType {};
-            };
-            folders = lib.mkOption {
-                type = with lib.types; attrsOf folderType {};
-            };
-        };
-        config = {
-            sops.secrets = let
-                host = config.networking.hostName;
-                secretSettings = {
-                    sopsFile = "${inputs.secrets}/${host}/syncthing.yaml";
-                    restartUnits = ["syncthing.service"];
-                };
-            in {
-                "syncthing/key" = secretSettings;
-                "syncthing/cert" = secretSettings;
-            };
-            systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true"; # Don't create default ~/Sync folder
-            services.syncthing =
-                {
                     cert = "${config.sops.secrets."syncthing/cert".path}";
                     key = "${config.sops.secrets."syncthing/key".path}";
                     settings = {

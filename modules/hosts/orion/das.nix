@@ -25,7 +25,7 @@
                 forceImportRoot = false;
             };
             my = {
-                tools.msmtp = {
+                services.msmtp = {
                     accounts = {
                         gmail = {
                             host = "smtp.gmail.com";

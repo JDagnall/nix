@@ -5,7 +5,9 @@
 }: {
     flake.modules.nixos.mini = {pkgs, ...}: {
         imports = with self.modules.nixos; [
-            default
+            base
+            device
+
             systemd-boot
             sops
             network
@@ -19,7 +21,8 @@
         config = {
             # my configs -----------------------------------------------------
             my = {
-                network.physicalInterfaces = []; # TODO: gotta check the interface name
+                hardware.device.profile = "headless";
+                hardware.network.physicalInterfaces = []; # TODO: gotta check the interface name
                 services.tailscale = {
                     tailnet = "stonecat-barometric";
                 };

@@ -5,7 +5,9 @@
 }: {
     flake.modules.nixos.framework = {pkgs, ...}: {
         imports = with self.modules.nixos; [
-            default
+            base
+            device
+
             grub
             noctalia-greeter
             sops
@@ -21,7 +23,8 @@
         config = {
             # my options ------------------------------
             my = {
-                network.physicalInterfaces = ["wlp6s0"];
+                hardware.device.profile = "laptop";
+                hardware.network.physicalInterfaces = ["wlp6s0"];
                 services.tailscale = {
                     interfacePatch = true;
                     tailnet = "stonecat-barometric";

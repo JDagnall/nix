@@ -8,7 +8,8 @@
         imports = with self.modules.nixos; [
             inputs.nixos-wsl.nixosModules.default # wsl compat
 
-            default
+            base
+            device
             docker
 
             # USERS
@@ -17,6 +18,7 @@
         config = {
             # My Config ------------------------------------------------------
             my = {
+                hardware.device.profile = "headless";
             };
 
             # One Liner NixOs options ----------------------------------------

@@ -16,9 +16,9 @@
     };
 in {
     flake.modules.nixos.syncthing-orion = deviceSettings;
-    flake.modules.home.syncthing-orion = deviceSettings;
+    flake.modules.homeManager.syncthing-orion = deviceSettings;
     flake.modules.nixos.syncthing-galaxy = galaxyDeviceSettings;
-    flake.modules.home.syncthing-galaxy = galaxyDeviceSettings;
+    flake.modules.homeManager.syncthing-galaxy = galaxyDeviceSettings;
     flake.modules.nixos.orion = {
         imports = with self.modules.nixos; [syncthing syncthing-server syncthing-pc syncthing-framework syncthing-book syncthing-galaxy];
         config = {

@@ -14,7 +14,7 @@
             };
         };
         config = {
-            allowedUnfreePkgNames = ["steam" "steam-unwrapped"];
+            my.allowedUnfreePkgNames = ["steam" "steam-unwrapped"];
             programs.steam = {
                 enable = true;
                 package = pkgs.steam.override {

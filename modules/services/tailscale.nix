@@ -100,7 +100,7 @@
                     '';
                 in ''
                     ${tailscaleInterfaceScript}
-                    ${lib.concatStringsSep "\n" (map physInterfaceScript (config.my.network.physicalInterfaces))}
+                    ${lib.concatStringsSep "\n" (map physInterfaceScript (config.my.hardware.network.physicalInterfaces))}
                 '';
                 serviceConfig = {
                     Type = "oneshot";
@@ -114,7 +114,7 @@
                     iptables -t mangle -${cmd} FORWARD -i ${tsInterface} -o ${interface} -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu || true
                     ip6tables -t mangle -${cmd} FORWARD -i ${tsInterface} -o ${interface} -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu || true
                 '';
-                physInterfaces = config.my.network.physicalInterfaces;
+                physInterfaces = config.my.hardware.network.physicalInterfaces;
             in
                 lib.mkIf config.my.services.tailscale.interfacePatch {
                     extraCommands = builtins.concatStringsSep "\n" (map (interface: mkIpRule "A" interface) physInterfaces);

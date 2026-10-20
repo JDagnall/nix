@@ -7,11 +7,10 @@
     };
 in {
     flake.modules.nixos.syncthing-book = deviceSettings;
-    flake.modules.home.syncthing-book = deviceSettings;
-    flake.modules.home.book = {...}: {
-        imports = with self.modules.home; [syncthing syncthing-orion];
+    flake.modules.homeManager.syncthing-book = deviceSettings;
+    flake.modules.homeManager.book = {...}: {
+        imports = with self.modules.homeManager; [syncthing syncthing-orion];
         config.my = {
-            # TODO: needs rework
             services.syncthing.folders = let
                 share = ["orion"];
             in {

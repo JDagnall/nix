@@ -25,9 +25,9 @@
         tailscaleEnabled = config.my.services.tailscale.enabled;
         resolvedEnabled = config.services.resolved.enable;
         host = config.networking.hostName;
-        physicalInterfaces = config.my.network.physicalInterfaces;
+        physicalInterfaces = config.my.hardware.network.physicalInterfaces;
         tailscaleInterface = config.my.services.tailscale.interface;
-        loopbackInterface = config.my.network.loopbackInterface;
+        loopbackInterface = config.my.hardware.network.loopbackInterface;
         networkdEnabled = config.networking.useNetworkd;
         activeServices = lib.filter (x: x.mkRevProxy) (lib.attrValues config.my.servers.servers);
     in {

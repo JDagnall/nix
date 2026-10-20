@@ -6,13 +6,13 @@
     flake.modules.nixos.orion = {config, ...}: {
         imports = with self.modules.nixos; [nvidia network];
         config = {
-            my.network.physicalInterfaces = ["enp34s0"];
+            my.hardware.network.physicalInterfaces = ["enp34s0"];
             boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod"];
             boot.initrd.kernelModules = [];
             boot.kernelModules = ["kvm-amd"];
             boot.extraModulePackages = [];
 
-            allowedUnfreePkgNames = [
+            my.allowedUnfreePkgNames = [
                 "nvidia-x11"
                 "nvidia-settings"
                 "cuda_cudart"

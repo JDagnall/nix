@@ -8,9 +8,9 @@
     };
 in {
     flake.modules.nixos.syncthing-framework = deviceSettings;
-    flake.modules.home.syncthing-framework = deviceSettings;
-    flake.modules.home.framework = {...}: {
-        imports = with self.modules.home; [syncthing syncthing-orion];
+    flake.modules.homeManager.syncthing-framework = deviceSettings;
+    flake.modules.homeManager.framework = {...}: {
+        imports = with self.modules.homeManager; [syncthing syncthing-orion];
         config.my = {
             # TODO: needs rework
             services.syncthing.folders = let

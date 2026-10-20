@@ -5,7 +5,9 @@
 }: {
     flake.modules.nixos.orion = {pkgs, ...}: {
         imports = with self.modules.nixos; [
-            default
+            base
+            device
+
             systemd-boot
             sops
             avahi
@@ -32,6 +34,7 @@
         config = {
             # my config options
             my = {
+                hardware.device.profile = "headless";
                 services.tailscale = {
                     interfacePatch = true;
                     tailnet = "stonecat-barometric";
@@ -66,4 +69,11 @@
     flake.nixosConfigurations.orion = inputs.nixpkgs.lib.nixosSystem {
         modules = [self.modules.nixos.orion];
     };
+
+    # flake.modules.homeManager.orion = {...}: {
+    #     config = {
+    #         my = {
+    #         };
+    #     };
+    # };
 }

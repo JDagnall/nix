@@ -21,7 +21,7 @@
             # 	];
 
             # both are proprietary
-            allowedUnfreePkgNames = ["b43-firmware"];
+            my.allowedUnfreePkgNames = ["b43-firmware"];
 
             # TODO: needs to be moved to disko
             fileSystems."/" = {

@@ -26,4 +26,32 @@
             };
         };
     };
+    flake.modules.homeManager.sops = {
+        pkgs,
+        config,
+        osConfig,
+        ...
+    }: {
+        # doesn't actually need it but if a module is importing outside modules
+        # there should probably be a key just in case.
+        key = "my/home/sops";
+        imports = [
+            inputs.sops-nix.homeManagerModules.sops
+        ];
+        config = let
+            host = osConfig.networking.hostName;
+        in {
+            home.packages = with pkgs; [sops];
+            sops = {
+                defaultSopsFormat = "yaml";
+                defaultSopsFile = ./secrets/${host}/general.yaml;
+                # defaultSopsKey = /var/sops/age/keys.txt;
+                validateSopsFiles = true;
+                age = {
+                    keyFile = "/home/${config.home.username}/sops/age/key.txt";
+                    # sshKeyPaths =
+                };
+            };
+        };
+    };
 }

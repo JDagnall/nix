@@ -68,7 +68,7 @@
             in {
                 # ip tables rules execute in order, we will accept connections on the loopback then tailscale then the VPN and reject all others
                 extraCommands = ''
-                    ${mkGrpInterfaceRule "A" config.my.network.loopbackInterface "ACCEPT"}
+                    ${mkGrpInterfaceRule "A" config.my.hardware.network.loopbackInterface "ACCEPT"}
                     ${lib.optionalString config.my.services.tailscale.enabled (mkGrpInterfaceRule "A" config.my.services.tailscale.interface "ACCEPT")}
                     ${mkGrpInterfaceRule "A" cfg.interface "ACCEPT"}
                     iptables -A OUTPUT -m owner --gid-owner ${cfg.group} --suppl-groups -j REJECT || true
@@ -76,7 +76,7 @@
                 '';
                 # nixos apparently does not clear ip tables rules on rebuild
                 extraStopCommands = ''
-                    ${mkGrpInterfaceRule "D" config.my.network.loopbackInterface "ACCEPT"}
+                    ${mkGrpInterfaceRule "D" config.my.hardware.network.loopbackInterface "ACCEPT"}
                     ${lib.optionalString config.my.services.tailscale.enabled (mkGrpInterfaceRule "D" config.my.services.tailscale.interface "ACCEPT")}
                     ${mkGrpInterfaceRule "D" cfg.interface "ACCEPT"}
                     iptables -D OUTPUT -m owner --gid-owner ${cfg.group} --suppl-groups -j REJECT || true

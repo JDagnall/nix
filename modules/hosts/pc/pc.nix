@@ -5,7 +5,9 @@
 }: {
     flake.modules.nixos.pc = {...}: {
         imports = with self.modules.nixos; [
-            default
+            base
+            device
+
             systemd-boot
             noctalia-greeter
             sops
@@ -25,7 +27,8 @@
 
             # config options set by me
             my = {
-                network.physicalInterfaces = ["enp7s0" "wlp6s0"];
+                hardware.device.profile = "desktop";
+                hardware.network.physicalInterfaces = ["enp7s0" "wlp6s0"];
                 services.tailscale = {
                     interfacePatch = true;
                     tailnet = "stonecat-barometric";
@@ -44,11 +47,13 @@
             services.flatpak.enable = true;
         };
     };
-    # flake.modules.home.pc = {
-    #     pkgs,
-    #     config,
+    # flake.modules.homeManager.pc = {
     #     ...
     # }: {
+    #     config = {
+    #         my = {
+    #         };
+    #     };
     # };
 
     flake.nixosConfigurations.pc = inputs.nixpkgs.lib.nixosSystem {

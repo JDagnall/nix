@@ -81,4 +81,46 @@
             };
         };
     };
+    flake.modules.homeManager.stylix-interface = {...}: {
+        key = "my/home/stylix-interface"; # intended to be imported many times
+        options.my = {
+            stylix = {
+                enabled = lib.mkEnableOption "Stylix is enabled";
+            };
+        };
+    };
+    flake.modules.homeManager.stylix = {pkgs, ...}: {
+        # doesn't actually need it but if a module is importing outside modules
+        # there should probably be a key just in case.
+        key = "my/home/stylix";
+        imports = with self.modules.homeManager; [stylix-interface];
+        config = {
+            my.stylix.enabled = true;
+            stylix = {
+                # choosing to do this by adopting the settings of the nixos stylix
+                # user home configuration could override this and set thier own themes, etc
+                # icons aren't in nixos stylix for some reason
+                icons = {
+                    enable = true;
+                    light = "Qogir";
+                    dark = "Qogir";
+                    package = pkgs.qogir-icon-theme;
+                };
+                # These could be options or modules, but if you're enabling stylix
+                # you probably want this
+                targets = {
+                    gtk = {
+                        enable = true;
+                        # extra css for gtk 3 and 4 .css
+                        # extraCss = "";
+                        # flatpakSupport.enable = true;
+                    };
+                    qt = {
+                        enable = true;
+                        # platform = "";
+                    };
+                };
+            };
+        };
+    };
 }

@@ -1,14 +1,57 @@
-{self, ...}: {
-    flake.modules.nixos.book-james = {...}: {
+{
+    self,
+    inputs,
+    ...
+}: {
+    flake.modules.nixos.book-james = {pkgs, ...}: {
         imports = with self.modules.nixos; [
-            # TODO: need to be importing some version of my user module
+            james
             hyprland
-            docker
+            inputs.home-manager.nixosModules.home-manager
         ];
         config = {
-            my = {
-                services.docker.groupUsers = ["james"];
+            home-manager.useUserPackages = true;
+            home-manager.useGlobalPkgs = true;
+            home-manager.extraSpecialArgs = {
+                # inherit system;
+                inherit inputs;
+                inherit pkgs; # makes sure to inherit overlays like nixLoki
             };
+            home-manager.users.james.imports = [
+                self.modules.homeManager.book-james
+            ];
+            my = {
+                allowedUnfreePkgNames = [
+                    "spotify"
+                ];
+            };
+        };
+    };
+    flake.modules.homeManager.book-james = {pkgs, ...}: {
+        imports = with self.modules.homeManager; [
+            james-full
+
+            sops
+            stylix
+        ];
+        config = {
+            home.stateVersion = "25.11"; # Please read the comment before changing.
+            home.packages = with pkgs; [
+                # CLI
+
+                # GUI
+                vlc
+                freetube
+                spotify
+                jellyfin-desktop
+            ];
+
+            my = {
+                desktop = {
+                    hyprland.touchpadSwipe.enable = true;
+                };
+            };
+            programs.brave.enable = true;
         };
     };
 }

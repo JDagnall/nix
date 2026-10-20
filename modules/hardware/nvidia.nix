@@ -39,7 +39,7 @@
             };
             # nvidia drivers are proprietary
             # predicate that allows packages with the cuda license
-            allowedUnfreePkgPredicates = lib.optional config.nvidia.cuda.enable pkgs._cuda.lib.allowUnfreeCudaPredicate;
+            my.allowedUnfreePkgPredicates = lib.optional config.nvidia.cuda.enable pkgs._cuda.lib.allowUnfreeCudaPredicate;
         };
     };
 }

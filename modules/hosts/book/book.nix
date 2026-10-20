@@ -5,7 +5,9 @@
 }: {
     flake.modules.nixos.book = {pkgs, ...}: {
         imports = with self.modules.nixos; [
-            default
+            base
+            device
+
             grub
             noctalia-greeter
             sops
@@ -21,7 +23,8 @@
         config = {
             # config ------------------------------
             my = {
-                network.physicalInterfaces = ["wlp3s0"];
+                hardware.device.profile = "laptop";
+                hardware.network.physicalInterfaces = ["wlp3s0"];
             };
 
             # config ------------------------------

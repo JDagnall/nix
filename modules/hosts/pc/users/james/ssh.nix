@@ -28,4 +28,13 @@
             };
         };
     };
+    flake.modules.homeManager.pc-james = {...}: {
+        config = {
+            programs.ssh = {
+                enable = true;
+                enableDefaultConfig = false;
+                settings = {};
+            };
+        };
+    };
 }
