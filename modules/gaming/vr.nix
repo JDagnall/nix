@@ -13,7 +13,9 @@
         compatlib = "xrizer";
         # compatlib = "opencomposite";
     in {
-        config = {
+        config = let
+            # cfg = config.my.gaming.vr;
+        in {
             my.gaming.steam.extraEnv = {
                 PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES = "1";
                 VR_OVERRIDE = "${pkgs.${compatlib}}/lib/${compatlib}";
@@ -44,11 +46,12 @@
                 # I wanna start this manually
                 autoStart = false;
             };
-            environment.systemPackages = config.gaming.vr.wivrn.enable [
+            environment.systemPackages = [
                 pkgs.${compatlib}
             ];
         };
     };
+
     flake.modules.homeManager.wivrn = {pkgs, ...}: {
         xdg.configFile = {
             "openxr/1/active_runtime.json".source = "${pkgs.wivrn}/share/openxr/1/openxr_wivrn.json";

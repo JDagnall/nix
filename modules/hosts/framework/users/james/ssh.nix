@@ -28,4 +28,14 @@
             };
         };
     };
+    flake.modules.homeManager.framework-james = {...}: {
+        imports = with self.modules.homeManager; [ssh];
+        config = {
+            programs.ssh = {
+                enable = true;
+                enableDefaultConfig = false;
+                settings = {};
+            };
+        };
+    };
 }

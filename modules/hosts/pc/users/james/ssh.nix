@@ -29,6 +29,7 @@
         };
     };
     flake.modules.homeManager.pc-james = {...}: {
+        imports = with self.modules.homeManager; [ssh];
         config = {
             programs.ssh = {
                 enable = true;

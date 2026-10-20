@@ -14,7 +14,7 @@
             };
         };
         config = let
-            cfg = config.my.services.micro-controller;
+            cfg = config.my.cli-tools.micro-controller;
         in {
             services.udev.packages = with pkgs; [
                 platformio-core.udev
