@@ -5,7 +5,7 @@
     ...
 }: {
     flake.modules.homeManager.nixLoki = {
-        # pkgs,
+        pkgs,
         config,
         ...
     }: {
@@ -46,14 +46,18 @@
                     # this merges into the package config for nixLoki
                     merge = let
                         # the values being added to the nixLoki config to set the theme and provide base16 colours
-                        merges = {pkgs, ...}: {
+                        merges = {...}: {
                             categories = {
                                 "${cfg.theme}" = true;
                             };
-                            extra = lib.mkIf (cfg.theme == "mini-base16" || cfg.theme == "tinted-nvim") {
-                                # gets every stylix base16 colour into a set that lua will be able to digest in the nixLoki flake
-                                base16Colours = pkgs.lib.filterAttrs (k: v: (builtins.match "base0[0-9A-F]" k) != null) config.lib.stylix.colors.withHashtag;
-                            };
+                            extra =
+                                # cant use mkIf here cause its evaluated wierdly by nixCats
+                                if (cfg.theme == "mini-base16" || cfg.theme == "tinted-nvim")
+                                then {
+                                    # gets every stylix base16 colour into a set that lua will be able to digest in the nixLoki flake
+                                    base16Colours = pkgs.lib.filterAttrs (k: v: (builtins.match "base0[0-9A-F]" k) != null) config.lib.stylix.colors.withHashtag;
+                                }
+                                else {};
                         };
                     in {
                         testNixLoki = merges;
