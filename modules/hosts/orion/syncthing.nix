@@ -3,7 +3,7 @@
         my.services.syncthing.devices.orion = {
             id = "LUNWAUX-SIKFQ5O-PDYIJW7-3DCCK2A-ZAGF4M2-MR2XTCL-UNNA2O4-CEZLDQX";
             connectOverTailscale = true;
-            tailscaleHostName = "pc";
+            tailscaleHostName = "sirius";
         };
     };
     # TODO: putting this here for now, would need a general or common place to put this?
@@ -20,29 +20,29 @@ in {
     flake.modules.nixos.syncthing-galaxy = galaxyDeviceSettings;
     flake.modules.homeManager.syncthing-galaxy = galaxyDeviceSettings;
     flake.modules.nixos.orion = {
-        imports = with self.modules.nixos; [syncthing syncthing-server syncthing-pc syncthing-framework syncthing-book syncthing-galaxy];
+        imports = with self.modules.nixos; [syncthing syncthing-server syncthing-sirius syncthing-lavos syncthing-dante syncthing-galaxy];
         config = {
             my = {
                 services.syncthing.folders = {
                     secure = {
                         id = "26bfd-pbgoj";
-                        devices = ["pc" "framework" "book" "galaxy"];
+                        devices = ["sirius" "lavos" "dante" "galaxy"];
                     };
                     classes = {
                         id = "9j26s-pweyy";
-                        devices = ["pc" "framework"];
+                        devices = ["sirius" "lavos"];
                     };
                     proj = {
                         id = "jwvcx-y7w2m";
-                        devices = ["pc" "framework"];
+                        devices = ["sirius" "lavos"];
                     };
                     wallpapers = {
                         id = "vjhql-ghx7b";
-                        devices = ["pc" "framework"];
+                        devices = ["sirius" "lavos"];
                     };
                     docs = {
                         id = "pysjc-vrzgj";
-                        devices = ["pc" "framework" "galaxy"];
+                        devices = ["sirius" "lavos" "galaxy"];
                     };
                 };
             };
