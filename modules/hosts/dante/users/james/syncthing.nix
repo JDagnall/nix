@@ -8,7 +8,7 @@
 in {
     flake.modules.nixos.syncthing-dante = deviceSettings;
     flake.modules.homeManager.syncthing-dante = deviceSettings;
-    flake.modules.homeManager.dante = {...}: {
+    flake.modules.homeManager.dante-james = {...}: {
         imports = with self.modules.homeManager; [syncthing syncthing-orion];
         config.my = {
             services.syncthing.folders = let

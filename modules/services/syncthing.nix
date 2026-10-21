@@ -84,14 +84,11 @@
     };
     commonServiceConfig = {
         enable = true;
-        systemService = true; # auto launch as system service
         # extraOptions = [ ];
-        openDefaultPorts = true; # if running multiple instances, must be false;
         # These make it so that only folders or devices configured here
         # persist. Anything configured on the gui will not persist.
         overrideDevices = true;
         overrideFolders = true;
-        relay.enable = false;
         settings = {
             options = {
                 limitBandwidthInLan = false;
@@ -136,6 +133,9 @@ in {
             {
                 cert = "${config.sops.secrets."syncthing/cert".path}";
                 key = "${config.sops.secrets."syncthing/key".path}";
+                openDefaultPorts = true; # if running multiple instances, must be false;
+                systemService = true; # auto launch as system service
+                relay.enable = false;
                 settings = {
                     devices = builtins.mapAttrs (_: device: (mkDevice device tailscaleEnabled)) cfg.devices;
                     folders = builtins.mapAttrs (_: folder: (mkFolder folder)) cfg.folders;
@@ -175,16 +175,16 @@ in {
                 }
             ];
             sops.secrets = let
-                host = config.networking.hostName;
+                host = osConfig.networking.hostName;
                 secretSettings = {
                     sopsFile = "${inputs.secrets}/${host}/syncthing.yaml";
-                    restartUnits = ["syncthing.service"];
+                    # restartUnits = ["syncthing.service"];
                 };
             in {
                 "syncthing/key" = secretSettings;
                 "syncthing/cert" = secretSettings;
             };
-            systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true"; # Don't create default ~/Sync folder
+            systemd.user.services.syncthing.environment.STNODEFAULTFOLDER = "true"; # Don't create default ~/Sync folder
             services.syncthing = lib.recursiveUpdate
             {
                 tray.enable = true;
@@ -198,6 +198,8 @@ in {
                 settings = {
                     devices = builtins.mapAttrs (_: device: (mkDevice device tailscaleEnabled)) cfg.devices;
                     folders = builtins.mapAttrs (_: folder: (mkFolder folder)) cfg.folders;
+                    options = {
+                    };
                 };
             }
             commonServiceConfig;

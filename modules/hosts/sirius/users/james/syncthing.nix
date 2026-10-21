@@ -9,7 +9,7 @@
 in {
     flake.modules.nixos.syncthing-sirius = deviceSettings;
     flake.modules.homeManager.syncthing-sirius = deviceSettings;
-    flake.modules.homeManager.sirius = {...}: {
+    flake.modules.homeManager.sirius-james = {...}: {
         imports = with self.modules.homeManager; [syncthing syncthing-orion];
         config.my = {
             # TODO: needs rework

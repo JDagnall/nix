@@ -9,7 +9,7 @@
 in {
     flake.modules.nixos.syncthing-lavos = deviceSettings;
     flake.modules.homeManager.syncthing-lavos = deviceSettings;
-    flake.modules.homeManager.lavos = {...}: {
+    flake.modules.homeManager.lavos-james = {...}: {
         imports = with self.modules.homeManager; [syncthing syncthing-orion];
         config.my = {
             # TODO: needs rework
