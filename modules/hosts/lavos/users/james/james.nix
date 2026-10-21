@@ -1,5 +1,6 @@
 {
     self,
+    lib,
     inputs,
     ...
 }: {
@@ -63,6 +64,9 @@
                 vesktop
                 spotify
             ];
+            my = {
+                cli-tools.nixLoki.theme = lib.mkForce "catppuccin";
+            };
         };
     };
 }
