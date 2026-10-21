@@ -10,8 +10,8 @@
         ...
     }: {
         devShells.default = pkgs.mkShell {
-            name = "nix";
-            # packages = with pkgs; [];
+            name = "System Flake";
+            packages = with pkgs; [alejandra nixd];
             # env = {};
             # shellHook = '''';
         };

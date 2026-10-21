@@ -13,12 +13,18 @@
         config = let
             serverCfg = config.my.servers.servers.syncthing;
         in {
-            my.servers.servers.syncthing = {
+            my.servers.servers.syncthing = rec {
                 port = 8384;
                 user = "syncthing";
                 host = "localhost";
                 openFirewall = false;
                 mkRevProxy = true;
+                extraRevProxyCfg = ''
+                    header_up Host localhost:${toString port}
+                    header_up X-Forwarded-Host {hostport}
+                    header_up -Origin
+                    header_up -Referer
+                '';
             };
             sops.secrets = let
                 host = config.networking.hostName;
@@ -28,7 +34,7 @@
                 };
             in {
                 "syncthing/gui-username" = secretSettings;
-                "syncthing/gui-password" = secretSettings;
+                # "syncthing/gui-password" = secretSettings;
                 "syncthing/hashed-gui-password" = secretSettings;
             };
             services.syncthing = {

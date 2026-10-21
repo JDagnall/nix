@@ -8,11 +8,21 @@
     lib,
     ...
 }: {
-    flake.modules.nixos.dnsmasq-interface = {...}: {
+    flake.modules.nixos.dnsmasq-interface = {config, ...}: {
         key = "my/nixos/dnsmasq-interface";
         options = {
-            my.servers.dns.dnsmasq = {
+            my.servers.dns.dnsmasq = let
+                resolvedEnabled = config.services.resolved.enable;
+            in {
                 enabled = lib.mkEnableOption "Dnsmasq is enabled as a DNS server.";
+                loopbackListenAddress = lib.mkOption {
+                    type = lib.types.str;
+                    default =
+                        if resolvedEnabled
+                        then "127.0.0.35"
+                        else "127.0.0.1";
+                    description = "The listen address for dnsmasq.";
+                };
             };
         };
     };
@@ -99,7 +109,7 @@
                                     interface:
                                         if service != null
                                         then "${service.name}.${hostname},${interface}"
-                                        else "${hostname}.${interface}"
+                                        else "${hostname},${interface}"
                                 )
                                 interfaces)
                             hostnames;
@@ -124,11 +134,7 @@
                     # and then resolved (which will be set as the default stub by systemd) simply points to dnsmasq
 
                     listen-address = [
-                        (
-                            if resolvedEnabled
-                            then "127.0.0.35"
-                            else "127.0.0.1"
-                        )
+                        cfg.loopbackListenAddress
                     ];
                     # except-interface = lib.optionals resolvedEnabled [loopbackInterface];
 

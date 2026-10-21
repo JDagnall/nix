@@ -14,7 +14,7 @@
             arrCfg = config.my.servers.arr;
             # cfg = config.my.servers.arr.qbittorrent;
             serverCfg = config.my.servers.servers.qbittorrent;
-            vpnCfg = config.my.services.vpn.pia.torrentCon;
+            vpnCfg = config.my.services.vpn.torrentCon;
             torrentVPNInterface = vpnCfg.interface;
             inherit (builtins) concatStringsSep isAttrs isString;
             inherit (lib) collect mapAttrsRecursive escape replaceString;

@@ -27,7 +27,7 @@
                     then pkgs.btop-rocm
                     else pkgs.btop;
             };
-            stylix.targets.btop.enable = lib.mkIf config.my.stylix.enabled;
+            stylix.targets.btop.enable = config.my.stylix.enabled;
         };
     };
 }

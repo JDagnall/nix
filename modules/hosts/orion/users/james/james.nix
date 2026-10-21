@@ -1,5 +1,6 @@
 {
     self,
+    lib,
     inputs,
     ...
 }: {
@@ -33,7 +34,7 @@
             };
         };
     };
-    flake.modules.homeManager.orion-james = {pkgs, ...}: {
+    flake.modules.homeManager.orion-james = {...}: {
         imports = with self.modules.homeManager; [
             james-headless
 
@@ -43,9 +44,21 @@
             # CLI
             gh-cli
             nix-index
+            btop
         ];
         config = {
             home.stateVersion = "25.11"; # Please read the comment before changing.
+            my = {
+                cli-tools.nixLoki.theme = "tinted-nvim";
+            };
+            # these will break things on a headless device, should probably check
+            # the device profile in the stylix module but for now I am doing this
+            stylix = {
+                targets = {
+                    gtk.enable = lib.mkForce false;
+                    qt.enable = lib.mkForce false;
+                };
+            };
         };
     };
 }

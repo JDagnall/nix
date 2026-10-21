@@ -30,7 +30,7 @@
             systemd.services.caddy.serviceConfig.EnvironmentFile = config.sops.templates."caddy-env-file".path;
             my.servers.proxy.caddy.email = "james.t.dagnall@gmail.com";
             services.caddy = let
-                domain = "waluigimangione.dev";
+                domain = "home.waluigimangione.dev";
             in {
                 package = pkgs.caddy.withPlugins {
                     plugins = ["github.com/caddy-dns/cloudflare@v0.2.4"];

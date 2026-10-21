@@ -7,7 +7,7 @@
     flake.modules.nixos.resolved = {config, ...}: let
         # cfg = config.my.services.resolved;
     in {
-        imports = with self.modules.nixos; [avahi-interface dnsmasq-interface];
+        imports = with self.modules.nixos; [avahi-interface dnsmasq-interface network];
         # the nixos module for systemd-resolved will always bind port 53
         # any other running DNS servers will have to be delegates of resolved.
         options = {

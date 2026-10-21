@@ -25,7 +25,6 @@
             prowlarr
             flaresolverr
             seerr
-            transmission
             immich
 
             # USERS

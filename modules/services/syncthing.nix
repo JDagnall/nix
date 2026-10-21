@@ -24,13 +24,12 @@
                 };
             };
         });
-    mkDevice = device: tailscaleEnabled:
-        lib.nameValuePair device.name {
-            id = device.id;
-            name = device.name;
-            autoAcceptFolders = false;
-            addresses = lib.optional device.connectOverTailscale "tcp://${device.tailscaleHostName}:22000";
-        };
+    mkDevice = device: tailscaleEnabled: {
+        id = device.id;
+        name = device.name;
+        autoAcceptFolders = false;
+        addresses = lib.optional device.connectOverTailscale "tcp://${device.tailscaleHostName}:22000";
+    };
     folderType = with lib.types;
         submodule (
             {name, ...}: {
@@ -72,18 +71,17 @@
                 };
             }
         );
-    mkFolder = folder:
-        lib.nameValuePair folder.id {
-            name = folder.name;
-            id = folder.id;
-            versioning = folder.versioning;
-            label = folder.label;
-            path = folder.path;
-            enable = true;
-            devices = folder.devices;
-            type = folder.type;
-            copyOwnershipFromParent = false;
-        };
+    mkFolder = folder: {
+        name = folder.name;
+        id = folder.id;
+        versioning = folder.versioning;
+        label = folder.label;
+        path = folder.path;
+        enable = true;
+        devices = folder.devices;
+        type = folder.type;
+        copyOwnershipFromParent = false;
+    };
     commonServiceConfig = {
         enable = true;
         systemService = true; # auto launch as system service
@@ -112,13 +110,14 @@ in {
         cfg = config.my.services.syncthing;
         tailscaleEnabled = config.my.services.tailscale.enabled;
     in {
+        key = "my/nixos/syncthing";
         imports = with self.modules.nixos; [sops];
         options.my.services.syncthing = {
             devices = lib.mkOption {
-                type = with lib.types; attrsOf deviceType {};
+                type = with lib.types; attrsOf deviceType;
             };
             folders = lib.mkOption {
-                type = with lib.types; attrsOf folderType {};
+                type = with lib.types; attrsOf folderType;
             };
         };
         config = {
@@ -133,16 +132,16 @@ in {
                 "syncthing/cert" = secretSettings;
             };
             systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true"; # Don't create default ~/Sync folder
-            services.syncthing =
-                {
-                    cert = "${config.sops.secrets."syncthing/cert".path}";
-                    key = "${config.sops.secrets."syncthing/key".path}";
-                    settings = {
-                        devices = builtins.mapAttrs (_: device: (mkDevice device tailscaleEnabled)) cfg.devices;
-                        folders = builtins.mapAttrs (_: folder: (mkFolder folder)) cfg.folders;
-                    };
-                }
-                // commonServiceConfig;
+            services.syncthing = lib.recursiveUpdate
+            {
+                cert = "${config.sops.secrets."syncthing/cert".path}";
+                key = "${config.sops.secrets."syncthing/key".path}";
+                settings = {
+                    devices = builtins.mapAttrs (_: device: (mkDevice device tailscaleEnabled)) cfg.devices;
+                    folders = builtins.mapAttrs (_: folder: (mkFolder folder)) cfg.folders;
+                };
+            }
+            commonServiceConfig;
         };
     };
 
@@ -156,6 +155,7 @@ in {
         cfg = config.my.services.syncthing;
         tailscaleEnabled = osConfig.my.services.tailscale.enabled;
     in {
+        key = "my/home/syncthing";
         imports = with self.modules.homeManager; [sops];
         options.my.services.syncthing = {
             devices = lib.mkOption {
@@ -185,22 +185,22 @@ in {
                 "syncthing/cert" = secretSettings;
             };
             systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true"; # Don't create default ~/Sync folder
-            services.syncthing =
-                {
-                    tray.enable = true;
-                    guiAddress = "localhost:8384";
-                    # guiCredentials = {
-                    #     username = config.home.username;
-                    #     passwordFile = config.sops.secrets."syncthing.password".path;
-                    # };
-                    cert = "${config.sops.secrets."syncthing/cert".path}";
-                    key = "${config.sops.secrets."syncthing/key".path}";
-                    settings = {
-                        devices = builtins.mapAttrs (_: device: (mkDevice device tailscaleEnabled)) cfg.devices;
-                        folders = builtins.mapAttrs (_: folder: (mkFolder folder)) cfg.folders;
-                    };
-                }
-                // commonServiceConfig;
+            services.syncthing = lib.recursiveUpdate
+            {
+                tray.enable = true;
+                guiAddress = "localhost:8384";
+                # guiCredentials = {
+                #     username = config.home.username;
+                #     passwordFile = config.sops.secrets."syncthing.password".path;
+                # };
+                cert = "${config.sops.secrets."syncthing/cert".path}";
+                key = "${config.sops.secrets."syncthing/key".path}";
+                settings = {
+                    devices = builtins.mapAttrs (_: device: (mkDevice device tailscaleEnabled)) cfg.devices;
+                    folders = builtins.mapAttrs (_: folder: (mkFolder folder)) cfg.folders;
+                };
+            }
+            commonServiceConfig;
         };
     };
 }

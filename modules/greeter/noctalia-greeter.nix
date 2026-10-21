@@ -15,8 +15,8 @@
                     package = config.stylix.cursor.package;
                 };
                 # extraArgs = [];
-                settings = {
-                    cursor.size = lib.mkIf config.my.stylix.enabled config.stylix.cursor.size;
+                settings = lib.mkIf config.my.stylix.enabled {
+                    cursor.size = config.stylix.cursor.size;
                 };
             };
             # noctalia-greeter wants this to grab avatar pictures etc, really probably all

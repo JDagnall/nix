@@ -8,7 +8,11 @@
     lib,
     ...
 }: {
-    flake.modules.nixos.caddy = {config, ...}: let
+    flake.modules.nixos.caddy = {
+        pkgs,
+        config,
+        ...
+    }: let
         cfg = config.my.servers.proxy.caddy;
         # default route http server location
         # relative to /etc
@@ -44,9 +48,12 @@
             caddy_homepage_files;
         in {
             environment.etc = lib.mergeAttrsList caddy_homepage_links;
+            # caddy wants it for certificate stuff
+            environment.systemPackages = with pkgs; [nss];
             services.caddy = {
                 enable = true;
                 openFirewall = true;
+                email = cfg.email;
                 # acmeCA = "https://acme-v02.api.letsencrypt.org/directory";
                 # dataDir = ;
                 enableReload = false;

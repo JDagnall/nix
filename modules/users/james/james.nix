@@ -41,6 +41,9 @@
             home.packages = with pkgs; [
                 fd
                 ripgrep
+                zip
+                unzip
+                gzip
             ];
             my = {};
             # probably always going to keep this here
