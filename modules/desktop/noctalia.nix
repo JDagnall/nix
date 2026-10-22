@@ -175,6 +175,9 @@
                         };
                     };
                     shell = {
+                        # this makes it so that processes started by noctalia
+                        # dont die when noctalia does, like when switching configs for example
+                        launch_apps_custom_command = "systemd-run --user --scope $CMD";
                         corner_radius_scale = 1.0; # 0 = square, 1 = default, 2 = extra rounded
                         time_format = "{:%H:%M}"; # default shell UI time format
                         date_format = "%A, %x"; # default shell UI date format
