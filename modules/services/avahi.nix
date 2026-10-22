@@ -15,25 +15,32 @@
             services.avahi = {
                 enable = true;
                 openFirewall = true;
-                hostName = config.networking.hostName;
                 # ipv4 = ;
                 # ipv6 = ;
                 nssmdns4 = true;
                 nssmdns6 = true;
-                publish = {
-                    enable = true;
-                    domain = true;
-                    hinfo = true;
-                    userServices = true;
-                    workstation = true;
+                settings = {
+                    server = {
+                        host-name = config.networking.hostName;
+                        domain-name = "local"; # hostname.[domainName]
+                        # browse-domains = false;
+                        # deny-interfaces = [];
+                        allow-point-to-point = false;
+                    };
+                    publish = {
+                        disable-publishing = false;
+                        publish-addresses = true;
+                        publish-domain = false;
+                        publish-hinfo = true;
+                        disable-user-service-publishing = false;
+                        publish-workstation = true;
+                    };
+                    # reflector = {
+                    #     enable-reflector = true;
+                    # };
                 };
                 # extraConfig = "";
                 # extraServiceFiles = {};
-                domainName = "local"; # hostname.[domainName]
-                # denyInterfaces = [];
-                # browseDomains = [];
-                allowPointToPoint = false;
-                # reflector = ;
                 # wideArea = ;
             };
         };

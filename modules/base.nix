@@ -89,4 +89,13 @@
             auto-optimise-store = true;
         };
     };
+
+    flake.modules.nixos.home-manager-interface = {...}: {
+        key = "my/nixos/home-manager-interface";
+        options = {
+            my.home-manager = {
+                enabled = lib.mkEnableOption "Home manager is enabled for this system.";
+            };
+        };
+    };
 }

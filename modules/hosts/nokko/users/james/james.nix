@@ -7,8 +7,10 @@
         imports = with self.modules.nixos; [
             james
             inputs.home-manager.nixosModules.home-manager
+            home-manager-interface
         ];
         config = {
+            my.home-manager.enabled = true;
             home-manager.useUserPackages = true;
             home-manager.useGlobalPkgs = true;
             home-manager.extraSpecialArgs = {

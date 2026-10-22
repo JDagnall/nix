@@ -7,6 +7,7 @@
         imports = with self.modules.nixos; [
             base
             device
+            gpu
 
             systemd-boot
             noctalia-greeter
@@ -28,6 +29,7 @@
             # config options set by me
             my = {
                 hardware.device.profile = "desktop";
+                hardware.gpu.type = "amd";
                 hardware.network.physicalInterfaces = ["enp7s0" "wlp6s0"];
                 services.tailscale = {
                     interfacePatch = true;

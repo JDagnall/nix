@@ -1,8 +1,4 @@
-{
-    self,
-    lib,
-    ...
-}: {
+{self, ...}: {
     flake.modules.homeManager.btop = {
         pkgs,
         config,

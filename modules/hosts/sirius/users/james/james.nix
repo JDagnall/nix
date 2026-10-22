@@ -7,6 +7,7 @@
         imports = with self.modules.nixos; [
             inputs.home-manager.nixosModules.home-manager
             james
+            home-manager-interface
 
             sops
 
@@ -24,10 +25,12 @@
             docker
             wireshark
             micro-controller
+            ollama
+            searx
             # pia-openvpn
-            # language-tool
         ];
         config = {
+            my.home-manager.enabled = true;
             home-manager.useUserPackages = true;
             home-manager.useGlobalPkgs = true;
             home-manager.extraSpecialArgs = {
@@ -47,6 +50,12 @@
                     "spotify"
                     "slack"
                     "obsidian"
+                    "firefox"
+                ];
+                services.ollama.models = [
+                    # "qwen3.6:27b-coding"
+                    "qwen3:14b"
+                    "gpt-oss:20b"
                 ];
             };
         };
@@ -61,6 +70,11 @@
             # CLI
             gh-cli
             nix-index
+            pi
+            btop
+
+            # SERVICES
+            mcp
 
             # GUI
             obsidian
@@ -78,7 +92,6 @@
             home.packages = with pkgs; [
                 # CLI
                 cloc
-                btop
                 gzip
                 nmap
                 hwinfo
@@ -93,7 +106,7 @@
                 # GUI
                 vlc
                 drawio
-                zotero
+                # zotero
                 freetube
                 slack
                 vesktop
@@ -106,6 +119,7 @@
             ];
 
             my = {
+                services.mcp.allowedServers = ["searx"];
                 desktop = {
                     hyprland = {
                         monitors = [

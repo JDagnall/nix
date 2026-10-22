@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+    self,
+    lib,
+    ...
+}: {
     flake.modules.nixos.nvidia = {
         pkgs,
         config,
@@ -6,12 +10,16 @@
     }: let
         inherit (lib) mkIf;
     in {
+        imports = with self.modules.nixos; [gpu];
         options = {
             nvidia = {
                 cuda.enable = lib.mkEnableOption "Enable CUDA.";
             };
         };
         config = {
+            my.hardware.gpu = {
+                type = "nvidia";
+            };
             # This is usually not needed as most modules that would use it
             # set it. However in the case of headless servers using GPU's
             # It may be necesary.

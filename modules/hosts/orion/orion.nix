@@ -7,6 +7,7 @@
         imports = with self.modules.nixos; [
             base
             device
+            gpu
 
             systemd-boot
             sops
@@ -34,6 +35,7 @@
             # my config options
             my = {
                 hardware.device.profile = "headless";
+                hardware.gpu.type = "nvidia";
                 services.tailscale = {
                     interfacePatch = true;
                     tailnet = "stonecat-barometric";

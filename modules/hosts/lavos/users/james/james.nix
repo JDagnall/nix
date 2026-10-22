@@ -9,8 +9,10 @@
             james
             hyprland
             inputs.home-manager.nixosModules.home-manager
+            home-manager-interface
         ];
         config = {
+            my.home-manager.enabled = true;
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {
