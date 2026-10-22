@@ -38,6 +38,9 @@
                     interfacePatch = true;
                     tailnet = "stonecat-barometric";
                 };
+                services.vpn.torrentCon = {
+                    portForward = true;
+                };
 
                 # TODO: should maybe go in user config
                 gaming.minecraft-servers = {

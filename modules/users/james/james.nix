@@ -44,6 +44,7 @@
                 zip
                 unzip
                 gzip
+                net-tools
             ];
             my = {};
             # probably always going to keep this here

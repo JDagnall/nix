@@ -16,6 +16,7 @@
         config = let
             torrentConInterface = config.my.services.vpn.torrentCon.interface;
             torrentConPortForward = config.my.services.vpn.torrentCon.portForward;
+            torrentConlistenPort = config.my.services.vpn.torrentCon.listenPort;
         in {
             assertions = [
                 {
@@ -111,6 +112,7 @@
 
                     [WireGuard]
                     PrivateKey={{ .PrivateKey }}
+                    ListenPort=${toString torrentConlistenPort}
 
                     # Region is {{ $reg.Id }} ({{ $reg.Name }} {{ ($tun | server).Cn }}). The ping
                     # time at the time of configuration was {{ $reg.PingTime }}.
