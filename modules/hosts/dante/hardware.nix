@@ -13,6 +13,10 @@
             boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
             # both are proprietary
             my.allowedUnfreePkgNames = ["broadcom-sta"];
+            # not ideal I should replace the wifi card
+            nixpkgs.config.permittedInsecurePackages = [
+                "broadcom-sta-6.30.223.271-63-7.2.6"
+            ];
 
             boot.blacklistedKernelModules = ["uvcvideo"];
             boot.kernelParams = [
