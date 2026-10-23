@@ -42,7 +42,7 @@
         in {
             services.evremap = {
                 enable = true;
-                settings = profiles.keychron-c3;
+                settings = profiles.logi_k855;
             };
         };
     };
