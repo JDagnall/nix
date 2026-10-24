@@ -23,6 +23,11 @@
                     type = lib.types.bool;
                     description = "Enable the wezterm integration";
                 };
+                pi-executable = lib.mkOption {
+                    type = lib.types.str;
+                    default = "pi";
+                    description = "The executable name of `pi` if it is being used.";
+                };
             };
         };
         # required for the home manager modules exported by nixLoki to be available in the namespace
@@ -52,12 +57,14 @@
                             };
                             extra =
                                 # cant use mkIf here cause its evaluated wierdly by nixCats
-                                if (cfg.theme == "mini-base16" || cfg.theme == "tinted-nvim")
-                                then {
+                                lib.optionalAttrs (cfg.theme == "mini-base16" || cfg.theme == "tinted-nvim")
+                                {
                                     # gets every stylix base16 colour into a set that lua will be able to digest in the nixLoki flake
                                     base16Colours = pkgs.lib.filterAttrs (k: v: (builtins.match "base0[0-9A-F]" k) != null) config.lib.stylix.colors.withHashtag;
                                 }
-                                else {};
+                                // lib.optionalAttrs config.programs.pi-coding-agent.enable {
+                                    pi-binary = cfg.pi-executable;
+                                };
                         };
                     in {
                         testNixLoki = merges;

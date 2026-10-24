@@ -38,11 +38,28 @@
                         }
                     ];
                 };
+                logi_G305 = {
+                    device_name = "Logitech LogiG TKL MKeyboard";
+                    remap = [
+                        {
+                            input = ["KEY_LEFTMETA"];
+                            output = ["KEY_LEFTALT"];
+                        }
+                        {
+                            input = ["KEY_LEFTALT"];
+                            output = ["KEY_LEFTMETA"];
+                        }
+                        {
+                            input = ["KEY_CAPSLOCK"];
+                            output = ["KEY_ESC"];
+                        }
+                    ];
+                };
             };
         in {
             services.evremap = {
                 enable = true;
-                settings = profiles.logi_k855;
+                settings = profiles.logi_G305;
             };
         };
     };

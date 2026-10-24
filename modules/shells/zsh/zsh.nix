@@ -183,7 +183,6 @@
                     };
                     git_status = {
                         untracked = "?$count";
-                        stashed = "\$$count";
                         modified = "+$count";
                         staged = "÷$count";
                     };

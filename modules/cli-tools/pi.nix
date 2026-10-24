@@ -1,6 +1,6 @@
 # https://github.com/microvm-nix/microvm.nix is an alternative to bwrap here.
 # Its complicated and creates a virtualised nixos config in a qemu container.
-# But it is a much safer alternative if I ever give this thing code-execution.
+# But iit is a much safer alternative if I ever give this thing code-execution.
 {lib, ...}: {
     flake.modules.homeManager.pi = {
         pkgs,
@@ -55,44 +55,60 @@
                 # external MCP server
                 sandboxHosts = pkgs.writeText "sandbox-hosts" "127.0.0.1 localhost\n";
                 sandboxNss = pkgs.writeText "sandbox-nsswitch.conf" "hosts: files\n";
-            in
-                pkgs.writeShellApplication {
+
+                mkWrapper = repoBind: extraArgs: ''
+                    repo="$PWD"
+                    sockdir="$(mktemp -d)" # place to put the socket files
+                    chmod 700 "$sockdir"
+
+                    SOCK_PROC_IDS=()
+                    ${lib.concatStringsSep "\n" (map (server: mkSocket server) servers)}
+
+                    # makes sure to kill the socket processses
+                    trap 'kill "''${SOCK_PROC_IDS[@]}" 2>/dev/null; rm -rf "$sockdir"' EXIT
+
+                    bwrap \
+                      --unshare-all \
+                      --die-with-parent --new-session \
+                      --tmpfs "$HOME" \
+                      --bind "${config.programs.pi-coding-agent.configDir}" "$HOME/.pi/agent" \
+                      --bind "$sockdir" /run/bridge \
+                      --chdir "$repo" \
+                      ${repoBind} "$repo" "$repo" \
+                      --ro-bind /nix/store /nix/store \
+                      --ro-bind ${sandboxHosts} /etc/hosts \
+                      --ro-bind ${sandboxNss} /etc/nsswitch.conf \
+                      --proc /proc --dev /dev --tmpfs /tmp \
+                      --setenv HOME "$HOME" \
+                      --setenv TERM "$TERM" \
+                      --setenv LANG "$LANG" \
+                      ${pkgs.bash}/bin/bash -c '
+                          ${lib.concatStringsSep "\n" (map (server: mkBridge server) servers)}
+
+                          ${pkgs.pi-coding-agent}/bin/pi ${extraArgs} "$@"
+                      ' bash "$@"
+                '';
+                deps = with pkgs; [bubblewrap ripgrep fd socat];
+                readOnly = pkgs.writeShellApplication {
                     name = "pi";
-                    runtimeInputs = with pkgs; [bubblewrap ripgrep fd socat];
+                    runtimeInputs = deps;
                     # all read only for the minute
                     # would need to give it write access for edit perms,
-                    text = ''
-                        repo="$PWD"
-                        sockdir="$(mktemp -d)" # place to put the socket files
-                        chmod 700 "$sockdir"
-
-                        SOCK_PROC_IDS=()
-                        ${lib.concatStringsSep "\n" (map (server: mkSocket server) servers)}
-
-                        # makes sure to kill the socket processses
-                        trap 'kill "''${SOCK_PROC_IDS[@]}" 2>/dev/null; rm -rf "$sockdir"' EXIT
-
-                        bwrap \
-                          --unshare-all \
-                          --die-with-parent --new-session \
-                          --tmpfs "$HOME" \
-                          --bind "${config.programs.pi-coding-agent.configDir}" "$HOME/.pi/agent" \
-                          --bind "$sockdir" /run/bridge \
-                          --chdir "$repo" \
-                          --ro-bind "$repo" "$repo" \
-                          --ro-bind /nix/store /nix/store \
-                          --ro-bind ${sandboxHosts} /etc/hosts \
-                          --ro-bind ${sandboxNss} /etc/nsswitch.conf \
-                          --proc /proc --dev /dev --tmpfs /tmp \
-                          --setenv HOME "$HOME" \
-                          --setenv TERM "$TERM" \
-                          --setenv LANG "$LANG" \
-                          ${pkgs.bash}/bin/bash -c '
-                              ${lib.concatStringsSep "\n" (map (server: mkBridge server) servers)}
-
-                              ${pkgs.pi-coding-agent}/bin/pi "$@"
-                          ' bash "$@"
-                    '';
+                    text = mkWrapper "--ro-bind" "";
+                };
+                write = pkgs.writeShellApplication {
+                    name = "pi-writeable";
+                    runtimeInputs = deps;
+                    # all read only for the minute
+                    # would need to give it write access for edit perms,
+                    text = mkWrapper "--bind" "--tools +write,+edit";
+                };
+            in
+                pkgs.buildEnv {
+                    name = "pi";
+                    # all read only for the minute
+                    # would need to give it write access for edit perms,
+                    paths = [readOnly write];
                 };
         in {
             programs.pi-coding-agent = {

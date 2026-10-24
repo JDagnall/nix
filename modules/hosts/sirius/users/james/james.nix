@@ -54,7 +54,7 @@
                 ];
                 services.ollama.models = [
                     # "qwen3.6:27b-coding"
-                    "qwen3:14b"
+                    # "qwen3:14b"
                     "gpt-oss:20b"
                 ];
             };
@@ -119,6 +119,7 @@
             ];
 
             my = {
+                cli-tools.nixLoki.pi-executable = "pi-writable";
                 services.mcp.allowedServers = ["searx"];
                 desktop = {
                     hyprland = {

@@ -108,6 +108,12 @@
                             show_label = false;
                         };
                     };
+                    audio = {
+                        enable_notification_sounds = false;
+                        enable_power_sounds = false;
+                        enable_screenshot_sounds = false;
+                        enable_volume_sounds = false;
+                    };
                     bar = {
                         order = ["main"];
                         # can be any number of named bars

@@ -132,6 +132,8 @@
             home.packages = lib.mkIf (cfg.pager == "diffnav") [pkgs.diffnav];
 
             home.shellAliases = {
+                ga = "git add";
+                gc = "git commit";
                 gap = "git add --patch";
                 gs = "git status";
                 gl = "git log --all --graph --pretty=format:'%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n'";
