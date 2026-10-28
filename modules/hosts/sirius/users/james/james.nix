@@ -119,7 +119,7 @@
             ];
 
             my = {
-                cli-tools.nixLoki.pi-executable = "pi-writable";
+                cli-tools.nixLoki.pi-executable = "pi-writeable";
                 services.mcp.allowedServers = ["searx"];
                 desktop = {
                     hyprland = {

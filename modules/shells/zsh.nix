@@ -9,7 +9,6 @@
             # my.shells.zsh ={};
         };
 
-        # TODO: want something that lets me pull the current command line into nvim, to edit
         config = let
             # cfg = config.my.shells.zsh;
         in {
@@ -17,18 +16,6 @@
                 enable = true;
                 # plugins just sources the files pointed too by its elements
                 plugins = [
-                    # unfortunately p10k has been buggy and also isn't really maintained
-                    # actively anymore
-                    # {
-                    #     name = "zsh-powerlevel10k";
-                    #     src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/";
-                    #     file = "powerlevel10k.zsh-theme";
-                    # }
-                    # {
-                    #     name = "powerlevel10k-config";
-                    #     src = ./.;
-                    #     file = ".p10k.zsh";
-                    # }
                     {
                         name = "fzf-tab";
                         src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
@@ -85,11 +72,9 @@
                 };
                 initContent = let
                     # # must be excecuted first
-                    # initFirst = lib.mkOrder 500 ''
-                    #     if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-                    #         source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-                    #     fi
-                    # '';
+                    initFirst =
+                        lib.mkOrder 500 ''
+                        '';
                     # random options that cant be set in home-manager
                     initOptions = lib.mkOrder 1000 ''
                         setopt GLOB_DOTS
@@ -133,10 +118,10 @@
                         '';
                 in
                     lib.mkMerge [
-                        # initFirst
+                        initFirst
                         initOptions
                         initExtra
-                    ]; # merges two order objects
+                    ];
 
                 # shellAliases = {
                 # };
@@ -155,7 +140,7 @@
                 settings = {
                     add_newline = false;
                     format = ''
-                        $directory$git_branch$git_status$git_state
+                        $directory$git_branch $git_status $git_state
                         $character
                     '';
                     right_format = lib.concatStrings [
@@ -184,7 +169,7 @@
                     git_status = {
                         untracked = "?$count";
                         modified = "+$count";
-                        staged = "÷$count";
+                        staged = "^$count";
                     };
                 };
             };
