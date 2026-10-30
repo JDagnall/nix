@@ -1,4 +1,8 @@
-{self, ...}: {
+{
+    self,
+    lib,
+    ...
+}: {
     flake.modules.nixos.sonarr = {config, ...}: let
         arrCfg = config.my.servers.arr;
     in {
@@ -31,8 +35,7 @@
                     update.automatically = false;
                 };
             };
-            # TODO: use the arr option umask here?
-            systemd.services.sonarr.serviceConfig.Umask = "0007";
+            systemd.services.sonarr.serviceConfig.UMask = lib.mkForce arrCfg.umask;
         };
     };
 }

@@ -34,7 +34,7 @@
             in {
                 package = pkgs.caddy.withPlugins {
                     plugins = ["github.com/caddy-dns/cloudflare@v0.2.4"];
-                    hash = "sha256-dQvk6ezY6TQ1J7PjhCXnThF/SqVgPwBO8/RXzHCY+js=";
+                    hash = "sha256-5a5cpFl90pEWt0lUC4ZJQ7g+1//ZvsRhee64Dt9vh5o=";
                 };
                 virtualHosts = let
                     activeServices = lib.filter (x: x.mkRevProxy) (lib.attrValues config.my.servers.servers);

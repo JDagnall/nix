@@ -71,7 +71,7 @@
                     # not sure if this is necesary
                     device =
                         if gpuCfg.type != null
-                        then gpuCfg.device
+                        then gpuCfg.devPath
                         else null;
                 };
                 transcoding = {
@@ -80,8 +80,7 @@
                     hardwareDecodingCodecs.h264 = true;
                 };
             };
-            # TODO: use the arr option umask here?
-            systemd.services.jellyfin.serviceConfig.Umask = lib.mkForce "0007";
+            systemd.services.jellyfin.serviceConfig.UMask = lib.mkForce arrCfg.umask;
         };
     };
 }

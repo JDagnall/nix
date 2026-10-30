@@ -130,7 +130,7 @@
                 # adding the capability to bind to a network device to qbittorrent service
                 # should not be needed now it is bound with IP tables rules
                 # AmbientCapabilities = "CAP_NET_RAW";
-                # Umask = "0007";
+                UMask = lib.mkForce arrCfg.umask;
             };
         };
     };

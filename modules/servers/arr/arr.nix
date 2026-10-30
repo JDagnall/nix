@@ -21,16 +21,16 @@
                         type = lib.types.str;
                     };
                 };
+                umask = lib.mkOption {
+                    description = "Umask for services which are members of the group.";
+                    default = "0003";
+                    type = lib.types.str;
+                };
                 group = {
                     name = lib.mkOption {
                         description = "A common group for all arr servers to use, this simply defines access directorie(s) where the media is stored.";
                         default = "arr";
                         type = lib.types.str;
-                    };
-                    umask = lib.mkOption {
-                        description = "Umask for the group.";
-                        default = 0003;
-                        type = lib.types.int;
                     };
                     members = lib.mkOption {
                         description = "Users to add to the arr group";

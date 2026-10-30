@@ -1,4 +1,8 @@
-{self, ...}: {
+{
+    self,
+    lib,
+    ...
+}: {
     flake.modules.nixos.radarr = {config, ...}: let
         arrCfg = config.my.servers.arr;
         # cfg = config.my.servers.radarr;
@@ -33,8 +37,7 @@
                     update.automatically = false;
                 };
             };
-            # TODO: use the arr option umask here?
-            systemd.services.radarr.serviceConfig.Umask = "0007";
+            systemd.services.radarr.serviceConfig.UMask = lib.mkForce arrCfg.umask;
         };
     };
 }
