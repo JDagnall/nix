@@ -71,7 +71,8 @@ in {
                 environmentVariables = {
                     OLLAMA_FLASH_ATTENTION = "1";
                     OLLAMA_KV_CACHE_TYPE = "q8_0"; # needs flash attention
-                    OLLAMA_CONTEXT_LENGTH = "16384";
+                    # this is about right for 16GB, obvs should be host specific but for now
+                    OLLAMA_CONTEXT_LENGTH = "32768";
                     OLLAMA_NUM_PARALLEL = "1";
                     OLLAMA_KEEP_ALIVE = "30m";
                 };

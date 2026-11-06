@@ -171,6 +171,9 @@
                         modified = "+$count";
                         staged = "^$count";
                     };
+                    hostname = {
+                        format = "[$ssh_symbol$hostname]($style)";
+                    };
                 };
             };
 

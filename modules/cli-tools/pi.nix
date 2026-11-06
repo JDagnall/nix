@@ -124,7 +124,13 @@
                             api = "openai-completions";
                             apiKey = "ollama";
                             baseUrl = "http://localhost:${toString ollamaPort}/v1";
-                            models = map (model: {id = model;}) ollamaModels;
+                            models = map (model: {
+                                id = model;
+                                # these should really be configurable per model, but for now
+                                maxTokens = 32768;
+                                contextWindow = 1000000;
+                            })
+                            ollamaModels;
                         };
                     };
                 };

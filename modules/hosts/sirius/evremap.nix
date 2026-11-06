@@ -59,7 +59,7 @@
         in {
             services.evremap = {
                 enable = true;
-                settings = profiles.logi_G305;
+                settings = profiles.keychron-c3;
             };
         };
     };

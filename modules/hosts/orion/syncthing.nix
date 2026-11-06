@@ -26,7 +26,7 @@ in {
                 services.syncthing.folders = {
                     secure = {
                         id = "26bfd-pbgoj";
-                        devices = ["sirius" "lavos" "dante" "galaxy"];
+                        devices = ["sirius" "lavos" "dante" "galaxy" "dagath"];
                     };
                     classes = {
                         id = "9j26s-pweyy";

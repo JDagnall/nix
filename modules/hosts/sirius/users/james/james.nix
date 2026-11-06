@@ -56,6 +56,7 @@
                     # "qwen3.6:27b-coding"
                     # "qwen3:14b"
                     "gpt-oss:20b"
+                    "qwen3.8:27b"
                 ];
             };
         };

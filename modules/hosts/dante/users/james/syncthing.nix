@@ -18,10 +18,6 @@ in {
                     id = "26bfd-pbgoj";
                     devices = share;
                 };
-                docs = {
-                    id = "pysjc-vrzgj";
-                    devices = share;
-                };
             };
         };
     };
