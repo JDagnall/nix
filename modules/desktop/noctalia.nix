@@ -29,6 +29,7 @@
             avatar = builtins.fetchurl {
                 url = "https://cdnb.artstation.com/p/assets/images/images/035/450/685/large/ryth-asset.jpg";
                 name = "pyro_frog.jpg";
+                # sha256 = "sha256:1b50zdqy0ycz9j5rv36jn2r5867x9kaaq5ch5j9k5jb0iaqz7va7";
                 sha256 = "sha256:0gcnw96b43z2l5pm2iaarz6rxb7snxn8a8vldxvqn6hzppvl4wp8";
             };
         in {

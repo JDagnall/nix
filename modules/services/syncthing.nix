@@ -28,7 +28,7 @@
         id = device.id;
         name = device.name;
         autoAcceptFolders = false;
-        addresses = lib.optional device.connectOverTailscale "tcp://${device.tailscaleHostName}:22000";
+        addresses = lib.optional (tailscaleEnabled && device.connectOverTailscale) "tcp://${device.tailscaleHostName}:22000";
     };
     folderType = with lib.types;
         submodule (

@@ -3,7 +3,7 @@
         my.services.syncthing.devices.orion = {
             id = "LUNWAUX-SIKFQ5O-PDYIJW7-3DCCK2A-ZAGF4M2-MR2XTCL-UNNA2O4-CEZLDQX";
             connectOverTailscale = true;
-            tailscaleHostName = "sirius";
+            tailscaleHostName = "orion";
         };
     };
     # TODO: putting this here for now, would need a general or common place to put this?
