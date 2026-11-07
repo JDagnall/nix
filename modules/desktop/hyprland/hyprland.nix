@@ -154,6 +154,27 @@
                             };
                         });
                 };
+                devices = lib.mkOption {
+                    default = [];
+                    type = with lib.types;
+                        listOf (submodule {
+                            options = {
+                                name = lib.mkOption {
+                                    type = str;
+                                    description = "The device name.";
+                                };
+                                cfg = lib.mkOption {
+                                    type = attrs;
+                                };
+                            };
+                        });
+                    description = "Specify a `hl.device` call, the device name can be aquired with `hyprctl devices`.";
+                };
+                extraCfg = lib.mkOption {
+                    type = lib.types.attrs;
+                    description = "Extra config to be passed to `hl.config`";
+                    default = {};
+                };
                 touchpadSwipe.enable = lib.mkEnableOption "Enable touchpad swiping for workspaces";
                 hyprPolkit.enable = lib.mkEnableOption "Enable hyprpolkit agent, for privelige escalation";
             };
@@ -243,6 +264,11 @@
                                 ];
                             }
                         ];
+                    config = cfg.extraCfg;
+                    device = let
+                        mkDevice = dev: {_args = [({name = dev.name;} // dev.cfg)];};
+                    in
+                        map mkDevice cfg.devices;
                 };
             };
             stylix.targets.hyprland = lib.mkIf config.my.stylix.enabled {

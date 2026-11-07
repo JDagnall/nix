@@ -53,7 +53,16 @@
 
             my = {
                 desktop = {
-                    hyprland.touchpadSwipe.enable = true;
+                    hyprland = {
+                        devices = [
+                            {
+                                name = "microsoft-surface-045e:09af-touchpad";
+                                cfg = {sensitivity = 0.5;};
+                            }
+                        ];
+
+                        touchpadSwipe.enable = true;
+                    };
                 };
                 gui-apps = {
                     keepmenu.extraCfg = {
