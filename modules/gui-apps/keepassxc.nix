@@ -71,7 +71,20 @@
         ...
     }: {
         imports = with self.modules.homeManager; [keepassxc rofi desktop];
-        config = {
+        options.my = let
+            iniFormat = pkgs.formats.ini {};
+        in {
+            gui-apps.keepmenu = {
+                extraCfg = lib.mkOption {
+                    inherit (iniFormat) type;
+                    default = {};
+                    description = "Extra config to add to the configuraiton file";
+                };
+            };
+        };
+        config = let
+            cfg = config.my.gui-apps.keepmenu;
+        in {
             home.packages =
                 [
                     pkgs.keepmenu
@@ -101,7 +114,7 @@
                             type_library = "wtype";
                         };
                 };
-                iniSettings = lib.generators.toINI {} settings;
+                iniSettings = lib.generators.toINI {} (lib.recursiveUpdate settings cfg.extraCfg);
             in {
                 text = iniSettings;
             };

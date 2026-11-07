@@ -108,7 +108,7 @@ in {
         tailscaleEnabled = config.my.services.tailscale.enabled;
     in {
         key = "my/nixos/syncthing";
-        imports = with self.modules.nixos; [sops];
+        imports = with self.modules.nixos; [sops tailscale-interface];
         options.my.services.syncthing = {
             devices = lib.mkOption {
                 type = with lib.types; attrsOf deviceType;
@@ -153,7 +153,7 @@ in {
         ...
     }: let
         cfg = config.my.services.syncthing;
-        tailscaleEnabled = osConfig.my.services.tailscale.enabled;
+        tailscaleEnabled = osConfig.my.services.tailscale.enabled or false;
     in {
         key = "my/home/syncthing";
         imports = with self.modules.homeManager; [sops];

@@ -2,12 +2,7 @@
     flake.modules.nixos.dante = {config, ...}: {
         config = {
             boot.initrd.availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "firewire_ohci" "usb_storage" "usbhid" "sd_mod" "sdhci_pci"];
-            # newer b43 network drivers
-            # boot.kernelModules = ["kvm-intel" "b43" "hid_apple"];
-            # boot.blacklistedKernelModules = ["wl"];
-            # networking.enableB43Firmware = true;
 
-            # old broadcom_sta network drivers
             boot.initrd.kernelModules = ["wl"];
             boot.kernelModules = ["kvm-intel" "wl" "hid_apple"];
             boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
@@ -15,10 +10,10 @@
             my.allowedUnfreePkgNames = ["broadcom-sta"];
             # not ideal I should replace the wifi card
             nixpkgs.config.permittedInsecurePackages = [
-                "broadcom-sta-6.30.223.271-63-7.2.6"
+                "broadcom-sta-6.30.223.271-63-7.3"
             ];
-
             boot.blacklistedKernelModules = ["uvcvideo"];
+
             boot.kernelParams = [
                 "hid_apple.swap_fn_leftctrl=1"
             ];

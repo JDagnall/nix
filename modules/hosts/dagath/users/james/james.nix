@@ -22,6 +22,8 @@
             home-manager.users.james.imports = [
                 self.modules.homeManager.dagath-james
             ];
+            # for the touchscreen
+            users.users.james.extraGroups = ["input"];
             my = {
                 allowedUnfreePkgNames = [
                     "spotify"
@@ -35,6 +37,7 @@
 
             sops
             stylix
+            gh-cli
         ];
         config = {
             home.stateVersion = "25.11"; # Please read the comment before changing.
@@ -51,6 +54,11 @@
             my = {
                 desktop = {
                     hyprland.touchpadSwipe.enable = true;
+                };
+                gui-apps = {
+                    keepmenu.extraCfg = {
+                        database.database_1 = "~/secure/Passwords.kdbx";
+                    };
                 };
             };
             programs.brave.enable = true;

@@ -1,5 +1,6 @@
 {
     self,
+    lib,
     inputs,
     ...
 }: {
@@ -8,9 +9,9 @@
             base
             device
 
-            # grub
             noctalia-greeter
             sops
+            ssh
             network
             pipewire
             avahi
@@ -31,7 +32,6 @@
 
             # one liner NixOs options
             networking.hostName = "dagath";
-            boot.kernelPackages = pkgs.linuxPackages_latest; # use latest linux kernal
             system.stateVersion = "25.11"; # Did you read the comment?
             time.timeZone = "Australia/Brisbane";
 
@@ -46,6 +46,15 @@
             services.power-profiles-daemon.enable = true;
             services.blueman.enable = true; # bt manager software
             services.flatpak.enable = true;
+
+            # touchscreen
+            services.iptsd = {
+                enable = true;
+                config = {
+                    Stylus.Disable = true;
+                    Touchscreen.DisableOnPalm = true;
+                };
+            };
         };
     };
     flake.nixosConfigurations.dagath = inputs.nixpkgs.lib.nixosSystem {

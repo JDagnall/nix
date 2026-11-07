@@ -4,21 +4,25 @@
     ...
 }: {
     flake.modules.nixos.dagath = {config, ...}: {
-        imports = [inputs.disko.nixosModules.disko];
+        imports = [
+            inputs.disko.nixosModules.disko
+            # inputs.nixos-hardware.nixosModules.microsoft-surface-common # wait for https://github.com/NixOS/nixos-hardware/pull/2091
+        ];
 
         config = {
-            boot.initrd.availableKernelModules = [];
-
-            boot.initrd.kernelModules = [];
-            boot.kernelModules = [];
-            boot.extraModulePackages = [];
-            boot.blacklistedKernelModules = [];
-            boot.kernelParams = [];
+            boot.initrd.availableKernelModules = ["xhci_pci" "nvme" "sd_mod"];
+            # boot.initrd.kernelModules = [];
+            # KVM for intel, proprietary wifi firmware and touchscreen modules
+            # boot.kernelModules = ["kvm_intel" "mwifiex_pcie" "hid_multitouch" "i2c_hid_acpi"];
+            boot.kernelModules = ["kvm_intel"];
+            # boot.extraModulePackages = [];
+            # boot.blacklistedKernelModules = [];
+            # boot.kernelParams = [];
 
             disko.devices = {
                 disk = {
                     ssd = {
-                        device = "";
+                        device = "/dev/disk/by-id/nvme-KBG40ZNS128G_TOSHIBA_MEMORY_Y9SPD25IP6JL";
                         type = "disk";
                         content = {
                             type = "gpt";
@@ -63,6 +67,7 @@
             # networking.interfaces.enp1s0f0.useDHCP = lib.mkDefault true;
 
             nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+            hardware.enableRedistributableFirmware = true; # need this for surface kernel drivers.
             hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
         };
     };

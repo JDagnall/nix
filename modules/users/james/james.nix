@@ -45,6 +45,7 @@
                 unzip
                 gzip
                 net-tools
+                file
             ];
             my = {};
             # probably always going to keep this here
@@ -63,6 +64,9 @@
         imports = with self.modules.homeManager; [
             james-headless
             stylix
+
+            # CLI
+            # gh-cli
 
             # DESKTOP
             hyprland

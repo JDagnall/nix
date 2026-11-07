@@ -35,6 +35,9 @@
 
             sops
             stylix
+
+            # CLI
+            btop
         ];
         config = {
             home.stateVersion = "25.11"; # Please read the comment before changing.
@@ -51,6 +54,11 @@
             my = {
                 desktop = {
                     hyprland.touchpadSwipe.enable = true;
+                };
+                gui-apps = {
+                    keepmenu.extraCfg = {
+                        database.database_1 = "~/secure/Passwords.kdbx";
+                    };
                 };
             };
             programs.brave.enable = true;
