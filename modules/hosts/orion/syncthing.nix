@@ -1,7 +1,7 @@
 {self, ...}: let
     deviceSettings = {
         my.services.syncthing.devices.orion = {
-            id = "LUNWAUX-SIKFQ5O-PDYIJW7-3DCCK2A-ZAGF4M2-MR2XTCL-UNNA2O4-CEZLDQX";
+            id = "QQCYANM-MSTQWN3-VPYALHR-XXCWM6V-MU37PWP-VSDOY7F-BSWJFDH-Y4JBXQB";
             connectOverTailscale = true;
             tailscaleHostName = "orion";
         };
