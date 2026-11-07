@@ -20,7 +20,7 @@ in {
     flake.modules.nixos.syncthing-galaxy = galaxyDeviceSettings;
     flake.modules.homeManager.syncthing-galaxy = galaxyDeviceSettings;
     flake.modules.nixos.orion = {
-        imports = with self.modules.nixos; [syncthing syncthing-server syncthing-sirius syncthing-lavos syncthing-dante syncthing-galaxy];
+        imports = with self.modules.nixos; [syncthing syncthing-server syncthing-sirius syncthing-lavos syncthing-dante syncthing-galaxy syncthing-dagath];
         config = {
             my = {
                 services.syncthing.folders = {

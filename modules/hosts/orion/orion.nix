@@ -36,12 +36,15 @@
             my = {
                 hardware.device.profile = "headless";
                 hardware.gpu.type = "nvidia";
-                services.tailscale = {
-                    interfacePatch = true;
-                    tailnet = "stonecat-barometric";
+                services = {
+                    tailscale = {
+                        interfacePatch = true;
+                        tailnet = "stonecat-barometric";
+                    };
+                    vpn.torrentCon.portForward = true;
                 };
-                services.vpn.torrentCon = {
-                    portForward = true;
+                servers = {
+                    immich.dataDir = "/raid/immich";
                 };
 
                 # TODO: should maybe go in user config

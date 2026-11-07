@@ -29,8 +29,9 @@
 
             # so I can use 'sendmail'
             users.groups."msmtp".members = [config.users.groups."james".name];
-            # add myself to the media group
+            # add myself to the media and arr group
             users.groups."media".members = ["james"];
+            users.groups."arr".members = ["james"];
             my.gaming.minecraft-servers = {
                 groupMembers = ["james"];
             };

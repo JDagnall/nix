@@ -18,7 +18,7 @@
         imports = with self.modules.nixos; [sops ssh];
         config = {
             sops.templates."ssh-james-authorizedKeys" = let
-                authedKeys = ["james/lavos" "james/dante" "james/sirius"];
+                authedKeys = ["james/lavos" "james/dante" "james/sirius" "james/dagath"];
             in {
                 path = "/etc/ssh/authorized_keys.d/james";
                 owner = "james";

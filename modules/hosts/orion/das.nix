@@ -13,7 +13,7 @@
                     id = "wwn-0x5000c500413b007b";
                 };
                 sas2 = {
-                    id = "wwn-0x5000c500413b35d3";
+                    id = "wwn-0x5000c50040df7e53";
                 };
                 sas3 = {
                     id = "wwn-0x5000c500412abbbf";
