@@ -57,6 +57,7 @@
                     email = "james.t.dagnall@gmail.com";
                 };
             };
+            nix.settings.trusted-users = ["james"];
         };
     };
 
