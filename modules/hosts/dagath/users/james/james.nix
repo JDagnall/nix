@@ -38,6 +38,7 @@
             sops
             stylix
             gh-cli
+            nix-index
         ];
         config = {
             home.stateVersion = "25.11"; # Please read the comment before changing.

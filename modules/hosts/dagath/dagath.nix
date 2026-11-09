@@ -1,10 +1,9 @@
 {
     self,
-    lib,
     inputs,
     ...
 }: {
-    flake.modules.nixos.dagath = {pkgs, ...}: {
+    flake.modules.nixos.dagath = {...}: {
         imports = with self.modules.nixos; [
             base
             device

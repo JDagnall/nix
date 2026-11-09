@@ -33,13 +33,13 @@
                     }
                     {
                         bind = "XF86MonBrightnessUp";
-                        action = "${brightnessctl-bin} -e4 -n2 set 5%+";
+                        action = "${brightnessctl-bin} -e4 set 5%+";
                         isCommand = true;
                         flags = el_bind_flags;
                     }
                     {
                         bind = "XF86MonBrightnessDown";
-                        action = "${brightnessctl-bin} -e4 -n2 set 5%-";
+                        action = "${brightnessctl-bin} -e4 set 5%-";
                         isCommand = true;
                         flags = el_bind_flags;
                     }

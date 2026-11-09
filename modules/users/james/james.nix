@@ -39,6 +39,7 @@
             nixLoki
             direnv
             zoxide
+            btop
         ];
         config = {
             home.username = "james";

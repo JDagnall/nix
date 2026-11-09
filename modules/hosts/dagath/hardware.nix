@@ -6,18 +6,23 @@
     flake.modules.nixos.dagath = {config, ...}: {
         imports = [
             inputs.disko.nixosModules.disko
-            # inputs.nixos-hardware.nixosModules.microsoft-surface-common # wait for https://github.com/NixOS/nixos-hardware/pull/2091
+            inputs.nixos-hardware.nixosModules.microsoft-surface-common
         ];
 
         config = {
             boot.initrd.availableKernelModules = ["xhci_pci" "nvme" "sd_mod"];
             # boot.initrd.kernelModules = [];
             # KVM for intel, proprietary wifi firmware and touchscreen modules
-            # boot.kernelModules = ["kvm_intel" "mwifiex_pcie" "hid_multitouch" "i2c_hid_acpi"];
-            boot.kernelModules = ["kvm_intel"];
+            boot.kernelModules = ["kvm_intel" "mwifiex_pcie" "hid_multitouch" "i2c_hid_acpi"];
+            # boot.kernelModules = ["kvm_intel"];
             # boot.extraModulePackages = [];
             # boot.blacklistedKernelModules = [];
             # boot.kernelParams = [];
+
+            # this determines the kernel version that is loaded with
+            # the microsoft surface patches, there is "stable" and "longterm"
+            # As of writing, "longterm" is 6.18 and "stable" is 7.3
+            hardware.microsoft-surface.kernelVersion = "stable";
 
             disko.devices = {
                 disk = {
