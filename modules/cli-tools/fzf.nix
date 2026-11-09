@@ -75,11 +75,13 @@
                     options = ["--no-preview"];
                 };
             };
-            stylix.targets.fzf.enable = config.my.stylix.enabled;
             home.sessionVariables = {
                 FZF_PREVIEW = preview;
                 FZF_TAB_PREVIEW = fzf-tab-preview;
             };
         };
+    };
+    flake.modules.homeManager.stylix = {
+        stylix.targets.fzf.enable = true;
     };
 }

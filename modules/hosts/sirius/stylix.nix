@@ -8,7 +8,7 @@
         imports = with self.modules.nixos; [stylix];
         config = {
             stylix = lib.mkForce {
-                image = "${inputs.wallpapers}/house.png";
+                image = "${inputs.images}/house.png";
                 polarity = "dark"; # prefers dark theme
                 base16Scheme = "${pkgs.base16-schemes}/share/themes/eris.yaml";
                 override = {};

@@ -9,7 +9,7 @@
         imports = with self.modules.nixos; [stylix];
         config = {
             stylix = lib.mkForce {
-                image = "${inputs.wallpapers}/monke_fire.png";
+                image = "${inputs.images}/monke_fire.png";
                 polarity = "dark"; # prefers dark theme
                 base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
                 override = {};

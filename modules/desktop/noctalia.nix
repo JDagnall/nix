@@ -26,12 +26,6 @@
         config = let
             noctaliaCfg = config.my.desktop.noctalia;
             deviceProfile = osConfig.my.hardware.device.profile or "desktop";
-            avatar = builtins.fetchurl {
-                url = "https://cdnb.artstation.com/p/assets/images/images/035/450/685/large/ryth-asset.jpg";
-                name = "pyro_frog.jpg";
-                sha256 = "sha256:1b50zdqy0ycz9j5rv36jn2r5867x9kaaq5ch5j9k5jb0iaqz7va7";
-                # sha256 = "sha256:0gcnw96b43z2l5pm2iaarz6rxb7snxn8a8vldxvqn6hzppvl4wp8";
-            };
         in {
             assertions = [
                 {
@@ -64,13 +58,6 @@
                 notificationManager = lib.mkIf noctaliaCfg.notificationManager.enable "nocatalia";
                 osd = lib.mkIf noctaliaCfg.osd.enable "noctalia";
                 polkitProvider = lib.mkIf noctaliaCfg.polkitProvider.enable "noctalia";
-            };
-
-            # so the avatar shows in noctalia-greeter, should probably be a desktop settings
-            # Not a noctalia one
-            home.file.".face" = {
-                enable = true;
-                source = avatar;
             };
 
             programs.noctalia = {
@@ -207,7 +194,7 @@
                         # clipboard_image_action_command = "";
                         shared_gl_context = true;
                         # lang                = "en"
-                        avatar_path = avatar;
+                        # avatar_path = avatar;
                         privacy = {
                             # mic_filter_regex = "";
                             # cam_filter_regex = "";
@@ -259,7 +246,10 @@
                             privacy = true;
                         };
                     };
-                    lockscreen = {enabled = noctaliaCfg.lockScreen.enable;};
+                    lockscreen = {
+                        enabled = noctaliaCfg.lockScreen.enable;
+                        transition = [];
+                    };
                     system.monitor = {
                         enabled = true;
                         cpu_poll_seconds = 1000;

@@ -1,9 +1,5 @@
 {self, ...}: {
-    flake.modules.homeManager.bat = {
-        pkgs,
-        config,
-        ...
-    }: {
+    flake.modules.homeManager.bat = {pkgs, ...}: {
         imports = with self.modules.homeManager; [stylix-interface];
         config = {
             programs.bat = {
@@ -27,7 +23,9 @@
                 man = "batman --paging=always";
                 cat = "bat";
             };
-            stylix.targets.bat.enable = config.my.stylix.enabled;
         };
+    };
+    flake.modules.homeManager.stylix = {
+        stylix.targets.bat.enable = true;
     };
 }

@@ -216,7 +216,7 @@ hl.config({
 			clickfinger_behavior = true,
 			tap_to_click = true,
 			disable_while_typing = true,
-			scroll_factor = 0.7, -- sensitivity
+			scroll_factor = 0.7, -- scroll sensitivity
 			drag_3fg = 0, -- drag with three fingers, 1 to enable
 		},
 	},

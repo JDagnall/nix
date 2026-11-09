@@ -9,7 +9,7 @@
         # host specific stylix
         config = {
             stylix = lib.mkForce {
-                image = "${inputs.wallpapers}/A_feverish_Little_Fox_Caldecot.png"; # wallpaper, can opt to have theme derived from it
+                image = "${inputs.images}/A_feverish_Little_Fox_Caldecot.png"; # wallpaper, can opt to have theme derived from it
                 polarity = "dark"; # prefers dark theme
                 base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
                 override = {};

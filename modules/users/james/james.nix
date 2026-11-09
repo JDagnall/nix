@@ -1,4 +1,8 @@
-{self, ...}: {
+{
+    self,
+    inputs,
+    ...
+}: {
     flake.modules.nixos.james = {pkgs, ...}: {
         users.groups.james = {};
         users.users.james = {
@@ -20,6 +24,7 @@
         services.gnome.gnome-keyring.enable = true;
         # will attempt to unlock keyring with users password on login
         security.pam.services.james.enableGnomeKeyring = true;
+        nix.settings.trusted-users = ["james"];
     };
 
     flake.modules.homeManager.james-headless = {pkgs, ...}: {
@@ -57,7 +62,6 @@
                     email = "james.t.dagnall@gmail.com";
                 };
             };
-            nix.settings.trusted-users = ["james"];
         };
     };
 
@@ -91,6 +95,10 @@
                 pavucontrol
                 seahorse
             ];
+            home.file.".face" = {
+                enable = true;
+                source = "${inputs.images}/james-face.jpg";
+            };
             my = {
                 gui-apps = {
                     keepassxc.autostart = true;

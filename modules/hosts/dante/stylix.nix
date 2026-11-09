@@ -9,7 +9,7 @@
         imports = with self.modules.nixos; [stylix];
         config = {
             stylix = lib.mkForce {
-                image = "${inputs.wallpapers}/cyberpunk.jpg";
+                image = "${inputs.images}/cyberpunk.jpg";
                 polarity = "dark"; # prefers dark theme
                 base16Scheme = "${pkgs.base16-schemes}/share/themes/ashes.yaml";
                 override = {};

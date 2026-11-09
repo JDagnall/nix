@@ -323,6 +323,18 @@
         "type": "github"
       }
     },
+    "images": {
+      "flake": false,
+      "locked": {
+        "path": "./images",
+        "type": "path"
+      },
+      "original": {
+        "path": "./images",
+        "type": "path"
+      },
+      "parent": []
+    },
     "import-tree": {
       "locked": {
         "lastModified": 1788467110,
@@ -598,6 +610,7 @@
         "disko": "disko",
         "flake-parts": "flake-parts_2",
         "home-manager": "home-manager",
+        "images": "images",
         "import-tree": "import-tree",
         "lanzaboote": "lanzaboote",
         "nix-index-database": "nix-index-database",
@@ -609,8 +622,7 @@
         "pia-tools": "pia-tools",
         "secrets": "secrets",
         "sops-nix": "sops-nix",
-        "stylix": "stylix",
-        "wallpapers": "wallpapers"
+        "stylix": "stylix"
       }
     },
     "rust-overlay": {
@@ -829,18 +841,6 @@
         "repo": "treefmt-nix",
         "type": "github"
       }
-    },
-    "wallpapers": {
-      "flake": false,
-      "locked": {
-        "path": "./wallpapers",
-        "type": "path"
-      },
-      "original": {
-        "path": "./wallpapers",
-        "type": "path"
-      },
-      "parent": []
     }
   },
   "root": "root",

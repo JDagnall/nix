@@ -17,9 +17,9 @@
             flake = false;
             url = "path:./secrets";
         };
-        wallpapers = {
+        images = {
             flake = false;
-            url = "path:./wallpapers";
+            url = "path:./images";
         };
         nixos-hardware = {
             url = "github:/nixos/nixos-hardware/master";
