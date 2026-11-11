@@ -2,18 +2,8 @@
     flake.modules.nixos.dante = {config, ...}: {
         config = {
             boot.initrd.availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "firewire_ohci" "usb_storage" "usbhid" "sd_mod" "sdhci_pci"];
-
-            boot.initrd.kernelModules = ["wl"];
-            boot.kernelModules = ["kvm-intel" "wl" "hid_apple"];
-            boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
-            # both are proprietary
-            my.allowedUnfreePkgNames = ["broadcom-sta"];
-            # not ideal I should replace the wifi card
-            nixpkgs.config.permittedInsecurePackages = [
-                "broadcom-sta-6.30.223.271-63-7.3"
-            ];
             boot.blacklistedKernelModules = ["uvcvideo"];
-
+            boot.kernelModules = ["kvm-intel" "hid_apple" "iwlwifi"];
             boot.kernelParams = [
                 "hid_apple.swap_fn_leftctrl=1"
             ];
@@ -45,6 +35,7 @@
             # networking.interfaces.enp1s0f0.useDHCP = lib.mkDefault true;
 
             nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+            hardware.enableRedistributableFirmware = true;
             hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
         };
     };
