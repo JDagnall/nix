@@ -1,71 +1,33 @@
-# The purpose of this configuration is to host a DNS server for the machine to
-# host domain entries pointing to itself on, its not and ad-block / privacy dns server like pihole.
-# TODO: I should also seriously consider another DNS server like CoreDNS
-# TODO: There probably needs to be a 'dns' parent config so there is no
-# overlapping / conflicting servers
+# The purpose of this config is to add local domain entries
+# to interface-name
 {
     self,
     lib,
     ...
 }: {
-    flake.modules.nixos.dnsmasq-interface = {config, ...}: {
-        key = "my/nixos/dnsmasq-interface";
-        options = {
-            my.servers.dns.dnsmasq = let
-                resolvedEnabled = config.services.resolved.enable;
-            in {
-                enabled = lib.mkEnableOption "Dnsmasq is enabled as a DNS server.";
-                loopbackListenAddress = lib.mkOption {
-                    type = lib.types.str;
-                    default =
-                        if resolvedEnabled
-                        then "127.0.0.35"
-                        else "127.0.0.1";
-                    description = "The listen address for dnsmasq.";
-                };
-            };
-        };
-    };
-    flake.modules.nixos.dnsmasq = {
+    flake.modules.nixos.dnsmasqServer = {
         pkgs,
         config,
         ...
     }: let
-        cfg = config.my.servers.dns.dnsmasq;
-        tailscaleEnabled = config.my.services.tailscale.enabled;
-        resolvedEnabled = config.services.resolved.enable;
-        host = config.networking.hostName;
-        physicalInterfaces = config.my.hardware.network.physicalInterfaces;
-        tailscaleInterface = config.my.services.tailscale.interface;
-        loopbackInterface = config.my.hardware.network.loopbackInterface;
+        # cfg = config.my.servers.dns.dnsmasq;
+        # resolvedEnabled = config.services.resolved.enable;
         networkdEnabled = config.networking.useNetworkd;
-        activeServices = lib.filter (x: x.mkRevProxy) (lib.attrValues config.my.servers.servers);
+        dnsCfg = config.my.services.dns;
+        dnsServerCfg = config.my.servers.dns;
+        localDomains = dnsServerCfg.localDomains;
+        interfaces = dnsServerCfg.interfaces;
+        # loopbackInterface = config.my.hardware.network.loopbackInterface;
     in {
-        imports = with self.modules.nixos; [servers tailscale-interface dnsmasq-interface];
-        options.my = {
-            servers.dns.dnsmasq = {
-                hostnames = lib.mkOption {
-                    type = with lib.types; listOf str;
-                    description = ''
-                        Hostnames to create entries for, again just for fowarding subdomains of services.
-                        Entries will point back to network address for this machine.
-                    '';
-                    default = ["${host}.home"];
-                };
-                tailscaleHostnames = lib.mkOption {
-                    type = with lib.types; listOf str;
-                    description = ''
-                        Hostnames to create entries for on the tailnet, again just for fowarding subdomains of services.
-                        Entries will point back to the tailscale network address for this machine.
-                    '';
-                    default = ["${host}.tail"];
-                };
-            };
-        };
+        key = "my/nixos/dnsmasq-server";
+        imports = with self.modules.nixos; [servers dnsServer dnsmasq];
+        # options.my = { servers.dns.dnsmasq = {}; };
         config = {
-            my.servers.dns.dnsmasq.enabled = true;
-            warnings = lib.optional (!networkdEnabled) [
-                "Dnsmasq may not work well with non systemd-networkd network configs at startup, interfaces may not come up in time for the service"
+            assertions = [
+                {
+                    assertion = dnsCfg.type == "dnsmasq";
+                    message = "Cannot enable dnsmasq as a server if it is not enabled as a service.";
+                }
             ];
             # using dnsmasq with the `interface-name` option creates a race condition
             # at startup where interfaces may not be initialised before dnsmasq intitialises,
@@ -79,7 +41,9 @@
                 serviceConfig = {
                     Type = "oneshot";
                     ExecStart = let
-                        interfaceOpts = map (interface: "-i ${interface}") (physicalInterfaces ++ lib.optional tailscaleEnabled tailscaleInterface);
+                        # cannot have `lo` or any loopback interface in the wait
+                        # list otherwise it will just fail
+                        interfaceOpts = map (interface: "-i ${interface}") (lib.lists.remove "lo" interfaces);
                     in
                         # Setting a default timeout of 120s, waiting for ipv4 addresses to be specified for the provided interfaces
                         ''
@@ -94,58 +58,23 @@
                 requires = ["dnsmasq-wait-for-interfaces.service"];
             };
             services.dnsmasq = {
-                enable = true;
-                resolveLocalQueries = !resolvedEnabled;
                 settings = {
-                    port = 53;
-                    address = [];
-                    # create dns entry for this device, networks utilising this server should be able to easily navigate to this device
-                    # add subdomain for each service configured to run on this machine, annoyingly
-                    # interface-name does not support wildcard expansion
-                    interface-name = let
-                        mkServiceSubdomains = service: hostnames: interfaces:
-                            map (hostname:
-                                map (
-                                    interface:
-                                        if service != null
-                                        then "${service.name}.${hostname},${interface}"
-                                        else "${hostname},${interface}"
-                                )
-                                interfaces)
-                            hostnames;
-                    in
-                        lib.lists.flatten [
-                            (mkServiceSubdomains null cfg.hostnames physicalInterfaces)
-                            (lib.optionals tailscaleEnabled (mkServiceSubdomains null cfg.tailscaleHostnames [tailscaleInterface]))
-                            (map (service: mkServiceSubdomains service cfg.hostnames physicalInterfaces) activeServices)
-                            (lib.optionals tailscaleEnabled (map (service: mkServiceSubdomains service cfg.tailscaleHostnames [tailscaleInterface]) activeServices))
-                        ];
-
-                    # TODO: this will need more work if other configs for other dns servers are added
-                    # probably a dns parent config
+                    # this restricts responses to the subnets they came in on
+                    # it makes it possible to have the same domain to have multiple
+                    # `interface-name` entries for example
+                    localise-queries = true;
+                    # can use `/4` or `/6` to specify only ipv4 / ipv6
+                    interface-name =
+                        lib.concatMap (interface: map (domain: "${domain},${interface}") localDomains)
+                        interfaces;
 
                     # interfaces that dnsmasq will bind to the default route on, meaning it will eat port 53
                     # for the whole interface
-                    interface = physicalInterfaces ++ lib.optional tailscaleEnabled tailscaleInterface ++ lib.optional (!resolvedEnabled) loopbackInterface;
-
-                    # systemd-resolved is slightly tempermental, it cannot easily be moved off of its
-                    # default bind of 127.0.0.53-54:53 without potentially breaking other systemd services
-                    # so for now when resolved is enabled, dnsmasq can move off of the default loopback address
-                    # and then resolved (which will be set as the default stub by systemd) simply points to dnsmasq
-
-                    listen-address = [
-                        cfg.loopbackListenAddress
-                    ];
-                    # except-interface = lib.optionals resolvedEnabled [loopbackInterface];
-
+                    interface = interfaces;
+                    # except-interface = lib.optional resolvedEnabled loopbackInterface;
                     # this means that dnsmasq will only bind to interfaces that are specified not the default route
                     bind-interfaces = true;
-                    server = config.networking.nameservers;
                 };
-            };
-            networking.firewall = {
-                allowedTCPPorts = [53];
-                allowedUDPPorts = [53];
             };
         };
     };

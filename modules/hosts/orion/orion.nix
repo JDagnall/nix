@@ -18,6 +18,7 @@
             minecraft-servers
 
             # servers
+            keycloak
             scrutiny
             jellyfin
             qbittorrent
@@ -27,11 +28,21 @@
             flaresolverr
             seerr
             immich
+            nextcloud
+            collabora
 
             # USERS
             orion-james
         ];
         config = {
+            # make services rely on the DAS mounts they need
+            systemd.services = {
+                immich.wants = ["raid-immich.mount"];
+                jellyfin.wants = ["raid-media.mount"];
+                sonarr.wants = ["raid-media.mount"];
+                radarr.wants = ["raid-media.mount"];
+                # nextcloud.wants = [];
+            };
             # my config options
             my = {
                 hardware.device.profile = "headless";
@@ -45,6 +56,9 @@
                 };
                 servers = {
                     immich.dataDir = "/raid/immich";
+                    nextcloud = {
+                        dataDir = "/raid/nextcloud";
+                    };
                 };
 
                 # TODO: should maybe go in user config

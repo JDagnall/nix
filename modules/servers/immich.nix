@@ -28,7 +28,18 @@
                 port = 2283;
                 user = "immich";
                 group = "immich";
-                mkRevProxy = true;
+                reverseProxy = {
+                    enable = true;
+                };
+                dns.enable = true;
+                dashboardIcon = {
+                    enable = true;
+                    icon = builtins.fetchurl {
+                        url = "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/immich.svg";
+                        sha256 = "0p54gb03wn7z4ijgbd0h46hfnjn97ly6ap20vsqg7wjx8i5sjl5m";
+                        name = "immich.svg";
+                    };
+                };
             };
             sops.secrets = let
                 hostName = config.networking.hostName;

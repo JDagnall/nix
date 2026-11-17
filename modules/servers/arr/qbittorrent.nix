@@ -47,15 +47,26 @@
                 port = 9494;
                 user = "qbittorrent";
                 group = arrCfg.group.name;
-                mkRevProxy = true;
-                # qbittorrent really doesnt like being proxied so these headers
-                # get set to stop it from denying the request
-                extraRevProxyCfg = ''
-                    header_up Host localhost:${toString port}
-                    header_up X-Forwarded-Host {hostport}
-                    header_up -Origin
-                    header_up -Referer
-                '';
+                reverseProxy = {
+                    enable = true;
+                    # qbittorrent really doesnt like being proxied so these headers
+                    # get set to stop it from denying the request
+                    extraCaddyProxyCfg = ''
+                        header_up Host localhost:${toString port}
+                        header_up X-Forwarded-Host {hostport}
+                        header_up -Origin
+                        header_up -Referer
+                    '';
+                };
+                dns.enable = true;
+                dashboardIcon = {
+                    enable = true;
+                    icon = builtins.fetchurl {
+                        url = "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/qbittorrent.svg";
+                        sha256 = "121h5zz7f7wz39cl302m1rfsmvv26m7akcpig0l2hwzz7g8m0sks";
+                        name = "qbittorrent.svg";
+                    };
+                };
             };
             sops.secrets = let
                 host = config.networking.hostName;

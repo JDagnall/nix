@@ -35,7 +35,18 @@
                 openFirewall = true; # tv on lan
                 user = "jellyfin";
                 group = arrCfg.group.name;
-                mkRevProxy = true;
+                reverseProxy = {
+                    enable = true;
+                };
+                dns.enable = true;
+                dashboardIcon = {
+                    enable = true;
+                    icon = builtins.fetchurl {
+                        url = "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/jellyfin.svg";
+                        sha256 = "07zkim8yniggkk8l8lzdg78zgqch9w293l7fxd7jb0kgpd743j0j";
+                        name = "jellyfin.svg";
+                    };
+                };
             };
             environment.systemPackages = with pkgs; [
                 jellyfin-web

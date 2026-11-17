@@ -13,7 +13,18 @@
                 port = 9696;
                 user = null;
                 group = null;
-                mkRevProxy = true;
+                reverseProxy = {
+                    enable = true;
+                };
+                dns.enable = true;
+                dashboardIcon = {
+                    enable = true;
+                    icon = builtins.fetchurl {
+                        url = "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/prowlarr.svg";
+                        sha256 = "14pqf1crgw23j4hdqah1gwngad4wlni4cc8wyv40dlblqq78q1lg";
+                        name = "prowlarr.svg";
+                    };
+                };
             };
             services.prowlarr = let
                 serverCfg = config.my.servers.servers.prowlarr;

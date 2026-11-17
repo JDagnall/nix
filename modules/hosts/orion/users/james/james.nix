@@ -47,7 +47,6 @@
             # CLI
             gh-cli
             nix-index
-            btop
         ];
         config = {
             home.stateVersion = "25.11"; # Please read the comment before changing.

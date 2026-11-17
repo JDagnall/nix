@@ -13,8 +13,18 @@
                 port = 7878;
                 user = "radarr";
                 group = arrCfg.group.name;
-                inMediaGroup = true;
-                mkRevProxy = true;
+                reverseProxy = {
+                    enable = true;
+                };
+                dns.enable = true;
+                dashboardIcon = {
+                    enable = true;
+                    icon = builtins.fetchurl {
+                        url = "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/radarr.svg";
+                        sha256 = "07y1phs8b01qsrppl947c8hh6sc03jag3004x65fl1s9ydwgm0n5";
+                        name = "radarr.svg";
+                    };
+                };
             };
             services.radarr = let
                 serverCfg = config.my.servers.servers.radarr;

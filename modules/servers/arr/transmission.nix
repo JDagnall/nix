@@ -15,7 +15,18 @@
                 port = 9091;
                 user = "transmission";
                 group = arrCfg.group.name;
-                mkRevProxy = true;
+                reverseProxy = {
+                    enable = true;
+                };
+                dns.enable = true;
+                dashboardIcon = {
+                    enable = true;
+                    icon = builtins.fetchurl {
+                        url = "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/transmission.svg";
+                        sha256 = "1fv3dqsvxhinxn3kg4fnxb7va2xm2f4ifx82li2xc84d6wpxq5hb";
+                        name = "transmission.svg";
+                    };
+                };
             };
 
             my.services.vpn.torrentCon.groupMembers = [serverCfg.group];

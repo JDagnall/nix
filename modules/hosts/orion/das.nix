@@ -158,6 +158,17 @@
                                     recordsize = "1M";
                                 };
                             };
+                            "nextcloud" = {
+                                type = "zfs_fs";
+                                mountpoint = "/raid/nextcloud"; # nixos .mount unit mountpoint
+                                # dont fail if the pool cant be imported on boot, because the
+                                # DAS may not be plugged in etc etc.
+                                mountOptions = ["nofail" "x-systemd.device-timeout=10s"];
+                                options = {
+                                    mountpoint = "legacy"; # tells zfs not to mount, so nixos mounts the fs the normal way
+                                    recordsize = "1M";
+                                };
+                            };
                         };
                     };
                 };

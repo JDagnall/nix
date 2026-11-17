@@ -10,7 +10,18 @@
                 port = 9111;
                 user = null;
                 group = null;
-                mkRevProxy = true;
+                reverseProxy = {
+                    enable = true;
+                };
+                dns.enable = true;
+                dashboardIcon = {
+                    enable = true;
+                    icon = builtins.fetchurl {
+                        url = "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/scrutiny.svg";
+                        sha256 = "0apzhi3irgcflzkswb20nl1i3pqzc0x0ah3nczqr3yyiqbfklwlb";
+                        name = "scrutiny.svg";
+                    };
+                };
             };
             services.scrutiny = {
                 enable = true;

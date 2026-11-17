@@ -12,7 +12,18 @@
                 port = 8989;
                 user = "sonarr";
                 group = arrCfg.group.name;
-                mkRevProxy = true;
+                reverseProxy = {
+                    enable = true;
+                };
+                dns.enable = true;
+                dashboardIcon = {
+                    enable = true;
+                    icon = builtins.fetchurl {
+                        url = "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/sonarr.svg";
+                        sha256 = "12z4pagazvx5mv80wwby79pgbqnl13p19x8w66s1k5x4vrq80xp2";
+                        name = "sonarr.svg";
+                    };
+                };
             };
             services.sonarr = let
                 serverCfg = config.my.servers.servers.sonarr;

@@ -18,13 +18,24 @@
                 user = "syncthing";
                 host = "localhost";
                 openFirewall = false;
-                mkRevProxy = true;
-                extraRevProxyCfg = ''
-                    header_up Host localhost:${toString port}
-                    header_up X-Forwarded-Host {hostport}
-                    header_up -Origin
-                    header_up -Referer
-                '';
+                reverseProxy = {
+                    enable = true;
+                    extraCaddyProxyCfg = ''
+                        header_up Host localhost:${toString port}
+                        header_up X-Forwarded-Host {hostport}
+                        header_up -Origin
+                        header_up -Referer
+                    '';
+                };
+                dns.enable = true;
+                dashboardIcon = {
+                    enable = true;
+                    icon = builtins.fetchurl {
+                        url = "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/syncthing.svg";
+                        sha256 = "17513dxyjk0nrxnpsgj9v9mfziczrp2nny2yha3ls1bw33ssym79";
+                        name = "syncthing.svg";
+                    };
+                };
             };
             sops.secrets = let
                 host = config.networking.hostName;

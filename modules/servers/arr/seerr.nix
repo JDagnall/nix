@@ -8,7 +8,18 @@
                 port = 5055;
                 user = "seerr";
                 group = null;
-                mkRevProxy = true;
+                reverseProxy = {
+                    enable = true;
+                };
+                dns.enable = true;
+                dashboardIcon = {
+                    enable = true;
+                    icon = builtins.fetchurl {
+                        url = "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/seerr.svg";
+                        sha256 = "1im1jiscrczgm49yclcgrf2rdxifzj2rplknfc4rrx51r73h7xqx";
+                        name = "seerr.svg";
+                    };
+                };
             };
             services.seerr = let
                 serverCfg = config.my.servers.servers.seerr;
